@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "application-details-plugin"
+version = "0.1.0"
+description = "Application Details Plugin"
+readme = "README.md"
+authors = [{ name = "Rahul Choudhury", email = "rahulc@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.entry-points."LYIK"]
+_application_details_plugin = "lyik.application_details:ApplicationDetails"
