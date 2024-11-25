@@ -18,6 +18,8 @@ class ApplicationDetails(VerifyHandlerSpec):
     This will verify the application detail values with the default values
     """
 
+    DEFAULT_KEY = "defaults"
+
     @impl
     async def verify_handler(
         self, context: ContextModel, payload: SingleFieldModel
@@ -60,7 +62,7 @@ class ApplicationDetails(VerifyHandlerSpec):
         )
 
     def _find_defaults_field(self, field_def: Dict[str, Any]) -> Dict[str, Any]:
-        if field_def.get("derived_field_name") == "_defaults":
+        if field_def.get("derived_field_name") == self.DEFAULT_KEY:
             return field_def
         for field in field_def.get("fields", []):
             result = self._find_defaults_field(field)
