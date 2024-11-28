@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "id-gen-plugin"
+version = "0.1.0"
+description = "ID Gen plugin"
+readme = "README.md"
+authors = [{ name = "Rahul Choudhury", email = "rahulc@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = ["pymongo==4.3.3"]
+
+[project.entry-points."LYIK"]
+_id_gen_plugin = "lyik.id_gen:IdGen"
