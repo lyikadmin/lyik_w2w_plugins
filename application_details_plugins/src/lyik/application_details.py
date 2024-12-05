@@ -44,16 +44,21 @@ class ApplicationDetails(VerifyHandlerSpec):
                     if float(default_value) <= float(payload_value):
                         pass
                     else:
+                        title = self.find_field_title_by_derived_name(
+                            derived_field_name=key, field_def=field_def
+                        )
                         return VerifyHandlerResponseModel(
                             status=VERIFY_RESPONSE_STATUS.FAILURE,
                             actor="system",
-                            message=f"Value for {key} is not in desired range {default_value}",
+                            message=f"Value for \n{title} is not in desired range {default_value}",
                         )
                 else:
                     print(f"Key '{key}' not found in payload.")
         except Exception as e:
             return VerifyHandlerResponseModel(
-                status=VERIFY_RESPONSE_STATUS.FAILURE, actor="system", message=str(e)
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                actor="system",
+                message="Fatal Error please contact the admin",
             )
         return VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
@@ -68,6 +73,41 @@ class ApplicationDetails(VerifyHandlerSpec):
             result = self._find_defaults_field(field)
             if result:
                 return result
+        return None
+
+    def find_field_title_by_derived_name(
+        self, field_def: Dict[str, Any], derived_field_name: str
+    ):
+        """
+        Recursively search for a field with the specified derived_field_name in a nested dictionary or list.
+
+        Args:
+            data (dict or list): The data structure to search.
+            derived_field_name (str): The derived_field_name to search for.
+
+        Returns:
+            dict or None: The field dictionary if found, otherwise None.
+        """
+        if isinstance(field_def, dict):
+            # Check if the current dictionary has the desired derived_field_name
+            if field_def.get("derived_field_name") == derived_field_name:
+                return field_def.get("title")
+            # Recursively search in the 'fields' key if present
+            if "fields" in field_def:
+                for sub_field in field_def["fields"]:
+                    result = self.find_field_title_by_derived_name(
+                        sub_field, derived_field_name
+                    )
+                    if result:
+                        return result
+
+        elif isinstance(field_def, list):
+            # If the data is a list, search each element
+            for item in field_def:
+                result = self.find_field_title_by_derived_name(item, derived_field_name)
+                if result:
+                    return result
+
         return None
 
     def _find_payload_value(self, payload_data, options_key):
