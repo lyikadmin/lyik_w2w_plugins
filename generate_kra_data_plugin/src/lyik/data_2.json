@@ -1,0 +1,324 @@
+{
+    "_id": 1,
+    "payment": null,
+    "submitter": {
+        "id": "U005",
+        "phone": "Anonymous",
+        "email": "Anonymous",
+        "time": {
+            "$date": "2025-01-02T09:21:44.775Z"
+        }
+    },
+    "state": "SAVE",
+    "onboarding": {
+        "type_of_client": "IND",
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "application_details": {
+        "kyc_digilocker": null,
+        "general": {
+            "application_type": null,
+            "residential_status": null
+        },
+        "cash_fut_como_card": {
+            "cash_minimum_paisa": null,
+            "cash_in_percentage": null
+        },
+        "cash_jobbing_card": {
+            "cash_jobbing_minimum_paisa": null,
+            "cash_jobbing_in_percentage": null
+        },
+        "futures_card": {
+            "futures_minimum_paisa": null,
+            "futures_in_percentage": null
+        },
+        "options_card": {
+            "options_standard_rate": null
+        },
+        "currency_futures_card": {
+            "currency_futures_minimum_paisa": null,
+            "currency_futures_in_percentage": null
+        },
+        "currency_options_card": {
+            "currency_options_rate": null
+        },
+        "commodity_futures_card": {
+            "commodity_futures_minimum_paisa": null,
+            "commodity_futures_in_percentage": null
+        },
+        "commodity_options_card": {
+            "commodity_options_rate": null
+        },
+        "slb_card": {
+            "slb_rate": null
+        },
+        "flat_per_order_card": {
+            "flat_per_order_rate": null
+        },
+        "online_exe_card": {
+            "online_exe": null
+        },
+        "gst_details_card": {
+            "gst_number": null
+        }
+    },
+    "kyc_holders": [
+        {
+            "kyc_holder": {
+                "mobile_email_verification": {
+                    "mobile_verification": {
+                        "dependency_relationship_mobile": "Dependent",
+                        "contact_id": "C001",
+                        "verified_contact_id": "VC001"
+                    },
+                    "email_verification": {
+                        "dependency_relationship_email": "Independent",
+                        "contact_id": "E001",
+                        "verified_contact_id": "VE001"
+                    }
+                },
+                "pan_verification": {
+                    "pan_card_image": "https://example.com/pan_card.jpg",
+                    "pan_details": {
+                        "name_in_pan": "John Doe",
+                        "dob_pan": "1990-01-01",
+                        "pan_number": "BPDPC7099L",
+                        "parent_guardian_spouse_name": "Jane Doe"
+                    }
+                },
+                "identity_address_verification": {
+                    "identity_address_info": {
+                        "pin": "560001",
+                        "state": "Karnataka",
+                        "city": "Bangalore",
+                        "district": "Bangalore Urban",
+                        "country": "India",
+                        "name_in_aadhaar": "John Doe",
+                        "gender_aadhaar": "M",
+                        "aadhaar_number": "123456789012",
+                        "permanent_address": "123 Street Name, Bangalore"
+                    },
+                    "other_info": {
+                        "father_name": "Richard Doe",
+                        "marital_status": "Unmarried",
+                        "country_of_birth": "India",
+                        "mother_name": "Emily Doe",
+                        "place_of_birth": "Bangalore"
+                    },
+                    "same_as_permanent_address": true,
+                    "correspondence_address": {
+                        "pin_1": "560002",
+                        "state_1": "Karnataka",
+                        "city_1": "Bangalore",
+                        "district_1": "Bangalore Urban",
+                        "country_1": "India",
+                        "correspondence_address_proof": "AADHAAR",
+                        "type_of_address": "Residential",
+                        "correspondence_address_1": "456 Another Street, Bangalore"
+                    }
+                },
+                "signature_validation": {
+                    "upload_images": {
+                        "wet_signature_image": "https://example.com/signature.jpg",
+                        "proof_of_signature": "https://example.com/proof_of_signature.jpg"
+                    }
+                },
+                "liveness_check": {
+                    "photo_capture": {
+                        "liveness_photo": "https://example.com/liveness_photo.jpg"
+                    },
+                    "video_capture": {
+                        "liveness_video": "https://example.com/liveness_video.mp4"
+                    },
+                    "liveness_captcha": "AB123",
+                    "liveness_geo_loc": "12.9716,77.5946"
+                },
+                "declarations": {
+                    "income_info": {
+                        "gross_annual_income": 1000000,
+                        "networth": 500000,
+                        "occupation": "Software Engineer"
+                    },
+                    "fatca_crs_declaration": {
+                        "is_client_tax_resident": true,
+                        "place_of_birth_1": "Bangalore",
+                        "country_of_origin": "India",
+                        "country_code": "IN"
+                    },
+                    "fatca_crs_declaration_1": {
+                        "country_of_residency_1": "India",
+                        "tin_no_1": "TIN123456",
+                        "id_type_1": "Passport",
+                        "reason_if_no_tin_1": "Not Applicable"
+                    },
+                    "fatca_crs_declaration_2": {
+                        "country_of_residency_2": "NA",
+                        "tin_no_2": "NA",
+                        "id_type_2": "NA",
+                        "reason_if_no_tin_2": "Not Applicable"
+                    },
+                    "fatca_crs_declaration_3": {
+                        "country_of_residency_3": "NA",
+                        "tin_no_3": "NA",
+                        "id_type_3": "NA",
+                        "reason_if_no_tin_3": "Not Applicable"
+                    },
+                    "politically_exposed_person_card": {
+                        "politically_exposed_person": false
+                    }
+                }
+            }
+        }
+    ],
+    "bank_verification": {
+        "bank_details": {
+            "bank_account_number": null,
+            "account_holder_name": null,
+            "branch_code": null,
+            "ifsc_code": null
+        },
+        "cancelled_cheque": {
+            "cancelled_cheque_image": null
+        }
+    },
+    "nomination_details": {
+        "general": {
+            "client_nominee_appointment_status": null
+        },
+        "nominees": [
+            {
+                "nominee": {
+                    "nominee_data": {
+                        "minor_nominee": null,
+                        "nominee_type_of_id": null,
+                        "name_of_nominee": null,
+                        "percentage_of_allocation": null,
+                        "nominee_id_proof": null,
+                        "id_number": null,
+                        "dob_nominee": null,
+                        "nominee_address": null
+                    },
+                    "guardian_data": {
+                        "guardian_id_proof": null,
+                        "guardian_type_of_id": null,
+                        "guardian_name": null,
+                        "guardian_address": null,
+                        "guardian_signature": null,
+                        "guardian_id_number": null,
+                        "relationship_with_nominee": null
+                    }
+                }
+            }
+        ]
+    },
+    "trading_information": {
+        "check_pan_for_trading_account": {
+            "trading_id": null,
+            "account_holder_name": null
+        },
+        "trading_account_information": {
+            "segment_pref_1": null,
+            "segment_pref_2": null,
+            "segment_pref_3": null,
+            "segment_pref_4": null,
+            "segment_pref_5": null,
+            "segment_pref_6": null,
+            "type_of_document": null,
+            "contract_format_1": null,
+            "contract_format_2": null,
+            "proof_of_income": null,
+            "client_facility_choice": null,
+            "kit_format_1": null,
+            "kit_format_2": null,
+            "holder_trading_experience": null,
+            "state": null
+        },
+        "employer_details": {
+            "employer_name": null,
+            "mobile_number": null,
+            "employer_address": null
+        },
+        "details_of_dealings": {
+            "broker_name": null,
+            "telephone": null,
+            "client_codes": null,
+            "broker_address": null,
+            "sub_broker_name": null,
+            "website": null,
+            "detail_of_disputes": null
+        },
+        "introducer_details": {
+            "introducer_name": null,
+            "introducer_broker_address": null,
+            "introducer_status": null,
+            "remisire_code": null
+        }
+    },
+    "dp_information": {
+        "dp_Account_information": {
+            "dp_tariff_plan": null,
+            "name_of_dp": null,
+            "depository": null,
+            "dp_id_no": null,
+            "client_id_no": null,
+            "cmr_file": null
+        },
+        "standing_info_from_client": {
+            "receive_credit_auth_status": null,
+            "first_holder_sms_alert": null,
+            "account_statement_requirement": null,
+            "electronic_transaction_holding_statement": null,
+            "dividend_interest_receive_option": null,
+            "auto_pledge_confirmation": null,
+            "did_booklet_issuance": null,
+            "bsda": null,
+            "joint_account_operation_mode": null,
+            "consent_for_communication": null,
+            "share_email_id_with_rta": null,
+            "receive_annual_report": null,
+            "aadhaar_pan_seed_status": null,
+            "trust": null
+        },
+        "trust_information": {
+            "stack_exchange_name": null,
+            "clearing_member_name": null,
+            "clearing_member_id": null
+        },
+        "ucc_mapping_1": {
+            "ucc_code_1": null,
+            "exchange_id_1": null,
+            "segment_id_1": null,
+            "cm_id_1": null,
+            "tm_id_1": null
+        },
+        "ucc_mapping_2": {
+            "ucc_code_2": null,
+            "exchange_id_2": null,
+            "segment_id_2": null,
+            "cm_id_2": null,
+            "tm_id_2": null
+        }
+    },
+    "tnc_info_pane": {
+        "declaration": {
+            "sms_alert": null,
+            "policy": null,
+            "processing_time": null
+        }
+    },
+    "_maker_info": {
+        "phone": "+919876543210",
+        "email": "abc@gmail.com",
+        "user_id": "U005"
+    },
+    "_time_log": {
+        "created_on": {
+            "$date": "2025-01-02T09:21:44.775Z"
+        },
+        "last_updated_on": {
+            "$date": "2025-01-02T09:21:44.775Z"
+        }
+    }
+}

@@ -1,6 +1,7 @@
 **/dist
 dist_plugin
 .**env
+*env*
 **/*.egg-info
 example
 .idea/
