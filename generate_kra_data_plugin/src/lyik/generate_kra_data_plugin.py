@@ -12,6 +12,7 @@ from lyikpluginmanager import (
 )
 import json
 import os
+import importlib
 
 
 impl = pluggy.HookimplMarker(getProjectName())
@@ -226,16 +227,19 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             return "N"
 
     def get_country_code(self, country_name: str) -> str:
-        country_mapping = self.load_mapping_file("country.json")
-        return country_mapping.get(country_name)
+        with importlib.resources.path("lyik", "country.json") as file_path:
+            country_mapping = self.load_mapping_file(file_path)
+            return country_mapping.get(country_name)
 
     def get_state_code(self, state: str) -> str:
-        state_mapping = self.load_mapping_file("states.json")
-        return state_mapping.get(state)
+        with importlib.resources.path("lyik", "states.json") as file_path:
+            state_mapping = self.load_mapping_file(file_path)
+            return state_mapping.get(state)
 
     def get_corr_addr_proof_code(self, addr_proof: str) -> str:
-        addr_proof_mapping = self.load_mapping_file("corr_address_proof.json")
-        return addr_proof_mapping.get(addr_proof)
+        with importlib.resources.path("lyik", "corr_address_proof.json") as file_path:
+            addr_proof_mapping = self.load_mapping_file(file_path)
+            return addr_proof_mapping.get(addr_proof)
 
     def get_aadhaar_last_4_digit(self, aadhaar_number: str) -> str:
         if len(aadhaar_number) == 12 and aadhaar_number.isdigit():
