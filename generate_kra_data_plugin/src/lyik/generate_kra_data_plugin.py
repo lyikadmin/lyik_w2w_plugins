@@ -82,23 +82,21 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
                 APP_UID_NO="",
                 APP_COR_ADD1=identity_verification.get(
                     "correspondence_address", {}
-                ).get("correspondence_address_1"),
+                ).get("correspondence_address"),
                 APP_COR_ADD2="",
                 APP_COR_ADD3="",
                 APP_COR_CITY=identity_verification.get(
                     "correspondence_address", {}
-                ).get("city_1"),
+                ).get("city"),
                 APP_COR_PINCD=identity_verification.get(
                     "correspondence_address", {}
-                ).get("pin_1"),
+                ).get("pin"),
                 APP_COR_STATE=self.get_state_code(
-                    identity_verification.get("correspondence_address", {}).get(
-                        "state_1"
-                    )
+                    identity_verification.get("correspondence_address", {}).get("state")
                 ),
                 APP_COR_CTRY=self.get_country_code(
                     identity_verification.get("correspondence_address", {}).get(
-                        "country_1"
+                        "country"
                     )
                 ),
                 APP_OFF_ISD=None,
@@ -114,9 +112,10 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
                 APP_FAX_NO=None,
                 APP_EMAIL=None,
                 APP_COR_ADD_PROOF=self.get_corr_addr_proof_code(
-                    identity_verification.get("correspondence_address", {}).get(
-                        "correspondence_address_proof"
-                    )
+                    # identity_verification.get("correspondence_address", {}).get(
+                    #     "correspondence_address_proof"
+                    # )
+                    "AADHAAR"
                 ),
                 APP_COR_ADD_REF=self.get_aadhaar_last_4_digit(
                     identity_verification.get("identity_address_info", {}).get(
@@ -254,7 +253,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             return "N"
 
     def get_marital_status_code(self, status: str) -> str:
-        marital_status_mapping = {"Married": "1", "Unmarried": "2"}
+        marital_status_mapping = {"MARRIED": "1", "SINGLE": "2"}
         return marital_status_mapping.get(status)
 
     def get_app_kyc_mode(self, mode=str) -> str:
