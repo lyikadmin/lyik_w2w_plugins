@@ -241,10 +241,12 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             return addr_proof_mapping.get(addr_proof)
 
     def get_aadhaar_last_4_digit(self, aadhaar_number: str) -> str:
-        if len(aadhaar_number) == 12 and aadhaar_number.isdigit():
+        if aadhaar_number[-4:].isdigit():
             return aadhaar_number[-4:]
         else:
-            raise ValueError("Invalid Aadhaar number. It should be a 12-digit number.")
+            raise ValueError(
+                "Invalid Aadhaar number. The last 4 characters must be digits."
+            )
 
     def get_per_add_flag_code(self, same_as_permanent_add: str) -> str:
         if same_as_permanent_add == "SAME_AS_PERMANENT_ADDRESS":
