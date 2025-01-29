@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "state-processor-plugin"
+version = "0.1.0"
+description = "State Processor plugin"
+readme = "README.md"
+authors = [{ name = "Akhil Babu", email = "akhilbabu@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.entry-points."LYIK"]
+_default_w2w_state_processor = "lyik.state_processor:W2WStateProcessor"
