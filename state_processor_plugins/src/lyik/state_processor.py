@@ -1,11 +1,12 @@
 import apluggy as pluggy
 from motor.motor_asyncio import AsyncIOMotorGridFSBucket
-from typing import Dict, Any, Tuple
+from typing import Dict, Any, Tuple, List
 from lyikpluginmanager import (
     getProjectName,
     StateProcessorSpec,
     ContextModel,
 )
+import jwt
 from datetime import datetime, timezone
 
 # States
@@ -44,7 +45,13 @@ class W2WStateProcessor(StateProcessorSpec):
         """
         Process the current record with the state action, and return the new state
         """
+        encoded_token = context.token
+        personas = _get_personas_from_encoded_token(encoded_token)
         current_state: str = record.get("state", "")
+
+        # If the submitter is not a checker, then we dont need to perform any state flow.
+        if current_state == STATE_SUBMIT and personas and 'CKR' not in personas and state_action != STATE_ACTION_DEFAULT:
+            return current_state, record
 
         if state_action == STATE_ACTION_APPROVE:
             new_state = STATE_APPROVED
@@ -155,3 +162,15 @@ def handle_dp_account_creation(record: dict) -> str:
 def handle_trading_account_creation(record: dict) -> str:
     # Add logic to create trading account, When successful, return the approprate state.
     return STATE_ACCOUNTS_CREATED
+
+def _get_personas_from_encoded_token(token:str)-> List[str] | None:
+    try:
+        # Decode the JWT token
+        decoded_token = jwt.decode(token, options={"verify_signature": False})
+        
+        # Extract the personas from user_metadata
+        personas = decoded_token.get("user_metadata", {}).get("permissions", {}).get("persona", [])
+        
+        return personas
+    except Exception as e:
+        return None
