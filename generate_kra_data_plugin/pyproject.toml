@@ -13,7 +13,12 @@ requires-python = ">=3.10"
 dependencies = []
 
 [tool.setuptools.package-data]
-"lyik" = ["states.json", "corr_address_proof.json", "country.json"]
+"lyik" = [
+    "states.json",
+    "corr_address_proof.json",
+    "country.json",
+    "fatca_country_code.json",
+]
 
 [project.entry-points."LYIK"]
 _default_generate_kra_data_plugin = "lyik.generate_kra_data_plugin:GenerateKRADataPlugin"
