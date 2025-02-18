@@ -15,9 +15,9 @@ from datetime import datetime
 
 impl = pluggy.HookimplMarker(getProjectName())
 
+
 class ApplicationDetailsPayload(BaseModel):
     model_config = ConfigDict(extra="allow")
-
 
 
 class ApplicationDetails(VerifyHandlerSpec):
@@ -29,8 +29,15 @@ class ApplicationDetails(VerifyHandlerSpec):
 
     @impl
     async def verify_handler(
-        self, context: ContextModel, payload: Annotated[ApplicationDetailsPayload, Doc('Payload data to be verified against default range of values')]
-    ) -> Annotated[VerifyHandlerResponseModel, Doc('success or failure response with message')]:
+        self,
+        context: ContextModel,
+        payload: Annotated[
+            ApplicationDetailsPayload,
+            Doc("Payload data to be verified against default range of values"),
+        ],
+    ) -> Annotated[
+        VerifyHandlerResponseModel, Doc("success or failure response with message")
+    ]:
         """
         This will verify whether the values in the fields are in the limit of default values.
         """
