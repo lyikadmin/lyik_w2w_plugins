@@ -50,7 +50,7 @@ class BankAccount(VerifyHandlerSpec):
         ifsc_code = payload.ifsc_code
         payload.ifsc_code = ifsc_code.upper()
         payload_dict = payload.model_dump()
-        old_ver_status = payload_dict.pop("_ver_status")
+        old_ver_status = payload_dict.pop("_ver_status", None)
         payload_dict.update({"address": f"new_address-{random.randint(0,1000)}"})
 
         response = VerifyHandlerResponseModel(
