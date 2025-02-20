@@ -13,7 +13,7 @@ from lyikpluginmanager import (
 import json
 import os
 from importlib import resources
-from .model import (
+from model import (
     PanDetails,
     PanVerification,
     OtherInfo,
@@ -309,21 +309,21 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         return ""
     
 
-# import asyncio
+import asyncio
 
 
-# async def main():
-#     gen_kra = GenerateKRADataPlugin()
-#     with open(
-#         "/Users/rahulc/Lyik/lyik_w2w_plugins/generate_kra_data_plugin/src/lyik/data.json",
-#         "r",
-#     ) as f:
-#         form_record = json.load(f)
-#         kyc_holder = form_record["kyc_holders"][0]
+async def main():
+    gen_kra = GenerateKRADataPlugin()
+    with open(
+        "/Users/rahulc/Lyik/lyik_w2w_plugins/generate_kra_data_plugin/src/lyik/data.json",
+        "r",
+    ) as f:
+        form_record = json.load(f)
+        kyc_holder = form_record["kyc_holders"][0]
 
-#     res = await gen_kra.translate_to_kra(context=ContextModel(), kyc_holder=kyc_holder)
-#     print(res)
+    res = await gen_kra.translate_to_kra(context=ContextModel(), kyc_holder=kyc_holder)
+    print(res)
 
 
-# if __name__ == "__main__":
-#     asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
