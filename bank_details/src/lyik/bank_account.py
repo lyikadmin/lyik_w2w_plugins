@@ -56,7 +56,7 @@ class BankAccount(VerifyHandlerSpec):
         response = VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
             actor="system",
-            id=1,
+            id="1",
             response=payload_dict,
         )
 
