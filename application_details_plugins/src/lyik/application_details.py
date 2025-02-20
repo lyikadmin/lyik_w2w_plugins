@@ -8,27 +8,44 @@ from lyikpluginmanager import (
     VERIFY_RESPONSE_STATUS,
     SingleFieldModel,
 )
+from pydantic import BaseModel, ConfigDict
+from typing_extensions import Annotated, Doc
+
 from datetime import datetime
 
 impl = pluggy.HookimplMarker(getProjectName())
 
 
+class ApplicationDetailsPayload(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+
 class ApplicationDetails(VerifyHandlerSpec):
     """
-    This will verify the application detail values with the default values
+    Implementation of the VerifyHandlerSpec interface for Application Details verification.
     """
 
     DEFAULT_KEY = "defaults"
 
     @impl
     async def verify_handler(
-        self, context: ContextModel, payload: SingleFieldModel
-    ) -> VerifyHandlerResponseModel:
+        self,
+        context: ContextModel,
+        payload: Annotated[
+            ApplicationDetailsPayload,
+            Doc("Payload data to be verified against default range of values"),
+        ],
+    ) -> Annotated[
+        VerifyHandlerResponseModel, Doc("success or failure response with message")
+    ]:
+        """
+        This will verify whether the values in the fields are in the limit of default values.
+        """
 
         fileds_def: Dict[str, Any] = context.field_definition
 
         return self._compare_defaults_with_payload(
-            field_def=fileds_def, payload=payload.payload
+            field_def=fileds_def, payload=payload.model_dump()
         )
 
     def _compare_defaults_with_payload(

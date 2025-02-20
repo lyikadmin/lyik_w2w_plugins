@@ -1,11 +1,13 @@
 import apluggy as pluggy
 from motor.motor_asyncio import AsyncIOMotorGridFSBucket
-from typing import Dict, Any, Tuple, List
+from typing import Dict, Any, Tuple, List, Annotated
+from typing_extensions import Doc
 from lyikpluginmanager import (
     getProjectName,
     StateProcessorSpec,
     ContextModel,
 )
+from lyikpluginmanager.models import GenericFormRecordModel
 import jwt
 from datetime import datetime, timezone
 
@@ -40,17 +42,32 @@ impl = pluggy.HookimplMarker(getProjectName())
 class W2WStateProcessor(StateProcessorSpec):
     @impl
     async def process_and_return_state(
-        self, context: ContextModel | None, record: Dict, state_action: str
-    ) -> Tuple[str, dict]:
+        self,
+        context: ContextModel | None,
+        record: Annotated[
+            GenericFormRecordModel, Doc("The entire form record to be state processed")
+        ],
+        state_action: Annotated[str, Doc("The action to set decide the state flow.")],
+    ) -> Annotated[
+        Tuple[str, dict],
+        Doc("The new state, and the modified form record (with audit logs)"),
+    ]:
         """
         Process the current record with the state action, and return the new state
         """
         encoded_token = context.token
         personas = _get_personas_from_encoded_token(encoded_token)
+        if isinstance(record, GenericFormRecordModel):
+            record = record.model_dump()
         current_state: str = record.get("state", "")
 
         # If the submitter is not a checker, then we dont need to perform any state flow.
-        if current_state == STATE_SUBMIT and personas and 'CKR' not in personas and state_action != STATE_ACTION_DEFAULT:
+        if (
+            current_state == STATE_SUBMIT
+            and personas
+            and "CKR" not in personas
+            and state_action != STATE_ACTION_DEFAULT
+        ):
             return current_state, record
 
         if state_action == STATE_ACTION_APPROVE:
@@ -163,14 +180,19 @@ def handle_trading_account_creation(record: dict) -> str:
     # Add logic to create trading account, When successful, return the approprate state.
     return STATE_ACCOUNTS_CREATED
 
-def _get_personas_from_encoded_token(token:str)-> List[str] | None:
+
+def _get_personas_from_encoded_token(token: str) -> List[str] | None:
     try:
         # Decode the JWT token
         decoded_token = jwt.decode(token, options={"verify_signature": False})
-        
+
         # Extract the personas from user_metadata
-        personas = decoded_token.get("user_metadata", {}).get("permissions", {}).get("persona", [])
-        
+        personas = (
+            decoded_token.get("user_metadata", {})
+            .get("permissions", {})
+            .get("persona", [])
+        )
+
         return personas
     except Exception as e:
         return None
