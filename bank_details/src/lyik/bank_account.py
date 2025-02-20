@@ -10,6 +10,7 @@ from lyikpluginmanager import (
 )
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Annotated, Doc
+import random
 
 from datetime import datetime
 
@@ -48,7 +49,7 @@ class BankAccount(VerifyHandlerSpec):
 
         payload_dict = payload.model_dump()
         old_ver_status = payload_dict.pop("_ver_status")
-        payload_dict.update({"address": "new_address"})
+        payload_dict.update({"address": f"new_address-{random.randint(0,1000)}"})
 
         response = VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
