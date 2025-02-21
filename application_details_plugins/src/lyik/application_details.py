@@ -1,22 +1,115 @@
+import logging
+import pandas as pd
+import jwt
+from typing import Dict, Any, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field
 import apluggy as pluggy
-from typing import Dict, Any
 from lyikpluginmanager import (
     getProjectName,
     VerifyHandlerSpec,
     ContextModel,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
-    SingleFieldModel,
+    generate_hash_id_from_dict
 )
-from pydantic import BaseModel, ConfigDict
 from typing_extensions import Annotated, Doc
-
-from datetime import datetime
 
 impl = pluggy.HookimplMarker(getProjectName())
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
-class ApplicationDetailsPayload(BaseModel):
+CSV_URL = "https://raw.githubusercontent.com/lyikadmin/defaults/refs/heads/main/franchise_application_default_values.csv"
+FRANCHISE_ID = "franchise_id"
+DEFAULT = "DEFAULT"
+
+
+class GeneralApplicationDetails(BaseModel):
+    application_type: str = Field(...)
+    residential_status: str = Field(...)
+
+
+class CashFutComoCard(BaseModel):
+    cash_minimum_paisa: float = Field(...)
+    cash_in_percentage: float = Field(...)
+
+
+class CashJobbingCard(BaseModel):
+    cash_jobbing_minimum_paisa: float = Field(...)
+    cash_jobbing_in_percentage: float = Field(...)
+
+
+class FuturesCard(BaseModel):
+    futures_minimum_paisa: float = Field(...)
+    futures_in_percentage: float = Field(...)
+
+
+class OptionsCard(BaseModel):
+    options_standard_rate: float = Field(...)
+
+
+class CurrencyFuturesCard(BaseModel):
+    currency_futures_minimum_paisa: float = Field(...)
+    currency_futures_in_percentage: float = Field(...)
+
+
+class CurrencyOptionsCard(BaseModel):
+    currency_options_rate: float = Field(...)
+
+
+class CommodityFuturesCard(BaseModel):
+    commodity_futures_minimum_paisa: float = Field(...)
+    commodity_futures_in_percentage: float = Field(...)
+
+
+class CommodityOptionsCard(BaseModel):
+    commodity_options_rate: float = Field(...)
+
+
+class SlbCard(BaseModel):
+    slb_rate: float = Field(...)
+
+
+class FlatPerOrderCard(BaseModel):
+    flat_per_order_rate: Optional[float] = Field(None)
+
+
+class OnlineExeCard(BaseModel):
+    online_exe: Optional[float] = Field(None)
+
+
+class GstDetailsCard(BaseModel):
+    gst_number: Optional[str] = Field(None)
+    gst_number_1: Optional[str] = Field(None)
+
+
+class ClientContactDetails(BaseModel):
+    client_mobile: Optional[str] = Field(None)
+
+
+class SegmentRates(BaseModel):
+    pass
+
+
+class ApplicationDetailsModel(BaseModel):
+    defaults: Optional[dict] = Field(None)
+    kyc_digilocker: str = Field(...)
+    general_application_details: GeneralApplicationDetails = Field(...)
+    cash_fut_como_card: CashFutComoCard = Field(...)
+    cash_jobbing_card: CashJobbingCard = Field(...)
+    futures_card: FuturesCard = Field(...)
+    options_card: OptionsCard = Field(...)
+    currency_futures_card: CurrencyFuturesCard = Field(...)
+    currency_options_card: CurrencyOptionsCard = Field(...)
+    commodity_futures_card: CommodityFuturesCard = Field(...)
+    commodity_options_card: CommodityOptionsCard = Field(...)
+    slb_card: SlbCard = Field(...)
+    flat_per_order_card: FlatPerOrderCard = Field(...)
+    online_exe_card: OnlineExeCard = Field(...)
+    gst_details_card: GstDetailsCard = Field(...)
+    client_contact_details: ClientContactDetails = Field(...)
+    segment_rates: SegmentRates = Field(...)
     model_config = ConfigDict(extra="allow")
 
 
@@ -25,114 +118,164 @@ class ApplicationDetails(VerifyHandlerSpec):
     Implementation of the VerifyHandlerSpec interface for Application Details verification.
     """
 
-    DEFAULT_KEY = "defaults"
-
     @impl
     async def verify_handler(
         self,
         context: ContextModel,
         payload: Annotated[
-            ApplicationDetailsPayload,
+            ApplicationDetailsModel,
             Doc("Payload data to be verified against default range of values"),
         ],
     ) -> Annotated[
-        VerifyHandlerResponseModel, Doc("success or failure response with message")
+        VerifyHandlerResponseModel, Doc("Succeeds if all values are equal to, or above the desired minimums. Fails otherwise.")
     ]:
         """
-        This will verify whether the values in the fields are in the limit of default values.
+        This verifies whether the payload values are above the desired minimum values, which is tied to the users franchise_id
         """
 
-        fileds_def: Dict[str, Any] = context.field_definition
+        payload_dict = payload.model_dump()
 
-        return self._compare_defaults_with_payload(
-            field_def=fileds_def, payload=payload.model_dump()
-        )
+        # NOTE: Handling re-verification
+        ret = check_if_verified(payload_dict=payload_dict)
+        if ret:
+            return ret
 
-    def _compare_defaults_with_payload(
-        self, field_def: Dict[str, Any], payload: Dict[str, Any]
-    ) -> VerifyHandlerResponseModel:
+        # Step 1: Extract franchise_id from JWT token
+        encoded_token = context.token
+        franchise_id = self.get_franchise_id(encoded_token)
 
-        _default = self._find_defaults_field(field_def=field_def)
-        try:
-            options_defaults = _default["options"]
-            for key, default_value in options_defaults.items():
-                payload_value = self._find_payload_value(payload, key)
-                if payload_value is not None:
-                    if float(default_value) <= float(payload_value):
-                        pass
-                    else:
-                        title = self.find_field_title_by_derived_name(
-                            derived_field_name=key, field_def=field_def
-                        )
-                        return VerifyHandlerResponseModel(
-                            status=VERIFY_RESPONSE_STATUS.FAILURE,
-                            actor="system",
-                            message=f"Value for \n{title} is not in desired range {default_value}",
-                        )
-                else:
-                    print(f"Key '{key}' not found in payload.")
-        except Exception as e:
+        # Step 2: Load CSV Defaults (return success if CSV cannot be read)
+        options_defaults = self.load_csv_defaults(franchise_id)
+        if options_defaults is None:
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
-                message="Fatal Error please contact the admin",
+                message="Verification skipped as CSV could not be read.",
             )
+
+        # Step 3: Compare Payload with CSV Defaults
+        return self._compare_defaults_with_payload(
+            options_defaults, payload_dict
+        )
+
+    def get_franchise_id(self, encoded_token: str) -> str:
+        """Decodes JWT token and extracts `franchise_id` safely, returning 'DEFAULT' if missing."""
+        # return "FR_006"
+        try:
+            decoded_token = jwt.decode(
+                encoded_token, options={"verify_signature": False}
+            )
+            franchise_id = (
+                decoded_token.get("user_metadata", {})
+                .get("user_info", {})
+                .get(FRANCHISE_ID)
+            )
+            if franchise_id:
+                # logger.info(f"Extracted franchise_id: {franchise_id}")
+                return franchise_id
+        except jwt.DecodeError:
+            logger.error("Failed to decode JWT token. Using DEFAULT.")
+        except Exception as e:
+            logger.error(f"Unexpected error decoding JWT: {e}")
+
+        return DEFAULT  # Default fallback if franchise_id is missing or decoding fails
+
+    def load_csv_defaults(self, franchise_id: str) -> Dict[str, Any] | None:
+        """Safely loads the CSV file and fetches defaults for the given franchise_id."""
+        try:
+            df = pd.read_csv(CSV_URL)
+            df.columns = df.columns.str.strip()
+            df[FRANCHISE_ID] = df[FRANCHISE_ID].astype(str).str.strip()
+
+            # Lookup Franchise Data
+            row = (
+                df[df[FRANCHISE_ID] == franchise_id] if franchise_id else pd.DataFrame()
+            )
+            if row.empty:
+                row = df[
+                    df[FRANCHISE_ID] == DEFAULT
+                ]  # Fallback to DEFAULT if not found
+
+            if not row.empty:
+                # logger.info(f"Using defaults for franchise_id: {franchise_id}")
+                return row.iloc[0].to_dict()
+
+        except FileNotFoundError:
+            logger.error("CSV file not found. Skipping verification.")
+        except pd.errors.ParserError:
+            logger.error("Error parsing CSV file. Skipping verification.")
+        except Exception as e:
+            logger.error(f"Unexpected error reading CSV: {e}")
+
+        return None  # Return None if an error occurs
+
+    def _compare_defaults_with_payload(
+        self, options_defaults: Dict[str, Any], payload: Dict[str, Any]
+    ) -> VerifyHandlerResponseModel:
+        """
+        Compares payload values against CSV default values, searching nested fields.
+        """
+        try:
+            for key, minimum_default_value in options_defaults.items():
+                payload_value = self._find_nested_value(payload, key)
+
+                if payload_value is not None:
+                    if float(minimum_default_value) > float(payload_value):  # Check limit
+                        return VerifyHandlerResponseModel(
+                            status=VERIFY_RESPONSE_STATUS.FAILURE,
+                            actor="system",
+                            message=f"Value for {key} is not in desired range >={minimum_default_value}",
+                        )
+
+        except Exception as e:
+            logger.error(f"Fatal error during verification: {e}")
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                actor="system",
+                message="Fatal error. Please contact the admin.",
+            )
+
         return VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
             actor="system",
-            message=f"Verified by the system on {datetime.now()}",
+            message="Verified successfully.",
+            id = generate_hash_id_from_dict(payload)
         )
 
-    def _find_defaults_field(self, field_def: Dict[str, Any]) -> Dict[str, Any]:
-        if field_def.get("derived_field_name") == self.DEFAULT_KEY:
-            return field_def
-        for field in field_def.get("fields", []):
-            result = self._find_defaults_field(field)
-            if result:
-                return result
-        return None
-
-    def find_field_title_by_derived_name(
-        self, field_def: Dict[str, Any], derived_field_name: str
-    ):
+    def _find_nested_value(self, payload: Dict[str, Any], target_key: str) -> Any:
         """
-        Recursively search for a field with the specified derived_field_name in a nested dictionary or list.
-
-        Args:
-            data (dict or list): The data structure to search.
-            derived_field_name (str): The derived_field_name to search for.
-
-        Returns:
-            dict or None: The field dictionary if found, otherwise None.
+        Recursively searches for a key in a nested dictionary and returns its value.
         """
-        if isinstance(field_def, dict):
-            # Check if the current dictionary has the desired derived_field_name
-            if field_def.get("derived_field_name") == derived_field_name:
-                return field_def.get("title")
-            # Recursively search in the 'fields' key if present
-            if "fields" in field_def:
-                for sub_field in field_def["fields"]:
-                    result = self.find_field_title_by_derived_name(
-                        sub_field, derived_field_name
-                    )
-                    if result:
-                        return result
+        if target_key in payload:
+            return payload[target_key]  # Found at the current level
 
-        elif isinstance(field_def, list):
-            # If the data is a list, search each element
-            for item in field_def:
-                result = self.find_field_title_by_derived_name(item, derived_field_name)
-                if result:
-                    return result
-
-        return None
-
-    def _find_payload_value(self, payload_data, options_key):
-        if options_key in payload_data:
-            return payload_data[options_key]
-        for k, v in payload_data.items():
-            if isinstance(v, dict):
-                result = self._find_payload_value(v, options_key)
+        for _, value in payload.items():
+            if isinstance(value, dict):  # Dive into nested dicts
+                result = self._find_nested_value(value, target_key)
                 if result is not None:
                     return result
-        return None
+
+        return None  # Key not found
+
+def check_if_verified(payload_dict: dict) -> VerifyHandlerResponseModel | None:
+    """
+    Handle the flow is payload if already verified. (Re-verification)
+    Check if ver_Status already exists. If it does, check if values have changed.
+    If it has, return failure status as values are inconsistent.
+    """
+
+    if payload_dict.get("_ver_status"):
+        ver_Status = VerifyHandlerResponseModel.model_validate(
+            payload_dict.get("_ver_status")
+        )
+        if ver_Status.status == VERIFY_RESPONSE_STATUS.SUCCESS:
+            current_id = ver_Status.id
+            generated_id = generate_hash_id_from_dict(payload_dict)
+            if str(current_id) == str(generated_id):
+                return ver_Status
+            else:
+                ver_Status.status = VERIFY_RESPONSE_STATUS.FAILURE
+                ver_Status.message = "Values have changed. Please Re-verify"
+                return ver_Status
+
+    return None
