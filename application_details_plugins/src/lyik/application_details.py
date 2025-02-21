@@ -11,7 +11,7 @@ from lyikpluginmanager import (
     ContextModel,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
-    generate_hash_id_from_dict
+    generate_hash_id_from_dict,
 )
 from typing_extensions import Annotated, Doc
 
@@ -127,7 +127,10 @@ class ApplicationDetails(VerifyHandlerSpec):
             Doc("Payload data to be verified against default range of values"),
         ],
     ) -> Annotated[
-        VerifyHandlerResponseModel, Doc("Succeeds if all values are equal to, or above the desired minimums. Fails otherwise.")
+        VerifyHandlerResponseModel,
+        Doc(
+            "Succeeds if all values are equal to, or above the desired minimums. Fails otherwise."
+        ),
     ]:
         """
         This verifies whether the payload values are above the desired minimum values, which is tied to the users franchise_id
@@ -139,6 +142,10 @@ class ApplicationDetails(VerifyHandlerSpec):
         ret = check_if_verified(payload_dict=payload_dict)
         if ret:
             return ret
+
+        client_mobile = payload_dict["client_contact_details"]["client_mobile"]
+        validated_phone = validate_phone(client_mobile)
+        payload_dict["client_contact_details"]["client_mobile"] = validated_phone
 
         # Step 1: Extract franchise_id from JWT token
         encoded_token = context.token
@@ -154,9 +161,12 @@ class ApplicationDetails(VerifyHandlerSpec):
             )
 
         # Step 3: Compare Payload with CSV Defaults
-        return self._compare_defaults_with_payload(
-            options_defaults, payload_dict
-        )
+        ver_status = self._compare_defaults_with_payload(options_defaults, payload_dict)
+
+        old_ver_status = payload_dict.pop("_ver_status", None)
+
+        ver_status.response = payload_dict
+        return ver_status
 
     def get_franchise_id(self, encoded_token: str) -> str:
         """Decodes JWT token and extracts `franchise_id` safely, returning 'DEFAULT' if missing."""
@@ -220,7 +230,9 @@ class ApplicationDetails(VerifyHandlerSpec):
                 payload_value = self._find_nested_value(payload, key)
 
                 if payload_value is not None:
-                    if float(minimum_default_value) > float(payload_value):  # Check limit
+                    if float(minimum_default_value) > float(
+                        payload_value
+                    ):  # Check limit
                         return VerifyHandlerResponseModel(
                             status=VERIFY_RESPONSE_STATUS.FAILURE,
                             actor="system",
@@ -239,7 +251,7 @@ class ApplicationDetails(VerifyHandlerSpec):
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
             actor="system",
             message="Verified successfully.",
-            id = generate_hash_id_from_dict(payload)
+            id=generate_hash_id_from_dict(payload),
         )
 
     def _find_nested_value(self, payload: Dict[str, Any], target_key: str) -> Any:
@@ -256,6 +268,7 @@ class ApplicationDetails(VerifyHandlerSpec):
                     return result
 
         return None  # Key not found
+
 
 def check_if_verified(payload_dict: dict) -> VerifyHandlerResponseModel | None:
     """
@@ -279,3 +292,17 @@ def check_if_verified(payload_dict: dict) -> VerifyHandlerResponseModel | None:
                 return ver_Status
 
     return None
+
+
+import phonenumbers
+
+
+def validate_phone(value: str) -> str:
+    phone = phonenumbers.parse(
+        number=value,
+        region=phonenumbers.region_code_for_country_code(int(91)),
+    )
+    if not phonenumbers.is_valid_number(phone):
+        raise ValueError(f"{value} does not seem like a valid phone number")
+
+    return phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
