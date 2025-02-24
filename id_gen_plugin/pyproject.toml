@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "id-gen-plugin"
+name = "plugin-sequence-id-generation"
 version = "0.1.0"
 description = "ID Gen plugin"
 readme = "README.md"
@@ -13,4 +13,4 @@ requires-python = ">=3.10"
 dependencies = ["pymongo==4.3.3"]
 
 [project.entry-points."LYIK"]
-_id_gen_plugin = "lyik.id_gen:IdGen"
+_100_SEQUENCE_ID_GEN_PLUGIN = "lyik.id_gen:IdGen"
