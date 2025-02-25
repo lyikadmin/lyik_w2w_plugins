@@ -13,7 +13,7 @@ from lyikpluginmanager import (
 import json
 import os
 from importlib import resources
-from model import (
+from .model import (
     PanDetails,
     PanVerification,
     OtherInfo,
@@ -26,9 +26,14 @@ from model import (
     Declarations,
     KYCHolder,
     KYCDataModel,
+    ROOTDataModel,
 )
+from typing import Dict, Any, List, Annotated
+from typing_extensions import Doc
+
 import re
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -49,7 +54,9 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
     addr_proof_mapping = None
 
     @impl
-    async def translate_to_kra(self, context, kyc_holder):
+    async def translate_to_kra(
+        self, context, kyc_holder: Annotated[dict, Doc("Kyc holder data")]
+    ) -> Annotated[ROOT, Doc("ROOT model will be returned")]:
         """
         Translates KYC holder data to the KRA format.
 
@@ -156,18 +163,18 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             APP_PER_ADD_PROOF=self.get_corr_addr_proof_code("AADHAAR"),
             APP_PER_ADD_REF="",
             APP_PER_ADD_DT="",
-            APP_INCOME="", ##
-            APP_OCC="", ##
-            APP_OTH_OCC="", ##
-            APP_POL_CONN="", ##
+            APP_INCOME="",  ##
+            APP_OCC="",  ##
+            APP_OTH_OCC="",  ##
+            APP_POL_CONN="",  ##
             APP_DOC_PROOF="S",  ##
             APP_INTERNAL_REF="",
             APP_BRANCH_CODE="",
             APP_MAR_STATUS=self.get_marital_status_code(
                 identity_address__verification.other_info.marital_status
             ),
-            APP_NETWRTH=None, ##
-            APP_NETWORTH_DT="", ##
+            APP_NETWRTH=None,  ##
+            APP_NETWORTH_DT="",  ##
             APP_INCORP_PLC="",
             APP_OTHERINFO="",
             APP_FILLER1="",
@@ -191,8 +198,12 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
                 is_tax_resident=declarations.fatca_crs_declaration.is_client_tax_resident
             ),
             APP_FATCA_BIRTH_PLACE=declarations.fatca_crs_declaration.place_of_birth,
-            APP_FATCA_BIRTH_COUNTRY=self.get_fatca_country_code(identity_address__verification.other_info.country_of_birth),
-            APP_FATCA_COUNTRY_CITYZENSHIP=self.get_fatca_country_code(declarations.fatca_crs_declaration.country_of_origin),
+            APP_FATCA_BIRTH_COUNTRY=self.get_fatca_country_code(
+                identity_address__verification.other_info.country_of_birth
+            ),
+            APP_FATCA_COUNTRY_CITYZENSHIP=self.get_fatca_country_code(
+                declarations.fatca_crs_declaration.country_of_origin
+            ),
             APP_FATCA_COUNTRY_RES=None,
             APP_FATCA_DATE_DECLARATION=now,
         )
@@ -217,7 +228,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             FATCA_ADDL_DTLS=fatca_details,
             FOOTER=footer,
         )
-        return {"ROOT": root.model_dump()}
+        return ROOTDataModel(root_data=root)
 
     def get_nationality_code(self, country_name: str) -> str:
         if country_name:
@@ -291,12 +302,14 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             with open(file_path, "r") as file:
                 return json.load(file)
 
-    def get_fatca_country_code(self,country_name: str) -> str:
-        """ Match user input with the correct FATCA country code and display the normalized value. """
+    def get_fatca_country_code(self, country_name: str) -> str:
+        """Match user input with the correct FATCA country code and display the normalized value."""
         normalized_input = country_name.upper().strip()
-        normalized_input = re.sub(r"[^A-Z\s]", "", normalized_input)  
+        normalized_input = re.sub(r"[^A-Z\s]", "", normalized_input)
         if self.fatca_country_mapping is None:
-            self.fatca_country_mapping = self.load_mapping_file(file_name="fatca_country_code.json")
+            self.fatca_country_mapping = self.load_mapping_file(
+                file_name="fatca_country_code.json"
+            )
 
         # Direct match
         if normalized_input in self.fatca_country_mapping:
@@ -307,7 +320,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             if normalized_input in country_name or country_name in normalized_input:
                 return code
         return ""
-    
+
 
 import asyncio
 
