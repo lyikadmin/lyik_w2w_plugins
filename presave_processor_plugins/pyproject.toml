@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-w2w-preprocessors"
+version = "0.1.0"
+description = "Plugins for preprocess the reocrds before save operation."
+readme = "README.md"
+authors = [
+    { name = "Akhil Babu", email = "akhilbabu@lyik.com" }
+]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = [
+]
+
+[project.entry-points."LYIK"]
+_500_W2W_APPLICATION_ID = "lyik.application_id:ApplicationId"
