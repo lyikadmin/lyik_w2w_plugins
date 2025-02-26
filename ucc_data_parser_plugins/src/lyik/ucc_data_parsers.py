@@ -4,12 +4,15 @@ from lyikpluginmanager import (
     getProjectName,
     ContextModel,
     UCCDataParserSpec,
+    GenericFormRecordModel,
     NSEPayload,
     BSEPayload,
 )
 # from enum import Enum
 
 from typing import List, Dict
+from typing_extensions import Doc, Annotated
+
 # import importlib
 import logging
 from utility.bse_utility import BSEUtility
@@ -24,8 +27,11 @@ class UCCDataParser(UCCDataParserSpec):
     async def ucc_bse_data_parse(
         self,
         context: ContextModel,
-        form_record: Dict,
-    ) -> BSEPayload:
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("form record fow which the pdf need to be generated"),
+        ],
+    ) -> Annotated[BSEPayload, Doc('Data required for BSE UCC/UCI')]:
         """
         This method formulates form record payload into BSEPayload 
         """
@@ -194,8 +200,11 @@ class UCCDataParser(UCCDataParserSpec):
     async def ucc_nse_data_parse(
         self,
         context: ContextModel,
-        form_record: Dict,
-    ) -> NSEPayload:
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("form record data"),
+        ],
+    ) -> Annotated[NSEPayload, Doc('Data required for NSE UCC/UCI')]:
         """
         This method formulates form record payload into NSEPayload 
         """
@@ -215,25 +224,25 @@ class UCCDataParser(UCCDataParserSpec):
         ):
             _aadhaar_uid = kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_number','')
 
-
+        NSE_MEMERCODE = "11502" # todo: this should come from env! same value as username
         nse_data = NSEPayload(
-            ccdMemCd='', # Todo: member code
+            ccdMemCd=NSE_MEMERCODE,
             ccdAcctType=nse_utility.account_type_value(),
             ccdOptForUpi=nse_utility.opted_for_upi_value(),
             ccdCd='ABC123', # Todo: client code, source unknown. Is it to be a Generated code?
-            ccdName=nse_utility.client_name_value(), # Todo: set client name from form record
+            ccdName=nse_utility.client_name_value(),
             ccdCategory=nse_utility.client_category_value(), # Todo: decide client category based on form record data!
             ccdTelNo='', # optional
             ccdAgrDt='', # optional
-            ccdPanNo=kyc_data.get('pan_verification',{}).get('pan_details',{}).get('pan_number',''),
+            ccdPanNo=nse_utility.pan_num_value(),
             
-            ccdBankName='',  # Todo: Field not exist in form. Optional just for INSTITUTIONS.
+            ccdBankName=nse_utility.bank_name_value(),  # Todo: Field not exist in form. Optional just for INSTITUTIONS.
             
-            ccdBankIfsc=form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code',''), # Optional for INSTITUTIONS.
-            ccdBankAcctNo=form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number',''),
+            ccdBankIfsc=nse_utility.bank_ifsc_value(), # Optional for INSTITUTIONS.
+            ccdBankAcctNo=nse_utility.bank_acc_no_value(),
             ccdPriSecBnk=nse_utility.is_primary_or_secondary_bank(), # Todo: form doesn't have more than 1 bank details? Optional for INSTITUTIONS.
             ccdDeposName=nse_utility.depository_name_value(),
-            ccdBenAcctNo='', # Todo: Beneficial A/c Number - Unknown field, unknown source, is Mandatory!
+            ccdBenAcctNo=nse_utility.beneficial_acc_num_value(), # Todo: Beneficial A/c Number - Unknown field, unknown source, is Mandatory!
             ccdDeposId=nse_utility.depository_id_value(),
             ccdPriSecDp=nse_utility.is_primary_or_secondary_dp(),
             ccdRegNo='', # unknown source, mandatory for certain categories 
@@ -241,7 +250,7 @@ class UCCDataParser(UCCDataParserSpec):
             ccdPlcReg='', # unknown source, mandatory for certain categories 
             ccdDtReg='', # unknown source, mandatory for certain categories 
             ccdSegInd=nse_utility.segment_indicator_value(), # Todo: 
-            ccdDob=self._get_nse_formatted_date(date=kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')), # PAN DoB
+            ccdDob=nse_utility.dob_value(),
             ccdAddLine1=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address',''), # correpondence address
             ccdAddLine2='', # optional
             ccdAddLine3='', # optional
@@ -370,21 +379,22 @@ class UCCDataParser(UCCDataParserSpec):
             
             ccdPoaFunds = nse_utility.poa_funds_value(), # Todo: Power of Attorney (POA) for funds - unknown and mandatory
             ccdPoaSecurities = nse_utility.pos_securities_value(),
-            ccdCpName = '' # optional
-            ccdCpPan = '' # optional
-            ccdCpEmail = '' # optional
-            ccdCpStd = '' # optional
-            ccdCpIsd = '' # optional
-            ccdCpTel = '' # optional
-            ccdCpMob = '' # optional
-            ccdCpAdd = '' # optional
-            ccdCpAddState = '' # optional
-            ccdCpAddStateOth = '' # optional
-            ccdCpAddCountry = '' # optional
-            ccdCpAddPin = '' # optional
+            ccdCpName = '', # optional
+            ccdCpPan = '', # optional
+            ccdCpEmail = '', # optional
+            ccdCpStd = '', # optional
+            ccdCpIsd = '', # optional
+            ccdCpTel = '', # optional
+            ccdCpMob = '', # optional
+            ccdCpAdd = '', # optional
+            ccdCpAddState = '', # optional
+            ccdCpAddStateOth = '', # optional
+            ccdCpAddCountry = '', # optional
+            ccdCpAddPin = '', # optional
             ccdNomFlag = '' # optional
         )
 
+        
         return nse_data.model_dump()
 
     # def _get_enum_value_from_key(self,key): 

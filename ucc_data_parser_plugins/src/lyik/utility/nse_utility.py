@@ -22,27 +22,48 @@ class NSEUtility:
         return ''
     
     def account_type_value(self):
-        # Values: OWN ERROR CLIENT
+        # Values: OWN, ERROR, CLIENT
         return 'CLIENT'
     
     def opted_for_upi_value(self):
         # Values: Registered - Y, Not opted - N, Not applicable - NA, Deregistered - D
         return 'N'
     
-    def client_name_value(self, fname:str=None, mname:str=None, lname:str=None):
+    def client_name_value(self):
         # Name of the Client must be in full- first name, middle name, surname.
-        fullname = ''
-        if fname:
-            fullname = fname
-        if mname:
-            fullname = f'{fullname} {mname}'
-        if lname:
-            fullname = f'{fullname} {lname}'
+        # fname = ''
+        # mname = ''
+        # lname = ''
+        # fullname = ''
+        # if fname:
+        #     fullname = fname
+        # if mname:
+        #     fullname = f'{fullname} {mname}'
+        # if lname:
+        #     fullname = f'{fullname} {lname}'
+
+        fullname = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('name_in_pan','')
         return fullname
     
     def client_category_value(self):
         # Values: '1','2'....,'36' for different categories
         return '1'
+    
+    def pan_num_value(self):
+        pan = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('pan_number','')
+        return pan
+    
+    def bank_name_value(self):
+        bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
+        return 'Bank of India' #bank_name
+    
+    def bank_ifsc_value(self):
+        bank_ifsc = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code','')
+        return bank_ifsc
+    
+    def bank_acc_no_value(self):
+        acc_num = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number','')
+        return acc_num
     
     def is_primary_or_secondary_bank(self):
         """
@@ -61,8 +82,14 @@ class NSEUtility:
         return None
 
     def depository_id_value(self):
-        # Values: NSDL, CDSL
-        return ''
+        '''
+        This field will have length of 8 Alphanumeric characters. 
+            a. IN case Depository Name is selected as NSDL - this field will start with “IN” followed by 6 digits number. 
+            b. In case Depository Name is selected as CDSL - No input. 
+
+        '''
+        # But as per NSE docs - Values: NSDL, CDSL, but their sample imput follows bse doc description!
+        return 'IN302164' # todo: source unknown!
     
     def is_primary_or_secondary_dp(self):
         """
@@ -71,15 +98,23 @@ class NSEUtility:
         # Values: P/S.
         return 'P'
     
+    def beneficial_acc_num_value(self):
+        '''
+        # Todo: Beneficial A/c Number - Unknown field, unknown source, is Mandatory!
+        '''
+        return '12344405'
+    
     def segment_indicator_value(self):
-        ## Valid values are:
-            # C- Cash
-            # F- Future and Option
-            # S- Securities Lending and Borrowing
-            # X- Currency Derivatives
-            # D- Debt Market
-            # O- Commodity
-        return ''
+        '''
+        Valid values are:
+            C- Cash
+            F- Future and Option
+            S- Securities Lending and Borrowing
+            X- Currency Derivatives
+            D- Debt Market
+            O- Commodity
+        '''
+        return 'F' # Todo: source unknown
     
     def permanent_address_state_value(self):
         return self._state_value(state_name=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('state',''))

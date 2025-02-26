@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ucc-data-parser-plugin"
+name = "plugin-ucc-data-parser"
 version = "0.1.0"
 description = "A plugin to formulate the form record data into UCC payload."
 readme = "README.md"
@@ -15,4 +15,4 @@ dependencies = []
 [tool.setuptools.package-data]
 
 [project.entry-points."LYIK"]
-_default_ucc_data_parser = "lyik.ucc_data_parser:UCCDataParser"
+_200_UCC_DATA_PARSER = "lyik.ucc_data_parser:UCCDataParser"
