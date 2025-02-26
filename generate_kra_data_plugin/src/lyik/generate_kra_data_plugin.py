@@ -9,6 +9,8 @@ from lyikpluginmanager import (
     Header,
     Footer,
     FATCAAddlDtls,
+    ROOTDataModel,
+    GenericKYCData,
 )
 import json
 import os
@@ -26,7 +28,6 @@ from .model import (
     Declarations,
     KYCHolder,
     KYCDataModel,
-    ROOTDataModel,
 )
 from typing import Dict, Any, List, Annotated
 from typing_extensions import Doc
@@ -55,8 +56,8 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
 
     @impl
     async def translate_to_kra(
-        self, context, kyc_holder: Annotated[dict, Doc("Kyc holder data")]
-    ) -> Annotated[ROOT, Doc("ROOT model will be returned")]:
+        self, context: ContextModel, kyc_holder: Annotated[GenericKYCData, Doc("Kyc holder data")]
+    ) -> Annotated[ROOTDataModel, Doc("ROOT model will be returned")]:
         """
         Translates KYC holder data to the KRA format.
 
@@ -72,12 +73,13 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         now = datetime.now().strftime("%d/%m/%Y")
 
         # Parse the data into the Pydantic model
-        parsed_data = KYCDataModel(**kyc_holder)
+        # parsed_data = KYCDataModel(**kyc_holder)
+        parsed_data: KYCDataModel = KYCDataModel(**kyc_holder.model_dump())
 
-        kyc_holder = parsed_data.kyc_holder
-        pan_details = kyc_holder.pan_verification.pan_details
-        identity_address__verification = kyc_holder.identity_address_verification
-        declarations = kyc_holder.declarations
+        # kyc_holder = parsed_data
+        pan_details = parsed_data.kyc_holder.pan_verification.pan_details
+        identity_address__verification = parsed_data.kyc_holder.identity_address_verification
+        declarations = parsed_data.kyc_holder.declarations
 
         header = Header(
             COMPANY_CODE=POS_CODE,
@@ -320,23 +322,3 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             if normalized_input in country_name or country_name in normalized_input:
                 return code
         return ""
-
-
-import asyncio
-
-
-async def main():
-    gen_kra = GenerateKRADataPlugin()
-    with open(
-        "/Users/rahulc/Lyik/lyik_w2w_plugins/generate_kra_data_plugin/src/lyik/data.json",
-        "r",
-    ) as f:
-        form_record = json.load(f)
-        kyc_holder = form_record["kyc_holders"][0]
-
-    res = await gen_kra.translate_to_kra(context=ContextModel(), kyc_holder=kyc_holder)
-    print(res)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())

@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Dict, Optional
-from lyikpluginmanager import DocumentModel
+from lyikpluginmanager import DBDocumentModel
 
 
 class PanDetails(BaseModel):
@@ -11,7 +11,7 @@ class PanDetails(BaseModel):
 
 
 class PanVerification(BaseModel):
-    pan_card_image: Optional[DocumentModel] = None
+    pan_card_image: Optional[DBDocumentModel] = None
     pan_details: Optional[PanDetails] = None
 
 
@@ -27,7 +27,7 @@ class OtherInfo(BaseModel):
 
 
 class CorrespondenceAddress(BaseModel):
-    correspondence_address_proof: Optional[DocumentModel] = None
+    correspondence_address_proof: Optional[DBDocumentModel] = None
     type_of_address: Optional[str] = None
     correspondence_address: Optional[str] = None
 
