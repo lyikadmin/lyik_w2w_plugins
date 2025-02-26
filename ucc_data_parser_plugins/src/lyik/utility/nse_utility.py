@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class NSEUtility:
 
     def __init__(self, form_record:dict):
@@ -116,6 +118,13 @@ class NSEUtility:
         '''
         return 'F' # Todo: source unknown
     
+    def dob_value(self):
+        '''
+        Gives DoB as in PAN
+        '''
+        pan_dob = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')
+        return self.format_date(date=pan_dob)
+    
     def permanent_address_state_value(self):
         return self._state_value(state_name=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('state',''))
     
@@ -231,6 +240,23 @@ class NSEUtility:
     def pos_securities_value(self):
         # Valid values are Y or N
         return 'N'
+    
+    def format_date(self, date: str) -> str:
+        """
+        returns date in DD-MM-YYYY format
+        """
+        
+
+        if not date:
+            return ""
+        try:
+            # Parse the input string into a datetime object
+            dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+            # Format the datetime object into the desired format
+            return dt.strftime('%d-%m-%Y')
+        except ValueError:
+            # logger.debug(f"Error in formatting date {date}")
+            return ''
         
 
 STATES={
