@@ -3,17 +3,22 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "generate-kra-data-plugin"
+name = "plugin-generate-kra-data"
 version = "0.1.0"
 description = "A plugin to generate the KRA json data from payload"
 readme = "README.md"
 authors = [{ name = "Debasish Sarkar", email = "debasish@lyik.com" }]
 license = { file = "LICENSE.txt" }
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["python-dotenv==1.0.1"]
 
 [tool.setuptools.package-data]
-"lyik" = ["states.json", "corr_address_proof.json", "country.json"]
+"lyik" = [
+    "states.json",
+    "corr_address_proof.json",
+    "country.json",
+    "fatca_country_code.json",
+]
 
 [project.entry-points."LYIK"]
-_default_generate_kra_data_plugin = "lyik.generate_kra_data_plugin:GenerateKRADataPlugin"
+_100_GENERATE_KRA_DATA_PLUGIN = "lyik.generate_kra_data_plugin:GenerateKRADataPlugin"
