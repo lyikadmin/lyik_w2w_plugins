@@ -211,7 +211,7 @@ class NSEUtility:
     def marital_status_value(self):
         # Todo: Form need to include W, D and NA options too!
         # S - Single, M - Married, W - Widow/widower, D - Divorce, NA - Not Applicable
-        marital_status=self.data.get('identity_address_verification',{}).get('other_info',{}).get('marital_status','')
+        marital_status=self.kyc_data.get('identity_address_verification',{}).get('other_info',{}).get('marital_status','')
         if marital_status == 'MARRIED':
             return 'M'
         if marital_status == 'SINGLE':
@@ -247,7 +247,7 @@ class NSEUtility:
         return '0' # for Not Applicabele 
     
     def gross_income_date_value(self):
-        date = self.data.get('declarations',{}).get('income_info',{}).get('date','')
+        date = self.kyc_data.get('declarations',{}).get('income_info',{}).get('date','')
         return self.format_date(date=date)
     
     def networth_value(self):

@@ -387,6 +387,7 @@ class UCCDataParser(UCCDataParserSpec):
             ccdCpTel = '', # optional
             ccdCpMob = '', # optional
             ccdCpAdd = '', # optional
+            ccdCpAddCity='', # optional
             ccdCpAddState = '', # optional
             ccdCpAddStateOth = '', # optional
             ccdCpAddCountry = '', # optional
