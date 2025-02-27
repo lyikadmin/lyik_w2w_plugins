@@ -125,12 +125,43 @@ class NSEUtility:
         pan_dob = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')
         return self.format_date(date=pan_dob)
     
+    def corr_address_value(self):
+        address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','')
+        return address
+    
+    def corr_address_city_value(self):
+        city = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('city','')
+        return city
+    
+    def permanent_address_city_value(self):
+        city = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('city','')
+        return city
+    
     def permanent_address_state_value(self):
         return self._state_value(state_name=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('state',''))
     
     def corr_address_state_value(self):
         return self._state_value(state_name=self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('state',''))
 
+
+    def corr_address_pincode_value(self):
+        # Todo: pincode only when country selected is India
+        pincode = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('pin','')
+        return pincode
+    
+    def permanent_address_pincode_value(self):
+        # Todo: pincode only when country selected is India
+        pincode = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin','')
+        return pincode
+    
+    def mobile_no_value(self):
+        mobile = self.kyc_data.get('mobile_email_verification',{}).get('mobile_verification',{}).get('contact_id','')
+        return mobile
+    
+    def email_value(self):
+        email = self.kyc_data.get('mobile_email_verification',{}).get('email_verification',{}).get('contact_id','')
+        return email
+    
     def _state_value(self, state_name:str):
         """
         returns state number code based state list annexure
@@ -152,15 +183,17 @@ class NSEUtility:
         return f'{country_code}'
     
     def inperson_verification_value(self):
+        # Todo: field not well defined!
         #Valid Values are "Y" / "N" or Null
-        return ''
+        return 'N'
     
     def client_status_value(self):
         # Values: A = Active, I = Inactive, C = CLOSED
-        return 'A' # Todo: fix this
+        return 'A' # Todo: Unknown field source, field not well defined!
     
     def gender_value(self):
-        # M - Male, Max – 2 F - Female, U - Unisex, NA - Not Applicable
+        # Todo: Mandatory for Individuals (APPLICABLE FOR CATEGORY 1, 11, 18, 25, 26, 27, 31 & 36) and should be NULL in case of other categories.
+        # M - Male, F - Female, U - Unisex, NA - Not Applicable
         gender = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('gender_aadhaar','')
         if gender == 'M':
             return 'M'
@@ -170,7 +203,13 @@ class NSEUtility:
             return 'U'
         return 'NA'
     
+    def guardian_name_value(self):
+        # Todo: We're putting Father/Spouse name instead of Guardian Name!
+        g_name = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('parent_guardian_spouse_name','')
+        return g_name
+    
     def marital_status_value(self):
+        # Todo: Form need to include W, D and NA options too!
         # S - Single, M - Married, W - Widow/widower, D - Divorce, NA - Not Applicable
         marital_status=self.data.get('identity_address_verification',{}).get('other_info',{}).get('marital_status','')
         if marital_status == 'MARRIED':
@@ -180,9 +219,9 @@ class NSEUtility:
         return 'NA'
     
     def nationality_value(self):
+        # Todo: Nationality field missing in form
         # 1 - Indian, 2 - Other(please specify)
         # If Indian state is selected, nationality has to be 1.
-
         return '1'
     
     def same_as_permanent_address_value(self):
@@ -206,6 +245,20 @@ class NSEUtility:
         if income == '1CR_TO_5CR':
             return '5'
         return '0' # for Not Applicabele 
+    
+    def gross_income_date_value(self):
+        date = self.data.get('declarations',{}).get('income_info',{}).get('date','')
+        return self.format_date(date=date)
+    
+    def networth_value(self):
+        # Optional field
+        networth = self.kyc_data.get('declarations',{}).get('income_info',{}).get('networth',None)
+        return networth
+    
+    def networth_date_value(self):
+        # mandatory only of networth is specified!
+        date = self.kyc_data.get('declarations',{}).get('income_info',{}).get('date','')
+        return self.format_date(date=date)
     
     def occupation_value(self):
         # Mandatory for category 1, 11, 18, 25, 26, 27 & 31.
@@ -233,11 +286,17 @@ class NSEUtility:
             return '99'
         return ''
     
+    def occupation_details_value(self):
+        # Mandatory if occupation is 'others/99' # Todo: field not available in form
+        return ''
+    
     def poa_funds_value(self):
+         # Todo: Power of Attorney (POA) for funds - unknown and mandatory!
         # Valid values are Y or N
         return 'N'
     
     def pos_securities_value(self):
+         # Todo: Power of Attorney (POA) for Securities - unknown and mandatory
         # Valid values are Y or N
         return 'N'
     
