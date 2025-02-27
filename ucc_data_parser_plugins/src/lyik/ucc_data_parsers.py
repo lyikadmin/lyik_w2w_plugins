@@ -15,8 +15,8 @@ from typing_extensions import Doc, Annotated
 
 # import importlib
 import logging
-from .ucc_data_parser_utility.bse_utility import BSEUtility
-from .ucc_data_parser_utility.nse_utility import NSEUtility
+from .ucc_data_parser_utilities.bse_utility import BSEUtility
+from .ucc_data_parser_utilities.nse_utility import NSEUtility
 logger = logging.getLogger(__name__)
 
 impl = pluggy.HookimplMarker(getProjectName())
