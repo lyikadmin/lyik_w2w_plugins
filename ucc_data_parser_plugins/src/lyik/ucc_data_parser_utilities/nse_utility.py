@@ -48,6 +48,7 @@ class NSEUtility:
         return fullname
     
     def client_category_value(self):
+        # Todo: decide client category based on form record data!
         # Values: '1','2'....,'36' for different categories
         return '1'
     
@@ -56,6 +57,7 @@ class NSEUtility:
         return pan
     
     def bank_name_value(self):
+         # Todo: Field not exist in form. Optional just for INSTITUTIONS.
         bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
         return 'Bank of India' #bank_name
     
