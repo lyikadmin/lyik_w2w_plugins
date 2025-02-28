@@ -38,9 +38,9 @@ class UCCDataParser(UCCDataParserSpec):
         # Note: 
         # 1. for BSE api invokation, optional fields to be filled with None(null in json)
         # 2. Date format: dd/mm/yyyy
-
-        bse_utility = BSEUtility(form_record=form_record)
-        kyc_data = form_record.get('kyc_holders', [])[0] if 0< len(form_record.get('kyc_holders', [])) else {}
+        _form_record = form_record.model_dump()
+        bse_utility = BSEUtility(form_record=_form_record)
+        kyc_data = _form_record.get('kyc_holders', [])[0].get('kyc_holder',{}) if 0< len(_form_record.get('kyc_holders', [])) else {}
         # Todo: All values to be coming from utility functions baased on form record structure and conditions!
         bse_data = BSEPayload(
             TRANSACTIONCODE="N", # N - New, M - Modify
@@ -75,7 +75,7 @@ class UCCDataParser(UCCDataParserSpec):
 
             DEPOSITORYNAME1=bse_utility.depository_name_value(),
             DEMANTID1="", # Todo: is it depository/dp id? unknown # form_record.get('dp_information',{}).get('dp_Account_information',{}).get('dp_id_no','')
-            DEPOSITORYPARTICIPANT1=form_record.get('dp_information',{}).get('dp_Account_information',{}).get('name_of_dp',''),
+            DEPOSITORYPARTICIPANT1=_form_record.get('dp_information',{}).get('dp_Account_information',{}).get('name_of_dp',''),
             DEPOSITORYNAME2=None,
             DEMANTID2=None,
             DEPOSITORYPARTICIPANT2=None,
@@ -84,7 +84,7 @@ class UCCDataParser(UCCDataParserSpec):
             DEPOSITORYPARTICIPANT3=None,
 
             BANKNAME1="", # Todo: Field not exist in form. Optional just for INSTITUTIONS.
-            ACCOUNTNO1=form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number',''),
+            ACCOUNTNO1=_form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number',''),
             BANKNAME2=None,
             ACCOUNTNO2=None,
             BANKNAME3=None,
@@ -161,7 +161,7 @@ class UCCDataParser(UCCDataParserSpec):
             BENEFICIALOWNACNTNO3=None, # optional
             OPTED_FOR_UPI="", # Todo: field not available in form. Mandatory, but could be 'N/A' for some categories!
 
-            BANKBRANCHIFSCCODE1=form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code',''), # Optional for INSTITUTIONS.
+            BANKBRANCHIFSCCODE1=_form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code',''), # Optional for INSTITUTIONS.
             PRIMARYORSECONDARYBANK1=bse_utility.is_primary_or_secondary_bank(), # Todo: form doesn't have more than 1 bank details? Optional for INSTITUTIONS.
             BANKBRANCHIFSCCODE2=None, # optional
             PRIMARYORSECONDARYBANK2=None, # optional
@@ -193,7 +193,7 @@ class UCCDataParser(UCCDataParserSpec):
                 
         )
 
-        return bse_data.model_dump()
+        return bse_data
 
 
     @impl
@@ -211,14 +211,14 @@ class UCCDataParser(UCCDataParserSpec):
         # Note: 
         # 1. for NSE api invokation, optional fields to be filled with ''
         
-        
+        _form_record = form_record.model_dump()
         # Todo: Need to verify the instance, might have missing params
-        nse_utility = NSEUtility(form_record=form_record)
-        kyc_data = form_record.get('kyc_holders', [])[0] if 0< len(form_record.get('kyc_holders', [])) else {}
+        nse_utility = NSEUtility(form_record=_form_record)
+        kyc_data = _form_record.get('kyc_holders', [])[0] if 0< len(_form_record.get('kyc_holders', [])) else {}
         is_permanent_address_same = nse_utility.same_as_permanent_address_value()
         _aadhaar_uid = ''
         if (
-            str(form_record.get('application_details',{}).get('kyc_digilocker','')).lower()!='no'
+            str(_form_record.get('application_details',{}).get('kyc_digilocker','')).lower()!='no'
             or
             str(kyc_data.get('identity_address_verification',{}).get('ovd_ocr_card',{}).get('ovd_type','')).lower() == 'aadhaar'
         ):
@@ -297,7 +297,7 @@ class UCCDataParser(UCCDataParserSpec):
             ccdMaritlStatus=nse_utility.marital_status_value(),
             ccdNationality=nse_utility.nationality_value(), # Todo: Nationality field missing in form
             ccdPermantAddFlg=is_permanent_address_same,
-            ccdPermAddLine1= nse_utility.same_as_permanent_address_value() if is_permanent_address_same != 'Y' else '',
+            ccdPermAddLine1= nse_utility.permanent_address_value() if is_permanent_address_same != 'Y' else '',
             ccdPermAddLine2='', # optional
             ccdPermAddLine3='', # optional
             ccdPermAddCity=nse_utility.permanent_address_city_value() if is_permanent_address_same != 'Y' else '',
@@ -340,10 +340,10 @@ class UCCDataParser(UCCDataParserSpec):
             ccdDeposId5='', # optional
             ccdBenAcctNo5='', # optional
             ccdPriSecDp5='', # optional
-            ccdGrosAnnlRng=nse_utility.gross_income_value(),
+            ccdGrosAnnlRnge=nse_utility.gross_income_value(),
             ccdGrosAnnlAsdate=nse_utility.gross_income_date_value(),
-            ccdNetWorth=nse_utility.networth_value(), # optional
-            ccdNetWorthAsdate=nse_utility.networth_date_value(), # mandatory only of networth is specified!
+            ccdNetWorth= '', #nse_utility.networth_value(), # optional
+            ccdNetWorthAsdate='', #nse_utility.networth_date_value(), # mandatory only of networth is specified!
             ccdPep=nse_utility.polotically_exposed_value(),
             ccdPoi='', # Applicable for category other than 1, 11, 18, 25, 26, 27 & 31
             ccdOccupation=nse_utility.occupation_value(),
@@ -396,7 +396,7 @@ class UCCDataParser(UCCDataParserSpec):
         )
 
         
-        return nse_data.model_dump()
+        return nse_data
 
     # def _get_enum_value_from_key(self,key): 
     #     if not key:

@@ -11,7 +11,7 @@ class NSEUtility:
         '''
         self.form_record = form_record
         # todo: kyc data based on form-identifier!
-        self.kyc_data = form_record.get('kyc_holders', [])[0] if 0< len(form_record.get('kyc_holders', [])) else {}
+        self.kyc_data = form_record.get('kyc_holders', [])[0].get('kyc_holder',{}) if 0< len(form_record.get('kyc_holders', [])) else {}
 
     def polotically_exposed_value(self):
         val = self.kyc_data.get('declarations',{}).get('politically_exposed_person_card',{}).get('politically_exposed_person','')
@@ -29,7 +29,9 @@ class NSEUtility:
     
     def opted_for_upi_value(self):
         # Values: Registered - Y, Not opted - N, Not applicable - NA, Deregistered - D
-        return 'N'
+
+        ## -- on trying, found that: ccdOptForUpi should be NA for other than C(cash) segment
+        return 'NA'
     
     def client_name_value(self):
         # Name of the Client must be in full- first name, middle name, surname.
@@ -45,7 +47,7 @@ class NSEUtility:
         #     fullname = f'{fullname} {lname}'
 
         fullname = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('name_in_pan','')
-        return fullname
+        return fullname or ''
     
     def client_category_value(self):
         # Todo: decide client category based on form record data!
@@ -54,20 +56,20 @@ class NSEUtility:
     
     def pan_num_value(self):
         pan = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('pan_number','')
-        return pan
+        return pan or ''
     
     def bank_name_value(self):
          # Todo: Field not exist in form. Optional just for INSTITUTIONS.
         bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
-        return 'Bank of India' #bank_name
+        return 'Bank of India' or '' #bank_name
     
     def bank_ifsc_value(self):
         bank_ifsc = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code','')
-        return bank_ifsc
+        return bank_ifsc or ''
     
     def bank_acc_no_value(self):
         acc_num = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number','')
-        return acc_num
+        return acc_num or ''
     
     def is_primary_or_secondary_bank(self):
         """
@@ -83,7 +85,7 @@ class NSEUtility:
             return 'NSDL'
         if val.lower() == 'cdsl':
             return 'CDSL'
-        return None
+        return ''
 
     def depository_id_value(self):
         '''
@@ -129,15 +131,19 @@ class NSEUtility:
     
     def corr_address_value(self):
         address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','')
-        return address
+        return address or ''
+    
+    def permanent_address_value(self):
+        address = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','')
+        return address or ''
     
     def corr_address_city_value(self):
         city = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('city','')
-        return city
+        return city or ''
     
     def permanent_address_city_value(self):
         city = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('city','')
-        return city
+        return city or ''
     
     def permanent_address_state_value(self):
         return self._state_value(state_name=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('state',''))
@@ -149,20 +155,20 @@ class NSEUtility:
     def corr_address_pincode_value(self):
         # Todo: pincode only when country selected is India
         pincode = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('pin','')
-        return pincode
+        return pincode or ''
     
     def permanent_address_pincode_value(self):
         # Todo: pincode only when country selected is India
         pincode = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin','')
-        return pincode
+        return pincode or ''
     
     def mobile_no_value(self):
         mobile = self.kyc_data.get('mobile_email_verification',{}).get('mobile_verification',{}).get('contact_id','')
-        return mobile
+        return mobile or ''
     
     def email_value(self):
         email = self.kyc_data.get('mobile_email_verification',{}).get('email_verification',{}).get('contact_id','')
-        return email
+        return email or ''
     
     def _state_value(self, state_name:str):
         """
@@ -208,7 +214,7 @@ class NSEUtility:
     def guardian_name_value(self):
         # Todo: We're putting Father/Spouse name instead of Guardian Name!
         g_name = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('parent_guardian_spouse_name','')
-        return g_name
+        return g_name or ''
     
     def marital_status_value(self):
         # Todo: Form need to include W, D and NA options too!
@@ -255,17 +261,19 @@ class NSEUtility:
     def networth_value(self):
         # Optional field
         networth = self.kyc_data.get('declarations',{}).get('income_info',{}).get('networth',None)
-        return networth
+        return networth or ''
     
     def networth_date_value(self):
         # mandatory only of networth is specified!
+        if not self.networth_value():
+            return ''
         date = self.kyc_data.get('declarations',{}).get('income_info',{}).get('date','')
-        return self.format_date(date=date)
+        return self.format_date(date=date) or ''
     
     def occupation_value(self):
         # Mandatory for category 1, 11, 18, 25, 26, 27 & 31.
         # Valid values are: 1- Public Sector, 2- Private Sector, 3- Government Service, 4- Business, 5- Professional, 6- Agriculturist, 7- Retired, 8- Housewife, 9- Student, 99- Others (please specify)
-        occupation=self.form_record.get('declarations',{}).get('income_info',{}).get('occupation','')
+        occupation=self.kyc_data.get('declarations',{}).get('income_info',{}).get('occupation','')
         if occupation == 'PUBLIC_SECTOR':
             return '1'
         if occupation == 'PRIVATE_SECTOR':
