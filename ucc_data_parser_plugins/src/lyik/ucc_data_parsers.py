@@ -214,7 +214,7 @@ class UCCDataParser(UCCDataParserSpec):
         _form_record = form_record.model_dump()
         # Todo: Need to verify the instance, might have missing params
         nse_utility = NSEUtility(form_record=_form_record)
-        kyc_data = _form_record.get('kyc_holders', [])[0] if 0< len(_form_record.get('kyc_holders', [])) else {}
+        kyc_data = _form_record.get('kyc_holders', [])[0].get('kyc_holder') if 0< len(_form_record.get('kyc_holders', [])) else {}
         is_permanent_address_same = nse_utility.same_as_permanent_address_value()
         _aadhaar_uid = ''
         if (
