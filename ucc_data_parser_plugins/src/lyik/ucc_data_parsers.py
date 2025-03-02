@@ -6,6 +6,7 @@ from lyikpluginmanager import (
     UCCDataParserSpec,
     GenericFormRecordModel,
     NSEPayload,
+    NSEEntry,
     BSEPayload,
 )
 # from enum import Enum
@@ -22,8 +23,30 @@ logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 class UCCDataParser(UCCDataParserSpec):
-    
+
     @impl
+    async def ucc_data_parse(
+        self,
+        context: ContextModel,
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("form record data"),
+        ],
+    ) -> Annotated[NSEPayload | BSEPayload, Doc('Data required for UCC/UCI api')]:
+        """
+        This method formulates form record payload into NSEPayload or BSEPayload based on NSDL or CDSL selection.
+        """
+        _form_record = form_record.model_dump()
+        # Todo: find out the form structure/type based on certain field availability in form-record.
+        depository = _form_record.get('dp_information',{}).get('dp_Account_information',{}).get('depository','')
+        if depository == 'NSDL':
+            return await self.ucc_nse_data_parse(context=context,form_record=form_record)
+        elif depository == 'CDSL':
+            return await self.ucc_bse_data_parse(context=context,form_record=form_record)
+        else:
+            raise Exception('Depository value not found, cannot proceed!')
+    
+        
     async def ucc_bse_data_parse(
         self,
         context: ContextModel,
@@ -196,7 +219,6 @@ class UCCDataParser(UCCDataParserSpec):
         return bse_data
 
 
-    @impl
     async def ucc_nse_data_parse(
         self,
         context: ContextModel,
@@ -210,9 +232,12 @@ class UCCDataParser(UCCDataParserSpec):
         """
         # Note: 
         # 1. for NSE api invokation, optional fields to be filled with ''
+
+        ### TODO:
+        # 1. PREPARE A GENERIC/COMMON NSEEntry() instance.
+        # 2. based on selected segments, take a copy and modify the relevent attributes and add that [nse_entries]
         
         _form_record = form_record.model_dump()
-        # Todo: Need to verify the instance, might have missing params
         nse_utility = NSEUtility(form_record=_form_record)
         kyc_data = _form_record.get('kyc_holders', [])[0].get('kyc_holder') if 0< len(_form_record.get('kyc_holders', [])) else {}
         is_permanent_address_same = nse_utility.same_as_permanent_address_value()
@@ -225,7 +250,7 @@ class UCCDataParser(UCCDataParserSpec):
             _aadhaar_uid = kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_number','')
 
         NSE_MEMERCODE = "11502" # todo: this should come from env! same value as username
-        nse_data = NSEPayload(
+        base_nse_data = NSEEntry(
             ccdMemCd=NSE_MEMERCODE,
             ccdAcctType=nse_utility.account_type_value(),
             ccdOptForUpi=nse_utility.opted_for_upi_value(),
@@ -249,7 +274,7 @@ class UCCDataParser(UCCDataParserSpec):
             ccdRegAuth='', # unknown source, mandatory for certain categories 
             ccdPlcReg='', # unknown source, mandatory for certain categories 
             ccdDtReg='', # unknown source, mandatory for certain categories 
-            ccdSegInd=nse_utility.segment_indicator_value(), # Todo: 
+            ccdSegInd= '', #nse_utility.segment_indicator_value(), # Todo: 
             ccdDob=nse_utility.dob_value(),
             ccdAddLine1=nse_utility.corr_address_value(), # correpondence address -\-\-\-/-/-/-
             ccdAddLine2='', # optional
@@ -395,9 +420,69 @@ class UCCDataParser(UCCDataParserSpec):
             ccdNomFlag = '' # optional
         )
 
-        
-        return nse_data
+        segment_pref_1= nse_utility.segment_indicator_value(segment=_form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_1',''))
+        segment_pref_2= nse_utility.segment_indicator_value(segment=_form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_2',''))
+        segment_pref_3= nse_utility.segment_indicator_value(segment=_form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_3',''))
+        segment_pref_4= nse_utility.segment_indicator_value(segment=_form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_4',''))
+        segment_pref_5= nse_utility.segment_indicator_value(segment=_form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_5',''))
+        segment_pref_6= nse_utility.segment_indicator_value(segment=_form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_6',''))
+        nse_entries = []
 
+        # TODO: update other values too which are depending on segment!
+        if segment_pref_1: # EQUITY
+            equity_nse_entry = base_nse_data.model_copy(
+                update={
+                    'ccdSegInd': segment_pref_1
+                }
+            )
+            nse_entries.append(equity_nse_entry)
+
+        if segment_pref_2: # FNO
+            fno_nse_entry = base_nse_data.model_copy(
+                update={
+                    'ccdSegInd': segment_pref_2
+                }
+            )
+            nse_entries.append(fno_nse_entry)
+
+        if segment_pref_3: # CURRENCY
+            currency_nse_entry = base_nse_data.model_copy(
+                update={
+                    'ccdSegInd': currency_nse_entry
+                }
+            )
+            nse_entries.append(equity_nse_entry)
+
+        if segment_pref_4: # COMMODITY
+            commodity_nse_entry = base_nse_data.model_copy(
+                update={
+                    'ccdSegInd': segment_pref_4
+                }
+            )
+            nse_entries.append(commodity_nse_entry)
+
+        if segment_pref_5: # MUTUAL_FUND
+            mf_nse_entry = base_nse_data.model_copy(
+                update={
+                    'ccdSegInd': segment_pref_5
+                }
+            )
+            nse_entries.append(mf_nse_entry)
+
+        if segment_pref_6: # SLB
+            slb_nse_entry = base_nse_data.model_copy(
+                update={
+                    'ccdSegInd': segment_pref_6
+                }
+            )
+            nse_entries.append(slb_nse_entry)
+
+        return NSEPayload(
+            nse_entries=nse_entries
+        )
+
+    
+    
     # def _get_enum_value_from_key(self,key): 
     #     if not key:
     #         return ""

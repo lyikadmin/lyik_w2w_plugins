@@ -110,7 +110,7 @@ class NSEUtility:
         '''
         return '12344405'
     
-    def segment_indicator_value(self):
+    def segment_indicator_value(self, segment:str|None):
         '''
         Valid values are:
             C- Cash
@@ -120,7 +120,21 @@ class NSEUtility:
             D- Debt Market
             O- Commodity
         '''
-        return 'F' # Todo: source unknown
+        if not segment:
+            return ''
+        if segment.lower() == 'cash':
+            return 'C'
+        if segment.lower() == 'fno':
+            return 'F'
+        if segment.lower() == 'currency':
+            return 'X'
+        if segment.lower() == 'slb':
+            return 'S'
+        if segment.lower() == 'Commodity':
+            return 'O'
+        # if value.lower() == 'debt':
+        #     return 'C'
+        return ''
     
     def dob_value(self):
         '''
