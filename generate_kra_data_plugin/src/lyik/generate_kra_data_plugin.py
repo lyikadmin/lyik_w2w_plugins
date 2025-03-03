@@ -15,20 +15,7 @@ from lyikpluginmanager import (
 import json
 import os
 from importlib import resources
-from .model import (
-    PanDetails,
-    PanVerification,
-    OtherInfo,
-    CorrespondenceAddress,
-    IdentityAddressInfoDigi,
-    IdentityAddressVerification,
-    IncomeInfo,
-    FATCACRSDeclaration,
-    PoliticallyExposedPersonCard,
-    Declarations,
-    KYCHolder,
-    KYCDataModel,
-)
+from .model import KYCDataModel
 from typing import Dict, Any, List, Annotated
 from typing_extensions import Doc
 
@@ -56,7 +43,9 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
 
     @impl
     async def translate_to_kra(
-        self, context: ContextModel, kyc_holder: Annotated[GenericKYCData, Doc("Kyc holder data")]
+        self,
+        context: ContextModel,
+        kyc_holder: Annotated[GenericKYCData, Doc("Kyc holder data")],
     ) -> Annotated[ROOTDataModel, Doc("ROOT model will be returned")]:
         """
         Translates KYC holder data to the KRA format.
@@ -78,7 +67,9 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
 
         # kyc_holder = parsed_data
         pan_details = parsed_data.kyc_holder.pan_verification.pan_details
-        identity_address__verification = parsed_data.kyc_holder.identity_address_verification
+        identity_address__verification = (
+            parsed_data.kyc_holder.identity_address_verification
+        )
         declarations = parsed_data.kyc_holder.declarations
 
         header = Header(
@@ -100,14 +91,14 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             APP_EXMT_ID_PROOF="1",
             APP_IPV_FLAG="Y",
             APP_IPV_DATE=now,
-            APP_GEN=identity_address__verification.identity_address_info_digi.gender_aadhaar,
-            APP_NAME=identity_address__verification.identity_address_info_digi.name_in_aadhaar,
+            APP_GEN=identity_address__verification.identity_address_info.gender,
+            APP_NAME=identity_address__verification.identity_address_info.name,
             APP_F_NAME=identity_address__verification.other_info.father_name,
             APP_REGNO="",
             APP_DOB_INCORP=pan_details.dob_pan,
             APP_COMMENCE_DT="",
             APP_NATIONALITY=self.get_nationality_code(
-                identity_address__verification.identity_address_info_digi.country
+                identity_address__verification.identity_address_info.country
             ),
             APP_OTH_NATIONALITY="",
             APP_COMP_STATUS="",
@@ -117,16 +108,16 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             ),  ##
             APP_RES_STATUS_PROOF=None,
             APP_UID_NO=None,
-            APP_COR_ADD1=identity_address__verification.correspondence_address.correspondence_address,
+            APP_COR_ADD1=identity_address__verification.correspondence_address.full_address,
             APP_COR_ADD2="",
             APP_COR_ADD3="",
-            APP_COR_CITY=identity_address__verification.identity_address_info_digi.city,
-            APP_COR_PINCD=identity_address__verification.identity_address_info_digi.pin,
+            APP_COR_CITY=identity_address__verification.identity_address_info.city,
+            APP_COR_PINCD=identity_address__verification.identity_address_info.pin,
             APP_COR_STATE=self.get_state_code(
-                identity_address__verification.identity_address_info_digi.state
+                identity_address__verification.identity_address_info.state
             ),
             APP_COR_CTRY=self.get_country_code(
-                identity_address__verification.identity_address_info_digi.country
+                identity_address__verification.identity_address_info.country
             ),
             APP_OFF_ISD=None,
             APP_OFF_STD=None,
@@ -149,18 +140,18 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             APP_COR_ADD_REF="",
             APP_COR_ADD_DT="",
             APP_PER_ADD_FLAG=self.get_per_add_flag_code(
-                identity_address__verification.same_as_permanent_address_digi
+                identity_address__verification.same_as_permanent_address
             ),
-            APP_PER_ADD1=identity_address__verification.identity_address_info_digi.permanent_address,
+            APP_PER_ADD1=identity_address__verification.identity_address_info.full_address,
             APP_PER_ADD2="",
             APP_PER_ADD3="",
-            APP_PER_CITY=identity_address__verification.identity_address_info_digi.city,
-            APP_PER_PINCD=identity_address__verification.identity_address_info_digi.pin,
+            APP_PER_CITY=identity_address__verification.identity_address_info.city,
+            APP_PER_PINCD=identity_address__verification.identity_address_info.pin,
             APP_PER_STATE=self.get_state_code(
-                identity_address__verification.identity_address_info_digi.state
+                identity_address__verification.identity_address_info.state
             ),
             APP_PER_CTRY=self.get_country_code(
-                identity_address__verification.identity_address_info_digi.country
+                identity_address__verification.identity_address_info.country
             ),
             APP_PER_ADD_PROOF=self.get_corr_addr_proof_code("AADHAAR"),
             APP_PER_ADD_REF="",
