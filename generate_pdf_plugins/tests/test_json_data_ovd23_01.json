@@ -1,0 +1,403 @@
+{
+    "payment": null,
+    "submitter": {
+      "id": "U005",
+      "phone": "Anonymous",
+      "email": "Anonymous",
+      "time": "2025-01-23T11:27:40.577524+05:30"
+    },
+    "state": "SAVE",
+    "onboarding": {
+      "type_of_client": "IND",
+      "_ver_status": {
+        "status": "success",
+        "message": "Model validation succeeeded.",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null,
+        "isMandatoryFilled": true
+      }
+    },
+    "application_details": {
+      "kyc_digilocker": "NO",
+      "general_application_details": {
+        "application_type": "TRADING",
+        "residential_status": "RI"
+      },
+      "cash_fut_como_card": {
+        "cash_minimum_paisa": 5,
+        "cash_in_percentage": 0.5
+      },
+      "cash_jobbing_card": {
+        "cash_jobbing_minimum_paisa": 6,
+        "cash_jobbing_in_percentage": 0.6
+      },
+      "futures_card": {
+        "futures_minimum_paisa": 7,
+        "futures_in_percentage": 0.7
+      },
+      "options_card": {
+        "options_standard_rate": 100
+      },
+      "currency_futures_card": {
+        "currency_futures_minimum_paisa": 58,
+        "currency_futures_in_percentage": 0.1
+      },
+      "currency_options_card": {
+        "currency_options_rate": 20
+      },
+      "commodity_futures_card": {
+        "commodity_futures_minimum_paisa": 52,
+        "commodity_futures_in_percentage": 0.03
+      },
+      "commodity_options_card": {
+        "commodity_options_rate": 10
+      },
+      "slb_card": {
+        "slb_rate": 22
+      },
+      "flat_per_order_card": {
+        "flat_per_order_rate": null
+      },
+      "online_exe_card": {
+        "online_exe": null
+      },
+      "gst_details_card": {
+        "gst_number": null,
+        "gst_number_1": null
+      },
+      "client_contact_details": {
+        "client_mobile": null
+      },
+      "_ver_status": {
+        "status": "success",
+        "message": "Verified by the system on 2025-01-23 11:14:06.909230",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null,
+        "isMandatoryFilled": true
+      }
+    },
+    "kyc_holders": [
+      {
+        "kyc_holder": {
+          "mobile_email_verification": {
+            "mobile_verification": {
+              "dependency_relationship_mobile": null,
+              "contact_id": null,
+              "verified_contact_id": null
+            },
+            "email_verification": {
+              "dependency_relationship_email": null,
+              "contact_id": null,
+              "verified_contact_id": null
+            }
+          },
+          "pan_verification": {
+            "pan_card_image": null,
+            "pan_details": {
+              "name_in_pan": "Deepak G",
+              "dob_pan": "19/10/1999",
+              "pan_number": "CKWPG0718D",
+              "parent_guardian_spouse_name": "Sohan Lal Gupta"
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null,
+              "isMandatoryFilled": true
+            }
+          },
+          "identity_address_verification": {
+            "ovd_ocr_card": {
+              "ovd_type": "VOTER",
+              "ovd_front": {
+                "doc_id": "6791da54c8c67bc903389ce3",
+                "doc_name": "14_voter_front.jpg",
+                "doc_type": "image/jpeg",
+                "doc_size": 3531294,
+                "doc_content": null
+              },
+              "ovd_back": {
+                "doc_id": "6791da54c8c67bc903389cf3",
+                "doc_name": "24_voter_back.jpg",
+                "doc_type": "image/jpeg",
+                "doc_size": 3574183,
+                "doc_content": null
+              }
+            },
+            "identity_address_info": {
+              "pin": null,
+              "state": null,
+              "city": "East Aralia",
+              "district": "West Tripura",
+              "country": "null",
+              "name_in_aadhaar": "RAHUL CHOUDHURY",
+              "gender_aadhaar": "M",
+              "aadhaar_number": "NOW0173989",
+              "permanent_address": "East Aralia West Tripura Tripura"
+            },
+            "other_info": {
+              "father_name": "Sohan Lal Gupta",
+              "marital_status": "MARRIED",
+              "country_of_birth": "INDIA",
+              "mother_name": "Shivkumari Gupta",
+              "place_of_birth": "New Delhi",
+              "city": "East Aralia",
+              "country": "null",
+              "district": "West Tripura"
+            },
+            "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+            "correspondence_address": {
+              "pin": null,
+              "state": null,
+              "city": null,
+              "district": null,
+              "country": null,
+              "correspondence_address_proof": {
+                "doc_id": "6791da54c8c67bc903389d03",
+                "doc_name": "314_dl_digi.jpg",
+                "doc_type": "image/jpeg",
+                "doc_size": 270132,
+                "doc_content": null
+              },
+              "type_of_address": null,
+              "correspondence_address": "East Aralia West Tripura Tripura"
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null,
+              "isMandatoryFilled": true
+            }
+          },
+          "signature_validation": {
+            "upload_images": {
+              "wet_signature_image": null,
+              "proof_of_signature": null
+            }
+          },
+          "liveness_check": {
+            "photo_capture": {
+              "liveness_photo": null
+            },
+            "video_capture": {
+              "liveness_video": null
+            },
+            "liveness_captcha": null,
+            "liveness_geo_loc": null
+          },
+          "declarations": {
+            "income_info": {
+              "gross_annual_income": null,
+              "networth": null,
+              "occupation": null
+            },
+            "fatca_crs_declaration": {
+              "is_client_tax_resident": null,
+              "place_of_birth": null,
+              "country_of_origin": null,
+              "country_code": null
+            },
+            "fatca_crs_declaration_1": {
+              "country_of_residency_1": null,
+              "tin_no_1": null,
+              "id_type_1": null,
+              "reason_if_no_tin_1": null
+            },
+            "fatca_crs_declaration_2": {
+              "country_of_residency_2": null,
+              "tin_no_2": null,
+              "id_type_2": null,
+              "reason_if_no_tin_2": null
+            },
+            "fatca_crs_declaration_3": {
+              "country_of_residency_3": null,
+              "tin_no_3": null,
+              "id_type_3": null,
+              "reason_if_no_tin_3": null
+            },
+            "politically_exposed_person_card": {
+              "politically_exposed_person": null
+            }
+          }
+        }
+      },
+      {
+        "kyc_holder": {
+          "pan_verification": {
+            "pan_details": {
+              "name_in_pan": "Neha Gupta",
+              "pan_number": "CKWPG0718E",
+              "dob_pan": "11/10/1992",
+              "parent_guardian_spouse_name": "Sohan Lal Gupta"
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null,
+              "isMandatoryFilled": true
+            }
+          }
+        }
+      }
+    ],
+    "bank_verification": {
+      "bank_details": {
+        "bank_account_number": null,
+        "account_holder_name": null,
+        "branch_code": null,
+        "ifsc_code": null
+      },
+      "cancelled_cheque": {
+        "cancelled_cheque_image": null
+      }
+    },
+    "nomination_details": {
+      "general": {
+        "client_nominee_appointment_status": null
+      },
+      "nominees": [
+        {
+          "nominee": {
+            "nominee_data": {
+              "minor_nominee": null,
+              "nominee_type_of_id": null,
+              "name_of_nominee": null,
+              "percentage_of_allocation": null,
+              "nominee_id_proof": null,
+              "id_number": null,
+              "dob_nominee": null,
+              "nominee_address": null
+            },
+            "guardian_data": {
+              "guardian_id_proof": null,
+              "guardian_type_of_id": null,
+              "guardian_name": null,
+              "guardian_address": null,
+              "guardian_signature": null,
+              "guardian_id_number": null,
+              "relationship_with_nominee": null
+            }
+          }
+        }
+      ]
+    },
+    "trading_information": {
+      "check_pan_for_trading_account": {
+        "trading_id": null,
+        "account_holder_name": null
+      },
+      "trading_account_information": {
+        "segment_pref_1": null,
+        "segment_pref_2": null,
+        "segment_pref_3": null,
+        "segment_pref_4": null,
+        "segment_pref_5": null,
+        "segment_pref_6": null,
+        "type_of_document": null,
+        "contract_format_1": null,
+        "contract_format_2": null,
+        "proof_of_income": null,
+        "client_facility_choice": null,
+        "kit_format_1": null,
+        "kit_format_2": null,
+        "holder_trading_experience": null
+      },
+      "employer_details": {
+        "employer_name": null,
+        "mobile_number": null,
+        "employer_address": null
+      },
+      "details_of_dealings": {
+        "broker_name": null,
+        "telephone": null,
+        "client_codes": null,
+        "broker_address": null,
+        "sub_broker_name": null,
+        "website": null,
+        "detail_of_disputes": null
+      },
+      "introducer_details": {
+        "introducer_name": null,
+        "introducer_broker_address": null,
+        "introducer_status": null,
+        "remisire_code": null
+      }
+    },
+    "dp_information": {
+      "dp_Account_information": {
+        "dp_tariff_plan": null,
+        "name_of_dp": null,
+        "depository": null,
+        "dp_id_no": null,
+        "client_id_no": null,
+        "cmr_file": null
+      },
+      "standing_info_from_client": {
+        "receive_credit_auth_status": null,
+        "first_holder_sms_alert": null,
+        "account_statement_requirement": null,
+        "electronic_transaction_holding_statement": null,
+        "dividend_interest_receive_option": null,
+        "auto_pledge_confirmation": null,
+        "did_booklet_issuance": null,
+        "bsda": null,
+        "joint_account_operation_mode": null,
+        "consent_for_communication": null,
+        "share_email_id_with_rta": null,
+        "receive_annual_report": null,
+        "aadhaar_pan_seed_status": null,
+        "trust": null
+      },
+      "trust_information": {
+        "stack_exchange_name": null,
+        "clearing_member_name": null,
+        "clearing_member_id": null
+      },
+      "ucc_mapping_1": {
+        "ucc_code_1": null,
+        "exchange_id_1": null,
+        "segment_id_1": null,
+        "cm_id_1": null,
+        "tm_id_1": null
+      },
+      "ucc_mapping_2": {
+        "ucc_code_2": null,
+        "exchange_id_2": null,
+        "segment_id_2": null,
+        "cm_id_2": null,
+        "tm_id_2": null
+      }
+    },
+    "tnc": {
+      "declaration": {
+        "sms_alert": null,
+        "policy": null,
+        "processing_time": null
+      }
+    },
+    "operations": {
+      "operation_card": {
+        "operation_type": null
+      }
+    },
+    "_owner": [
+      "U005"
+    ],
+    "_time_log": {
+      "created_on": "2025-01-23T05:57:40.577486Z",
+      "last_updated_on": "2025-01-23T05:57:40.577486Z"
+    }
+  }
