@@ -335,7 +335,8 @@ class NSEUtility:
             return ""
         try:
             # Parse the input string into a datetime object
-            dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+            # dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+            dt = datetime.strptime(date, '%d/%m/%Y')
             # Format the datetime object into the desired format
             return dt.strftime('%d-%m-%Y')
         except ValueError:

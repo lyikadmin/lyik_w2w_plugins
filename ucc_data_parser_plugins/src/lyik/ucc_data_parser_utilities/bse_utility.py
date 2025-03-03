@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class BSEUtility:
     def __init__(self, form_record:dict):
         '''
@@ -122,15 +124,7 @@ class BSEUtility:
          # Todo: Field not exist in form. Optional just for INSTITUTIONS.
         bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
         return 'Bank of India'#bank_name
-    
-    def bank_ifsc_value(self):
-        bank_ifsc = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code','')
-        return bank_ifsc or ''
-    
-    def bank_acc_no_value(self):
-        acc_num = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number','')
-        return acc_num or ''
-    
+ 
     def provide_income_networth_details_value(self):
         income=self.kyc_data.get('declarations',{}).get('income_info',{}).get('gross_annual_income','')
         netoworth=self.kyc_data.get('declarations',{}).get('income_info',{}).get('networth','')
@@ -184,7 +178,7 @@ class BSEUtility:
         pan_dob = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')
         return self.format_date(date=pan_dob)
     
-    def cash_value(self, value:str):
+    def cash_value(self):
         # Values: Yes (Y) / No (N)
         return None
     
@@ -194,7 +188,7 @@ class BSEUtility:
         fno = self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_2')
         return 'Y' if fno else 'N'
     
-    def slb_value(self, value:str):
+    def slb_value(self):
         # Values: Yes (Y) / No (N)
         slb = self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_6')
         return 'Y' if slb else 'N'
@@ -262,17 +256,15 @@ class BSEUtility:
         return 'N'
     
 
-    def format_date(self, date: str) -> str:
+    def format_date(self, date: str) -> str | None:
         """
         returns date in DD-MM-YYYY format
         """
-        
-        import datetime
         if not date:
-            return ""
+            return None
         try:
             # Parse the input string into a datetime object
-            dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+            dt = datetime.strptime(date, '%d/%m/%Y')
             # Format the datetime object into the desired format
             return dt.strftime('%d/%m/%Y')
         except ValueError:
