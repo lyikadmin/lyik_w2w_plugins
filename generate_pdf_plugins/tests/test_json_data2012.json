@@ -1,0 +1,692 @@
+{
+    "payment": null,
+    "submitter": {
+        "id": "U006",
+        "phone": "Anonymous",
+        "email": "Anonymous",
+        "time": "2024-12-19T14:14:29.140000"
+    },
+    "state": "SUBMIT",
+    "onboarding": {
+        "display_field": null,
+        "type_of_client": "IND",
+        "df_individual": null,
+        "df_corporate": null,
+        "df_huf": null,
+        "df_partnership": null,
+        "df_trust": null,
+        "df_society": null,
+        "df_banks": null,
+        "df_unincorporp": null,
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "application_details": {
+        "defaults": null,
+        "kyc_digilocker": "YES",
+        "general": {
+            "application_type": "TRADING",
+            "residential_status": "RI"
+        },
+        "display_field": null,
+        "segment_rates": null,
+        "cash_fut_como_card": {
+            "cash_fut_como": null,
+            "cash_minimum_paisa": 5,
+            "cash_in_percentage": 0.5
+        },
+        "cash_jobbing_card": {
+            "display_field_1": null,
+            "cash_jobbing_minimum_paisa": 6,
+            "cash_jobbing_in_percentage": 0.6
+        },
+        "futures_card": {
+            "display_field_2": null,
+            "futures_minimum_paisa": 7,
+            "futures_in_percentage": 0.7
+        },
+        "options_card": {
+            "display_field_3": null,
+            "options_standard_rate": 100
+        },
+        "currency_futures_card": {
+            "display_field_4": null,
+            "currency_futures_minimum_paisa": 58,
+            "currency_futures_in_percentage": 0.1
+        },
+        "currency_options_card": {
+            "display_field_5": null,
+            "currency_options_rate": 20
+        },
+        "commodity_futures_card": {
+            "display_field_6": null,
+            "commodity_futures_minimum_paisa": 52,
+            "commodity_futures_in_percentage": 0.03
+        },
+        "commodity_options_card": {
+            "display_field_7": null,
+            "commodity_options_rate": 10
+        },
+        "slb_card": {
+            "display_field_8": null,
+            "slb_rate": 22
+        },
+        "flat_per_order_card": {
+            "display_field_9": null,
+            "flat_per_order_rate": 200
+        },
+        "online_exe_card": {
+            "online_exe": "YES"
+        },
+        "gst_details_card": {
+            "gst_number": "GST1234"
+        },
+        "_ver_status": {
+            "status": "success",
+            "message": "Verified by the system on 2024-12-19 14:03:48.123477",
+            "id": null,
+            "actor": "system",
+            "isMandatoryFilled": true
+        }
+    },
+    "kyc_holders": [
+        {
+            "kyc_holder": {
+                "mobile_email_verification": {
+                    "mobile_verification": {
+                        "dependency_relationship_mobile": "SELF",
+                        "contact_id": "+918732822385",
+                        "verified_contact_id": null,
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2024-12-19 14:04:33.204418",
+                            "id": "35a265a5709aa3be6bdedb96029cd7a190cc83885f386f324835e698e9df05d0",
+                            "actor": "system"
+                        }
+                    },
+                    "email_verification": {
+                        "dependency_relationship_email": "SPOUSE",
+                        "contact_id": "asarkar1990@gmail.com",
+                        "verified_contact_id": null,
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2024-12-19 14:04:48.838875",
+                            "id": "c5cc57c686f6957e90c2c0a0520cf268104c16c5d56c8943df3a7a0a084bd8ae",
+                            "actor": "system"
+                        }
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "pan_verification": {
+                    "display_field": null,
+                    "pan_card_image": {
+                        "doc_id": "6762962b4302b2349fea9683",
+                        "doc_name": "115_pancard.jpg",
+                        "doc_type": "image/jpeg",
+                        "doc_size": 122771,
+                        "doc_content": null
+                    },
+                    "pan_details": {
+                        "name_in_pan": "Arindam Sarkar",
+                        "dob_pan": "09/06/1990",
+                        "pan_number": "CJEPS9647C",
+                        "parent_guardian_spouse_name": "Hari Mohan Sarkar"
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "identity_address_verification": {
+                    "digi_locker_aadhaar": null,
+                    "identity_address_info": {
+                        "pin":"799130",
+                        "state":"Tripura",
+                        "city":"Amtali",
+                        "district":"West Tripura",
+                        "country":"India",
+                        "name_in_aadhaar": "Arindam Sarkar",
+                        "gender_aadhaar": "M",
+                        "aadhaar_number": "xxxxxxxx3336",
+                        "permanent_address": "S/O Harimohan Sarkar, 181, Baghmara 10 No Card, Amtali, West Tripura, Tripura, 799130"
+                    },
+                    "other_info": {
+                        "father_name": "Harimohan Sarkar",
+                        "marital_status": "Married",
+                        "country_of_birth": "INDIA",
+                        "mother_name": "Sova Sarkar",
+                        "place_of_birth": "Agartala"
+                    },
+                    "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+                    "correspondence_address": {
+                        "pin_1":"560076",
+                        "state_1":"Karnataka",
+                        "city_1":"Bengaluru",
+                        "district_1":"Bengaluru",
+                        "country_1":"India",
+                        "correspondence_address_proof": {
+                            "doc_id": "67642854e4a562f22ff760ac",
+                            "doc_name": "111_pancard.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 122771,
+                            "doc_content": null
+                        },
+                        "type_of_address": "RESIDENTIAL",
+                        "correspondence_address_1": "123 Mahaveer Rythm, Vinayak Nagar, Nyanappana Halli, Hulimavu, Bengaluru 560076"
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "signature_validation": {
+                    "display_field_1": null,
+                    "upload_images": {
+                        "wet_signature_image": {
+                            "doc_id": "67642866e4a562f22ff760b0",
+                            "doc_name": "11_Sketch 2.png",
+                            "doc_type": "image/png",
+                            "doc_size": 12873,
+                            "doc_content": null
+                        },
+                        "proof_of_signature": {
+                            "doc_id": "67642866e4a562f22ff760b3",
+                            "doc_name": "24_pancard.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 122771,
+                            "doc_content": null
+                        },
+                        "_ver_status": {
+                            "status": "failure",
+                            "message": "Signatures did not match. Score: 0.47.",
+                            "id": "1734617185282268644",
+                            "actor": "system"
+                        }
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "liveness_check": {
+                    "photo_capture": {
+                        "liveness_photo": {
+                            "doc_id": "67642978e4a562f22ff760b8",
+                            "doc_name": "captured_photo_1734617194491.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 71884,
+                            "doc_content": null
+                        }
+                    },
+                    "video_capture": {
+                        "liveness_video": {
+                            "doc_id": "67642979e4a562f22ff760bb",
+                            "doc_name": "21_video_1734617205848.webm",
+                            "doc_type": "video/webm",
+                            "doc_size": 1915003,
+                            "doc_content": null
+                        }
+                    },
+                    "liveness_captcha": [
+                        "Ten(10)",
+                        "Fifty(50)",
+                        "Five(5)"
+                    ],
+                    "liveness_geo_loc": {
+                        "lat": "12.9716",
+                        "long": "77.5946"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Failed Captcha matching. Transcription: '[]'. Captcha: '['ten(10)', 'fifty(50)', 'five(5)']'",
+                        "id": null,
+                        "actor": "system",
+                        "isMandatoryFilled": true
+                    }
+                },
+                "declarations": {
+                    "income_info": {
+                        "gross_annual_income": "5_TO_10L",
+                        "networth": "10000000",
+                        "occupation": "SALARIED",
+                        "date": "2024-12-19T00:00:00"
+                    },
+                    "fatca_crs_declaration": {
+                        "is_client_tax_resident": "YES",
+                        "place_of_birth_1":"Delhi",
+                        "country_of_origin":"India",
+                        "country_code":"IN"
+                    },
+                    "display_field_2": null,
+                    "fatca_crs_declaration_1": {
+                        "country_of_residency_1": "India",
+                        "tin_no_1": "TIN1234",
+                        "id_type_1": "TIN",
+                        "reason_if_no_tin_1": ""
+                    },
+                    "fatca_crs_declaration_2": {
+                        "country_of_residency_2": "US",
+                        "tin_no_2": "US123",
+                        "id_type_2": "US",
+                        "reason_if_no_tin_2": "some reason."
+                    },
+                    "fatca_crs_declaration_3": {
+                        "country_of_residency_3": null,
+                        "tin_no_3": null,
+                        "id_type_3": null,
+                        "reason_if_no_tin_3": null
+                    },
+                    "politically_exposed_person_card": {
+                        "politically_exposed_person": "NA"
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                }
+            }
+        },
+        {
+            "kyc_holder": {
+                "mobile_email_verification": {
+                    "mobile_verification": {
+                        "dependency_relationship_mobile": "SELF",
+                        "contact_id": "+918510889066",
+                        "verified_contact_id": null,
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2024-12-19 14:04:33.204418",
+                            "id": "35a265a5709aa3be6bdedb96029cd7a190cc83885f386f324835e698e9df05d0",
+                            "actor": "system"
+                        }
+                    },
+                    "email_verification": {
+                        "dependency_relationship_email": "SELF",
+                        "contact_id": "ananyasingh@gmail.com",
+                        "verified_contact_id": null,
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2024-12-19 14:04:48.838875",
+                            "id": "c5cc57c686f6957e90c2c0a0520cf268104c16c5d56c8943df3a7a0a084bd8ae",
+                            "actor": "system"
+                        }
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "pan_verification": {
+                    "display_field": null,
+                    "pan_card_image": {
+                        "doc_id": "6762962b4302b2349fea9683",
+                        "doc_name": "115_pancard.jpg",
+                        "doc_type": "image/jpeg",
+                        "doc_size": 122771,
+                        "doc_content": null
+                    },
+                    "pan_details": {
+                        "name_in_pan": "Ananya Singh",
+                        "dob_pan": "19/10/1999",
+                        "pan_number": "AKWPG0718D",
+                        "parent_guardian_spouse_name": "Sudheendra S"
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "identity_address_verification": {
+                    "digi_locker_aadhaar": null,
+                    "identity_address_info": {
+                        "pin":"110018",
+                        "state":"Delhi",
+                        "city":"New Delhi",
+                        "district":"West Delhi",
+                        "country":"India",
+                        "name_in_aadhaar": "",
+                        "gender_aadhaar": "F",
+                        "aadhaar_number": "5051",
+                        "permanent_address": "D-10A Mukhram Garden, Tilak Nagar, New Delhi 110018"
+                    },
+                    "other_info": {
+                        "father_name": "Ashok Singh",
+                        "marital_status": "SINGLE",
+                        "country_of_birth": "India",
+                        "mother_name": "Ashwini Singh",
+                        "place_of_birth": "India"
+                    },
+                    "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+                    "correspondence_address": {
+                        "pin_1":"110018",
+                        "state_1":"Delhi",
+                        "city_1":"New Delhi",
+                        "district_1":"West Delhi",
+                        "country_1":"India",
+                        "correspondence_address_proof": {
+                            "doc_id": "67642854e4a562f22ff760ac",
+                            "doc_name": "111_pancard.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 122771,
+                            "doc_content": null
+                        },
+                        "type_of_address": "RESIDENTIAL",
+                        "correspondence_address_1": "D-10A Mukhram Garden, Tilak Nagar, New Delhi 110018"
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "signature_validation": {
+                    "display_field_1": null,
+                    "upload_images": {
+                        "wet_signature_image": {
+                            "doc_id": "67642866e4a562f22ff760b0",
+                            "doc_name": "11_Sketch 2.png",
+                            "doc_type": "image/png",
+                            "doc_size": 12873,
+                            "doc_content": null
+                        },
+                        "proof_of_signature": {
+                            "doc_id": "676297df4302b2349fea968a",
+                            "doc_name": "24_pancard.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 122771,
+                            "doc_content": null
+                        },
+                        "_ver_status": {
+                            "status": "failure",
+                            "message": "Signatures did not match. Score: 0.47.",
+                            "id": "1734617185282268644",
+                            "actor": "system"
+                        }
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                },
+                "liveness_check": {
+                    "photo_capture": {
+                        "liveness_photo": {
+                            "doc_id": "67642978e4a562f22ff760b8",
+                            "doc_name": "captured_photo_1734617194491.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 71884,
+                            "doc_content": null
+                        }
+                    },
+                    "video_capture": {
+                        "liveness_video": {
+                            "doc_id": "67642979e4a562f22ff760bb",
+                            "doc_name": "21_video_1734617205848.webm",
+                            "doc_type": "video/webm",
+                            "doc_size": 1915003,
+                            "doc_content": null
+                        }
+                    },
+                    "liveness_captcha": [
+                        "Ten(10)",
+                        "Fifty(50)",
+                        "Five(5)"
+                    ],
+                    "liveness_geo_loc": {
+                        "lat": "12.9716",
+                        "long": "77.5946"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Failed Captcha matching. Transcription: '[]'. Captcha: '['ten(10)', 'fifty(50)', 'five(5)']'",
+                        "id": null,
+                        "actor": "system",
+                        "isMandatoryFilled": true
+                    }
+                },
+                "declarations": {
+                    "income_info": {
+                        "gross_annual_income": "10_TO_25L",
+                        "networth": "2500000",
+                        "occupation": "BUSINESS",
+                        "date": "2024-12-19T00:00:00"
+                    },
+                    "fatca_crs_declaration": {
+                        "is_client_tax_resident": "YES",
+                        "place_of_birth_1":"Delhi",
+                        "country_of_origin":"India",
+                        "country_code":"IN"
+                    },
+                    "display_field_2": null,
+                    "fatca_crs_declaration_1": {
+                        "country_of_residency_1": "India",
+                        "tin_no_1": "TIN1234",
+                        "id_type_1": "TIN",
+                        "reason_if_no_tin_1": ""
+                    },
+                    "fatca_crs_declaration_2": {
+                        "country_of_residency_2": null,
+                        "tin_no_2": null,
+                        "id_type_2": null,
+                        "reason_if_no_tin_2": null
+                    },
+                    "fatca_crs_declaration_3": {
+                        "country_of_residency_3": null,
+                        "tin_no_3": null,
+                        "id_type_3": null,
+                        "reason_if_no_tin_3": null
+                    },
+                    "politically_exposed_person_card": {
+                        "politically_exposed_person": "RELATED"
+                    },
+                    "_ver_status": {
+                        "isMandatoryFilled": true
+                    }
+                }
+            }
+        }
+    ],
+    "bank_verification": {
+        "bank_details": {
+            "bank_account_number": "12345",
+            "account_holder_name": "ARINDAM SARKAR",
+            "branch_code": "1234",
+            "ifsc_code": "SBIN0010464"
+        },
+        "cancelled_cheque": {
+            "display_field": null,
+            "cancelled_cheque_image": {
+                "doc_id": "67642993e4a562f22ff760c7",
+                "doc_name": "117_pancard.jpg",
+                "doc_type": "image/jpeg",
+                "doc_size": 122771,
+                "doc_content": null
+            }
+        },
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "nomination_details": {
+        "general": {
+            "client_nominee_appointment_status": "YES"
+        },
+        "nominees": [
+            {
+                "nominee": {
+                    "nominee_data": {
+                        "minor_nominee": "NOMINEE_IS_A_MINOR",
+                        "nominee_type_of_id": "PAN",
+                        "name_of_nominee": "Arindam",
+                        "percentage_of_allocation": 100,
+                        "nominee_id_proof": {
+                            "doc_id": "676429bfe4a562f22ff760ce",
+                            "doc_name": "220_pancard.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 122771,
+                            "doc_content": null
+                        },
+                        "id_number": "123",
+                        "dob_nominee": "19/10/2009",
+                        "nominee_address": "Agartala"
+                    },
+                    "guardian_data": {
+                        "guardian_id_proof": {
+                            "doc_id": "676429bee4a562f22ff760cb",
+                            "doc_name": "16_pancard.jpg",
+                            "doc_type": "image/jpeg",
+                            "doc_size": 122771,
+                            "doc_content": null
+                        },
+                        "guardian_type_of_id": "PAN",
+                        "guardian_name": "Arindam",
+                        "guardian_address": "Agartala",
+                        "guardian_signature": null,
+                        "guardian_id_number": "123",
+                        "relationship_with_nominee": "self"
+                    }
+                }
+            },
+            {
+                "nominee":
+                    {
+                        "nominee_data": {
+                            "minor_nominee": "",
+                            "nominee_type_of_id": "Aadhaar",
+                            "name_of_nominee": "Navi Singh",
+                            "percentage_of_allocation": "50",
+                            "nominee_id_proof": null,
+                            "id_number": "3051",
+                            "dob_nominee": "19/10/1999",
+                            "nominee_address": "A-123 DDA Colony, Tilak Nagar New Delhi 110018"
+                        },
+                        "guardian_data": {
+                            "guardian_id_proof": "",
+                            "guardian_type_of_id": "",
+                            "guardian_name": "",
+                            "guardian_address": "",
+                            "guardian_signature": "",
+                            "guardian_id_number": "",
+                            "relationship_with_nominee": ""
+                        }
+                    }
+                
+            }
+        ],
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "trading_information": {
+        "check_pan_for_trading_account": {
+            "trading_id": "1234",
+            "account_holder_name": "ARINDAM SARKAR",
+            "account_creation_date": "2024-12-19T00:00:00"
+        },
+        "trading_account_information": {
+            "display_field": null,
+            "segment_pref_1": "EQUITY",
+            "segment_pref_2": null,
+            "segment_pref_3": "CURRENCY",
+            "segment_pref_4": null,
+            "segment_pref_5": "MUTUAL_FUND",
+            "segment_pref_6": null,
+            "type_of_document": null,
+            "choice_of_contract": "ELECTRONIC",
+            "contract_format_1": null,
+            "contract_format_2": null,
+            "proof_of_income": {
+                "doc_id": "676429d7e4a562f22ff760d2",
+                "doc_name": "113_pancard.jpg",
+                "doc_type": "image/jpeg",
+                "doc_size": 122771,
+                "doc_content": null
+            },
+            "client_facility_choice": "YES",
+            "display_field_1": null,
+            "kit_format_1": "PHYSICAL",
+            "kit_format_2": null,
+            "holder_trading_experience": "NIL",
+            "state": null
+        },
+        "employer_details": {
+            "employer_name": "Lyik",
+            "mobile_number": "+918732822385",
+            "approval_date": "2024-12-19T00:00:00",
+            "employer_address": "Bengaluru"
+        },
+        "details_of_dealings": {
+            "broker_name": "AS Saivaibhav",
+            "telephone": "011 80808080",
+            "client_codes": "CK1234",
+            "broker_address": "#24/1A, Block D, Janakpuri, New Delhi 110018",
+            "sub_broker_name": "KS Saivaibhav",
+            "website": "www.saivaibhavs.com",
+            "detail_of_disputes": "N/A"
+        },
+        "introducer_details": {
+            "introducer_name": "Aarti K",
+            "introducer_broker_address": "#23/1A, Block D, Janakpuri, New Delhi 110018",
+            "introducer_status": "SUB_BROKER_OR_AP",
+            "remisire_code": ""
+        },
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "dp_information": {
+        "dp_Account_information": {
+            "dp_tariff_plan": "DAILY",
+            "name_of_dp": "DP Name",
+            "depository": "NSDL",
+            "dp_id_no": "DP1234",
+            "client_id_no": "CID1234",
+            "cmr_file": null
+        },
+        "standing_info_from_client": {
+            "receive_credit_auth_status": "YES",
+            "first_holder_sms_alert": "ALL_JOINT_HOLDER",
+            "account_statement_requirement": "WEEKLY",
+            "electronic_transaction_holding_statement": "YES",
+            "dividend_interest_receive_option": "YES",
+            "auto_pledge_confirmation": "YES",
+            "did_booklet_issuance": "WITH_AC_OPENING",
+            "bsda": "YES",
+            "joint_account_operation_mode": "JOINTLY",
+            "consent_for_communication": "FIRST_HOLDER",
+            "share_email_id_with_rta": "NO",
+            "receive_annual_report": "Electronic",
+            "aadhaar_pan_seed_status": "YES",
+            "trust": "YES"
+        },
+        "display_field": null,
+        "trust_information": {
+            "stack_exchange_name": "SEN123",
+            "clearing_member_name": "Naveen K",
+            "clearing_member_id": "SEN123"
+        },
+        "display_field_1": null,
+        "ucc_mapping_1": {
+            "ucc_code_1": "UCC1234",
+            "exchange_id_1": "EX1234",
+            "segment_id_1": "SM1234",
+            "cm_id_1": "cm_id_1",
+            "tm_id_1": "tm_id_1"
+        },
+        "ucc_mapping_2": {
+            "ucc_code_2": "UCC6789",
+            "exchange_id_2": "EX6789",
+            "segment_id_2": "SM6789",
+            "cm_id_2": "CM6789",
+            "tm_id_2": "TM6789"
+        },
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "tnc_info_pane": {
+        "display_field": null,
+        "declaration": {
+            "sms_alert": "TRUST_FACILITY_ON_MOBILE",
+            "policy": "RISK_MANAGEMENT_POLICY",
+            "processing_time": "SEBI_TNC"
+        },
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    }
+}
