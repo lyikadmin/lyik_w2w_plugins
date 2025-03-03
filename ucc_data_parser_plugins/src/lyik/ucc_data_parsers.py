@@ -15,8 +15,8 @@ from typing_extensions import Doc, Annotated
 
 # import importlib
 import logging
-from .ucc_data_parser_utility.bse_utility import BSEUtility
-from .ucc_data_parser_utility.nse_utility import NSEUtility
+from .ucc_data_parser_utilities.bse_utility import BSEUtility
+from .ucc_data_parser_utilities.nse_utility import NSEUtility
 logger = logging.getLogger(__name__)
 
 impl = pluggy.HookimplMarker(getProjectName())
@@ -251,17 +251,17 @@ class UCCDataParser(UCCDataParserSpec):
             ccdDtReg='', # unknown source, mandatory for certain categories 
             ccdSegInd=nse_utility.segment_indicator_value(), # Todo: 
             ccdDob=nse_utility.dob_value(),
-            ccdAddLine1=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address',''), # correpondence address
+            ccdAddLine1=nse_utility.corr_address_value(), # correpondence address -\-\-\-/-/-/-
             ccdAddLine2='', # optional
             ccdAddLine3='', # optional
-            ccdAddCity=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('city',''),
-            ccdAddState=nse_utility.corr_address_state_value(),
-            ccdAddCountry=nse_utility.corr_address_country_value(),
-            ccdPinCode=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin',''), # Todo: pincode only when country selected is India
+            ccdAddCity=nse_utility.corr_address_city_value(), # -\-\-\-/-/-/-
+            ccdAddState=nse_utility.corr_address_state_value(), # -\-\-\-/-/-/-
+            ccdAddCountry=nse_utility.corr_address_country_value(), # -\-\-\-/-/-/-
+            ccdPinCode=nse_utility.corr_address_pincode_value(), # Todo: pincode only when country selected is India # -\-\-\-/-/-/-
             ccdTelIsd='', # optional and No telephone field
             ccdTelStd='', # optional and No telephone field
-            ccdMobile=kyc_data.get('mobile_email_verification',{}).get('mobile_verification',{}).get('contact_id',''),
-            ccdEmail=kyc_data.get('mobile_email_verification',{}).get('email_verification',{}).get('contact_id',''),
+            ccdMobile=nse_utility.mobile_no_value(),
+            ccdEmail=nse_utility.email_value(),
             ccdProofType='', # mandatory only for PAN_EXEMPT
             ccdProofNo='', # mandatory only for PAN_EXEMPT
             ccdIssPlcProof='', # mandatory only for PAN_EXEMPT
@@ -286,24 +286,24 @@ class UCCDataParser(UCCDataParserSpec):
             ccdDir3Email='', # optional just for category type Individual(1)
             ccdIpv=nse_utility.inperson_verification_value(), # Todo: field not well defined!
             ccdUccCd='', # Mandatory only for SLB Segment and certain client categories
-            ccdRelationship='', # optional, require in defined alpha relationships only
+            ccdRelationship='', # optional, require in members having alpha relationship only(annexure 4), i.e apart from spouse, dependent parent, dependent child.
             ccdTvFlag='', # optional
             ccdFacilityType='', # optional
             ccdCin='', # CIN is mandatory for client category 4 & 32.
             ccdCltStatus=nse_utility.client_status_value(), # Todo: Unknown field source
             ccdCltStatusReason='', # optional
             ccdGender=nse_utility.gender_value(),
-            ccdGuardianName=kyc_data.get('pan_verification',{}).get('pan_details',{}).get('parent_guardian_spouse_name',''), # Todo: We're putting Father/Spouse name instead of Guardian Name!
+            ccdGuardianName=nse_utility.guardian_name_value(), # Todo: We're putting Father/Spouse name instead of Guardian Name!
             ccdMaritlStatus=nse_utility.marital_status_value(),
             ccdNationality=nse_utility.nationality_value(), # Todo: Nationality field missing in form
             ccdPermantAddFlg=is_permanent_address_same,
-            ccdPermAddLine1=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','') if is_permanent_address_same != 'Y' else '',
+            ccdPermAddLine1= nse_utility.same_as_permanent_address_value() if is_permanent_address_same != 'Y' else '',
             ccdPermAddLine2='', # optional
             ccdPermAddLine3='', # optional
-            ccdPermAddCity=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('city','') if is_permanent_address_same != 'Y' else '',
+            ccdPermAddCity=nse_utility.permanent_address_city_value() if is_permanent_address_same != 'Y' else '',
             ccdPermAddState=nse_utility.permanent_address_state_value() if is_permanent_address_same != 'Y' else '',
             ccdPermAddCountry=nse_utility.permanent_address_country_value() if is_permanent_address_same != 'Y' else '',
-            ccdPermPin=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('pin','') if is_permanent_address_same != 'Y' else '',
+            ccdPermPin= nse_utility.permanent_address_pincode_value() if is_permanent_address_same != 'Y' else '',
             ccdOffcIsd='', # optional
             ccdOffcStd='', # optional
             ccdTelOffice='', # optional
@@ -341,13 +341,13 @@ class UCCDataParser(UCCDataParserSpec):
             ccdBenAcctNo5='', # optional
             ccdPriSecDp5='', # optional
             ccdGrosAnnlRng=nse_utility.gross_income_value(),
-            ccdGrosAnnlAsdate=self._get_nse_formatted_date(date=self.data.get('declarations',{}).get('income_info',{}).get('date','')),
-            ccdNetWorth=kyc_data.get('declarations',{}).get('income_info',{}).get('networth',None),
-            ccdNetWorthAsdate=self._get_nse_formatted_date(date=kyc_data.get('declarations',{}).get('income_info',{}).get('date','')),
+            ccdGrosAnnlAsdate=nse_utility.gross_income_date_value(),
+            ccdNetWorth=nse_utility.networth_value(), # optional
+            ccdNetWorthAsdate=nse_utility.networth_date_value(), # mandatory only of networth is specified!
             ccdPep=nse_utility.polotically_exposed_value(),
             ccdPoi='', # Applicable for category other than 1, 11, 18, 25, 26, 27 & 31
             ccdOccupation=nse_utility.occupation_value(),
-            ccdOccupationDtls='', # Todo: field not available in form
+            ccdOccupationDtls=nse_utility.occupation_details_value(), # Todo: field not available in form
             ccdBusComDt='', # optional
             ccdCpCd='', # CP code is mandatory for categories 6,7,8,9,12,16,22,23 & 24
             ccdClntTyp='', # Mandatory for category other than 1, 11, 18 , 25, 26, 27, 2, 3, 5, 31 & 36
@@ -378,7 +378,7 @@ class UCCDataParser(UCCDataParserSpec):
             ccdAddStateOth = '', # Mandatory if State Code is '99', In case of No State: "NOT APPLICABLE"
             
             ccdPoaFunds = nse_utility.poa_funds_value(), # Todo: Power of Attorney (POA) for funds - unknown and mandatory
-            ccdPoaSecurities = nse_utility.pos_securities_value(),
+            ccdPoaSecurities = nse_utility.pos_securities_value(), # Todo: Power of Attorney (POA) for Securities - unknown and mandatory
             ccdCpName = '', # optional
             ccdCpPan = '', # optional
             ccdCpEmail = '', # optional
@@ -424,21 +424,22 @@ class UCCDataParser(UCCDataParserSpec):
             logger.debug(f"Error in formatting date {date}")
             return None
         
-    def _get_nse_formatted_date(self, date: str) -> str:
-        """
-        returns date in DD-MM-YYYY format
-        """
+    # moved to nse_utility :)
+    # def _get_nse_formatted_date(self, date: str) -> str:
+    #     """
+    #     returns date in DD-MM-YYYY format
+    #     """
 
-        if not date:
-            return ""
-        try:
-            # Parse the input string into a datetime object
-            dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
-            # Format the datetime object into the desired format
-            return dt.strftime('%d-%m-%Y')
-        except ValueError:
-            logger.debug(f"Error in formatting date {date}")
-            return ''
+    #     if not date:
+    #         return ""
+    #     try:
+    #         # Parse the input string into a datetime object
+    #         dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+    #         # Format the datetime object into the desired format
+    #         return dt.strftime('%d-%m-%Y')
+    #     except ValueError:
+    #         logger.debug(f"Error in formatting date {date}")
+    #         return ''
         
 # class FieldMapHelper(Enum):
 #     # PEP 
