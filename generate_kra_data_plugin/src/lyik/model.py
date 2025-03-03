@@ -29,27 +29,27 @@ class OtherInfo(BaseModel):
 class CorrespondenceAddress(BaseModel):
     correspondence_address_proof: Optional[DBDocumentModel] = None
     type_of_address: Optional[str] = None
-    correspondence_address: Optional[str] = None
+    full_address: Optional[str] = None
 
 
-class IdentityAddressInfoDigi(BaseModel):
+class IdentityAddressInfo(BaseModel):
     state: Optional[str] = None
     city: Optional[str] = None
     district: Optional[str] = None
     country: Optional[str] = None
     pin: Optional[str] = None
     aadhaar_xml: Optional[str] = None
-    name_in_aadhaar: Optional[str] = None
-    gender_aadhaar: Optional[str] = None
-    aadhaar_number: Optional[str] = None
-    permanent_address: Optional[str] = None
+    name: Optional[str] = None
+    gender: Optional[str] = None
+    uid: Optional[str] = None
+    full_address: Optional[str] = None
 
 
 class IdentityAddressVerification(BaseModel):
     other_info: Optional[OtherInfo] = None
     correspondence_address: Optional[CorrespondenceAddress] = None
-    identity_address_info_digi: Optional[IdentityAddressInfoDigi] = None
-    same_as_permanent_address_digi: Optional[str] = None
+    identity_address_info: Optional[IdentityAddressInfo] = None
+    same_as_permanent_address: Optional[str] = None
 
 
 class IncomeInfo(BaseModel):

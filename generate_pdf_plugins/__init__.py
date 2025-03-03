@@ -1,0 +1,1 @@
+from .src.lyik.generate_pdf_plugin import GeneratePdf
