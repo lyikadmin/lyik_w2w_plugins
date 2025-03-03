@@ -31,7 +31,8 @@ class NSEUtility:
         # Values: Registered - Y, Not opted - N, Not applicable - NA, Deregistered - D
 
         ## -- on trying, found that: ccdOptForUpi should be NA for other than C(cash) segment
-        return 'NA'
+        is_cash = False #self.segment_indicator_value(segment=self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_n',''))
+        return 'N' if is_cash else 'NA'
     
     def client_name_value(self):
         # Name of the Client must be in full- first name, middle name, surname.
@@ -130,7 +131,7 @@ class NSEUtility:
             return 'X'
         if segment.lower() == 'slb':
             return 'S'
-        if segment.lower() == 'Commodity':
+        if segment.lower() == 'commodity':
             return 'O'
         # if value.lower() == 'debt':
         #     return 'C'
@@ -195,8 +196,8 @@ class NSEUtility:
         return self._country_value(country=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('country',''))
 
     def corr_address_country_value(self):
-        return self._country_value(country=self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('country','')
-)
+        return self._country_value(country=self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('country',''))
+    
     def _country_value(self,country:str):
         """
         returns country number code based country list annexure

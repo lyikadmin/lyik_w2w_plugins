@@ -66,58 +66,58 @@ class UCCDataParser(UCCDataParserSpec):
         kyc_data = _form_record.get('kyc_holders', [])[0].get('kyc_holder',{}) if 0< len(_form_record.get('kyc_holders', [])) else {}
         # Todo: All values to be coming from utility functions baased on form record structure and conditions!
         bse_data = BSEPayload(
-            TRANSACTIONCODE="N", # N - New, M - Modify
-            BATUSER=None,
-            CLIENTTYPE="I", # I - individual, NI - Non-Individual, INS - Institution
-            STATUS="CL", # Client Status: OW/CL/ER if client type is I or NI, else IN
-            CATEGORY="I", # Todo: This should come from form record?, as there are multiple categories for each client type
-            CLIENTCODE="", # Todo: unknown source: form-record or what?
-            PANNO=kyc_data.get('pan_verification',{}).get('pan_details',{}).get('pan_number',''),
+            TRANSACTIONCODE=bse_utility.transaction_code_value(), # N - New, M - Modify
+            BATUSER=None, # optional
+            CLIENTTYPE=bse_utility.client_type_value(), # I - individual, NI - Non-Individual, INS - Institution
+            STATUS=bse_utility.client_status_value(), # Client Status: OW/CL/ER if client type is I or NI, else IN
+            CATEGORY=bse_utility.client_category_value(), # Todo: This should come from form record?, as there are multiple categories for each client type
+            CLIENTCODE="ABC123", # Todo: client code, source unknown. Is it to be a Generated code?
+            PANNO=bse_utility.pan_num_value(),
             POLITICALEXPERSON=bse_utility.politically_exposed_value(),
-            ADDRESS1=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address',''), # Permanent address?
+            ADDRESS1=bse_utility.permanent_address_value(), # Permanent address?
             PERMNEQUALCORP=bse_utility.same_as_permanent_address_value(),
-            ADDRESS2=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address',''), # correpondence address
+            ADDRESS2=bse_utility.corr_address_value(), # correpondence address
             
-            COUNTRY=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('country',''),
-            STATE=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('state',''),
-            CITY=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('city',''),
-            PINCODE=kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin',''),
+            COUNTRY=bse_utility.corr_address_country_value(),
+            STATE=bse_utility.corr_address_state_value(),
+            CITY=bse_utility.corr_address_city_value(),
+            PINCODE=bse_utility.corr_address_pincode_value(),
             
-            TYPEOFSERVICE=bse_utility.type_of_service(),
-            CONTACTDETAILS=bse_utility.contact_details_value(),
+            TYPEOFSERVICE=bse_utility.type_of_service(), # Todo: unknown source
+            CONTACTDETAILS=bse_utility.contact_details_value(), # putting mobile for now!
 
-            EMAIL=kyc_data.get('mobile_email_verification',{}).get('email_verification',{}).get('contact_id',''),
-            MOBILENUMBER=kyc_data.get('mobile_email_verification',{}).get('mobile_verification',{}).get('contact_id',''),
+            EMAIL=bse_utility.email_value(),
+            MOBILENUMBER=bse_utility.mobile_no_value(),
             
             STDCODE=None, # No telephone field -> it's optional
             PHONENO=None, # No telephone field -> it's optional
-            EQ_CPCODE=None,
-            EQCMID=None,
-            FNOCPCODE=None,
-            FNOCMID=None,
+            EQ_CPCODE=None, # optional
+            EQCMID=None, # optional
+            FNOCPCODE=None, # optional
+            FNOCMID=None, # optional
 
             DEPOSITORYNAME1=bse_utility.depository_name_value(),
-            DEMANTID1="", # Todo: is it depository/dp id? unknown # form_record.get('dp_information',{}).get('dp_Account_information',{}).get('dp_id_no','')
-            DEPOSITORYPARTICIPANT1=_form_record.get('dp_information',{}).get('dp_Account_information',{}).get('name_of_dp',''),
-            DEPOSITORYNAME2=None,
-            DEMANTID2=None,
-            DEPOSITORYPARTICIPANT2=None,
-            DEPOSITORYNAME3=None,
-            DEMANTID3=None,
-            DEPOSITORYPARTICIPANT3=None,
+            DEMANTID1=bse_utility.depository_id_value(), # Todo: is it depository/dp id? unknown # form_record.get('dp_information',{}).get('dp_Account_information',{}).get('dp_id_no','')
+            DEPOSITORYPARTICIPANT1=bse_utility.depository_participant_value(),
+            DEPOSITORYNAME2=None, # optional
+            DEMANTID2=None, # optional
+            DEPOSITORYPARTICIPANT2=None, # optional
+            DEPOSITORYNAME3=None, # optional
+            DEMANTID3=None, # optional
+            DEPOSITORYPARTICIPANT3=None, # optional
 
-            BANKNAME1="", # Todo: Field not exist in form. Optional just for INSTITUTIONS.
-            ACCOUNTNO1=_form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number',''),
-            BANKNAME2=None,
-            ACCOUNTNO2=None,
-            BANKNAME3=None,
-            ACCOUNTNO3=None,
-            CLIENTAGGREMENTDATE=None, # Or account opening date
+            BANKNAME1=bse_utility.bank_name_value(), # Todo: Field not exist in form. Optional just for INSTITUTIONS.
+            ACCOUNTNO1=bse_utility.bank_acc_no_value(),
+            BANKNAME2=None, # optional
+            ACCOUNTNO2=None, # optional
+            BANKNAME3=None, # optional
+            ACCOUNTNO3=None, # optional
+            CLIENTAGGREMENTDATE=None, # Or account opening date, # optional
             PROVIDEDETAILS=bse_utility.provide_income_networth_details_value(),
             INCOME=bse_utility.income_value(),
-            INCOMEDATE=self._get_bse_formatted_date(date=self.data.get('declarations',{}).get('income_info',{}).get('date','')),
-            NETWORTH=kyc_data.get('declarations',{}).get('income_info',{}).get('networth',None),
-            NETWORTHDATE=self._get_bse_formatted_date(date=kyc_data.get('declarations',{}).get('income_info',{}).get('date','')),
+            INCOMEDATE=bse_utility.gross_income_date_value(),
+            NETWORTH=bse_utility.networth_value(),
+            NETWORTHDATE=bse_utility.networth_date_value(),
             ISACTIVE=bse_utility.is_active_value(),
             UPDATEREASON=None, # Mandatory if the users modify Client Status/Client Category, else Optional.
             FIRSTNAME="", # Todo: unknown field
@@ -125,7 +125,7 @@ class UCCDataParser(UCCDataParserSpec):
             LASTNAME="", # Todo: unknown field
             AADHARCARDNO=None, # Todo: can be filled from form record data but optional
 
-            DATEOFBIRTH=self._get_bse_formatted_date(date=kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')), # PAN DoB
+            DATEOFBIRTH=bse_utility.dob_value(), # PAN DoB
             CLIENTNAME=None, # optional for client type Individual
             REGISTRATIONNO=None, # Mandatory for FPI
             REGISTERINGAUTHORITY=None, # Mandatory for FPI
@@ -139,7 +139,7 @@ class UCCDataParser(UCCDataParserSpec):
             CONTACTPERSONNAME1=None, # optional for client type Individual
             CONTACTPERSONDESIGNATION1=None, # Mandatory if Client Type is NON-INDIVIDUAL
             CONTACTPERSONADDRESS1=None, # Mandatory if Client Type is NON-INDIVIDUAL
-            CONTACTPERSONEMAIL1=None,
+            CONTACTPERSONEMAIL1=None, # optional
             CONTACTPERSONPAN1=None, # Mandatory if Client Type is NON-INDIVIDUAL
             CONTACTPERSONMOBILE1=None, # Mandatory if Client Type is NON-INDIVIDUAL
             CONTACTPERSONNAME2=None, # Mandatory if Client Type is NON-INDIVIDUAL
@@ -148,7 +148,7 @@ class UCCDataParser(UCCDataParserSpec):
             CONTACTPERSONEMAIL2=None, # Optional
             CONTACTPERSONPAN2=None, # Mandatory if Client Type is NON-INDIVIDUAL
             CONTACTPERSONMOBILE2=None, # Mandatory if Client Type is NON-INDIVIDUAL
-            CASH=bse_utility.cash_value(), # for CASH segment
+            CASH=bse_utility.cash_value(), # for CASH segment, # no option of this option in segments
             EQUITY_DERIVATIVE=bse_utility.equity_derivatives_value(), # for FNO segment
             SLB=bse_utility.slb_value(), # for SLB segment
             CURRENCY=bse_utility.currency_value(), # for CURRENCY segment
@@ -158,14 +158,14 @@ class UCCDataParser(UCCDataParserSpec):
             POAFORSECURITY=bse_utility.poa_for_security_value(),
             DATEOFPOAFORFUND=None, # optional
             DATEOFPOAFORSECURITY=None, # optional
-            PERCITY=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('city',''),
-            PERSTATE=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('state',''), 
-            PERCOUNTRY=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('country',''), # Todo: Is it address country or Select India or USA field value
-            PERPINCODE=kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('pin',''),
+            PERCITY=bse_utility.permanent_address_city_value(),
+            PERSTATE=bse_utility.permanent_address_state_value(), 
+            PERCOUNTRY=bse_utility.permanent_address_country_value(), # Todo: Is it address country or Select India or USA field value
+            PERPINCODE=bse_utility.permanent_address_pincode_value() ,
             CURRENCYCPCODE=None, # optional
             CURRENCYCMID=None, # optional
             ENROLLMENTNUMBER=None, # optional
-            COMMDERIVATIVES=bse_utility.commodity_derivatives_value(), # for Commodity segment
+            COMMDERIVATIVES=bse_utility.commodity_value(), # for Commodity segment
             OPTEDFORNOMINATION=bse_utility.opted_for_nomination_value(), # optional
             CUSTPANNO=None, # Mandatory for client type Institution
             CUSTNAME=None, # Mandatory for client type Institution
@@ -182,9 +182,9 @@ class UCCDataParser(UCCDataParserSpec):
             BENEFICIALOWNACNTNO1="", #Todo: unknown source/formfield, Mandatory for INDIVIDUAL/NON-INDIVIDUALS
             BENEFICIALOWNACNTNO2=None, # optional
             BENEFICIALOWNACNTNO3=None, # optional
-            OPTED_FOR_UPI="", # Todo: field not available in form. Mandatory, but could be 'N/A' for some categories!
+            OPTED_FOR_UPI=bse_utility.opted_for_upi_value(), # Todo: field not available in form. Mandatory, but could be 'N/A' for some categories!
 
-            BANKBRANCHIFSCCODE1=_form_record.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code',''), # Optional for INSTITUTIONS.
+            BANKBRANCHIFSCCODE1=bse_utility.bank_ifsc_value(), # Optional for INSTITUTIONS.
             PRIMARYORSECONDARYBANK1=bse_utility.is_primary_or_secondary_bank(), # Todo: form doesn't have more than 1 bank details? Optional for INSTITUTIONS.
             BANKBRANCHIFSCCODE2=None, # optional
             PRIMARYORSECONDARYBANK2=None, # optional
@@ -332,7 +332,7 @@ class UCCDataParser(UCCDataParserSpec):
             ccdOffcIsd='', # optional
             ccdOffcStd='', # optional
             ccdTelOffice='', # optional
-            ccdUid=_aadhaar_uid, # Todo: if aadhaar not applicable for client, then '999999999999'
+            ccdUid='',#_aadhaar_uid, # Todo: if aadhaar not applicable for client, then '999999999999'
             ccdBankName2='', # optional
             ccdBankIfsc2='',# optional
             ccdBankAcctNo2='', # optional
@@ -448,10 +448,10 @@ class UCCDataParser(UCCDataParserSpec):
         if segment_pref_3: # CURRENCY
             currency_nse_entry = base_nse_data.model_copy(
                 update={
-                    'ccdSegInd': currency_nse_entry
+                    'ccdSegInd': segment_pref_3
                 }
             )
-            nse_entries.append(equity_nse_entry)
+            nse_entries.append(currency_nse_entry)
 
         if segment_pref_4: # COMMODITY
             commodity_nse_entry = base_nse_data.model_copy(
@@ -495,20 +495,20 @@ class UCCDataParser(UCCDataParserSpec):
     #         logger.debug(f"{key} - not matched with any of the options")
     #         return ""
     
-    def _get_bse_formatted_date(self,date:str):
-        """
-        returns date in dd/mm/yyyy format
-        """
-        if not date:
-            return ""
-        try:
-            # Parse the input string into a datetime object 
-            dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S') 
-            # Format the datetime object into the desired format 
-            return dt.strftime('%d/%m/%Y')
-        except ValueError:
-            logger.debug(f"Error in formatting date {date}")
-            return None
+    # def _get_bse_formatted_date(self,date:str):
+    #     """
+    #     returns date in dd/mm/yyyy format
+    #     """
+    #     if not date:
+    #         return ""
+    #     try:
+    #         # Parse the input string into a datetime object 
+    #         dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S') 
+    #         # Format the datetime object into the desired format 
+    #         return dt.strftime('%d/%m/%Y')
+    #     except ValueError:
+    #         logger.debug(f"Error in formatting date {date}")
+    #         return None
         
     # moved to nse_utility :)
     # def _get_nse_formatted_date(self, date: str) -> str:
