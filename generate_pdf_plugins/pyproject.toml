@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-generate-pdf"
+version = "0.1.0"
+description = "PDF plugin for handling pdf related functionalities i.e generating pdf, storing, deleting, etc."
+readme = "README.md"
+authors = [
+    { name = "Deepak G", email = "dgupta@lyik.com" }
+]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = [
+    "reportlab==4.2.5", 
+    "geopy==2.4.1",
+    "cryptography==40.0.2",
+    "pycryptodome==3.19.0",
+    "jsonpath-ng==1.6.1",
+    "pypdf==5.1.0",
+    "python-dateutil==2.9.0.post0"
+]
+
+[tool.setuptools.package-data]
+"lyik.components" = ["lato_bold.ttf", "lato_regular.ttf","logo.png"]
+"lyik.components.way_2_wealth.aof" = ["desired_form_json.json"]
+"lyik.components.way_2_wealth.aof.images" = ["aof_05.jpg","aof_14.jpg"]
+"lyik.images" = ["sample_photo.png"]
+
+
+[project.entry-points."LYIK"]
+_200_PDF = "lyik.generate_pdf_plugin:GeneratePdf"

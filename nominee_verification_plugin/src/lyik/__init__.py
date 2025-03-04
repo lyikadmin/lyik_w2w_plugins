@@ -1,0 +1,1 @@
+from .nominee_verification_plugin import NomineeAllocationVerification
