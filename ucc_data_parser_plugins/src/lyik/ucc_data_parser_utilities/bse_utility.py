@@ -124,6 +124,10 @@ class BSEUtility:
          # Todo: Field not exist in form. Optional just for INSTITUTIONS.
         bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
         return 'Bank of India'#bank_name
+    
+    def last_name_value(self):
+        name = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')
+        return name
  
     def provide_income_networth_details_value(self):
         income=self.kyc_data.get('declarations',{}).get('income_info',{}).get('gross_annual_income','')

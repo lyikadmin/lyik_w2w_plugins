@@ -120,9 +120,9 @@ class UCCDataParser(UCCDataParserSpec):
             NETWORTHDATE=bse_utility.networth_date_value(),
             ISACTIVE=bse_utility.is_active_value(),
             UPDATEREASON=None, # Mandatory if the users modify Client Status/Client Category, else Optional.
-            FIRSTNAME="", # Todo: unknown field
+            FIRSTNAME=None, # Todo: unknown field
             MIDDLENAME=None, # Todo: unknown field
-            LASTNAME="", # Todo: unknown field
+            LASTNAME=bse_utility.last_name_value(), # filling fullname as name fields are distributed!
             AADHARCARDNO=None, # Todo: can be filled from form record data but optional
 
             DATEOFBIRTH=bse_utility.dob_value(), # PAN DoB
@@ -274,15 +274,15 @@ class UCCDataParser(UCCDataParserSpec):
             ccdRegAuth='', # unknown source, mandatory for certain categories 
             ccdPlcReg='', # unknown source, mandatory for certain categories 
             ccdDtReg='', # unknown source, mandatory for certain categories 
-            ccdSegInd= '', #nse_utility.segment_indicator_value(), # Todo: 
+            ccdSegInd= '', #nse_utility.segment_indicator_value(),
             ccdDob=nse_utility.dob_value(),
-            ccdAddLine1=nse_utility.corr_address_value(), # correpondence address -\-\-\-/-/-/-
+            ccdAddLine1=nse_utility.corr_address_value(), # correpondence address
             ccdAddLine2='', # optional
             ccdAddLine3='', # optional
-            ccdAddCity=nse_utility.corr_address_city_value(), # -\-\-\-/-/-/-
-            ccdAddState=nse_utility.corr_address_state_value(), # -\-\-\-/-/-/-
-            ccdAddCountry=nse_utility.corr_address_country_value(), # -\-\-\-/-/-/-
-            ccdPinCode=nse_utility.corr_address_pincode_value(), # Todo: pincode only when country selected is India # -\-\-\-/-/-/-
+            ccdAddCity=nse_utility.corr_address_city_value(), 
+            ccdAddState=nse_utility.corr_address_state_value(),
+            ccdAddCountry=nse_utility.corr_address_country_value(), 
+            ccdPinCode=nse_utility.corr_address_pincode_value(), # Todo: pincode only when country selected is India
             ccdTelIsd='', # optional and No telephone field
             ccdTelStd='', # optional and No telephone field
             ccdMobile=nse_utility.mobile_no_value(),
@@ -470,6 +470,7 @@ class UCCDataParser(UCCDataParserSpec):
             nse_entries.append(mf_nse_entry)
 
         if segment_pref_6: # SLB
+            # Todo: ccdUccCd: it's mandatory for SLB segment
             slb_nse_entry = base_nse_data.model_copy(
                 update={
                     'ccdSegInd': segment_pref_6

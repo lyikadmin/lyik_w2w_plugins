@@ -208,7 +208,7 @@ class NSEUtility:
     def inperson_verification_value(self):
         # Todo: field not well defined!
         #Valid Values are "Y" / "N" or Null
-        return 'N'
+        return 'Y'
     
     def client_status_value(self):
         # Values: A = Active, I = Inactive, C = CLOSED
