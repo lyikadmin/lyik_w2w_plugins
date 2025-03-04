@@ -1,1 +1,1 @@
-from .nominee_verification_plugin import NomineeAllocationVerification
+from .plugin_pan_verification import PanVerification
