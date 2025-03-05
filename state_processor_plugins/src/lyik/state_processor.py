@@ -7,6 +7,8 @@ from lyikpluginmanager.models import (
     GenericFormRecordModel,
     OperationResponseModel,
     OperationStatus,
+    UCCResponseModel,
+    UCCResponseStatus,
 )
 
 import jwt
@@ -223,21 +225,12 @@ async def handle_trading_account_creation(record: dict) -> str:
 async def handle_ucc(record: dict, context: ContextModel) -> str:
     try:
         # Logic for creation of UCC
-        UCC_PLUGIN_NAME = "UPLOAD_UCC"
-
-        record_id = record.get("_id")
         generic_model_record = GenericFormRecordModel.model_validate(record)
-        response: OperationResponseModel = await invoke.process_operation(
+        response:UCCResponseModel = await invoke.upload_ucc(
             config=context.config,
-            operation_plugin=UCC_PLUGIN_NAME,
-            org_id=context.org_id,
-            form_id=context.form_id,
-            form_name=context.form_name,
-            record_id=record_id,
-            status=STATE_ACCOUNTS_CREATED,
             form_record=generic_model_record,
         )
-        if response.status == OperationStatus.SUCCESS:
+        if response.status == UCCResponseStatus.SUCCESS:
             return STATE_EXCHANGE_UPLOAD
         else:
             return STATE_DISCREPANCY
