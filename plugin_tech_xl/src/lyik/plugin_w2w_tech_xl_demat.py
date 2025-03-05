@@ -5,10 +5,10 @@ import requests
 from typing_extensions import Annotated, Doc
 
 import apluggy as pluggy
-import pymssql
+
 from lyikpluginmanager import (
     ContextModel,
-    getProjectName, PanVerificationSpec, PanVerificationResponseModel, GenericFormRecordModel,
+    getProjectName, GenericFormRecordModel, TeachXLSpec
 )
 
 impl = pluggy.HookimplMarker(getProjectName())
@@ -16,14 +16,14 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-class TechXLPlugin():
+class TechXLPlugin(TeachXLSpec):
     @impl
     async def create_demat(
             self,
             context: ContextModel,
             form_record: Annotated[
                 GenericFormRecordModel,
-                Doc("form record fow which the pdf need to be generated"),
+                Doc("form record to be submitted to TechXL"),
             ],
     ) -> Annotated[str, Doc('response text')]:
         # todo: 1. parse form record to create TechXL object
