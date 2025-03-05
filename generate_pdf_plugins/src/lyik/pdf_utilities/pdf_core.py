@@ -83,7 +83,7 @@ class PdfCore:
                 locked = False if not existing_pdfs else self._check_locked(docs=existing_pdfs)
 
                 if locked:
-                    pdf_query_data = DocQueryGenericModel(org_id=context.org_id,form_id=context.form_id,record_id=record_id, content_type='pdf') # content_type to avoid having other files getting downloaded when fetched!
+                    pdf_query_data = DocQueryGenericModel(org_id=context.org_id,form_id=context.form_id,record_id=record_id, doc_type='pdf') # doc_type to avoid having other files getting downloaded when fetched!
                     obfus_str = self.obfuscate_string(data_str=f'{pdf_query_data.model_dump_json()}',static_key=config.PDF_GARBLE_KEY)
 
                     pdf_link = config.PDF_API_ENDPOINT + f"{obfus_str}.zip"
@@ -118,7 +118,7 @@ class PdfCore:
                 # DELETE THE EXISITING DOCS IF ANY BEFORE ADING NEW. TRY TO FIND IT, IF FOUND, DELETE IT!
                 # Todo: -- cleanup the existing record(s) along with pdfs, for same form record.
                 # await self._clean_up_old_records(db_conn_url=config.DB_CONN_URL,org_id=context.org_id,form_id=context.form_id,record_id=record_id)
-                pdf_query_data = DocQueryGenericModel(org_id=context.org_id,form_id=context.form_id,record_id=record_id, content_type='pdf') # content_type to avoid having other files getting downloaded when fetched!
+                pdf_query_data = DocQueryGenericModel(org_id=context.org_id,form_id=context.form_id,record_id=record_id, doc_type='pdf') # doc_type to avoid having other files getting downloaded when fetched!
                 doc = await self._upsert_pdf_file(context=context,filename=final_name,file_bytes=file_bytes, meta_data=pdf_meta,update_query_params=pdf_query_data)
 
                 logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
