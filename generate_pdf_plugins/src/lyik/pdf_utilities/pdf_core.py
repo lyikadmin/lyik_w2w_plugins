@@ -100,8 +100,6 @@ class PdfCore:
                 
                 file_bytes = file_io_bytes.getvalue()
 
-                # doc = await self._upsert_pdf_file(context=context,filename=final_name,file_bytes=file_bytes, meta_data:)
-
                 sign_locations: List[EsignMeta]= self._retrieve_esign_meta(form_record=form_record.model_dump(),template_name=temp_name,form_name='Onboarding') # Todo: replace 'Onboarding' with form name
                 
                 # Add `esign` only if sign_locations is not None
@@ -116,8 +114,6 @@ class PdfCore:
                     pdf_meta.esign = Esign(esign_meta=sign_locations)
 
                 # DELETE THE EXISITING DOCS IF ANY BEFORE ADING NEW. TRY TO FIND IT, IF FOUND, DELETE IT!
-                # Todo: -- cleanup the existing record(s) along with pdfs, for same form record.
-                # await self._clean_up_old_records(db_conn_url=config.DB_CONN_URL,org_id=context.org_id,form_id=context.form_id,record_id=record_id)
                 pdf_query_data = DocQueryGenericModel(org_id=context.org_id,form_id=context.form_id,record_id=record_id, doc_type='pdf') # doc_type to avoid having other files getting downloaded when fetched!
                 doc = await self._upsert_pdf_file(context=context,filename=final_name,file_bytes=file_bytes, meta_data=pdf_meta,update_query_params=pdf_query_data)
 
