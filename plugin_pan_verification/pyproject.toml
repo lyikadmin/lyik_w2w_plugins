@@ -10,7 +10,7 @@ readme = "README.md"
 authors = [{ name = "Arindam Sarkar", email = "arindam@lyik.com" }]
 license = { file = "LICENSE.txt" }
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["pymssql==2.3.2"]
 
 [project.entry-points."LYIK"]
-_100_PLUGIN_PAN_VERIFICATION = "lyik.plugin_pan_verification:PanVerification"
+_100_PLUGIN_PAN_VERIFICATION = "lyik.plugin_w2w_pan_verification:PanVerification"
