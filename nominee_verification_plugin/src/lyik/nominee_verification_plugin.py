@@ -28,17 +28,16 @@ class NomineePayloadModel(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
-
 class NomineeAllocationVerification(VerifyHandlerSpec):
 
     @impl
     async def verify_handler(
-        self,
-        context: ContextModel,
-        payload: Annotated[
-            NomineePayloadModel,
-            Doc("data related to nominees and their percentage of allocations"),
-        ],
+            self,
+            context: ContextModel,
+            payload: Annotated[
+                NomineePayloadModel,
+                Doc("data related to nominees and their percentage of allocations"),
+            ],
     ) -> Annotated[VerifyHandlerResponseModel, Doc("success or failure status.")]:
         """
         Given the nomination details, it verifies the sum of percentage of allocation for the nominees, whoch has to be 100%.
@@ -46,8 +45,8 @@ class NomineeAllocationVerification(VerifyHandlerSpec):
         try:
             # Check if nomination is selected
             if (
-                payload.general.get("client_nominee_appointment_status", "").lower()
-                == "no"
+                    payload.general.get("client_nominee_appointment_status", "").lower()
+                    == "no"
             ):
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.SUCCESS,
