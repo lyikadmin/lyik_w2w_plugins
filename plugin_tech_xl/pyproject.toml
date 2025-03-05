@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-pan-verification"
+version = "0.1.0"
+description = "A plugin to submit request to cretae tech xl demat "
+readme = "README.md"
+authors = [{ name = "Arindam Sarkar", email = "arindam@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.entry-points."LYIK"]
+_100_PLUGIN_TECH_XL = "lyik.plugin_w2w_tech_xl_demat:TechXLPlugin"
