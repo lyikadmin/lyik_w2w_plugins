@@ -7,7 +7,9 @@ import apluggy as pluggy
 import pymssql
 from lyikpluginmanager import (
     ContextModel,
-    getProjectName, PanVerificationSpec, PanVerificationResponseModel,
+    getProjectName,
+    PanVerificationSpec,
+    PanVerificationResponseModel,
 )
 
 impl = pluggy.HookimplMarker(getProjectName())
@@ -17,10 +19,14 @@ logging.basicConfig(level=logging.INFO)
 
 class PanVerification(PanVerificationSpec):
     @impl
-    async def verify_pan(self,
-                         context: ContextModel,
-                         payload: Annotated[str, Doc("PAN number to be verified")]) -> Annotated[
-        PanVerificationResponseModel, Doc("success or failure status and PAN holder's name")]:
+    async def verify_pan(
+        self,
+        context: ContextModel,
+        pan: Annotated[str, Doc("PAN number to be verified")],
+    ) -> Annotated[
+        PanVerificationResponseModel,
+        Doc("success or failure status and PAN holder's name"),
+    ]:
 
         # 1. todo: read from env
 
@@ -34,7 +40,7 @@ class PanVerification(PanVerificationSpec):
             raise ValueError("Server configuration not set")
 
         # 2. execute sql query
-        pan_number = payload
+        pan_number = pan
         query = "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s"
 
         try:
@@ -44,7 +50,7 @@ class PanVerification(PanVerificationSpec):
                 port=port,
                 user=username,
                 password=password,
-                database=database
+                database=database,
             )
 
             cursor = conn.cursor(as_dict=True)  # Get results as dictionaries
@@ -69,7 +75,7 @@ class PanVerification(PanVerificationSpec):
                 status=True,
                 name=row.get("NAME", ""),
                 trading_account=row.get("TRADING_ACCOUNT", ""),
-                customer_id=row.get("CUSTOMER_ID", "")
+                customer_id=row.get("CUSTOMER_ID", ""),
             )
 
         except Exception as e:
