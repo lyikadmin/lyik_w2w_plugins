@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-nsdl-demat-translator"
+version = "0.1.0"
+description = "Demat account payload translator pluin for NSDL"
+readme = "README.md"
+authors = [{ name = "Rahul Choudhury", email = "rahulc@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+
+dependencies = ["requests==2.32.3", "pydantic[email]==2.10.3"]
+
+[project.entry-points."LYIK"]
+_100_NSDL_DEMAT_TRANSLATOR_PLUGIN = "lyik.nsdl_demat_translator:NSDLDemat"
