@@ -1,0 +1,10 @@
+{
+    "Service": 1,
+    "Student": 2,
+    "Housewife": 3,
+    "Landlord": 4,
+    "Business": 5,
+    "Professional": 6,
+    "Agriculture": 7,
+    "Others": 8
+}

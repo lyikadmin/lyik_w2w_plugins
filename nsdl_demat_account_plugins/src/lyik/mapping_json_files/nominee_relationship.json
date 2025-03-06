@@ -1,0 +1,18 @@
+{
+    "00": "Spouse",
+    "01": "Son",
+    "02": "Daughter",
+    "03": "Father",
+    "04": "Mother",
+    "05": "Brother",
+    "06": "Sister",
+    "07": "Grand Son",
+    "08": "Grand Daughter",
+    "09": "Grand Father",
+    "10": "Grand Mother",
+    "11": "Son’s Wife",
+    "12": "Daughter’s Husband",
+    "13": "Father-in-Law",
+    "14": "Mother-in-Law",
+    "15": "Others"
+}
