@@ -10,7 +10,7 @@ readme = "README.md"
 authors = [{ name = "Akhil Babu", email = "akhilbabuc@lyik.com" }]
 license = { file = "LICENSE.txt" }
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["requests==2.32.3"]
 
 [project.entry-points."LYIK"]
-_200_VERIFIER_BANK_ACCOUNT = "lyik.bank_account:BankAccount"
+_90_VERIFIER_BANK_ACCOUNT = "lyik.bank_account:BankAccount"
