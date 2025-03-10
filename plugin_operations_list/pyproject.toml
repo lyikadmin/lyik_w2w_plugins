@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-operations-list"
+version = "0.1.0"
+description = "A plugin to return the list of plugins based on user"
+readme = "README.md"
+authors = [{ name = "Debasish Sarkar", email = "debasish@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = ["PyJWT==2.6.0"]
+
+[project.entry-points."LYIK"]
+_1100_OPERATIONS = "lyik.plugin_operations_list:OperationsListPlugin"
