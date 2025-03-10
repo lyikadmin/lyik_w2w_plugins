@@ -1,66 +1,4 @@
-import apluggy as pluggy
-import requests
-from datetime import datetime
-from lyikpluginmanager import (
-    getProjectName,
-    NSDLRootModel,
-    NSDLDematSpec,
-    GenericFormRecordModel,
-)
-from typing import Annotated
-from typing_extensions import Doc
-
-impl = pluggy.HookimplMarker(getProjectName())
-
-
-class NSDLDemat(NSDLDematSpec):
-    """"""
-
-    @impl
-    async def translate_to_nsdl_demat(
-        self,
-        context,
-        from_record: Annotated[GenericFormRecordModel, Doc("Form Record")],
-    ) -> Annotated[NSDLRootModel, Doc("The Desired output for NSDL Demat")]:
-        """
-        This function is to translate form record into NSDL demat request model
-        """
-        nsdl_model = NSDLRootModel()
-        return nsdl_model
-
-    def get_request_time(self):
-        return datetime.now().strftime("%Y-%m-%dT%H:%M:%S%z")
-
-    # async def call_api(
-    #     self,
-    #     transaction_type: str,
-    #     request_ref: str,
-    #     requestor_id: str,
-    #     requestor: str,
-    #     digital_signature: str,
-    #     request_data: NSDLRootModel,
-    # ):
-    #     try:
-    #         url = f"https://eservices-test.nsdl.com/client-service/v5/instaDemat/{requestor_id}/order"
-    #         headers = {
-    #             "Content-Type": "application/json",
-    #             "Transaction-Type": transaction_type,
-    #             "Requestor": requestor,
-    #             "Request-Reference": request_ref,
-    #             "Request-Time": self.get_request_time(),
-    #             "Success-Url": "http://nsdl.uat.com/exampleSuccess",
-    #             "Fail-Url": "http://nsdl.uat.com/exampleFail",
-    #             "Digital-Signature": digital_signature,
-    #         }
-    #         response = requests.post(
-    #             url, json=request_data.model_dump(), headers=headers
-    #         )
-    #         return response.json()
-    #     except Exception as e:
-    #         print(e)
-
-
-sample_request_data = {
+{
     "instr": {
         "beneficiaryDetails": {
             "primaryBeneficiary": {
@@ -72,7 +10,7 @@ sample_request_data = {
                 "dob": "19970804",
                 "gender": "2",
                 "aadhar": "",
-                "mobile": "*************",
+                "mobile": "8787885330",
                 "email": "abc@abc.com",
                 "ddpiid": "123456",
                 "eStatement": "E",
@@ -91,7 +29,7 @@ sample_request_data = {
                     "zipcode": "400071",
                     "city": "Mumbai",
                     "statecode": "17",
-                    "countrycode": "356",
+                    "countrycode": "356"
                 },
                 "beneficiaryPermAddress": {
                     "addressType": "4",
@@ -102,9 +40,9 @@ sample_request_data = {
                     "zipcode": "400013",
                     "city": "Mumbai",
                     "statecode": "17",
-                    "countrycode": "356",
+                    "countrycode": "356"
                 },
-                "signature": "base64_encoded_signature_string",
+                "signature": "base64_encoded_signature_string"
             },
             "numOfJointHolders": "2",
             "listOfJointHolders": [
@@ -116,7 +54,7 @@ sample_request_data = {
                     "dob": "19970804",
                     "mobileNo": "9999999999",
                     "emailId": "abc@abc.com",
-                    "smsfacility": "Y",
+                    "smsfacility": "Y"
                 },
                 {
                     "seq": "3",
@@ -126,8 +64,8 @@ sample_request_data = {
                     "dob": "19970804",
                     "mobileNo": "9999999999",
                     "emailId": "abc@abc.com",
-                    "smsfacility": "Y",
-                },
+                    "smsfacility": "Y"
+                }
             ],
             "additionalBeneDetails": {
                 "familyMobileFlag": "N",
@@ -135,7 +73,7 @@ sample_request_data = {
                 "nominationOption": "Y",
                 "occupation": "2",
                 "fatherOrHusbandName": "Kariya",
-                "dpId": "IN123456",
+                "dpId": "IN303077",
                 "clientId": "80957190",
                 "sharePercentEqually": "N",
                 "numOfNominees": "2",
@@ -153,7 +91,7 @@ sample_request_data = {
                             "zipcode": "",
                             "city": "",
                             "statecode": "",
-                            "countrycode": "",
+                            "countrycode": ""
                         },
                         "nomineeMobileNum": "",
                         "nomineeEmailId": "test@test.com",
@@ -162,7 +100,7 @@ sample_request_data = {
                             "pan": "QWERT1234Y",
                             "aadhar": "XXXXXXXXXXXXXX",
                             "savingBankAccNo": "XXXXXXXX",
-                            "dematAccId": "INXXXXXXXXXXXXX",
+                            "dematAccId": "INXXXXXXXXXXXXX"
                         },
                         "minor": "Y",
                         "dob": "20210101",
@@ -176,7 +114,7 @@ sample_request_data = {
                             "zipcode": "400071",
                             "city": "Mumbai",
                             "statecode": "17",
-                            "countrycode": "91",
+                            "countrycode": "91"
                         },
                         "guardianMobileNum": "00000000000",
                         "guardianEmailId": "test@test.com",
@@ -185,11 +123,11 @@ sample_request_data = {
                             "pan": "XXXXXXXXXX",
                             "aadhar": "1111111111",
                             "savingBankAccNo": "",
-                            "dematAccId": "",
-                        },
+                            "dematAccId": ""
+                        }
                     }
-                ],
-            },
+                ]
+            }
         },
         "bankDetails": {
             "accountNumber": "1234567890987654",
@@ -203,31 +141,8 @@ sample_request_data = {
                 "addressLine2": "Gr Flr, Tulsi Pipe Rd, Lower Parel",
                 "addressLine3": "Near NSDL",
                 "addressLine4": "Mumbai, Maharashtra",
-                "zipcode": "400071",
-            },
-        },
+                "zipcode": "400071"
+            }
+        }
     }
 }
-
-
-# import asyncio
-
-
-# async def main():
-#     demat = NSDLDemat()
-
-#     data = NSDLRootModel.model_validate(sample_request_data)
-
-#     response = await demat.call_api(
-#         transaction_type="IDD",
-#         request_ref="TST00000142",
-#         requestor_id="IN300001",
-#         requestor="OBC",
-#         digital_signature="",
-#         request_data=data,
-#     )
-#     print(response)
-
-
-# if __name__ == "__main__":
-#     asyncio.run(main())
