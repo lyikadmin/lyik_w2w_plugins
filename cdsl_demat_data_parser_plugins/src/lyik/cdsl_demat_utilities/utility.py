@@ -87,8 +87,14 @@ class CDSLDematUtility:
         pan = self.pan_num_value(index=index)
         if not pan:
             return None
-        flag = PANVerificationFlag.PANATC # PAN Verified,Aadhar link to be checked
-        return flag
+        pan_seed_status =  self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('aadhaar_pan_seed_status','')
+        if pan_seed_status == 'YES':
+            return PANVerificationFlag.PANVAL # # PAN Verified and Aadhar Linked / PAN verified and seeded with Adhaar (Updated By Depository)
+        if pan_seed_status =='NO':
+            return PANVerificationFlag.PANVNS # PAN Verified,Aadhar link to be checked
+        if pan_seed_status == 'EXEMPTED':
+            return PANVerificationFlag.AEXMPT
+        return PANVerificationFlag.DFT
     
     # def aadhaar_uid_value(self, index):
     #     return ''
@@ -167,6 +173,51 @@ class CDSLDematUtility:
         # Todo: unknown field source
         return ECSMandate.DFT # Todo: need to be changed as we get more info
     
+    def education_level_value(self):
+         # Todo: unknown field source
+        return EducationDegree.DFT 
+    
+    def annual_report_flag(self):
+        receive_annual_report = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('receive_annual_report','')
+        if receive_annual_report == 'ELECTRONIC':
+            return AnnualReportFlag.ELC
+        if receive_annual_report == 'PHYSICAL':
+            return AnnualReportFlag.PHY
+        return AnnualReportFlag.DFT
+    
+    def bo_statement_cycle_code_value(self):
+        acc_statement_requirement = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('receive_annual_report','')
+        if acc_statement_requirement == 'WEEKLY':
+            return BOStatementCycleCode.EW
+        if acc_statement_requirement == 'MONTHLY':
+            return BOStatementCycleCode.EM
+        
+        return BOStatementCycleCode.DF
+    
+    def electronic_confiramtion_value(self):
+        eth = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('electronic_transaction_holding_statement','')
+        if eth =='YES':
+            return ElectronicConfitmation.YES
+        if eth == 'NO':
+            return ElectronicConfitmation.NO
+        return ElectronicConfitmation.DFT
+    
+    def email_rta_download_value(self):
+        rta = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('share_email_id_with_rta','')
+        if rta =='YES':
+            return EmailRTADDwonloadFlag.YES
+        if rta == 'NO':
+            return EmailRTADDwonloadFlag.NO
+        return EmailRTADDwonloadFlag.DFT
+    
+    def pledge_instruction_value(self):
+        rta = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('auto_pledge_confirmation','')
+        if rta =='YES':
+            return AutoPledgeIndicator.YES
+        if rta == 'NO':
+            return AutoPledgeIndicator.NO
+        return AutoPledgeIndicator.DFT
+    
 
     def exchange_value(self):
         # Todo: Does CDSL repository means exchange to be filled as BSE, and NSE for NSDL?
@@ -193,7 +244,7 @@ class CDSLDematUtility:
         acc_num = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number','')
         return acc_num 
     
-    def tax_deduction_status(self):
+    def tax_deduction_status_value(self):
         # Currently considering just RI type of clients!
         return BeneficiaryTaxDeductionStatus.RI
     
@@ -240,7 +291,15 @@ class CDSLDematUtility:
 
     def account_opening_source_value(self):
         return AccountOpeningSource.OLAO # Todo: Unknown source of data
-
+    
+    def first_client_option_to_recieve_statement_value(self):
+        recieve_statement = self.form_record.get('dp_information', {}).get('standing_info_from_client', {}).get('electronic_transaction_holding_statement','')
+        if recieve_statement == 'YES':
+            return EmailStatementFlag.ELE
+        if recieve_statement == 'NO':
+            return EmailStatementFlag.PHY
+        return EmailStatementFlag.DFT
+    
     def sender_reference_number_value(self, index):
         # Unknown source of data
         return f'AOI781{index}'

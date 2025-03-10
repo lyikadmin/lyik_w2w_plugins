@@ -12,8 +12,8 @@ from lyikpluginmanager import (
 )
 from lyikpluginmanager.models.cdsl.helper_enums import *
 # from enum import Enum
-# from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
-from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+# from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
 
 from typing import List, Dict
 from typing_extensions import Doc, Annotated
@@ -82,7 +82,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 BirthDt=cdsl_utility.dob_value(index=index),
                 Gndr=cdsl_utility.gender_value(index=index),
                 PAN=cdsl_utility.pan_num_value(index=index),
-                PANVrfyFlg=cdsl_utility.pan_verification_flag(index=index), # currently set to PANATC!
+                PANVrfyFlg=cdsl_utility.pan_verification_flag(index=index),
                 # PANXmptnCd=PANExemptedCode.DFT, # Todo: unknow field source, not applicable for current state of form!
                 # UID='', # Todo: we don't have full aadhaar number. Also it's conditional field, and condition unknown
                 # AdhrAuthntcnWthUID=cdsl_utility.aadhaar_authenticated_value(index=index), # Todo: Conditional Required, condition unknown!
@@ -109,19 +109,34 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 # RBIRefNb='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 # Mndt= cdsl_utility.ecs_mandate_value(),  # Todo: Conditional Required, condition unknown! Field source also unknown.
                 # SEBIRegNb='',  # Todo: Conditional Required, condition unknown! Field source also unknown.
-
-                #### more unknown fields
-
+                # EdctnLvl= cdsl_utility.education_level_value(), # Todo: Conditional Required, condition unknown! Field source also unknown.
+                AnlRptFlg= cdsl_utility.annual_report_flag(),
+                BOStatementCycleCode = cdsl_utility.bo_statement_cycle_code_value(),
+                ElctrncConf=cdsl_utility.electronic_confiramtion_value(),
+                EmailRTADwnldFlg=cdsl_utility.email_rta_download_value(),
+                # GeoCd='', # unknown source of data
                 Xchg=cdsl_utility.exchange_value(), # Todo: need clarity on field
+                # MntlDsblty='', # unknown source of data
                 Ntlty=cdsl_utility.nationality_value(),  # Todo: Conditional Required, condition unknown! Field source also unknown.
+                PldgStgInstrFlg=cdsl_utility.pledge_instruction_value(),
                 BkAcctTp= cdsl_utility.bank_account_type_value(),# Todo: Mandatory for BO Upload, field not present in form!
                 BnfcryAcctCtgy=cdsl_utility.bo_category_value(), # Todo: Mandatory for BO Upload, field not present in form!
                 BnfcryBkAcctNb=cdsl_utility.bank_acc_no_value(),
-                BnfcryTaxDdctnSts=cdsl_utility.tax_deduction_status(),  # Todo: Conditional Required, condition unknown! Field source also unknown.
+                BnfcryTaxDdctnSts=cdsl_utility.tax_deduction_status_value(),  # Todo: Conditional Required, condition unknown! Field source also unknown.
+                
+                # ClrSysId='', unknown field source
                 BSDAFlg=cdsl_utility.bsda_flag_value(),
                 Ocptn=cdsl_utility.occupation_value(index=index),
+                
+                FrstClntOptnToRcvElctrncStmtFlg=cdsl_utility.first_client_option_to_recieve_statement_value(),
                 ComToBeSentTo=cdsl_utility.communication_pref_value(),
+                # DelFlg='', # Todo: Conditional Required, condition unknown! Field source also unknown.
+                # RsnCdDeltn='',# Todo: Field source also unknown.
+                # DtOfDeath='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 AccntOpSrc=cdsl_utility.account_opening_source_value(), # Mandatory field, hard coded to 'OLAO'(Online Account opening by the BO)
+                
+                #### more unknown fields
+
                 SndrRefNb1=cdsl_utility.sender_reference_number_value(index=index), # Mandatory for BO Upload, hard coded to 'AOI781'
                 PurpCd= holder_first_purpose,
                 Adr1=cdsl_utility.holder_address_value(index=index,address_type=holder_first_purpose),# Mandatory for BO Upload
@@ -164,7 +179,7 @@ import asyncio
 async def main():
     import json
     cd = CDSLDematDataParser()
-    with open('/Users/deepakg/Lyik/lyik_w2w_plugins/cdsl_demat_data_parser_plugins/src/lyik/desired_form_json.json','r', encoding='utf-8') as file:
+    with open('/Users/deepakg/Lyik/lyik_w2w_plugins/generate_pdf_plugins/src/lyik/components/way_2_wealth/aof/desired_form_json.json','r', encoding='utf-8') as file:
         jd = json.load(file)
         data = GenericFormRecordModel.model_validate(jd)
     response = await cd.parse_data_to_cdsl_payload(context=ContextModel(),form_record=data)
