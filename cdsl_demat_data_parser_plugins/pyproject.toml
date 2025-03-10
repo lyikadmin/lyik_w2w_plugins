@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "plugin-cdsl-demat-data-parser"
 version = "0.1.0"
-description = "A plugin to formulate the form record data into UCC payload."
+description = "A plugin to formulate the form record data into CDSL payload."
 readme = "README.md"
 authors = [{ name = "Deepak G", email = "dgupta@lyik.com" }]
 license = { file = "LICENSE.txt" }
