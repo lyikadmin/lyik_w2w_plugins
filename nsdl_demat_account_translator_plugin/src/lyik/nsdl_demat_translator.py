@@ -41,19 +41,21 @@ class NSDLDemat(NSDLDematSpec):
         try:
             # Validating the form record
 
-            # form_record_model = FormRecordModel.model_validate(form_record.model_dump())
+            form_record_model = FormRecordModel.model_validate(form_record.model_dump())
 
             # Map the form record to NSDL demat request model
-            # nsdl_model = map_form_record(form_record_model=form_record_model)
-            with open(
-                "/Users/rahulc/Lyik/lyik_w2w_plugins/nsdl_demat_account_translator_plugin/src/lyik/demat_paload.json",
-                "r",
-                encoding="utf-8",
-            ) as file:
-                json_data = json.load(file)
-                data = NSDLRquestModel.model_validate(json_data)
-                return data
-            # return nsdl_model
+            nsdl_model = map_form_record(form_record_model=form_record_model)
+
+            # with open(
+            #     "/Users/rahulc/Lyik/lyik_w2w_plugins/nsdl_demat_account_translator_plugin/src/lyik/demat_paload.json",
+            #     "r",
+            #     encoding="utf-8",
+            # ) as file:
+            #     json_data = json.load(file)
+            #     data = NSDLRquestModel.model_validate(json_data)
+            #     return data
+            
+            return nsdl_model
         except Exception as e:
             # ToDo: handle exception
             print(f"Error occurred during translation: {e}")
