@@ -33,6 +33,12 @@ class CorrespondenceAddress(BaseModel):
     country: str
 
 
+class OVD(BaseModel):
+    ovd_type: Optional[str]= None
+    ovd_front: Optional[DBDocumentModel] = None
+    ovd_back: Optional[DBDocumentModel] = None
+
+
 class IdentityAddressInfo(BaseModel):
     state: Optional[str] = None
     city: Optional[str] = None
@@ -51,6 +57,7 @@ class IdentityAddressVerification(BaseModel):
     correspondence_address: Optional[CorrespondenceAddress] = None
     identity_address_info: Optional[IdentityAddressInfo] = None
     same_as_permanent_address: Optional[str] = None
+    ovd: Optional[OVD] = None
 
 
 class IncomeInfo(BaseModel):

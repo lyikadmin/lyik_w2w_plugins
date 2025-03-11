@@ -26,7 +26,7 @@ class AddressInfo(BaseModel):
     city: str
     country: str
     pin: str
-    aadhaar_xml: str
+    aadhaar_xml: Optional[str] = None
     name: str
     gender: str
     uid: str
@@ -56,12 +56,21 @@ class VerificationStatus(BaseModel):
     user_id: Optional[str] = None
     weight: Optional[Any] = None
     isMandatoryFilled: Optional[bool] = None
+
+class OVD(BaseModel):
+    ovd_type: Optional[str]= None
+    ovd_front: Optional[DBDocumentModel] = None
+    ovd_back: Optional[DBDocumentModel] = None
+
+
 class IdentityAddressVerification(BaseModel):
     identity_address_info: AddressInfo
     other_info: OtherInfo
     correspondence_address: CorrespondenceAddress
     same_as_permanent_address: Optional[str] = None
     _ver_status: Optional[VerificationStatus] = None
+    ovd: Optional[OVD] = None
+
 
 class UploadImages(BaseModel):
     wet_signature_image: Optional[Any] = None
@@ -185,7 +194,6 @@ class TradingAccountInformation(BaseModel):
     contract_format_2: Optional[str] = None
     proof_of_income: Optional[DBDocumentModel] = None
     client_facility_choice: Optional[str] = None
-    type_of_document:str
     client_facility_choice:str
     kit_format_1: Optional[str] = None
     kit_format_2: Optional[str] = None
@@ -303,7 +311,7 @@ class DPAccountInformation(BaseModel):
     depository: Optional[str] = "NSDL"
     dp_id_no: Optional[str] = None
     client_id_no: Optional[str] = None
-    cmr_file: Optional[str] = None
+    cmr_file: Optional[DBDocumentModel] = None
 
 class StandingInfoFromClient(BaseModel):
     receive_credit_auth_status: str
