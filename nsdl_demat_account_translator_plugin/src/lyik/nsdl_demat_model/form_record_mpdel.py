@@ -73,8 +73,8 @@ class IdentityAddressVerification(BaseModel):
 
 
 class UploadImages(BaseModel):
-    wet_signature_image: Optional[Any] = None
-    proof_of_signature: Optional[Any] = None
+    wet_signature_image: Optional[DBDocumentModel] = None
+    proof_of_signature: Optional[DBDocumentModel] = None
     _ver_status: Optional[Optional[VerificationStatus]] = None
 
 class SignatureValidation(BaseModel):
