@@ -292,7 +292,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         return kyc_mode_mapping.get(mode)
 
     def load_mapping_file(self, file_name: str) -> dict:
-        with resources.path("lyik", file_name) as file_path:
+        with resources.path("lyik.kra_mapping_files", file_name) as file_path:
             with open(file_path, "r") as file:
                 return json.load(file)
 
