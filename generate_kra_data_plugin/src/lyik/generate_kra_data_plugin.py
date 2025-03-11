@@ -15,7 +15,7 @@ from lyikpluginmanager import (
 import json
 import os
 from importlib import resources
-from .model import KYCDataModel
+from .kra_models.model import KYCDataModel, Declarations
 from typing import Dict, Any, List, Annotated
 from typing_extensions import Doc
 
@@ -194,8 +194,9 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             APP_FATCA_BIRTH_COUNTRY=self.get_fatca_country_code(
                 identity_address__verification.other_info.country_of_birth
             ),
-            APP_FATCA_COUNTRY_CITYZENSHIP=self.get_fatca_country_code(
-                declarations.fatca_crs_declaration.country_of_origin
+            APP_FATCA_COUNTRY_CITYZENSHIP=self.get_fatca_country_origin(
+                is_indian_citizen=declarations.fatca_crs_declaration.is_client_tax_resident,
+                declarations= declarations
             ),
             APP_FATCA_COUNTRY_RES=None,
             APP_FATCA_DATE_DECLARATION=now,
@@ -238,9 +239,9 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
 
     def get_fatca_applicable_flag(self, is_tax_resident: str):
         if is_tax_resident.lower() == "yes":
-            return "Y"
-        else:
             return "N"
+        else:
+            return "Y"
 
     def get_country_code(self, country_name: str) -> str:
         if self.country_mapping is None:
@@ -291,7 +292,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         return kyc_mode_mapping.get(mode)
 
     def load_mapping_file(self, file_name: str) -> dict:
-        with resources.path("lyik", file_name) as file_path:
+        with resources.path("lyik.kra_mapping_files", file_name) as file_path:
             with open(file_path, "r") as file:
                 return json.load(file)
 
@@ -313,3 +314,22 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             if normalized_input in country_name or country_name in normalized_input:
                 return code
         return ""
+
+    def get_fatca_country_origin(
+        self, is_indian_citizen: str, declarations: Declarations
+    ):
+        """"""
+        try:
+            country = None
+            if is_indian_citizen.lower() == "yes":
+                country = "India"
+            else:
+                if declarations.fatca_crs_declaration_1 is not None and declarations.fatca_crs_declaration_1.country_of_residency_1 is not None:
+                    country = declarations.fatca_crs_declaration_1.country_of_residency_1
+            if country is not None:
+                return self.get_fatca_country_code(country_name=country)
+            else:
+                raise ValueError("Country is not available")        
+        except Exception as e:
+            print(f"Error in getting FATCA country origin: {e}")
+            return ""
