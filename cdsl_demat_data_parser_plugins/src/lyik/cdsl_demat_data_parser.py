@@ -12,8 +12,8 @@ from lyikpluginmanager import (
 )
 from lyikpluginmanager.models.cdsl.helper_enums import *
 # from enum import Enum
-from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
-# from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+# from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
 
 from typing import List, Dict
 from typing_extensions import Doc, Annotated
@@ -39,6 +39,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
         """
         This function is to get the payload(s) for creating a demat account in CDSL
         """
+        serial_number=0
         _form_record = form_record.model_dump()
         date_today = date.today()
         datetime_now = datetime.now()
@@ -47,6 +48,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
         for index, holder in enumerate(cdsl_utility.kyc_data):
             # First fill the common attributes for all holders
             # Entry for Permanent Address PurposeCode
+            serial_number+=1
             holder_first_purpose = None
             holder_second_purpose = None
             if cdsl_utility.is_permanent_address(index=index) and cdsl_utility.is_corr_address(index=index):
@@ -58,15 +60,15 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 holder_first_purpose = PurposeCode.DFT
 
             _holder = HolderRecord(
-                CntrlSctiesDpstryPtcpt='', # TODO: unknown source
+                CntrlSctiesDpstryPtcpt='', # TODO: unknown source, mandatory!
                 BrnchId='000000', # always 000000 for cdsl-BO upload!
                 # BtchId= 100000,# Todo: Unknown source,
                 # SndrId='', # Todo: unknown source
                 # CntrlSctiesDpstryPtcptRole=DPType.DF, # Not appicable for CDSL
                 # SndrDt=date_today, # TODO: unknown source
                 # RcvDt=datetime_now, # Todo: Conditional Required, condition unknown!
-                RcrdNb=1, # Todo: Will have same value for all lines of single client
-                RcdSRNumber= 0, # Todo: this should be filled dynamically while preparing final payload!
+                RcrdNb=index+1, # Todo: Will have same value for all lines of single client
+                RcdSRNumber= serial_number, # Todo: this should be filled dynamically while preparing final payload!
                 BOTxnTyp=BOTransactionType.BOSET, # Creation type
                 # ClntId = '', # Need 16 digit client id, source unknown!
                 PrdNb=cdsl_utility.product_number_value(), # Considering client type of Individual only for now!
@@ -128,7 +130,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 BSDAFlg=cdsl_utility.bsda_flag_value(),
                 Ocptn=cdsl_utility.occupation_value(index=index),
                 
-                FrstClntOptnToRcvElctrncStmtFlg=cdsl_utility.first_client_option_to_recieve_statement_value(),
+                FrstClntOptnToRcvElctrncStmtFlg=cdsl_utility.first_client_option_to_recieve_statement_value(), # Todo: need to confirm data source in form!
                 ComToBeSentTo=cdsl_utility.communication_pref_value(),
                 # DelFlg='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 # RsnCdDeltn='',# Todo: Field source also unknown.
@@ -152,6 +154,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
             holders.append(_holder)
             ## todo: Fill it later! Only few fields need to be filled?
             # if holder_second_purpose:
+            #     serial_number = serial_number+=1
             #     _holder_entry2 = HolderRecord(
 
             #     )
@@ -159,7 +162,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
 
 
             
-        nominees: List[NomineeRecord] = [] # SrlNbr
+        nominees: List[NomineeRecord] = [] # SrlNbr(serial number rof nominee), RcdSRNumber(serial_number) also need to be added!
         nomines_guardians : List[NomineeGuardianRecord] = []
         all_entries = []
         for hold in holders:
@@ -179,7 +182,7 @@ import asyncio
 async def main():
     import json
     cd = CDSLDematDataParser()
-    with open('/Users/deepakg/Lyik/lyik_w2w_plugins/generate_pdf_plugins/src/lyik/components/way_2_wealth/aof/desired_form_json.json','r', encoding='utf-8') as file:
+    with open('/Users/deepakg/Lyik/lyik_w2w_plugins/generate_pdf_plugins/tests/form_with_ovd_1103.json','r', encoding='utf-8') as file:
         jd = json.load(file)
         data = GenericFormRecordModel.model_validate(jd)
     response = await cd.parse_data_to_cdsl_payload(context=ContextModel(),form_record=data)

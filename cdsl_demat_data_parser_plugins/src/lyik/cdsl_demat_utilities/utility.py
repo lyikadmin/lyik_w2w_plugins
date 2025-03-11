@@ -37,7 +37,7 @@ class CDSLDematUtility:
                 return Purpose.FH 
             if index == 1:
                 return Purpose.SH
-            if index == 1:
+            if index == 2:
                 return Purpose.TH
             
         if holder_type==HolderType.NOMINEE:
@@ -66,7 +66,7 @@ class CDSLDematUtility:
         return self.format_date(date=pan_dob)
     
     def gender_value(self, index):
-        gender = self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('gender_aadhaar','')
+        gender = self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('gender','')
         if not gender:
             return None
         if gender == 'M':
@@ -102,6 +102,11 @@ class CDSLDematUtility:
     def aadhaar_authenticated_value(self, index):
         # Aadhaar Authenticated with UIDAI/ UID VERIFICATION FLAG
         # Todo: if digilocker aadhaar, return 'ADRV', else 'ADRNV'
+        is_digilocker = str(self.form_record.get('application_details',{}).get('kyc_digilocker','')).lower()!='no'
+        aadhaar_uid = self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('uid','')
+        if is_digilocker and aadhaar_uid:
+            return AadhaarAuthenticationWithUIDFlag.ADRV
+
         return None
     
     def sms_facility_value(self):
@@ -166,7 +171,7 @@ class CDSLDematUtility:
         return bank_ifsc
     
     def bank_micrcd_value(self):
-        bank_micrid = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('micr_code','') # Todo: field not present in form!
+        # bank_micrid = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('micr_code','') # Todo: field not present in form!
         return '', #bank_micrid
 
     def ecs_mandate_value(self):
@@ -186,7 +191,7 @@ class CDSLDematUtility:
         return AnnualReportFlag.DFT
     
     def bo_statement_cycle_code_value(self):
-        acc_statement_requirement = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('receive_annual_report','')
+        acc_statement_requirement = self.form_record.get('dp_information',{}).get('standing_info_from_client',{}).get('account_statement_requirement','')
         if acc_statement_requirement == 'WEEKLY':
             return BOStatementCycleCode.EW
         if acc_statement_requirement == 'MONTHLY':
@@ -313,14 +318,14 @@ class CDSLDematUtility:
     
     def holder_address_value(self, index, address_type:PurposeCode):
         if address_type==PurposeCode.CORAD:
-            return self.kyc_data[index].get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','')
-        return self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','')
+            return self.kyc_data[index].get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','')
+        return self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('full_address','')
 
     def is_permanent_address(self,index):
-        return True if self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','') else False
+        return True if self.kyc_data[index].get('identity_address_verification',{}).get('identity_address_info',{}).get('full_address','') else False
 
     def is_corr_address(self,index):
-        return True if self.kyc_data[index].get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','') else False
+        return True if self.kyc_data[index].get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','') else False
 
     def holder_country_value(self, index,address_type:PurposeCode ):
         if address_type==PurposeCode.CORAD:
