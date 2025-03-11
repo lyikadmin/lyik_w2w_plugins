@@ -45,6 +45,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
         datetime_now = datetime.now()
         cdsl_utility = CDSLDematUtility(form_record=_form_record)
         holders = []
+        signatures = []
         for index, holder in enumerate(cdsl_utility.kyc_data):
             # First fill the common attributes for all holders
             # Entry for Permanent Address PurposeCode
@@ -152,6 +153,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
             #     print()
 
             holders.append(_holder)
+
             ## todo: Fill it later! Only few fields need to be filled?
             # if holder_second_purpose:
             #     serial_number = serial_number+=1
@@ -172,8 +174,12 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
         for nm in nomines_guardians:
             all_entries.append(nm)
 
+        signatures = cdsl_utility.get_all_signature_ids()
 
-        return  all_entries
+        response = CDSLDematPayloadModel(records=all_entries,signatures=signatures)
+
+
+        return response
     
 
 import asyncio

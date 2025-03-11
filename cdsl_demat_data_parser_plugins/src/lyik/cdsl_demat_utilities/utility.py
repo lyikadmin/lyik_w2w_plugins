@@ -1,5 +1,7 @@
 from lyikpluginmanager.models.cdsl.helper_enums import *
 from lyikpluginmanager.models.cdsl.state_codes import StateCode
+from lyikpluginmanager.models import Signature
+from typing import List
 
 class HolderType(str, Enum):
     KYC_HOLDER = 'KYC Holder'
@@ -375,4 +377,23 @@ class CDSLDematUtility:
         except ValueError:
             # logger.debug(f"Error in formatting date {date}")
             return None
+        
+
+    def get_all_signature_ids(self)->List[Signature]:
+        signs: List[Signature]= []
+
+        try:
+            # Add Holders Signs
+            for i in range(len(self.kyc_data)):
+                doc_id = self.kyc_data[i].get('signature_validation',{}).get('upload_images',{}).get('wet_signature_image',{}).get('doc_id')
+                if doc_id:
+                    file_name = self.kyc_data[i].get('signature_validation',{}).get('upload_images',{}).get('wet_signature_image','').get('doc_name')
+                    signs.append(Signature(file_name=file_name,doc_id=doc_id))
+
+        # Add other signs?
+        
+        except Exception as e:
+            return []
+        
+        return signs
 
