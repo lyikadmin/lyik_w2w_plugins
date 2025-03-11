@@ -48,7 +48,8 @@ class AccountDetailsVerification(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,
                 message=f"Verified successfully by the system on {datetime.now()}. Account details: {data}",
-                actor="system"
+                actor="system",
+                response=data
             )
 
         except Exception as e:
