@@ -245,9 +245,9 @@ class UCCDataParser(UCCDataParserSpec):
         if (
             str(_form_record.get('application_details',{}).get('kyc_digilocker','')).lower()!='no'
             or
-            str(kyc_data.get('identity_address_verification',{}).get('ovd_ocr_card',{}).get('ovd_type','')).lower() == 'aadhaar'
+            str(kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_type','')).lower() == 'aadhaar'
         ):
-            _aadhaar_uid = kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_number','')
+            _aadhaar_uid = kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('uid','')
 
         NSE_MEMERCODE = "11502" # todo: this should come from env! same value as username
         base_nse_data = NSEEntry(

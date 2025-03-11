@@ -110,7 +110,7 @@ class KYC:
         self.identity_residential_status_help_text = '(Passport is mandatory for NRI/PIO/FN)'
         self.identity_residential_status_selected_options = []
         self.identity_aadhar_label = 'Aadhaar No. (UID):'
-        self.identity_aadhar_value = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_number','') # This is not necessarily the aadhaar number, it could be any ovd id number too!
+        self.identity_aadhar_value = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('uid','') # This is not necessarily the aadhaar number, it could be any ovd id number too!
         self.identity_date_of_birth_label = 'Date of Birth:'
         self.identity_date_of_birth_value = get_formatted_date(self.data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan',''))
         self.identity_poi_label = 'POI Submitted for PAN exempted Case:'
@@ -120,12 +120,12 @@ class KYC:
         # ]
         # self.page3_identity_poi_selected_options = []
         self.aadhaar_xml = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_xml','') if is_digilocker else ''
-        self.ovd_type = self.data.get('identity_address_verification',{}).get('ovd_ocr_card',{}).get('ovd_type','') if not self.is_digilocker else 'AADHAAR'
+        self.ovd_type = self.data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_type','') if not self.is_digilocker else 'AADHAAR'
         # Address Details Section
         # 1. Correspondence Address section
         self.address_details_title = '2. Address Details:'
         self.address_correspondence_title = 'A. Correspondence/Local Address'
-        self.address_correspondence_value = self.data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','')
+        self.address_correspondence_value = self.data.get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','')
         self.address_city_label = 'City/Town/Village:'
         self.address_city_value = self.data.get('identity_address_verification',{}).get('correspondence_address',{}).get('city','')
         self.address_district_label = 'District:'
@@ -147,7 +147,7 @@ class KYC:
         B. Permanent Resident Address of Applicant, if different from above A / OR Overseas Address
         (Mandatory for Non-Resident Applicant)
         '''
-        self.address_permanent_value = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','')
+        self.address_permanent_value = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('full_address','')
         self.address_permanent_city_label = 'City/Town/Village:'
         self.address_permanent_city_value = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('city','')
         self.address_permanent_district_label = 'District:'
@@ -215,11 +215,11 @@ class KYC:
         self.tax_resident_options = ['Yes','No']
         self.tax_resident_selected_options = [get_enum_value_from_key(self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('is_client_tax_resident',''))]
         self.place_of_birth_label = 'Place of Birth :'
-        self.place_of_birth_value = self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('place_of_birth_1','')
+        self.place_of_birth_value = '',#self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('place_of_birth_1','')
         self.country_of_origin_label = 'Country of Origin :'
-        self.country_of_origin_value = self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('country_of_origin','')
+        self.country_of_origin_value = 'India' if self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('is_client_tax_resident','')=='YES' else '' #self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('country_of_origin','')
         self.iso_3166_country_code_label = 'ISO 3166 Country Code'
-        self.iso_3166_country_code_value = self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('country_code','')
+        self.iso_3166_country_code_value = '' #self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('country_code','')
 
         self.fatca_table_data = [
             ['<font color = "#000000">Country Of Tax Residency #</font>','<font color = "#000000">TAX Identification No. (TIN) %</font>','<font color = "#000000">Identification Type (TIN or Other, Please Specify)</font>','<font color = "#000000">If TIN not available *</font>'],

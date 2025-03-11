@@ -1,10 +1,20 @@
 {
+    "_id": null,
     "payment": null,
+    "submitter": {
+      "id": null,
+      "phone": null,
+      "email": null,
+      "time": {
+        "$date": null
+      }
+    },
     "state": null,
     "onboarding": {
       "type_of_client": null
     },
     "application_details": {
+      "defaults": null,
       "kyc_digilocker": null,
       "general_application_details": {
         "application_type": null,
@@ -54,7 +64,8 @@
       },
       "client_contact_details": {
         "client_mobile": null
-      }
+      },
+      "segment_rates": {},
     },
     "kyc_holders": [
       {
@@ -73,7 +84,10 @@
           },
           "pan_verification": {
             "pan_card_image": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
             "pan_details": {
               "name_in_pan": null,
@@ -84,13 +98,19 @@
             
           },
           "identity_address_verification": {
-            "ovd_ocr_card": {
+            "ovd": {
               "ovd_type": null,
               "ovd_front": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
               "ovd_back": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               }
             },
             "identity_address_info": {
@@ -99,20 +119,17 @@
               "city": null,
               "district": null,
               "country": null,
-              "name_in_aadhaar": null,
-              "gender_aadhaar": null,
-              "aadhaar_number": null,
-              "permanent_address": null
+              "name": null,
+              "gender": null,
+              "uid": null,
+              "full_address": null
             },
             "other_info": {
               "father_name": null,
               "marital_status": null,
               "country_of_birth": null,
               "mother_name": null,
-              "place_of_birth": null,
-              "city": null,
-              "country": null,
-              "district": null
+              "place_of_birth": null
             },
             "same_as_permanent_address": null,
             "correspondence_address": {
@@ -121,32 +138,47 @@
               "city": null,
               "district": null,
               "country": null,
-              "correspondence_address_proof": {
-                "doc_id": null
+              "proof": {
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
               "type_of_address": null,
-              "correspondence_address": null
+              "full_address": null
             }
             
           },
           "signature_validation": {
             "upload_images": {
               "wet_signature_image": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
               "proof_of_signature": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               }
             }
           },
           "liveness_check": {
             "photo_capture": {
               "liveness_photo": {
-                "doc_id":null
+                "doc_id":null,
+                "metadata": {
+                  "doc_type": null
+                }
               }
             },
             "video_capture": {
-              "liveness_video": null
+              "liveness_video": null,
+              "metadata": {
+                  "doc_type": null
+                }
             },
             "liveness_captcha": null,
             "liveness_geo_loc": null
@@ -155,7 +187,8 @@
             "income_info": {
               "gross_annual_income": null,
               "networth": null,
-              "occupation": null
+              "occupation": null,
+              "date": null
             },
             "fatca_crs_declaration": {
               "is_client_tax_resident": null,
@@ -191,13 +224,18 @@
     "bank_verification": {
       "bank_details": {
         "bank_account_number": null,
+        "account_holder_name_pan": null,
+        "account_holder_name_id": null,
         "account_holder_name": null,
-        "branch_code": null,
+        "type_of_application": null,
         "ifsc_code": null
       },
       "cancelled_cheque": {
         "cancelled_cheque_image": {
-            "doc_id": null
+            "doc_id": null,
+            "metadata": {
+                  "doc_type": null
+                }
           }
       }
     },
@@ -214,7 +252,10 @@
               "name_of_nominee": null,
               "percentage_of_allocation": null,
               "nominee_id_proof": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
               "id_number": null,
               "dob_nominee": null,
@@ -222,13 +263,19 @@
             },
             "guardian_data": {
               "guardian_id_proof": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
               "guardian_type_of_id": null,
               "guardian_name": null,
               "guardian_address": null,
               "guardian_signature": {
-                "doc_id": null
+                "doc_id": null,
+                "metadata": {
+                  "doc_type": null
+                }
               },
               "guardian_id_number": null,
               "relationship_with_nominee": null
@@ -240,7 +287,8 @@
     "trading_information": {
       "check_pan_for_trading_account": {
         "trading_id": null,
-        "account_holder_name": null
+        "account_holder_name": null,
+        "account_creation_date": null
       },
       "trading_account_information": {
         "segment_pref_1": null,
@@ -252,7 +300,12 @@
         "type_of_document": null,
         "contract_format_1": null,
         "contract_format_2": null,
-        "proof_of_income": null,
+        "proof_of_income":  {
+          "doc_id": null,
+          "metadata": {
+            "doc_type": null
+          }
+        },
         "client_facility_choice": null,
         "kit_format_1": null,
         "kit_format_2": null,
@@ -261,6 +314,7 @@
       "employer_details": {
         "employer_name": null,
         "mobile_number": null,
+        "approval_date":null,
         "employer_address": null
       },
       "details_of_dealings": {
@@ -286,7 +340,12 @@
         "depository": null,
         "dp_id_no": null,
         "client_id_no": null,
-        "cmr_file": null
+        "cmr_file": {
+          "doc_id": null,
+          "metadata": {
+            "doc_type": null
+          }
+        }
       },
       "standing_info_from_client": {
         "receive_credit_auth_status": null,

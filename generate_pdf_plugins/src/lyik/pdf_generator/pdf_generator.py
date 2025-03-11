@@ -298,41 +298,41 @@ class PdfGenerator():
 
         # TODO: -- write method similar to 'get_all_file_ids' which takes list of keys, instead of hard coding for each kyc attachments!
         pan_card_image = kyc_data.get('pan_verification',{}).get('pan_card_image')
-        ovd_front = kyc_data.get('identity_address_verification',{}).get('ovd_ocr_card',{}).get('ovd_front')
-        ovd_back = kyc_data.get('identity_address_verification',{}).get('ovd_ocr_card',{}).get('ovd_back')
-        correspondence_address_proof = kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address_proof')
-        proof_of_signature = kyc_data.get('signature_validation',{}).get('upload_images')
+        ovd_front = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_front')
+        ovd_back = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_back')
+        correspondence_address_proof = kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('proof')
+        proof_of_signature = kyc_data.get('signature_validation',{}).get('upload_images',{}).get('proof_of_signature')
 
         pdf_attachments: list[dict] = []
         images: list[dict] = []
 
         if pan_card_image and pan_card_image.get('doc_id',''):
              
-            if pan_card_image.get('doc_type','') and 'pdf' not in pan_card_image.get('doc_type',''):
+            if pan_card_image.get('metadata',{}).get('doc_type','') and 'pdf' not in pan_card_image.get('metadata',{}).get('doc_type',''):
                 images.append({pan_card_image.get('doc_id',''):'PAN Card'})
             else:
                 pdf_attachments.append({pan_card_image.get('doc_id',''):'PAN Card'})
 
         if ovd_front and ovd_front.get('doc_id',''):
-            if ovd_front.get('doc_type','') and 'pdf' not in ovd_front.get('doc_type',''):
+            if ovd_front.get('metadata',{}).get('doc_type','') and 'pdf' not in ovd_front.get('metadata',{}).get('doc_type',''):
                 images.append({ovd_front.get('doc_id',''): 'OVD Front'})
             else:
                 pdf_attachments.append({ovd_front.get('doc_id',''): 'OVD Front'})
 
         if ovd_back and ovd_back.get('doc_id',''):
-            if ovd_back.get('doc_type','') and 'pdf' not in ovd_back.get('doc_type',''):
+            if ovd_back.get('metadata',{}).get('doc_type','') and 'pdf' not in ovd_back.get('metadata',{}).get('doc_type',''):
                 images.append({ovd_back.get('doc_id',''): 'OCD Back'})
             else:
                 pdf_attachments.append({ovd_back.get('doc_id',''): 'OVD Back'})
 
         if correspondence_address_proof and correspondence_address_proof.get('doc_id',''):
-            if correspondence_address_proof.get('doc_type','') and 'pdf' not in correspondence_address_proof.get('doc_type',''):
+            if correspondence_address_proof.get('metadata',{}).get('doc_type','') and 'pdf' not in correspondence_address_proof.get('metadata',{}).get('doc_type',''):
                 images.append({correspondence_address_proof.get('doc_id',''): 'Proof of Correspondence Address'})
             else:
                 pdf_attachments.append({correspondence_address_proof.get('doc_id',''):'Proof of Correspondence Address'})
 
         if proof_of_signature and proof_of_signature.get('doc_id',''):
-            if proof_of_signature.get('doc_type','') and 'pdf' not in proof_of_signature.get('doc_type',''):
+            if proof_of_signature.get('metadata',{}).get('doc_type','') and 'pdf' not in proof_of_signature.get('metadata',{}).get('doc_type',''):
                 images.append({proof_of_signature.get('doc_id',''):'Proof of Signature'})
             else:
                 pdf_attachments.append({proof_of_signature.get('doc_id',''):'Proof of Signature'})
