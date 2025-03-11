@@ -1,1 +1,0 @@
-from .plugin_w2w_tech_xl_demat import TechXLPlugin
