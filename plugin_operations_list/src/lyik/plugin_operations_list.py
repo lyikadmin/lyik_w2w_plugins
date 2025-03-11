@@ -72,11 +72,21 @@ ALL_OPERATIONS = [
     Operation(
         op_id="NSDL_DEMAT_ACCOUNT_DOWNLOAD",
         op_name="Download NSDL Demat Payload",
+        display_text="To download the NSDL demat payload from the depository",
+    ),
+    Operation(
+        op_id="NSDL_DEMAT_ACCOUNT",
+        op_name="Create NSDL Demat Account",
         display_text="To create a demat account in the NSDL depository",
     ),
     Operation(
         op_id="CDSL_DEMAT_ACCOUNT_DOWNLOAD",
         op_name="Download CDSL Demat Payload",
+        display_text="To download the CDSL demat payload from the depository",
+    ),
+    Operation(
+        op_id="UPLOAD_CDSL",
+        op_name="Create CDSL Demat Account",
         display_text="To create a demat account in the CDSL depository",
     ),
 ]
