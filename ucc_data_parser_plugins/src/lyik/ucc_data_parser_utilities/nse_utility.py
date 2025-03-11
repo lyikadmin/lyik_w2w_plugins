@@ -61,7 +61,7 @@ class NSEUtility:
     
     def bank_name_value(self):
          # Todo: Field not exist in form. Optional just for INSTITUTIONS.
-        bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
+        # bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
         return 'Bank of India' or '' #bank_name
     
     def bank_ifsc_value(self):
@@ -145,11 +145,11 @@ class NSEUtility:
         return self.format_date(date=pan_dob)
     
     def corr_address_value(self):
-        address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','')
+        address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','')
         return address or ''
     
     def permanent_address_value(self):
-        address = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','')
+        address = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('full_address','')
         return address or ''
     
     def corr_address_city_value(self):
@@ -217,7 +217,7 @@ class NSEUtility:
     def gender_value(self):
         # Todo: Mandatory for Individuals (APPLICABLE FOR CATEGORY 1, 11, 18, 25, 26, 27, 31 & 36) and should be NULL in case of other categories.
         # M - Male, F - Female, U - Unisex, NA - Not Applicable
-        gender = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('gender_aadhaar','')
+        gender = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('gender','')
         if gender == 'M':
             return 'M'
         if gender == 'F':

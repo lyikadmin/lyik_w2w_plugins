@@ -43,7 +43,7 @@ class BSEUtility:
             return 'N'
         
     def permanent_address_value(self):
-        address = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('permanent_address','')
+        address = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('full_address','')
         return address or ''
         
     def same_as_permanent_address_value(self):
@@ -53,7 +53,7 @@ class BSEUtility:
         return 'N'
     
     def corr_address_value(self):
-        address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('correspondence_address','')
+        address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','')
         return address
     
     def corr_address_city_value(self):
@@ -71,32 +71,37 @@ class BSEUtility:
         return self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('state','')
 
     def permanent_address_country_value(self):
-        return 'INDIA'#self._country_value(country=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('country',''))
+        country=self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('country','') or ''
+        return country.upper()
 
     def corr_address_country_value(self):
-        return 'INDIA'#self._country_value(country=self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('country',''))
+        country=self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('country','') or ''
+        return country.upper()
     
     def corr_address_pincode_value(self):
-        # Todo: pincode only when country selected is India
-        pincode = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('pin','')
-        return pincode
+        # pincode only when country selected is India
+        if self.corr_address_country_value() == 'INDIA':
+            pincode = self.kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('pin','')
+            return pincode
+        return None
     
     def permanent_address_pincode_value(self):
-        # Todo: pincode only when country selected is India
-        pincode = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin','')
-        return pincode or ''
-    
+        # pincode only when country selected is India
+        if self.permanent_address_pincode_value() == 'INDIA':
+            pincode = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin','')
+            return pincode
+        return None
     def contact_details_value(self):
         # Values: 1 = TELEPHONE, 2 = MOBILE, 3 = BOTH
         return '2'
     
     def mobile_no_value(self):
         mobile = self.kyc_data.get('mobile_email_verification',{}).get('mobile_verification',{}).get('contact_id','')
-        return mobile or ''
+        return mobile
     
     def email_value(self):
         email = self.kyc_data.get('mobile_email_verification',{}).get('email_verification',{}).get('contact_id','')
-        return email or ''
+        return email
     
     def depository_name_value(self):
         depos_name = self.form_record.get('dp_information',{}).get('dp_Account_information',{}).get('depository','')
@@ -122,11 +127,11 @@ class BSEUtility:
     
     def bank_name_value(self):
          # Todo: Field not exist in form. Optional just for INSTITUTIONS.
-        bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
+        # bank_name = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
         return 'Bank of India'#bank_name
     
     def last_name_value(self):
-        name = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')
+        name = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('name_in_pan','')
         return name
  
     def provide_income_networth_details_value(self):
@@ -189,7 +194,7 @@ class BSEUtility:
     def equity_derivatives_value(self):
         # for FNO segment
         # Values: Yes (Y) / No (N)
-        fno = self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_2')
+        fno = self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_1')
         return 'Y' if fno else 'N'
     
     def slb_value(self):
@@ -199,7 +204,7 @@ class BSEUtility:
     
     def currency_value(self):
         # Values: Yes (Y) / No (N)
-        cur = self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_2')
+        cur = self.form_record.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_3')
         return 'Y' if cur else 'N'
     
     def debt_value(self):
