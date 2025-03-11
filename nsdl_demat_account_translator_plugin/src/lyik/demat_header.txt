@@ -1,2 +1,0 @@
-url: 'https://eservices-test.nsdl.com/client-service/v5/instaDemat/IN300001/order'
-header: {'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Transaction-Type': 'IDD', 'Requestor': 'OBC', 'Request-Reference': 'TST00000142', 'Request-Time': '2025-03-04T10:17:13', 'Success-Url': 'http://nsdl.uat.com/exampleSuccess', 'Fail-Url': 'http://nsdl.uat.com/exampleFail', 'Digital-Signature': '', 'Content-Length': '3072'}

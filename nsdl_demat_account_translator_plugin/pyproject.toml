@@ -13,5 +13,15 @@ requires-python = ">=3.10"
 
 dependencies = ["requests==2.32.3", "pydantic[email]==2.10.3"]
 
+[tool.setuptools.package-data]
+"lyik.mapping_josn_files" = [
+    "client_sub_type.json",
+    "gender.json",
+    "gross_annual_income.json",
+    "nominee_relationship.json",
+    "occupation.json",
+    "states.json",
+]
+
 [project.entry-points."LYIK"]
 _80_NSDL_DEMAT_TRANSLATOR_PLUGIN = "lyik.nsdl_demat_translator:NSDLDemat"
