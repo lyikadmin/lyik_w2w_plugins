@@ -15,7 +15,7 @@ from lyikpluginmanager import (
 import json
 import os
 from importlib import resources
-from .model import KYCDataModel, Declarations
+from .kra_models.model import KYCDataModel, Declarations
 from typing import Dict, Any, List, Annotated
 from typing_extensions import Doc
 
