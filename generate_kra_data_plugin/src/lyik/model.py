@@ -16,20 +16,21 @@ class PanVerification(BaseModel):
 
 
 class OtherInfo(BaseModel):
-    father_name: Optional[str] = None
-    marital_status: Optional[str] = None
-    country_of_birth: Optional[str] = None
-    mother_name: Optional[str] = None
-    place_of_birth: Optional[str] = None
-    city: Optional[str] = None
-    country: Optional[str] = None
-    district: Optional[str] = None
+    father_name: str
+    marital_status: str
+    country_of_birth: str
+    mother_name: str
+    place_of_birth: str
 
 
 class CorrespondenceAddress(BaseModel):
-    correspondence_address_proof: Optional[DBDocumentModel] = None
-    type_of_address: Optional[str] = None
-    full_address: Optional[str] = None
+    proof: DBDocumentModel
+    type_of_address: str
+    full_address: str
+    city: str
+    state: str
+    pin: str
+    country: str
 
 
 class IdentityAddressInfo(BaseModel):
@@ -59,6 +60,13 @@ class IncomeInfo(BaseModel):
     date: Optional[str] = None
 
 
+class FatcaResidencyInfo(BaseModel):
+    country_of_residency_1: Optional[str] = None
+    tin_no_1: Optional[str] = None
+    id_type_1: Optional[str] = None
+    reason_if_no_tin_1: Optional[str] = None
+
+
 class FATCACRSDeclaration(BaseModel):
     is_client_tax_resident: Optional[str] = None
     place_of_birth: Optional[str] = None
@@ -74,6 +82,7 @@ class Declarations(BaseModel):
     income_info: Optional[IncomeInfo] = None
     fatca_crs_declaration: Optional[FATCACRSDeclaration] = None
     politically_exposed_person_card: Optional[PoliticallyExposedPersonCard] = None
+    fatca_crs_declaration_1: Optional[FatcaResidencyInfo] = None
 
 
 class KYCHolder(BaseModel):
