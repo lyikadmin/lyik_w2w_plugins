@@ -13,7 +13,7 @@ requires-python = ">=3.10"
 dependencies = ["python-dotenv==1.0.1"]
 
 [tool.setuptools.package-data]
-"lyik" = [
+"lyik.kra_mapping_files" = [
     "states.json",
     "corr_address_proof.json",
     "country.json",
