@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "plugin-pan-verification"
+name = "plugin-w2w-pan-verification"
 version = "0.1.0"
 description = "A plugin to submit request to cretae tech xl demat "
 readme = "README.md"

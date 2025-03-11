@@ -223,12 +223,17 @@ class OperationsListPlugin(OperationsListSpec):
 
             # Rule 2: Exclude operations based on depository type
             exclusion_map = {
-                DepositoryName.NSDL: "CDSL_DEMAT_ACCOUNT_DOWNLOAD",
-                DepositoryName.CDSL: "NSDL_DEMAT_ACCOUNT_DOWNLOAD",
+                DepositoryName.NSDL: {"CDSL_DEMAT_ACCOUNT_DOWNLOAD", "UPLOAD_CDSL"},
+                DepositoryName.CDSL: {
+                    "NSDL_DEMAT_ACCOUNT_DOWNLOAD",
+                    "NSDL_DEMAT_ACCOUNT",
+                },
             }
             if depository_type in exclusion_map:
                 ops_list = [
-                    op for op in ops_list if op.op_id != exclusion_map[depository_type]
+                    op
+                    for op in ops_list
+                    if op.op_id not in exclusion_map[depository_type]
                 ]
             else:
                 ops_list = [
@@ -237,7 +242,9 @@ class OperationsListPlugin(OperationsListSpec):
                     if op.op_id
                     not in {
                         "NSDL_DEMAT_ACCOUNT_DOWNLOAD",
+                        "NSDL_DEMAT_ACCOUNT",
                         "CDSL_DEMAT_ACCOUNT_DOWNLOAD",
+                        "UPLOAD_CDSL",
                     }
                 ]
 

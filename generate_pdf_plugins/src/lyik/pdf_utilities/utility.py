@@ -52,11 +52,11 @@ def get_all_file_ids(record:dict, exclude_ids:list[str]=None):
         full_path = str(match.full_path)
         if exclude_ids and any(exclude_id in full_path for exclude_id in exclude_ids):
             continue
-        if 'doc_type' in parent and not parent['doc_type'].startswith('video'):
+        if 'doc_type' in parent['metadata'] and not parent['metadata']['doc_type'].startswith('video'):
             values.append({
                 'doc_id': parent['doc_id'],
                 'doc_name': parent.get('doc_name', ''),
-                'doc_type': parent['doc_type']
+                'doc_type': parent['metadata']['doc_type']
             })
     return values
 

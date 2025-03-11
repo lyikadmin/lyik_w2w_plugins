@@ -1,0 +1,505 @@
+{
+    "_id": 1,
+    "payment": null,
+    "submitter": {
+      "id": "U005",
+      "phone": "Anonymous",
+      "email": "Anonymous",
+      "time": {
+        "$date": "2025-03-11T05:05:00.920Z"
+      }
+    },
+    "state": "SAVE",
+    "onboarding": {
+      "type_of_client": "IND",
+      "_ver_status": {
+        "status": "success",
+        "message": "Model validation succeeeded.",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null
+      }
+    },
+    "application_details": {
+      "defaults": null,
+      "kyc_digilocker": "YES",
+      "general_application_details": {
+        "application_type": "TRADING_AND_DP",
+        "residential_status": "RI"
+      },
+      "cash_fut_como_card": {
+        "cash_minimum_paisa": 5,
+        "cash_in_percentage": 0.5
+      },
+      "cash_jobbing_card": {
+        "cash_jobbing_minimum_paisa": 6,
+        "cash_jobbing_in_percentage": 0.6
+      },
+      "futures_card": {
+        "futures_minimum_paisa": 7,
+        "futures_in_percentage": 0.7
+      },
+      "options_card": {
+        "options_standard_rate": 100
+      },
+      "currency_futures_card": {
+        "currency_futures_minimum_paisa": 58,
+        "currency_futures_in_percentage": 0.1
+      },
+      "currency_options_card": {
+        "currency_options_rate": 20
+      },
+      "commodity_futures_card": {
+        "commodity_futures_minimum_paisa": 52,
+        "commodity_futures_in_percentage": 0.03
+      },
+      "commodity_options_card": {
+        "commodity_options_rate": 10
+      },
+      "slb_card": {
+        "slb_rate": 22
+      },
+      "flat_per_order_card": {
+        "flat_per_order_rate": null
+      },
+      "online_exe_card": {
+        "online_exe": "NO"
+      },
+      "gst_details_card": {
+        "gst_number": null,
+        "gst_number_1": null
+      },
+      "client_contact_details": {
+        "client_mobile": "+918787885330"
+      },
+      "segment_rates": {},
+      "display_field": null,
+      "_ver_status": {
+        "status": "success",
+        "message": "Verified successfully.",
+        "id": "1de855f5",
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null,
+        "isMandatoryFilled": true
+      }
+    },
+    "kyc_holders": [
+      {
+        "kyc_holder": {
+          "mobile_email_verification": {
+            "mobile_verification": {
+              "dependency_relationship_mobile": "SELF",
+              "contact_id": "8787885330",
+              "_ver_status": {
+                "status": "success",
+                "message": "Verified by the system 2025-03-11 10:26:38.436937",
+                "id": "2ee5c034",
+                "actor": "system",
+                "user_id": "U005",
+                "weight": null
+              },
+              "verified_contact_id": "8787885330"
+            },
+            "email_verification": {
+              "dependency_relationship_email": "SELF",
+              "contact_id": "rahulc@lyik.com",
+              "_ver_status": {
+                "status": "success",
+                "message": "Verified by the system 2025-03-11 10:26:51.671757",
+                "id": "039c182e",
+                "actor": "system",
+                "user_id": "U005",
+                "weight": null
+              },
+              "verified_contact_id": "rahulc@lyik.com"
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null
+            }
+          },
+          "pan_verification": {
+            "pan_card_image": {
+              "doc_id": "67cfc2ac21095ca0ebf2b4e9",
+              "doc_name": "12_pan_rahul.jpg",
+              "doc_size": 4513384,
+              "doc_content": null,
+              "metadata": {
+                "org_id": null,
+                "form_id": null,
+                "record_id": null,
+                "doc_type": "image/jpeg",
+                "digest": null,
+                "esign": null
+              }
+            },
+            "pan_details": {
+              "name_in_pan": "Rahul Choudhury",
+              "dob_pan": "24/10/1998",
+              "pan_number": "BPDPC7099L",
+              "parent_guardian_spouse_name": "Shyamal Choudhury",
+              "_ver_status": {
+                "status": "failure",
+                "message": "HTTP error! status: 500",
+                "id": null,
+                "actor": "system"
+              }
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null
+            }
+          },
+          "identity_address_verification": {
+            "identity_address_info": {
+              "aadhaar_xml": "",
+              "name": "Rahul Choudhury",
+              "uid": "xxxxxxxx5716",
+              "gender": "M",
+              "full_address": "S/O Shyamal Choudhury, PO-Aralia, Mouja-Jogendranagar,Ward No 34, Agartala A.M.C, West Tripura, Tripura, 799004",
+              "city": "Agartala A.M.C",
+              "state": "Tripura",
+              "pin": "799004",
+              "country": "India"
+            },
+            "other_info": {
+              "father_name": "Shyamal Choudhury",
+              "marital_status": "SINGLE",
+              "country_of_birth": "India",
+              "mother_name": "Uma Choudhury",
+              "place_of_birth": "Agartala"
+            },
+            "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+            "correspondence_address": {
+              "proof": {
+                "doc_id": "67cfc2f621095ca0ebf2b501",
+                "doc_name": "119_aadhaar_front.jpg",
+                "doc_size": 3006941,
+                "doc_content": null,
+                "metadata": {
+                  "org_id": null,
+                  "form_id": null,
+                  "record_id": null,
+                  "doc_type": "image/jpeg",
+                  "digest": null,
+                  "esign": null
+                }
+              },
+              "type_of_address": "RESIDENTIAL",
+              "full_address": "Aralia",
+              "city": "Agartala",
+              "state": "Tripura",
+              "pin": "799004",
+              "country": "India"
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null
+            }
+          },
+          "signature_validation": {
+            "upload_images": {
+              "wet_signature_image": null,
+              "proof_of_signature": null
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null
+            }
+          },
+          "liveness_check": {
+            "photo_capture": {
+              "liveness_photo": {
+                "doc_id": "67cfc38a21095ca0ebf2b513",
+                "doc_name": "passport_photo_1741669126263.jpg",
+                "doc_size": 17266,
+                "doc_content": null,
+                "metadata": {
+                  "org_id": null,
+                  "form_id": null,
+                  "record_id": null,
+                  "doc_type": "image/jpeg",
+                  "digest": null,
+                  "esign": null
+                }
+              }
+            },
+            "video_capture": {
+              "liveness_video": ""
+            },
+            "liveness_captcha": "",
+            "liveness_geo_loc": {}
+          },
+          "declarations": {
+            "income_info": {
+              "gross_annual_income": "1_TO_5L",
+              "networth": "123",
+              "occupation": "PRIVATE_SECTOR",
+              "date": "2025-03-11"
+            },
+            "fatca_crs_declaration": {
+              "is_client_tax_resident": "YES"
+            },
+            "politically_exposed_person_card": {
+              "politically_exposed_person": "nan"
+            },
+            "_ver_status": {
+              "status": "success",
+              "message": "Model validation succeeeded.",
+              "id": null,
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null
+            }
+          }
+        }
+      }
+    ],
+    "bank_verification": {
+      "cancelled_cheque": {
+        "cancelled_cheque_image": {
+          "doc_id": "67cfc3d321095ca0ebf2b519",
+          "doc_name": "18_aadhaar_front.jpg",
+          "doc_size": 3006941,
+          "doc_content": null,
+          "metadata": {
+            "org_id": null,
+            "form_id": null,
+            "record_id": null,
+            "doc_type": "image/jpeg",
+            "digest": null,
+            "esign": null
+          }
+        }
+      },
+      "bank_details": {
+        "bank_account_number": "12434",
+        "account_holder_name_pan": "Rahul Choudhury",
+        "account_holder_name_id": "Rahul Choudhury",
+        "ifsc_code": "SBIN0000813",
+        "account_holder_name": "Rahul Choudhury",
+        "type_of_application": "TRADING_AND_DP",
+        "_ver_status": {
+          "status": "success",
+          "message": null,
+          "id": "1",
+          "actor": "system",
+          "user_id": "U005",
+          "weight": null
+        }
+      },
+      "_ver_status": {
+        "status": "success",
+        "message": "Model validation succeeeded.",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null
+      }
+    },
+    "nomination_details": {
+      "general": {
+        "client_nominee_appointment_status": "NO"
+      },
+      "nominees": [
+        {
+          "nominee": {
+            "nominee_data": {
+              "minor_nominee": null,
+              "nominee_type_of_id": null,
+              "name_of_nominee": null,
+              "percentage_of_allocation": null,
+              "nominee_id_proof": null,
+              "id_number": null,
+              "nominee_address": null
+            }
+          }
+        }
+      ],
+      "_ver_status": {
+        "status": "success",
+        "message": "Verified successfully by the system on 2025-03-11 10:32:17.153536",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null
+      }
+    },
+    "trading_information": {
+      "check_pan_for_trading_account": {
+        "trading_id": "rahul716",
+        "account_holder_name": "Rahul Choudhury",
+        "account_creation_date": "2025-03-11",
+        "_ver_status": {
+          "status": "success",
+          "message": "Model validation succeeeded.",
+          "id": null,
+          "actor": "system",
+          "user_id": "U005",
+          "weight": null
+        }
+      },
+      "trading_account_information": {
+        "segment_pref_1": "EQUITY",
+        "segment_pref_2": "FNO",
+        "segment_pref_3": "CURRENCY",
+        "segment_pref_4": "COMMODITY",
+        "segment_pref_5": "MUTUAL_FUND",
+        "segment_pref_6": "SLB",
+        "contract_format_1": null,
+        "contract_format_2": "ELECTRONIC",
+        "proof_of_income": {
+          "doc_id": "67cfc44621095ca0ebf2b52c",
+          "doc_name": "117_pan_rahul.jpg",
+          "doc_size": 4513384,
+          "doc_content": null,
+          "metadata": {
+            "org_id": null,
+            "form_id": null,
+            "record_id": null,
+            "doc_type": "image/jpeg",
+            "digest": null,
+            "esign": null
+          }
+        },
+        "type_of_document": "PAN",
+        "client_facility_choice": "YES",
+        "kit_format_1": null,
+        "kit_format_2": "ELECTRONIC",
+        "holder_trading_experience": "NIL",
+        "_ver_status": {
+          "status": "success",
+          "message": "Verified successfully by the system on 2025-03-11 10:33:30.570844",
+          "id": null,
+          "actor": "system",
+          "user_id": "U005",
+          "weight": null
+        }
+      },
+      "employer_details": {
+        "employer_name": "Lyik",
+        "mobile_number": "8787885330",
+        "approval_date": "2025-03-11",
+        "employer_address": "Bengaluru"
+      },
+      "details_of_dealings": {
+        "broker_name": null,
+        "telephone": null,
+        "client_codes": null,
+        "broker_address": null,
+        "sub_broker_name": null,
+        "website": null,
+        "detail_of_disputes": null
+      },
+      "introducer_details": {
+        "introducer_name": null,
+        "introducer_broker_address": null,
+        "introducer_status": null,
+        "remisire_code": null
+      },
+      "_ver_status": {
+        "status": "success",
+        "message": "Model validation succeeeded.",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null
+      }
+    },
+    "dp_information": {
+      "dp_Account_information": {
+        "dp_tariff_plan": null,
+        "name_of_dp": null,
+        "depository": "NSDL",
+        "dp_id_no": null,
+        "client_id_no": null,
+        "cmr_file": null
+      },
+      "standing_info_from_client": {
+        "receive_credit_auth_status": "YES",
+        "first_holder_sms_alert": "FIRST_HOLDER",
+        "account_statement_requirement": "MONTHLY",
+        "electronic_transaction_holding_statement": "YES",
+        "dividend_interest_receive_option": "YES",
+        "auto_pledge_confirmation": "YES",
+        "did_booklet_issuance": "WITH_AC_OPENING",
+        "bsda": "YES",
+        "joint_account_operation_mode": "ANY_ONE_HOLDER_OR_SURVIVORS",
+        "consent_for_communication": "FIRST_HOLDER",
+        "share_email_id_with_rta": "YES",
+        "receive_annual_report": "PHYSICAL",
+        "aadhaar_pan_seed_status": "YES",
+        "trust": "YES"
+      },
+      "trust_information": {
+        "stack_exchange_name": null,
+        "clearing_member_name": null,
+        "clearing_member_id": null
+      },
+      "ucc_mapping_1": {
+        "ucc_code_1": null,
+        "exchange_id_1": null,
+        "segment_id_1": null,
+        "cm_id_1": null,
+        "tm_id_1": null
+      },
+      "ucc_mapping_2": {
+        "ucc_code_2": null,
+        "exchange_id_2": null,
+        "segment_id_2": null,
+        "cm_id_2": null,
+        "tm_id_2": null
+      },
+      "_ver_status": {
+        "status": "success",
+        "message": "Model validation succeeeded.",
+        "id": null,
+        "actor": "system",
+        "user_id": "U005",
+        "weight": null
+      }
+    },
+    "tnc": {
+      "declaration": {
+        "sms_alert": null,
+        "policy": null,
+        "processing_time": null
+      }
+    },
+    "operations": {
+      "operation_card": {
+        "operation_type": null
+      }
+    },
+    "_time_log": {
+      "created_on": {
+        "$date": "2025-03-11T04:55:59.545Z"
+      },
+      "last_updated_on": {
+        "$date": "2025-03-11T05:05:00.920Z"
+      }
+    },
+    "_application_id": "APPLICATION-20250311102559-33PGQM",
+    "_owner": [
+      "U005",
+      "+918787885330"
+    ]
+  }
