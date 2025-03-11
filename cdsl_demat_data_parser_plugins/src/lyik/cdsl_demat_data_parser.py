@@ -12,8 +12,8 @@ from lyikpluginmanager import (
 )
 from lyikpluginmanager.models.cdsl.helper_enums import *
 # from enum import Enum
-# from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
-from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+# from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
 
 from typing import List, Dict
 from typing_extensions import Doc, Annotated
@@ -185,17 +185,17 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
 import asyncio
 
 
-async def main():
-    import json
-    cd = CDSLDematDataParser()
-    with open('/Users/deepakg/Lyik/lyik_w2w_plugins/generate_pdf_plugins/tests/form_with_ovd_1103.json','r', encoding='utf-8') as file:
-        jd = json.load(file)
-        data = GenericFormRecordModel.model_validate(jd)
-    response = await cd.parse_data_to_cdsl_payload(context=ContextModel(),form_record=data)
+# async def main():
+#     import json
+#     cd = CDSLDematDataParser()
+#     with open('/Users/deepakg/Lyik/lyik_w2w_plugins/generate_pdf_plugins/tests/form_with_ovd_1103.json','r', encoding='utf-8') as file:
+#         jd = json.load(file)
+#         data = GenericFormRecordModel.model_validate(jd)
+#     response = await cd.parse_data_to_cdsl_payload(context=ContextModel(),form_record=data)
     
-    print(response)
+#     print(response)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())
 
