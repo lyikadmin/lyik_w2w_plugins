@@ -87,7 +87,7 @@ class BSEUtility:
     
     def permanent_address_pincode_value(self):
         # pincode only when country selected is India
-        if self.permanent_address_pincode_value() == 'INDIA':
+        if self.permanent_address_country_value() == 'INDIA':
             pincode = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('pin','')
             return pincode
         return None
