@@ -79,7 +79,7 @@ class FlatPerOrderCard(BaseModel):
 
 
 class OnlineExeCard(BaseModel):
-    online_exe: Optional[float] = Field(None)
+    online_exe: Optional[str] = Field(None)
 
 
 class GstDetailsCard(BaseModel):

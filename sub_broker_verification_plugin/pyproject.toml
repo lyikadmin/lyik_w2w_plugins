@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-sub-broker-verification"
+version = "0.1.0"
+description = "A plugin to verify Details of Dealing through Sub-brokers and other Stock Brokers"
+readme = "README.md"
+authors = [{ name = "Debasish Sarkar", email = "debasish@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.entry-points."LYIK"]
+_10_VERIFIER_SUB_BROKER = "lyik.sub_broker_verification_plugin:SubBrokerVerification"

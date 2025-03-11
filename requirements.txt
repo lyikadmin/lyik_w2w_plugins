@@ -1,2 +1,3 @@
 apluggy==1.0.1
 pymongo==4.3.3
+pymssql==2.3.2
