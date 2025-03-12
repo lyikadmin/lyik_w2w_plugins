@@ -77,7 +77,7 @@ class KYC:
         # Identity Details Section
         self.identity_passport_size_alt_text = 'Please affix a recent passport Size Photo and sign across it'
 
-        self.identity_passport_size_photo = self.data.get('liveness_check',{}).get('photo_capture',{}).get('liveness_photo',{}).get('doc_id','') if isinstance(self.data.get('liveness_check',{}).get('photo_capture',{}).get('liveness_photo'),dict) else ''
+        self.identity_passport_size_photo = self.data.get('liveness_photo_capture',{}).get('photo_capture',{}).get('liveness_photo',{}).get('doc_id','') if isinstance(self.data.get('liveness_photo_capture',{}).get('photo_capture',{}).get('liveness_photo'),dict) else ''
         self.identity_passport_size_help_text ='Cross Signature across Photograph'
         self.identity_details_title = '1. Identity Details: (Please See the Guidelines over Leaf)'
         self.identity_pan_label = 'PAN:'

@@ -353,4 +353,3 @@ class TechXLPlugin:
         except Exception as e:
             logger.error(f"Error tech xl submission : {str(e)}")
             raise
-            # return str(e)

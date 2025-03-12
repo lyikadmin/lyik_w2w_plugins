@@ -165,20 +165,24 @@
               }
             }
           },
-          "liveness_check": {
+          "liveness_photo_capture": {
             "photo_capture": {
               "liveness_photo": {
-                "doc_id":null,
+                "doc_id": null,
                 "metadata": {
                   "doc_type": null
                 }
               }
-            },
+            }
+          },
+          "liveness_check": {
             "video_capture": {
-              "liveness_video": null,
-              "metadata": {
+              "liveness_video": {
+                "doc_id": null,
+                "metadata": {
                   "doc_type": null
                 }
+              }
             },
             "liveness_captcha": null,
             "liveness_geo_loc": null

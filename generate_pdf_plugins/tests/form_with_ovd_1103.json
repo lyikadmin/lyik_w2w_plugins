@@ -269,7 +269,7 @@
               "weight": null
             }
           },
-          "liveness_check": {
+          "liveness_photo_capture": {
             "photo_capture": {
               "liveness_photo": {
                 "doc_id": "67cfc38a21095ca0ebf2b513",
@@ -285,7 +285,9 @@
                   "esign": null
                 }
               }
-            },
+            }
+          },
+          "liveness_check": {
             "video_capture": {
               "liveness_video": ""
             },
