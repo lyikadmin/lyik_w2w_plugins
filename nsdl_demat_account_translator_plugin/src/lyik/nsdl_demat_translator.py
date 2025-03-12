@@ -44,6 +44,6 @@ class NSDLDemat(NSDLDematSpec):
         form_record_model = FormRecordModel.model_validate(form_record.model_dump())
 
         # Map the form record to NSDL demat request model
-        nsdl_model = map_form_record(form_record_model=form_record_model)
+        nsdl_model = map_form_record(form_record_model=form_record_model, context = context)
 
         return nsdl_model
