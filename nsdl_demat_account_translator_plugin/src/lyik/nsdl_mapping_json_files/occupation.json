@@ -5,6 +5,7 @@
     "Landlord": 4,
     "Business": 5,
     "Professional": 6,
+    "PRIVATE_SECTOR": 6,
     "Agriculture": 7,
     "Others": 8
 }
