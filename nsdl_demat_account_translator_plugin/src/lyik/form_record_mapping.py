@@ -27,14 +27,17 @@ from typing import List
 import os
 from datetime import datetime
 import logging
+
 logger = logging.getLogger(__name__)
 
-def map_form_record(
+
+async def map_form_record(
     form_record_model: FormRecordModel, context: ContextModel
 ) -> NSDLRquestModel:
     """
     This function maps the form record model to the NSDL root model and returns.
     """
+    # ToDO: context do not have org id and form id
     REQUESTOR_ID = os.getenv("NSDL_REQUESTOR_ID")
     first_holder = form_record_model.kyc_holders[0].kyc_holder
     correspondence_address = (
@@ -53,6 +56,7 @@ def map_form_record(
                     dob=get_NSDL_formatted_date(
                         first_holder.pan_verification.pan_details.dob_pan
                     ),
+                    gender=first_holder.identity_address_verification.identity_address_info.gender,
                     aadhar=first_holder.identity_address_verification.identity_address_info.uid,
                     mobile=first_holder.mobile_email_verification.mobile_verification.contact_id,
                     email=first_holder.mobile_email_verification.email_verification.contact_id,
@@ -70,7 +74,8 @@ def map_form_record(
                         form_record_model.kyc_holders,
                     ),
                     communicationToBeSend=getComunicationSend(
-                        form_record_model.dp_information.standing_info_from_client.consent_for_communication
+                        form_record_model.dp_information.standing_info_from_client.consent_for_communication,
+                        form_record_model.kyc_holders,
                     ),
                     beneficiaryCoresAddress=Address(
                         addressType="1",  # Coresponding Address is 1
@@ -94,13 +99,15 @@ def map_form_record(
                         statecode=get_state_code(permanent_address.state),
                         countrycode=get_country_code(permanent_address.country),
                     ),
-                    signature=get_wet_signature(
-                        first_holder.signature_validation.upload_images.wet_signature_image
+                    signature= await get_wet_signature(
+                        first_holder.signature_validation.upload_images.wet_signature_image,
+                        context=context,
                     ),
                 ),
                 numOfJointHolders=get_number_of_holders(form_record_model.kyc_holders),
                 listOfJointHolders=get_list_of_joint_holders(
-                    form_record_model.kyc_holders
+                    form_record_model.dp_information.standing_info_from_client.first_holder_sms_alert,
+                    form_record_model.kyc_holders,
                 ),
                 additionalBeneDetails=AdditionalBeneficiaryDetails(
                     familyMobileFlag="N",  # ??? Need more information
@@ -119,7 +126,7 @@ def map_form_record(
                         form_record_model.nomination_details.nominees
                     ),
                     listOfNominees=get_nominees(
-                        form_record_model.nomination_details.nominees
+                        form_record_model.nomination_details.nominees, form_record_model.nomination_details.general.client_nominee_appointment_status
                     ),
                 ),
             ),
@@ -151,8 +158,8 @@ def get_NSDL_formatted_date(date: str) -> str:
     return formatted_date
 
 
-def load_mapping_file(self, file_name: str) -> dict:
-    with resources.path("lyik.nsdl_mapping_json_file", file_name) as file_path:
+def load_mapping_file(file_name: str) -> dict:
+    with resources.path("lyik.nsdl_mapping_json_files", file_name) as file_path:
         with open(file_path, "r") as file:
             return json.load(file)
 
@@ -167,30 +174,30 @@ def getEstatement(kit1: str | None, kit2: str | None) -> str:
         return "E"
 
 
-def getModeOfOperation(mode: str | None, holders: List[KYCHolder]) -> str | None:
+def getModeOfOperation(mode: str | None, holders: List[KYCHolder]) -> str:
     """
     Returns the mode of operation value
     """
     if mode is None:
-        return None
+        return ""
     # Optional in case of single account holder. Mandatory in case of joint account holders.
-    if len(holders) is 0:
-        return None
+    if len(holders) == 0:
+        return ""
     elif mode.upper() == "JOINTLY":
         return "1"
     elif mode.upper() == "ANY_ONE_HOLDER_OR_SURVIVORS":
         return "2"
 
 
-def getComunicationSend(comm: str | None, holders: List[KYCHolder]) -> str | None:
+def getComunicationSend(comm: str | None, holders: List[KYCHolder]) -> str:
     """
     Returns the communication to be send value
     """
     if comm is None:
-        return None
+        return ""
     # Optional in case of single account holder. Mandatory in case of joint account holders.
-    if len(holders) is 0:
-        return None
+    if len(holders) <=1:
+        return ""
     elif comm.lower() == "FIRST_HOLDER":
         return "1"
     elif comm.lower() == "ALL_HOLDERS":
@@ -234,19 +241,19 @@ async def get_wet_signature(
     return encoded_image
 
 
-def get_number_of_holders(kyc_holders=List[KYCHolder]) -> int:
+def get_number_of_holders(kyc_holders: List[KYCHolder]) -> int:
     """Returns the number of holders"""
-    if len(kyc_holders) is 1:
+    if len(kyc_holders) == 1:
         return 0
     return len(kyc_holders)
 
 
 def get_list_of_joint_holders(
-    sms_alert: str, kyc_holders=List[KYCHolder]
-) -> List[JointHolder] | None:
+    sms_alert: str, kyc_holders: List[KYCHolder]
+) -> List[JointHolder]:
     """Returns the list of jointholders"""
     if len(kyc_holders) <= 1:
-        return None
+        return []
     joint_holders: List[JointHolder] = []
     for index, holder in enumerate(kyc_holders):
         holder_data: KYCHolderData = holder.kyc_holder
@@ -276,11 +283,11 @@ def get_join_holder_sms_facility(
     """Returns the join holder sms_facility tag"""
     if mobile_number is None:
         return "N"
-    elif sms_alert is "NO":
+    elif sms_alert == "NO":
         return "N"
-    elif sms_alert is "ALL_JOINT_HOLDER":
+    elif sms_alert == "ALL_JOINT_HOLDER":
         return "Y"
-    elif sms_alert is "FIRST_HOLDER":
+    elif sms_alert == "FIRST_HOLDER":
         if index == 0:
             return "Y"
         else:
@@ -299,9 +306,9 @@ def get_number_of_nominees(nominees_list: List[Nominee]) -> int:
     return len(nominees_list)
 
 
-def get_nominees(nominees_list: List[Nominee]) -> List[NSDLNominee] | None:
-    if len(nominees_list) == 0:
-        return None
+def get_nominees(nominees_list: List[Nominee], nominee_flag:str ) -> List[NSDLNominee]:
+    if nominee_flag == "NO":
+        return []
     nominees: List[NSDLNominee] = []
     for index, nominee in enumerate(nominees_list):
         nominee = NSDLNominee(

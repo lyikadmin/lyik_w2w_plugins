@@ -13,10 +13,10 @@ from lyikpluginmanager import (
     PrimaryBeneficiary,
     JointHolder,
     AdditionalBeneficiaryDetails,
-    Nominee,
     NomineeIdentificationDetails,
     Address,
     GenericFormRecordModel,
+    NSDLNominee
 )
 from .nsdl_demat_model.form_record_mpdel import FormRecordModel
 from .form_record_mapping import map_form_record
@@ -44,6 +44,6 @@ class NSDLDemat(NSDLDematSpec):
         form_record_model = FormRecordModel.model_validate(form_record.model_dump())
 
         # Map the form record to NSDL demat request model
-        nsdl_model = map_form_record(form_record_model=form_record_model, context = context)
+        nsdl_model = await map_form_record(form_record_model=form_record_model, context = context)
 
         return nsdl_model
