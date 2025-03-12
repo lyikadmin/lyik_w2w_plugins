@@ -219,6 +219,10 @@ async def handle_dp_account_creation(record: dict) -> str:
 
 async def handle_trading_account_creation(record: dict) -> str:
     # Logic to create trading account, When successful, return the approprate state.
+
+    if False:
+        return STATE_READY_FOR_TRADING
+
     return STATE_ACCOUNTS_CREATED
 
 
@@ -313,3 +317,6 @@ def _get_pan_numbers(record: dict) -> List[str]:
         pan = kyc_holder["kyc_holder"]["pan_verification"]["pan_details"]["pan_number"]
         pan_list.append(pan)
     return pan_list
+
+
+class text
