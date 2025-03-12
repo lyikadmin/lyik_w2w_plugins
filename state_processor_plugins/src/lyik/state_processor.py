@@ -317,6 +317,3 @@ def _get_pan_numbers(record: dict) -> List[str]:
         pan = kyc_holder["kyc_holder"]["pan_verification"]["pan_details"]["pan_number"]
         pan_list.append(pan)
     return pan_list
-
-
-class text
