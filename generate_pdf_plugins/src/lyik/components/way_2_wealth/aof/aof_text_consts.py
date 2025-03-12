@@ -77,7 +77,7 @@ class KYC:
         # Identity Details Section
         self.identity_passport_size_alt_text = 'Please affix a recent passport Size Photo and sign across it'
 
-        self.identity_passport_size_photo = self.data.get('liveness_check',{}).get('photo_capture',{}).get('liveness_photo',{}).get('doc_id','') if isinstance(self.data.get('liveness_check',{}).get('photo_capture',{}).get('liveness_photo'),dict) else ''
+        self.identity_passport_size_photo = self.data.get('liveness_photo_capture',{}).get('photo_capture',{}).get('liveness_photo',{}).get('doc_id','') if isinstance(self.data.get('liveness_photo_capture',{}).get('photo_capture',{}).get('liveness_photo'),dict) else ''
         self.identity_passport_size_help_text ='Cross Signature across Photograph'
         self.identity_details_title = '1. Identity Details: (Please See the Guidelines over Leaf)'
         self.identity_pan_label = 'PAN:'
@@ -215,7 +215,7 @@ class KYC:
         self.tax_resident_options = ['Yes','No']
         self.tax_resident_selected_options = [get_enum_value_from_key(self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('is_client_tax_resident',''))]
         self.place_of_birth_label = 'Place of Birth :'
-        self.place_of_birth_value = '',#self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('place_of_birth_1','')
+        self.place_of_birth_value = '' #self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('place_of_birth_1','')
         self.country_of_origin_label = 'Country of Origin :'
         self.country_of_origin_value = 'India' if self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('is_client_tax_resident','')=='YES' else '' #self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('country_of_origin','')
         self.iso_3166_country_code_label = 'ISO 3166 Country Code'

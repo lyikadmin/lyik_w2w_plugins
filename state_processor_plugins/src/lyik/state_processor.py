@@ -1,18 +1,23 @@
+import logging
+import os
+from datetime import datetime, timezone
+from typing import Dict, Any, Tuple, List
 import apluggy as pluggy
-from motor.motor_asyncio import AsyncIOMotorGridFSBucket
-from typing import Dict, Any, Tuple, List, Annotated
-from typing_extensions import Doc
-from lyikpluginmanager import getProjectName, StateProcessorSpec, ContextModel, invoke
+import jwt
+import requests
+from lyikpluginmanager import ContextModel, getProjectName, StateProcessorSpec, invoke
+
 from lyikpluginmanager.models import (
-    GenericFormRecordModel,
     OperationResponseModel,
     OperationStatus,
     UCCResponseModel,
     UCCResponseStatus,
+    GenericFormRecordModel,
 )
+from typing_extensions import Annotated, Doc
 
-import jwt
-from datetime import datetime, timezone
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 # States
 STATE_SAVE = "SAVE"
@@ -167,7 +172,7 @@ class W2WStateProcessor(StateProcessorSpec):
         if current_state == STATE_KRA_UPLOADED:
             new_state = await handle_kra_upload_status(record, context=context)
             current_state = _change_and_add_state(record=record, new_state=new_state)
-        
+
         if current_state == STATE_KRA_APPROVED:
             new_state = STATE_COMPLETED
             current_state = _change_and_add_state(record=record, new_state=new_state)
@@ -219,14 +224,18 @@ async def handle_dp_account_creation(record: dict) -> str:
 
 async def handle_trading_account_creation(record: dict) -> str:
     # Logic to create trading account, When successful, return the approprate state.
-    return STATE_ACCOUNTS_CREATED
+    try:
+        await TechXLPlugin.create_demat(record)
+        return STATE_ACCOUNTS_CREATED
+    except Exception as e:
+        return STATE_READY_FOR_TRADING
 
 
 async def handle_ucc(record: dict, context: ContextModel) -> str:
     try:
         # Logic for creation of UCC
         generic_model_record = GenericFormRecordModel.model_validate(record)
-        response:UCCResponseModel = await invoke.upload_ucc(
+        response: UCCResponseModel = await invoke.upload_ucc(
             config=context.config,
             form_record=generic_model_record,
         )
@@ -313,3 +322,28 @@ def _get_pan_numbers(record: dict) -> List[str]:
         pan = kyc_holder["kyc_holder"]["pan_verification"]["pan_details"]["pan_number"]
         pan_list.append(pan)
     return pan_list
+
+
+# todo : move to a more appropriate location
+
+
+class TechXLPlugin:
+    @staticmethod
+    async def create_demat(
+        form_record: dict,
+    ) -> Annotated[str, Doc("response text")]:
+        # todo: 1. parse form record to create TechXL payload
+        payload = {}
+        files = {}
+        try:
+            endpoint = os.getenv("TECH_XL_ENDPOINT")
+            if not endpoint:
+                raise ValueError("TechXL endpoint not set")
+            response = requests.post(endpoint, data=payload, files=files)
+            print(response.status_code)
+            print(response.text)
+            return response.text
+
+        except Exception as e:
+            logger.error(f"Error tech xl submission : {str(e)}")
+            raise

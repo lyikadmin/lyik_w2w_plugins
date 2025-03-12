@@ -213,7 +213,20 @@
           },
           "signature_validation": {
             "upload_images": {
-              "wet_signature_image": null,
+              "wet_signature_image": {
+                "doc_id": "67cfc38a21095ca0ebf2b513",
+                "doc_name": "passport_photo_1741669126263.jpg",
+                "doc_size": 17266,
+                "doc_content": null,
+                "metadata": {
+                  "org_id": null,
+                  "form_id": null,
+                  "record_id": null,
+                  "doc_type": "image/jpeg",
+                  "digest": null,
+                  "esign": null
+                }
+              },
               "proof_of_signature": null
             },
             "_ver_status": {
@@ -225,7 +238,7 @@
               "weight": null
             }
           },
-          "liveness_check": {
+          "liveness_photo_capture": {
             "photo_capture": {
               "liveness_photo": {
                 "doc_id": "67cfc38a21095ca0ebf2b513",
@@ -241,7 +254,9 @@
                   "esign": null
                 }
               }
-            },
+            }
+          },
+          "liveness_check": {
             "video_capture": {
               "liveness_video": ""
             },
