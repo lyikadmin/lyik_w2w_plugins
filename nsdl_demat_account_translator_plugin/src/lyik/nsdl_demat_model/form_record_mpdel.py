@@ -13,7 +13,7 @@ class Submitter(BaseModel):
     id: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None
-    time: Optional[str] = None
+    time: Optional[datetime] = None
 
 
 class Metadata(BaseModel):
