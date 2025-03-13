@@ -168,10 +168,11 @@ def getEstatement(kit1: str | None, kit2: str | None) -> str:
     """
     Returns the Estatement value
     """
-    if kit1:
-        return "P"
-    elif kit2:
+    if kit2:
         return "E"
+    elif kit1:
+        return "P"
+    
 
 
 def getModeOfOperation(mode: str | None, holders: List[KYCHolder]) -> str:

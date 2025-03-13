@@ -5,24 +5,24 @@ from lyikpluginmanager import DBDocumentModel
 
 
 class TimeLog(BaseModel):
-    created_on: str
+    created_on: str | None = None
     last_updated_on: str
 
 
 class Submitter(BaseModel):
-    id: Optional[str] = None
-    phone: Optional[str] = None
-    email: Optional[str] = None
+    id: str | None = None
+    phone: str | None = None
+    email: str | None = None
     time: Optional[datetime] = None
 
 
 class Metadata(BaseModel):
-    org_id: Optional[str] = None
-    form_id: Optional[str] = None
-    record_id: Optional[str] = None
-    doc_type: Optional[str] = None
-    digest: Optional[str] = None
-    esign: Optional[str] = None
+    org_id: str | None = None
+    form_id: str | None = None
+    record_id: str | None = None
+    doc_type: str | None = None
+    digest: str | None = None
+    esign: str | None = None
 
 
 class AddressInfo(BaseModel):
@@ -30,7 +30,7 @@ class AddressInfo(BaseModel):
     city: str
     country: str
     pin: str
-    aadhaar_xml: Optional[str] = None
+    aadhaar_xml: str | None = None
     name: str
     gender: str
     uid: str
@@ -58,15 +58,15 @@ class CorrespondenceAddress(BaseModel):
 class VerificationStatus(BaseModel):
     status: str
     message: str
-    id: Optional[str] = None
+    id: str | None = None
     actor: str
-    user_id: Optional[str] = None
+    user_id: str | None = None
     weight: Optional[Any] = None
     isMandatoryFilled: Optional[bool] = None
 
 
 class OVD(BaseModel):
-    ovd_type: Optional[str] = None
+    ovd_type: str | None = None
     ovd_front: Optional[DBDocumentModel] = None
     ovd_back: Optional[DBDocumentModel] = None
 
@@ -75,7 +75,7 @@ class IdentityAddressVerification(BaseModel):
     identity_address_info: AddressInfo
     other_info: OtherInfo
     correspondence_address: CorrespondenceAddress
-    same_as_permanent_address: Optional[str] = None
+    same_as_permanent_address: str | None = None
     _ver_status: Optional[VerificationStatus] = None
     ovd: Optional[OVD] = None
 
@@ -100,13 +100,13 @@ class IncomeInfo(BaseModel):
 
 class FATCACRSDeclaration(BaseModel):
     is_client_tax_resident: str
-    place_of_birth: Optional[str] = None
-    country_of_origin: Optional[str] = None
-    country_code: Optional[str] = None
+    place_of_birth: str | None = None
+    country_of_origin: str | None = None
+    country_code: str | None = None
 
 
 class PoliticallyExposedPersonCard(BaseModel):
-    politically_exposed_person: Optional[str] = None
+    politically_exposed_person: str | None = None
 
 
 class Declarations(BaseModel):
@@ -182,14 +182,14 @@ class BankVerification(BaseModel):
 
 
 class NomineeData(BaseModel):
-    minor_nominee: Optional[str] = None
-    nominee_type_of_id: Optional[str] = None
-    name_of_nominee: Optional[str] = None
-    percentage_of_allocation: Optional[str] = None
+    minor_nominee: str | None = None
+    nominee_type_of_id: str | None = None
+    name_of_nominee: str | None = None
+    percentage_of_allocation: str | None = None
     nominee_id_proof: Optional[DBDocumentModel] = None
-    id_number: Optional[str] = None
-    nominee_address: Optional[str] = None
-    dob_nominee: Optional[str] = None
+    id_number: str | None = None
+    nominee_address: str | None = None
+    dob_nominee: str | None = None
 
 
 class GuardianData(BaseModel):
@@ -218,34 +218,34 @@ class NominationDetails(BaseModel):
 
 
 class IntroducerDetails(BaseModel):
-    introducer_name: Optional[str] = None
-    introducer_broker_address: Optional[str] = None
-    introducer_status: Optional[str] = None
-    remisire_code: Optional[str] = None
+    introducer_name: str | None = None
+    introducer_broker_address: str | None = None
+    introducer_status: str | None = None
+    remisire_code: str | None = None
 
 
 class TradingAccountInformation(BaseModel):
-    segment_pref_1: Optional[str] = None
-    segment_pref_2: Optional[str] = None
-    segment_pref_3: Optional[str] = None
-    segment_pref_4: Optional[str] = None
-    segment_pref_5: Optional[str] = None
-    segment_pref_6: Optional[str] = None
-    type_of_document: Optional[str] = None
-    contract_format_1: Optional[str] = None
-    contract_format_2: Optional[str] = None
+    segment_pref_1: str | None = None
+    segment_pref_2: str | None = None
+    segment_pref_3: str | None = None
+    segment_pref_4: str | None = None
+    segment_pref_5: str | None = None
+    segment_pref_6: str | None = None
+    type_of_document: str | None = None
+    contract_format_1: str | None = None
+    contract_format_2: str | None = None
     proof_of_income: Optional[DBDocumentModel] = None
-    client_facility_choice: Optional[str] = None
+    client_facility_choice: str | None = None
     client_facility_choice: str
-    kit_format_1: Optional[str] = None
-    kit_format_2: Optional[str] = None
-    holder_trading_experience: Optional[str] = None
+    kit_format_1: str | None = None
+    kit_format_2: str | None = None
+    holder_trading_experience: str | None = None
 
 
 class CheckPanForTrading(BaseModel):
-    trading_id: Optional[str] = None
-    account_holder_name: Optional[str] = None
-    account_creation_date: Optional[str] = None
+    trading_id: str | None = None
+    account_holder_name: str | None = None
+    account_creation_date: str | None = None
     _ver_status: Optional[Optional[VerificationStatus]]
 
 
@@ -257,20 +257,20 @@ class EmployerDetails(BaseModel):
 
 
 class DetailsOfDealings(BaseModel):
-    broker_name: Optional[str] = None
-    telephone: Optional[str] = None
-    client_codes: Optional[str] = None
-    broker_address: Optional[str] = None
-    sub_broker_name: Optional[str] = None
-    website: Optional[str] = None
-    detail_of_disputes: Optional[str] = None
+    broker_name: str | None = None
+    telephone: str | None = None
+    client_codes: str | None = None
+    broker_address: str | None = None
+    sub_broker_name: str | None = None
+    website: str | None = None
+    detail_of_disputes: str | None = None
 
 
 class IntroducerDetails(BaseModel):
-    introducer_name: Optional[str] = None
-    introducer_broker_address: Optional[str] = None
-    introducer_status: Optional[str] = None
-    remisire_code: Optional[str] = None
+    introducer_name: str | None = None
+    introducer_broker_address: str | None = None
+    introducer_status: str | None = None
+    remisire_code: str | None = None
 
 
 class TradingInformation(BaseModel):
@@ -373,11 +373,11 @@ class ApplicationDetails(BaseModel):
 
 
 class DPAccountInformation(BaseModel):
-    dp_tariff_plan: Optional[str] = None
-    name_of_dp: Optional[str] = None
-    depository: Optional[str] = "NSDL"
-    dp_id_no: Optional[str] = None
-    client_id_no: Optional[str] = None
+    dp_tariff_plan: str | None = None
+    name_of_dp: str | None = None
+    depository: str | None = "NSDL"
+    dp_id_no: str | None = None
+    client_id_no: str | None = None
     cmr_file: Optional[DBDocumentModel] = None
 
 
@@ -399,17 +399,17 @@ class StandingInfoFromClient(BaseModel):
 
 
 class TrustInformation(BaseModel):
-    stack_exchange_name: Optional[str] = None
-    clearing_member_name: Optional[str] = None
-    clearing_member_id: Optional[str] = None
+    stack_exchange_name: str | None = None
+    clearing_member_name: str | None = None
+    clearing_member_id: str | None = None
 
 
 class UCCMapping(BaseModel):
-    ucc_code: Optional[str] = None
-    exchange_id: Optional[str] = None
-    segment_id: Optional[str] = None
-    cm_id: Optional[str] = None
-    tm_id: Optional[str] = None
+    ucc_code: str | None = None
+    exchange_id: str | None = None
+    segment_id: str | None = None
+    cm_id: str | None = None
+    tm_id: str | None = None
 
 
 class DPInformation(BaseModel):
@@ -422,16 +422,16 @@ class DPInformation(BaseModel):
 
 
 class FormRecordModel(BaseModel):
-    payment: Optional[Any] = None
-    submitter: Submitter
-    state: str
-    onboarding: Onboarding
-    application_details: ApplicationDetails
-    kyc_holders: List[KYCHolder]
-    _time_log: Optional[TimeLog] = None
-    _application_id: Optional[str] = None
-    _owner: Optional[List[str]] = None
-    bank_verification: BankVerification
-    nomination_details: NominationDetails
-    trading_information: TradingInformation
-    dp_information: DPInformation
+    payment: Any | None = None
+    submitter: Submitter | None = None
+    state: str | None = None
+    onboarding: Onboarding | None = None
+    application_details: ApplicationDetails | None = None
+    kyc_holders: List[KYCHolder] | None = None
+    _time_log: TimeLog | None = None
+    _application_id: str | None = None
+    _owner: List[str] | None = None
+    bank_verification: BankVerification | None = None
+    nomination_details: NominationDetails | None = None
+    trading_information: TradingInformation | None = None
+    dp_information: DPInformation | None = None
