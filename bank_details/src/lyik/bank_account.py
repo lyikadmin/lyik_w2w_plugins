@@ -1,15 +1,15 @@
 import apluggy as pluggy
+import requests
 from lyikpluginmanager import (
     getProjectName,
     VerifyHandlerSpec,
     ContextModel,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
+    invoke,
 )
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Annotated, Doc
-import random
-import requests
 
 impl = pluggy.HookimplMarker(getProjectName())
 
@@ -23,9 +23,14 @@ class BankVerificationPayload(BaseModel):
         ..., description="Account holder name as per ID proof"
     )
     ifsc_code: str = Field(..., description="IFSC code")
-    account_holder_name: str | None = Field(..., description="Account holder name")
+    account_holder_name: str = Field(..., description="Account holder name")
+    mobile_number: str = Field(..., description="Mobile number")
     type_of_application: str = Field(..., description="Type of application")
     model_config = ConfigDict(extra="allow")
+
+
+def shallow_match_name(customer_name, account_holder_name) -> bool:
+    return customer_name.casefold() == account_holder_name.casefold()
 
 
 class BankAccount(VerifyHandlerSpec):
@@ -80,27 +85,69 @@ class BankAccount(VerifyHandlerSpec):
                     message="IFSC code does not belong to the selected bank",
                 )
 
-        ## Todo:
-        # Invoke the Bank account verification plugin
-        # Shallow match the account holder's name that is returned by the plugin with the name from UI
-        #
+        try:
+            response = await invoke.verify_bank(
+                context=context,
+                ifsc_code=payload.ifsc_code,
+                account_number=payload.bank_account_number,
+                name=payload.account_holder_name,
+                mobile_number=payload.mobile_number,
+            )
 
-        payload_dict = payload.model_dump()
-        old_ver_status = payload_dict.pop("_ver_status", None)
-        # payload_dict.update({"address": f"new_address-{random.randint(0,1000)}"})
-        payload_dict.update(
-            {
-                "account_holder_name_pan": "",
-                "account_holder_name_id": "",
-                "account_holder_name": "",
-            }
-        )
+            success = response.status == VERIFY_RESPONSE_STATUS.SUCCESS
 
-        response = VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.SUCCESS,
-            actor="system",
-            id="1",
-            response=payload_dict,
-        )
+            if not success:
+                return VerifyHandlerResponseModel(
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    actor="system",
+                    id="1",
+                    message=f"Failed to verify bank account",
+                )
 
-        return response
+            name_matched = shallow_match_name(
+                response.customer_name, payload.account_holder_name
+            )
+
+            if not name_matched:
+                return VerifyHandlerResponseModel(
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    actor="system",
+                    id="1",
+                    message=f"Account holder name mismatch",
+                )
+
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.SUCCESS,
+                actor="system",
+                id="1",
+                response=response.model_dump(),
+            )
+
+            # todo: clean up
+            # payload_dict = payload.model_dump()
+            # old_ver_status = payload_dict.pop("_ver_status", None)
+            # # payload_dict.update({"address": f"new_address-{random.randint(0,1000)}"})
+            # payload_dict.update(
+            #     {
+            #         "account_holder_name_pan": "",
+            #         "account_holder_name_id": "",
+            #         "account_holder_name": "",
+            #     }
+            # )
+            #
+            # response = VerifyHandlerResponseModel(
+            #     status=VERIFY_RESPONSE_STATUS.SUCCESS,
+            #     actor="system",
+            #     id="1",
+            #     response=payload_dict,
+            # )
+
+            # return response
+
+        except Exception as e:
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                actor="system",
+                id="1",
+                message=f"Failed to verify bank account: {str(e)}",
+            )
