@@ -35,26 +35,21 @@ class DetailsOfDealings(BaseModel):
     @field_validator("website")
     @classmethod
     def validate_website(cls, value):
-        if value is None:
-            raise ValueError(
-                "Website cannot be empty if provided. Enter a valid domain."
-            )
-
         # Regex pattern to allow the required formats
         pattern = r"^(https?://)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$"
 
-        if not re.match(pattern, value):
+        if value and not re.match(pattern, value):
             raise ValueError("Invalid website format. Use a valid domain.")
 
         return value
 
-    @model_validator(mode="after")
+    @model_validator(mode="before")
     def check_all_or_none(cls, values):
-        values_dict = vars(values)
-        non_empty_fields = [v for v in values_dict.values() if v not in [None, ""]]
+        filtered_values = {k: v for k, v in values.items() if k != "_ver_status"}
+        non_empty_fields = [k for k, v in filtered_values.items() if v not in [None, ""]]
 
         # If at least one field is filled, all must be filled
-        if non_empty_fields and len(non_empty_fields) != len(values_dict):
+        if non_empty_fields and len(non_empty_fields) != len(filtered_values):
             raise ValueError("Please fill all the details")
 
         return values
