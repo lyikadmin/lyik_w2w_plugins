@@ -80,6 +80,11 @@ class BankAccount(VerifyHandlerSpec):
                     message="IFSC code does not belong to the selected bank",
                 )
 
+        ## Todo:
+        # Invoke the Bank account verification plugin
+        # Shallow match the account holder's name that is returned by the plugin with the name from UI
+        #
+
         payload_dict = payload.model_dump()
         old_ver_status = payload_dict.pop("_ver_status", None)
         # payload_dict.update({"address": f"new_address-{random.randint(0,1000)}"})
