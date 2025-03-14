@@ -26,6 +26,14 @@ class BankVerificationPayload(BaseModel):
     account_holder_name: str = Field(..., description="Account holder name")
     mobile_number: str = Field(..., description="Mobile number")
     type_of_application: str = Field(..., description="Type of application")
+
+    micr_code :str | None = Field(None)
+    bank_address: str | None = Field(None)
+    bank_name:str | None = Field(None)
+    type_of_account: str | None = Field(None)
+
+
+
     model_config = ConfigDict(extra="allow")
 
 
