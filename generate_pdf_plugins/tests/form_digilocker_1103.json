@@ -398,7 +398,7 @@
         "type_of_document": "PAN",
         "client_facility_choice": "YES",
         "kit_format_1": null,
-        "kit_format_2": "ELECTRONIC",
+        "kit_format_2": "ELECTRONIC_FORM",
         "holder_trading_experience": "NIL",
         "_ver_status": {
           "status": "success",

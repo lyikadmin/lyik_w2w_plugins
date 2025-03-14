@@ -173,8 +173,8 @@ class CDSLDematUtility:
         return bank_ifsc
     
     def bank_micrcd_value(self):
-        # bank_micrid = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('micr_code','') # Todo: field not present in form!
-        return '', #bank_micrid
+        bank_micrid = self.form_record.get('bank_verification',{}).get('bank_details',{}).get('micr_code','')
+        return bank_micrid
 
     def ecs_mandate_value(self):
         # Todo: unknown field source
