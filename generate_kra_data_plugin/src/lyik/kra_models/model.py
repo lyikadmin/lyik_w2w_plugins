@@ -1,18 +1,30 @@
-from pydantic import BaseModel, Field, ConfigDict
-from typing import Dict, Optional
+from pydantic import BaseModel
+from typing import Optional, Any
 from lyikpluginmanager import DBDocumentModel
+from datetime import datetime
 
 
 class PanDetails(BaseModel):
-    name_in_pan: Optional[str] = None
-    dob_pan: Optional[str] = None
-    pan_number: Optional[str] = None
-    parent_guardian_spouse_name: Optional[str] = None
+    name_in_pan: str
+    dob_pan: str
+    pan_number: str
+    parent_guardian_spouse_name: str
+
+
+class VerificationStatus(BaseModel):
+    status: str
+    message: str
+    id: str | None = None
+    actor: str
+    user_id: str | None = None
+    weight: Any | None = None
+    isMandatoryFilled: bool | None = None
 
 
 class PanVerification(BaseModel):
-    pan_card_image: Optional[DBDocumentModel] = None
-    pan_details: Optional[PanDetails] = None
+    pan_details: PanDetails
+    pan_card_image: DBDocumentModel
+    _ver_status: VerificationStatus | None = None
 
 
 class OtherInfo(BaseModel):
@@ -34,37 +46,37 @@ class CorrespondenceAddress(BaseModel):
 
 
 class OVD(BaseModel):
-    ovd_type: Optional[str]= None
-    ovd_front: Optional[DBDocumentModel] = None
-    ovd_back: Optional[DBDocumentModel] = None
+    ovd_type: str | None = None
+    ovd_front: DBDocumentModel | None = None
+    ovd_back: DBDocumentModel | None = None
 
 
 class IdentityAddressInfo(BaseModel):
-    state: Optional[str] = None
-    city: Optional[str] = None
-    district: Optional[str] = None
-    country: Optional[str] = None
-    pin: Optional[str] = None
-    aadhaar_xml: Optional[str] = None
-    name: Optional[str] = None
-    gender: Optional[str] = None
-    uid: Optional[str] = None
-    full_address: Optional[str] = None
+    state: str
+    city: str
+    country: str
+    pin: str
+    aadhaar_xml: str | None = None
+    name: str
+    gender: str
+    uid: str
+    full_address: str
 
 
 class IdentityAddressVerification(BaseModel):
-    other_info: Optional[OtherInfo] = None
-    correspondence_address: Optional[CorrespondenceAddress] = None
-    identity_address_info: Optional[IdentityAddressInfo] = None
-    same_as_permanent_address: Optional[str] = None
-    ovd: Optional[OVD] = None
+    identity_address_info: IdentityAddressInfo
+    other_info: OtherInfo
+    correspondence_address: CorrespondenceAddress
+    same_as_permanent_address: str | None = None
+    _ver_status: VerificationStatus | None = None
+    ovd: OVD | None = None
 
 
 class IncomeInfo(BaseModel):
-    gross_annual_income: Optional[str] = None
-    networth: Optional[str] = None
-    occupation: Optional[str] = None
-    date: Optional[str] = None
+    networth: str
+    gross_annual_income: str
+    occupation: str
+    date: datetime
 
 
 class FatcaResidencyInfo(BaseModel):
@@ -75,27 +87,66 @@ class FatcaResidencyInfo(BaseModel):
 
 
 class FATCACRSDeclaration(BaseModel):
-    is_client_tax_resident: Optional[str] = None
-    place_of_birth: Optional[str] = None
-    country_of_origin: Optional[str] = None
-    country_code: Optional[str] = None
+    is_client_tax_resident: str
+    place_of_birth: str | None = None
+    country_of_origin: str | None = None
+    country_code: str | None = None
+
+
+class FATCACRSDeclaration1(BaseModel):
+    country_of_residency_1: str
+    tin_no_1: str | None = None
+    id_type_1: str | None = None
+    reason_if_no_tin_1: str | None = None
 
 
 class PoliticallyExposedPersonCard(BaseModel):
-    politically_exposed_person: Optional[str] = None
+    politically_exposed_person: str | None = None
 
 
 class Declarations(BaseModel):
-    income_info: Optional[IncomeInfo] = None
-    fatca_crs_declaration: Optional[FATCACRSDeclaration] = None
-    politically_exposed_person_card: Optional[PoliticallyExposedPersonCard] = None
-    fatca_crs_declaration_1: Optional[FatcaResidencyInfo] = None
+    income_info: IncomeInfo
+    fatca_crs_declaration: FATCACRSDeclaration
+    politically_exposed_person_card: PoliticallyExposedPersonCard
+    _ver_status: VerificationStatus | None = None
+    fatca_crs_declaration_1: FATCACRSDeclaration1 | None = None
+
+
+class MobileVerification(BaseModel):
+    dependency_relationship_mobile: str
+    contact_id: str
+    _ver_status: VerificationStatus | None = None
+
+
+class EmailVerification(BaseModel):
+    dependency_relationship_email: str
+    contact_id: str
+    _ver_status: VerificationStatus | None = None
+
+
+class MobileEmailVerification(BaseModel):
+    mobile_verification: MobileVerification
+    email_verification: EmailVerification
+    _ver_status: VerificationStatus | None = None
+
+
+class UploadImages(BaseModel):
+    wet_signature_image: DBDocumentModel
+    proof_of_signature: DBDocumentModel | None = None
+    _ver_status: VerificationStatus | None = None
+
+
+class SignatureValidation(BaseModel):
+    upload_images: UploadImages
+    _ver_status: VerificationStatus | None = None
 
 
 class KYCHolder(BaseModel):
-    pan_verification: Optional[PanVerification] = None
-    identity_address_verification: Optional[IdentityAddressVerification] = None
-    declarations: Optional[Declarations] = None
+    mobile_email_verification: MobileEmailVerification
+    identity_address_verification: IdentityAddressVerification
+    signature_validation: SignatureValidation
+    declarations: Declarations
+    pan_verification: PanVerification
 
 
 class KYCDataModel(BaseModel):
