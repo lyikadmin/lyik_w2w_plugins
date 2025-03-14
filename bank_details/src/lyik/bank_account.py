@@ -99,7 +99,6 @@ class BankAccount(VerifyHandlerSpec):
 
         try:
             response = await invoke.verify_bank(
-                # context=context,
                 ifsc_code=payload.ifsc_code,
                 account_number=payload.bank_account_number,
                 name=payload.account_holder_name_pan,
