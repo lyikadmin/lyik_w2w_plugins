@@ -228,6 +228,7 @@ class PdfCore:
                 _kyc_rec = _payload.get('kyc_holders',[])[index].get('kyc_holder',{}) if index < len(_payload.get('kyc_holders',[])) else {}
                 _date_of_submission = _payload.get('submitter',{}).get('time','')
                 _pan_no = _kyc_rec.get('pan_verification',{}).get('pan_details',{}).get('pan_number','')
+                _application_no = _payload.get('_application_id','')
 
                 # Extract the directory path
                 directory = os.path.dirname(parent_pdf_path)
@@ -237,7 +238,7 @@ class PdfCore:
 
                 # Create the new file path
                 file_path = os.path.join(directory, new_file_name)
-                await pdf_generator.generate_aof_individual(pdf_path=file_path,kyc_data=_kyc_rec,author=author,is_digilocker = _is_digilocker, date_of_submission=_date_of_submission)
+                await pdf_generator.generate_aof_individual(pdf_path=file_path,kyc_data=_kyc_rec,author=author,application_no=_application_no,is_digilocker = _is_digilocker, date_of_submission=_date_of_submission)
                 file_io_bytes = self._get_file_to_bytes(filename=file_path)
             
                 # Insert pdf file to db
@@ -282,7 +283,7 @@ class PdfCore:
                     )
                 except Exception as ex:
                     logger.error(f"Error getting geolocation for {esigner_name}: {ex}")
-                    esigner_location = 'Unknown'
+                    esigner_location = '' # Earlier it was 'Unknown'
                 logger.debug(f"esigner_name: {esigner_name}")
                 if esigner_name:
                     sign_locations.append(

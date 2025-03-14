@@ -194,11 +194,11 @@ class PdfGenerator():
             except Exception as e:
                 logger.error(f"Exception in merging pdf attachment '{pdf_attachment.get('doc_name')}': {e}")
 
-    async def generate_aof_individual(self,pdf_path:str, kyc_data:dict, date_of_submission:str, author:str='',is_digilocker:bool=True):
+    async def generate_aof_individual(self,pdf_path:str, kyc_data:dict, date_of_submission:str, application_no:str,author:str='',is_digilocker:bool=True):
         pdf_components = PdfComponents()
         pdf_tables = PdfTables()
         pdf_styles = PdfStyles()
-        aof_ind = AOF_IND(data=kyc_data,is_digilocker=is_digilocker, date_of_submission = date_of_submission)
+        aof_ind = AOF_IND(data=kyc_data,application_no=application_no,is_digilocker=is_digilocker, date_of_submission = date_of_submission)
 
         doc = create_document(pdf_path,author=author)
 

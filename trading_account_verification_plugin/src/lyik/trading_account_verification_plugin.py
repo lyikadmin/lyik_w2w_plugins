@@ -16,14 +16,14 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 class TradingAccountInformationPayload(BaseModel):
     segment_pref_1: Optional[str] = None
-    segment_pref_2: Optional[str] = None
-    segment_pref_3: Optional[str] = None
-    segment_pref_4: Optional[str] = None
+    segment_pref_2: Optional[str] = None  # FNO
+    segment_pref_3: Optional[str] = None  # CURRENCY
+    segment_pref_4: Optional[str] = None  # COMMODITY
     segment_pref_5: Optional[str] = None
     segment_pref_6: Optional[str] = None
     contract_format_1: Optional[str] = None
     contract_format_2: Optional[str] = None
-    proof_of_income: Optional[str] = None
+    proof_of_income: Optional[str] = None  #
     type_of_document: Optional[str] = None
     client_facility_choice: Optional[str] = None
     kit_format_1: Optional[str] = None
@@ -62,7 +62,15 @@ class TradingAccountInformationPayload(BaseModel):
             raise ValueError("At least one kit format is required.")
         if trading_experience is None:
             raise ValueError("Holder's trading experience is required.")
-
+        # Check if segment_pref_2, segment_pref_3, or segment_pref_4 is filled
+        if any(
+            values_dict.get(seg)
+            for seg in ["segment_pref_2", "segment_pref_3", "segment_pref_4"]
+        ):
+            if not values_dict.get("proof_of_income"):
+                raise ValueError(
+                    "Proof of income is required if F & O, Currency, or Commodity is selected."
+                )
         return values
 
 
