@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-w2w-networth-verification"
+version = "0.1.0"
+description = "A plugin to verify the networth of the user"
+readme = "README.md"
+authors = [{ name = "Debasish Sarkar", email = "debasish@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.entry-points."LYIK"]
+_900_VR_NETWORTH = "lyik.plugin_w2w_networth_verification:NetworthVerification"
