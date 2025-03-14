@@ -86,7 +86,7 @@ class GeneratePdf(OperationPluginSpec,GeneratePdfSpec):
             if not isinstance(
                 generate_all_docs_res, GenerateAllDocsResponseModel
             ):
-                logger.error("Pdf generation failed!")
+                logger.debug("Pdf generation failed!")
                 raise Exception("Pdf generation failed!")
 
             return OperationResponseModel(
@@ -160,6 +160,7 @@ class GeneratePdf(OperationPluginSpec,GeneratePdfSpec):
         """
         Generates and return the pdf(StreamResponse) as BytesIO object.
         """
+        # return super().generate_pdf(context, form_name, data)
 
         if context is None:
             raise ValueError("context must be provided")

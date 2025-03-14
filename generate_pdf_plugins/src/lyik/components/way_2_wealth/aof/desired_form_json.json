@@ -122,6 +122,8 @@
               "name": null,
               "gender": null,
               "uid": null,
+              "type_of_address": null,
+              "id_proof_expiry": null,
               "full_address": null
             },
             "other_info": {
