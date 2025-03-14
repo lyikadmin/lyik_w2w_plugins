@@ -11,8 +11,8 @@ from .....pdf_utilities.utility import format_date
 
 
 class AOF_IND:
-    def __init__(self,data:dict, date_of_submission:str,is_digilocker:bool=True):
-        self.constant_texts = AOFINDConstantsTexts(json_data=data,is_digilocker=is_digilocker)
+    def __init__(self,data:dict, date_of_submission:str,application_no:str,is_digilocker:bool=True):
+        self.constant_texts = AOFINDConstantsTexts(json_data=data,application_no=application_no,is_digilocker=is_digilocker)
         self.date_of_form_submission = format_date(date_str=date_of_submission)
 
 
@@ -219,6 +219,7 @@ class AOF_IND:
         pdf_styles = PdfStyles()
         pdf_tables = PdfTables()
         pdf_components = PdfComponents()
+        pdf_colors = PdfColors()
 
         kyc_text = Paragraph(constant_texts.data.page_title, style=pdf_styles.bold_text_style(alignment=0, fontsize=9))
         small_logo = load_logo(width=1.8*inch)
@@ -264,7 +265,8 @@ class AOF_IND:
             ('RIGHTPADDING', (0, 0), (-1, -1), 2),
         ])
         )
-        right_cell = Table([[Paragraph(constant_texts.data.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[constant_texts.data.application_no_value]], colWidths=[1.5*inch],rowHeights=[None,16])
+        
+        right_cell = Table([[Paragraph(constant_texts.data.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[Paragraph(constant_texts.data.application_no_value,style=pdf_styles.normal_text_style(alignment=0, fontsize=9,text_color=pdf_colors.filled_data_color))]], colWidths=[1.5*inch],rowHeights=[None,16])
         right_cell.setStyle(
             TableStyle([
             ('ALIGN', (0, 0), (-1,-1), 'CENTER'),

@@ -22,10 +22,10 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 
 def generate_unique_application_id() -> str:
-    prefix = "APPLICATION"
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    prefix = "W2W"
+    timestamp = datetime.now().strftime("%y%m%d%H%M%S%f")[:16]
     random_str = "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    return f"{prefix}-{timestamp}-{random_str}"
+    return f"{prefix}{timestamp}{random_str}"
 
 
 class ApplicationId(PreSaveProcessorPipelineSpec):

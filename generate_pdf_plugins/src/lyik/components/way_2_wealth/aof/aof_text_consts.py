@@ -53,7 +53,7 @@ class NomineeDetails:
         
 
 class KYC:
-    def __init__(self,kyc_data:dict, is_digilocker:bool=True):
+    def __init__(self,kyc_data:dict, application_no:str, is_digilocker:bool=True):
         self.data = kyc_data
         self.is_digilocker = is_digilocker
 
@@ -67,7 +67,7 @@ class KYC:
         self.application_type_selected_options = ['New']#[self.data.get('application_details',{}).get('general',{}).get('application_type','')]
 
         self.application_no_label = 'Application No:'
-        self.application_no_value = []#self.data.get('FLD', {}).get('application_details', {}).get('application_no', '')
+        self.application_no_value = [application_no]
 
         self.kyc_mode = 'KYC Mode:'
         self.kyc_mode_options = ['Normal','DigiLocker'] #,[]'EKYC OTP', 'Online KYC', 'Offline','EKYC','EKYC Biometric']
@@ -93,7 +93,7 @@ class KYC:
         self.identity_mother_name_value = self.data.get('identity_address_verification',{}).get('other_info',{}).get('mother_name','')
         self.identity_gender_label = 'Gender:'
         self.identity_gender_options = ['Male', 'Female', 'Transgender']
-        self.identity_gender_selected_options = [get_enum_value_from_key(self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('gender_aadhaar',''))]
+        self.identity_gender_selected_options = [get_enum_value_from_key(self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('gender',''))]
         self.identity_marital_status_label = 'Marital Status:'
         self.identity_marital_status_options = ['Married', 'Single']
         self.identity_marital_status_selected_options = [get_enum_value_from_key(self.data.get('identity_address_verification',{}).get('other_info',{}).get('marital_status',''))]
@@ -215,7 +215,7 @@ class KYC:
         self.tax_resident_options = ['Yes','No']
         self.tax_resident_selected_options = [get_enum_value_from_key(self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('is_client_tax_resident',''))]
         self.place_of_birth_label = 'Place of Birth :'
-        self.place_of_birth_value = '' #self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('place_of_birth_1','')
+        self.place_of_birth_value = self.data.get('identity_address_verification',{}).get('other_info',{}).get('place_of_birth','')
         self.country_of_origin_label = 'Country of Origin :'
         self.country_of_origin_value = 'India' if self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('is_client_tax_resident','')=='YES' else '' #self.data.get('declarations',{}).get('fatca_crs_declaration',{}).get('country_of_origin','')
         self.iso_3166_country_code_label = 'ISO 3166 Country Code'
@@ -425,8 +425,8 @@ class AOFConstantTexts:
 
         # Page 3,4 - KYCs
         _is_digilocker = str(self.data.get('application_details',{}).get('kyc_digilocker','')).lower()!='no'
-
-        self.page_kyc_details:list[KYC] = [KYC(kyc_data=kyc_data.get('kyc_holder',{}),is_digilocker=_is_digilocker) for kyc_data in self.data.get('kyc_holders', [])]
+        _application_no = self.data.get('_application_id','')
+        self.page_kyc_details:list[KYC] = [KYC(kyc_data=kyc_data.get('kyc_holder',{}),application_no=_application_no,is_digilocker=_is_digilocker) for kyc_data in self.data.get('kyc_holders', [])]
 
         # Page 5 is fully textual, scanned page can be added directly to pdf
 
@@ -452,7 +452,7 @@ class AOFConstantTexts:
         self.page6_bank_and_depository_table_heading = 'Bank & Depository Account Details (Default)'
 
         self.page6_bank_name_label = 'Bank Name:'
-        self.page6_bank_name_value = ''
+        self.page6_bank_name_value = '' #self.data.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
 
         self.page6_bank_address_label = 'Bank Address:'
         self.page6_bank_address_value = ''
@@ -464,7 +464,7 @@ class AOFConstantTexts:
         self.page6_ifsc_code_value = self.data.get('bank_verification',{}).get('bank_details',{}).get('ifsc_code','')
 
         self.page6_micr_num_label = 'MICR No:'
-        self.page6_micr_num_value = ''
+        self.page6_micr_num_value = self.data.get('bank_verification',{}).get('bank_details',{}).get('micr_code','')
 
         self.page6_bank_ac_type_label = 'Type:'
         self.page6_bank_ac_type_options = [
@@ -627,7 +627,7 @@ class AOFConstantTexts:
         self.page7_gst_no_field_label = 'GST No:'
         self.page7_gst_no_field_value = self.data.get('application_details',{}).get('gst_details_card',{}).get('gst_number','')
         self.page7_gst_state_field_label = 'State:'
-        self.page7_gst_state_field_value = self.data.get('application_details',{}).get('gst_details_card',{}).get('gst_number_1','')
+        self.page7_gst_state_field_value = self.data.get('application_details',{}).get('gst_details_card',{}).get('gst_state','')
         self.page7_client_signature_field_label = 'Client Signature'
         self.page7_client_signature_field_value = ''
 
@@ -1221,9 +1221,11 @@ class FieldMapHelper(Enum):
     _3_6YEARS = "3-6 Years"
     MORE_THAN_6YEARS = "More than 6 years"
 
+
+
     # Kit Options
-    PHYSICAL_KIT = "Physical"
-    ELECTRONIC_KIT = "Electronic Form"
+    PHYSICAL_FORM = "Physical"
+    ELECTRONIC_FORM = "Electronic Form"
 
     # DP A/C Type
     RESIDENT_INDIAN = "Resident Indian"

@@ -87,7 +87,7 @@ def merge_pdf_attachment(original_pdf_path:str, file_bytes:bytes, output_file_pa
 
 def get_geo_location(lat:str, long:str)->str:
     """
-    Returns the city or state or country(whichever found) based on the latitude and longitude, else 'Unknown'.
+    Returns the city or state or country(whichever found) based on the latitude and longitude, else ''. # Eariler it was 'Unknow'
     """
     geolocator = Nominatim(user_agent="pdf_plugin")
     if lat and long:
@@ -99,11 +99,11 @@ def get_geo_location(lat:str, long:str)->str:
             state = address.get('state', '')
             country = address.get('country', '')
             logger.debug(f'Esigner\'s city : {city}\nstate : {state}\ncountry : {country}')
-            return city or state or country or 'Unknown'
+            return city or state or country or ''
 
         except GeocoderServiceError as e:
             logger.error("Exception getting location of esigner: ", e)
-    return 'Unknown'
+    return ''
 
 def format_xml(xml_str):
     """Format XML string with indentation."""
