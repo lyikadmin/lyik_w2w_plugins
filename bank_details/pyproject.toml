@@ -3,14 +3,14 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "plugin-bank"
+name = "plugin-w2w-bank-acc-verification"
 version = "0.1.0"
 description = "Plugin for verifying Bank Accounts"
 readme = "README.md"
 authors = [{ name = "Akhil Babu", email = "akhilbabuc@lyik.com" }]
 license = { file = "LICENSE.txt" }
 requires-python = ">=3.10"
-dependencies = ["requests==2.32.3"]
+dependencies = ["requests==2.32.3", "thefuzz==0.22.1"]
 
 [project.entry-points."LYIK"]
-_90_VERIFIER_BANK_ACCOUNT = "lyik.bank_account:BankAccount"
+_200_VERIFIER_BANK_ACCOUNT = "lyik.bank_account:BankAccount"
