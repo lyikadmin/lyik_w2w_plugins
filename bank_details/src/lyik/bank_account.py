@@ -26,8 +26,8 @@ class BankVerificationPayload(BaseModel):
         None, description="Account holder name as per ID proof"
     )
     ifsc_code: str = Field(..., description="IFSC code")
-    account_holder_name: str = Field(..., description="Account holder name")
-    mobile_number: str = Field(..., description="Mobile number")
+    account_holder_name: str | None = Field(..., description="Account holder name")
+    account_mobile_number: str = Field(..., description="Mobile number")
     type_of_application: str = Field(..., description="Type of application")
     micr_code: str | None = Field(None, description="MICR code")
     bank_address: str | None = Field(None, description="Bank address")
@@ -37,8 +37,8 @@ class BankVerificationPayload(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
-def shallow_match_name(customer_name, account_holder_name) -> bool:
-    similarity = fuzz.token_set_ratio(account_holder_name, customer_name)
+def shallow_match_name(customer_name, account_holder_name_pan) -> bool:
+    similarity = fuzz.token_set_ratio(account_holder_name_pan, customer_name)
     return similarity > NAME_MATCHING_THRESHOLD
 
 
@@ -95,14 +95,14 @@ class BankAccount(VerifyHandlerSpec):
                 )
 
         # remove +91 from mobile number
-        mobile_number = payload.mobile_number.replace("+91", "")
+        mobile_number = payload.account_mobile_number.replace("+91", "")
 
         try:
             response = await invoke.verify_bank(
-                context=context,
+                # context=context,
                 ifsc_code=payload.ifsc_code,
                 account_number=payload.bank_account_number,
-                name=payload.account_holder_name,
+                name=payload.account_holder_name_pan,
                 mobile_number=mobile_number,
             )
 
@@ -117,7 +117,7 @@ class BankAccount(VerifyHandlerSpec):
                 )
 
             name_matched = shallow_match_name(
-                response.customer_name, payload.account_holder_name
+                response.customer_name, payload.account_holder_name_pan
             )
 
             if not name_matched:
