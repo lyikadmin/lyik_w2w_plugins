@@ -84,7 +84,7 @@ class OnlineExeCard(BaseModel):
 
 class GstDetailsCard(BaseModel):
     gst_number: Optional[str] = Field(None)
-    gst_number_1: Optional[str] = Field(None)
+    gst_state: Optional[str] = Field(None)
 
 
 class ClientContactDetails(BaseModel):
