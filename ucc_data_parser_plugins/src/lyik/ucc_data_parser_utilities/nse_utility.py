@@ -1,4 +1,4 @@
-from datetime import datetime
+from dateutil.parser import parse
 
 class NSEUtility:
 
@@ -142,7 +142,7 @@ class NSEUtility:
         Gives DoB as in PAN
         '''
         pan_dob = self.kyc_data.get('pan_verification',{}).get('pan_details',{}).get('dob_pan','')
-        return self.format_date(date=pan_dob)
+        return self.format_date(date_str=pan_dob)
     
     def corr_address_value(self):
         address = self.kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','')
@@ -271,7 +271,7 @@ class NSEUtility:
     
     def gross_income_date_value(self):
         date = self.kyc_data.get('declarations',{}).get('income_info',{}).get('date','')
-        return self.format_date(date=date)
+        return self.format_date(date_str=date)
     
     def networth_value(self):
         # Optional field
@@ -283,7 +283,7 @@ class NSEUtility:
         if not self.networth_value():
             return ''
         date = self.kyc_data.get('declarations',{}).get('income_info',{}).get('date','')
-        return self.format_date(date=date) or ''
+        return self.format_date(date_str=date) or ''
     
     def occupation_value(self):
         # Mandatory for category 1, 11, 18, 25, 26, 27 & 31.
@@ -324,23 +324,26 @@ class NSEUtility:
          # Todo: Power of Attorney (POA) for Securities - unknown and mandatory
         # Valid values are Y or N
         return 'N'
-    
-    def format_date(self, date: str) -> str:
-        """
-        returns date in DD-MM-YYYY format
-        """
         
-
-        if not date:
-            return ""
+    # Todo: move to common utility method
+    def format_date(self, date_str: str, output_format: str = "%d-%m-%Y") -> str:
+        """
+        Format a date string to a specified output format.
+        Args:
+            - date_str: The date string to be formatted.
+            - output_format: The desired format of the output date string.
+        Returns:
+            - The formatted date string.
+        """
+        if not date_str:
+            return None
         try:
-            # Parse the input string into a datetime object
-            # dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
-            dt = datetime.strptime(date, '%d/%m/%Y')
-            # Format the datetime object into the desired format
-            return dt.strftime('%d-%m-%Y')
-        except ValueError:
-            # logger.debug(f"Error in formatting date {date}")
+            # Parse the input date string to a datetime object
+            date_obj = parse(date_str)
+            # Format the datetime object to the desired output format
+            formatted_date = date_obj.strftime(output_format)
+            return formatted_date
+        except ValueError as e:
             return ''
         
 

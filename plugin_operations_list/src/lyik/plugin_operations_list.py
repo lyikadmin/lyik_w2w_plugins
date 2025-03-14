@@ -55,10 +55,10 @@ ALL_OPERATIONS = [
     Operation(op_id="KRA", op_name="CVL KRA", display_text=KRA_TEXT),
     Operation(
         op_id="KRA_UPLOAD_DATA",
-        op_name="KRA Upload",
+        op_name="Download CVL KRA Payload",
         display_text="Download and verify the payload to be sent for CVL KRA",
     ),
-    Operation(op_id="ESIGN", op_name="esign", display_text=ESIGN),
+    Operation(op_id="ESIGN", op_name="eSign", display_text=ESIGN),
     Operation(
         op_id="UPLOAD_UCC",
         op_name="UCC Upload",
@@ -70,24 +70,24 @@ ALL_OPERATIONS = [
         display_text=UCC_DOWNLOAD_TEXT,
     ),
     Operation(
-        op_id="NSDL_DEMAT_ACCOUNT_DOWNLOAD",
-        op_name="Download NSDL Demat Payload",
-        display_text="To download the NSDL demat payload from the depository",
-    ),
-    Operation(
         op_id="NSDL_DEMAT_ACCOUNT",
         op_name="Create NSDL Demat Account",
         display_text="To create a demat account in the NSDL depository",
     ),
     Operation(
-        op_id="CDSL_DEMAT_ACCOUNT_DOWNLOAD",
-        op_name="Download CDSL Demat Payload",
-        display_text="To download the CDSL demat payload from the depository",
+        op_id="NSDL_DEMAT_ACCOUNT_DOWNLOAD",
+        op_name="Download NSDL Demat Payload",
+        display_text="To download and review the payload data to be sent to NSDL depository for Demat Account creation.",
     ),
     Operation(
         op_id="UPLOAD_CDSL",
         op_name="Create CDSL Demat Account",
         display_text="To create a demat account in the CDSL depository",
+    ),
+    Operation(
+        op_id="CDSL_DEMAT_ACCOUNT_DOWNLOAD",
+        op_name="Download CDSL Demat Payload",
+        display_text="To download and review the payload data to be sent to CDSL depository for Demat Account creation.",
     ),
 ]
 

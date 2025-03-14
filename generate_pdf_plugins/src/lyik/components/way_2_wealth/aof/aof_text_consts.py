@@ -1,6 +1,7 @@
 from ...colors import PdfColors
 from ....pdf_utilities.utility import get_geo_location
 import logging
+from dateutil.parser import parse
 # from aof_nominee_details_model import NomineeDetails
 logger = logging.getLogger(__name__)
 
@@ -67,7 +68,7 @@ class KYC:
         self.application_type_selected_options = ['New']#[self.data.get('application_details',{}).get('general',{}).get('application_type','')]
 
         self.application_no_label = 'Application No:'
-        self.application_no_value = [application_no]
+        self.application_no_value = application_no
 
         self.kyc_mode = 'KYC Mode:'
         self.kyc_mode_options = ['Normal','DigiLocker'] #,[]'EKYC OTP', 'Online KYC', 'Offline','EKYC','EKYC Biometric']
@@ -108,7 +109,7 @@ class KYC:
             'PIO', 'Foreign National'
         ]
         self.identity_residential_status_help_text = '(Passport is mandatory for NRI/PIO/FN)'
-        self.identity_residential_status_selected_options = []
+        self.identity_residential_status_selected_options = [get_enum_value_from_key(key=self.data.get('identity_address_verification',{}).get('other_info',{}).get('residential_status',''))]
         self.identity_aadhar_label = 'Aadhaar No. (UID):'
         self.identity_aadhar_value = self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('uid','') # This is not necessarily the aadhaar number, it could be any ovd id number too!
         self.identity_date_of_birth_label = 'Date of Birth:'
@@ -162,7 +163,7 @@ class KYC:
         self.address_permanent_type_options = [
             'Residential/Business', 'Residential', 'Business', 'Registered Office', 'Unspecified'
         ]
-        self.address_permanent_type_selected_options = []
+        self.address_permanent_type_selected_options = [get_enum_value_from_key(self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('type_of_address',''))]
         
         # Proof of Address section
         self.proof_of_address_label = 'Proof of Address*:'
@@ -172,7 +173,7 @@ class KYC:
         #     'NREGA Job Card', 'NPR Letter', 'Others'
         # ]
         # self.proof_of_address_options_types = ['Corr. Add','Perm. Add']
-        # self.proof_of_address_expiry_date = ''
+        self.proof_of_address_expiry_date = get_formatted_date(date= self.data.get('identity_address_verification',{}).get('identity_address_info',{}).get('id_proof_expiry','__________'))
         # self.proof_of_address_zid_number = ''
         self.is_address_correspondence_same_as_permanent = self.data.get('identity_address_verification',{}).get('same_as_permanent_address','')
         self.proof_of_address_table_data = [
@@ -1223,7 +1224,7 @@ class FieldMapHelper(Enum):
 
 
 
-    # Kit Options
+    # A/c Opening Kit Options
     PHYSICAL_FORM = "Physical"
     ELECTRONIC_FORM = "Electronic Form"
 
@@ -1248,16 +1249,24 @@ def get_enum_value_from_key(key):
         logger.debug(f"{key} - not matched with any of the options")
         return ""
     
-from datetime import datetime
-def get_formatted_date(date:str):
-    if not date:
-        return ""
-    try:
-        # Parse the input string into a datetime object 
-        dt = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S') 
-        # Format the datetime object into the desired format 
-        return dt.strftime('%d/%m/%Y')
-    except ValueError:
-        logger.debug(f"Error in formatting date {date}")
-        return date
+def get_formatted_date(date: str, output_format: str = "%d/%m/%Y") -> str:
+        """
+        Format a date string to a specified output format.
+        Args:
+            - date_str: The date string to be formatted.
+            - output_format: The desired format of the output date string.
+        Returns:
+            - The formatted date string.
+        """
+        if not date:
+            return ''
+        try:
+            # Parse the input date string to a datetime object
+            date_obj = parse(date)
+            # Format the datetime object to the desired output format
+            formatted_date = date_obj.strftime(output_format)
+            return formatted_date
+        except ValueError as e:
+            logger.debug(f"Error in formatting date {date}")
+            return date
     

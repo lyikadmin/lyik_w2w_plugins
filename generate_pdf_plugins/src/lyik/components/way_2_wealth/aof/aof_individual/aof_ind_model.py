@@ -5,8 +5,9 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
+from html import escape
 from ....images import load_logo
-from .....pdf_utilities.utility import format_date
+from .....pdf_utilities.utility import format_date, format_xml, split_into_chunks
 
 
 
@@ -172,27 +173,27 @@ class AOF_IND:
                 doc, width=9, height=9, 
                 text_value=''
                 )
-        # Todo: this is temporary logic.
-        _address_type_index = 0
+
+        perm_address_type_index = 0
         _address_type = constant_texts.data.ovd_type.lower()
         if _address_type == 'aadhaar':
-            _address_type_index = 1
+            perm_address_type_index = 1
         elif _address_type == 'passport':
-            _address_type_index = 2
+            perm_address_type_index = 2
         elif _address_type == 'voter':
-            _address_type_index = 3
+            perm_address_type_index = 3
         elif _address_type == 'dl':
-            _address_type_index = 4
+            perm_address_type_index = 4
         else:
-            _address_type_index = 7
-        poa_table_data[_address_type_index][1] = pdf_components.create_bordered_input_box(
+            perm_address_type_index = 7
+        poa_table_data[perm_address_type_index][1] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>' if constant_texts.data.address_permanent_value else ''
                 )
         
-        poa_table_data[_address_type_index][3]= Paragraph(constant_texts.data.identity_aadhar_value,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+        poa_table_data[perm_address_type_index][3]= Paragraph(constant_texts.data.identity_aadhar_value,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
         if constant_texts.data.is_address_correspondence_same_as_permanent:
-            poa_table_data[_address_type_index][0] = pdf_components.create_bordered_input_box(
+            poa_table_data[perm_address_type_index][0] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>'  if constant_texts.data.address_correspondence_value else '' 
                 )
@@ -201,7 +202,11 @@ class AOF_IND:
                 doc, width=9, height=9, 
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>' if constant_texts.data.address_correspondence_value else ''
                 )
-        
+
+        if perm_address_type_index == 2 or perm_address_type_index == 4:
+            if constant_texts.data.proof_of_address_expiry_date:
+                poa_table_data[perm_address_type_index][5] = Paragraph(constant_texts.data.proof_of_address_expiry_date,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+
         poa_fields_table = pdf_tables.create_table(
             data=poa_table_data,
             col_widths=[(doc.width-doc.rightMargin*2)/6]*6,
@@ -265,8 +270,8 @@ class AOF_IND:
             ('RIGHTPADDING', (0, 0), (-1, -1), 2),
         ])
         )
-        
-        right_cell = Table([[Paragraph(constant_texts.data.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[Paragraph(constant_texts.data.application_no_value,style=pdf_styles.normal_text_style(alignment=0, fontsize=9,text_color=pdf_colors.filled_data_color))]], colWidths=[1.5*inch],rowHeights=[None,16])
+
+        right_cell = Table([[Paragraph(constant_texts.data.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[Paragraph(constant_texts.data.application_no_value,style=pdf_styles.normal_text_style(alignment=0, fontsize=8,text_color=pdf_colors.filled_data_color))]], colWidths=[1.5*inch],rowHeights=[None,16])
         right_cell.setStyle(
             TableStyle([
             ('ALIGN', (0, 0), (-1,-1), 'CENTER'),
@@ -428,5 +433,38 @@ class AOF_IND:
         left_table = Table([[section_heading],[date_place],[name],[designation_emp_code],[document_recieved_field]],style=pdf_styles.padded_table_style())
         table = Table([[left_table,signature]])
         table.setStyle(pdf_styles.bordered_table_style(h_margin=2,v_margin=2))
+        return table
+
+    def get_aadhaar_xml_pages(self, doc):
+        constant_texts = self.constant_texts
+        pdf_styles = PdfStyles()
+
+        # Todo: Either handle the <Ldata> tag(data in local lang) with specific font, or remove it from xml itself.
+        formatted_xml = format_xml(constant_texts.data.aadhaar_xml)
+
+        # Extract XML data and split into chunks
+        xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+        # Create the header row and the initial table structure
+        table_data = [[
+            Paragraph(f'Digilocker Aadhaar XML for {constant_texts.data.identity_aadhar_value}',
+                    style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
+
+        ]]
+
+        # Create additional rows for the XML chunks
+        for chunk in xml_chunks:
+            table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
+
+        table = Table(table_data)
+
+        # Apply styles: Grid only for the first cell in the first row
+        table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
+            ('TOPPADDING', (0, 0), (0, 0), 4),
+            ('TOPPADDING', (-1, -1), (-1, -1), 4),
+            ('BOTTOMPADDING', (0, 0), (0, 0), 4),
+            ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
+        ]))
+
         return table
 

@@ -357,27 +357,27 @@ class AOF:
                 doc, width=9, height=9, 
                 text_value=''
                 )
-        # Todo: this is temporary logic.
-        _address_type_index = 0
+
+        perm_address_type_index = 0
         _address_type = constant_texts.ovd_type.lower()
         if _address_type == 'aadhaar':
-            _address_type_index = 1
+            perm_address_type_index = 1
         elif _address_type == 'passport':
-            _address_type_index = 2
+            perm_address_type_index = 2
         elif _address_type == 'voter':
-            _address_type_index = 3
+            perm_address_type_index = 3
         elif _address_type == 'dl':
-            _address_type_index = 4
+            perm_address_type_index = 4
         else:
-            _address_type_index = 7
-        poa_table_data[_address_type_index][1] = pdf_components.create_bordered_input_box(
+            perm_address_type_index = 7
+        poa_table_data[perm_address_type_index][1] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>' if constant_texts.address_permanent_value else ''
                 )
         
-        poa_table_data[_address_type_index][3]= Paragraph(constant_texts.identity_aadhar_value,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+        poa_table_data[perm_address_type_index][3]= Paragraph(constant_texts.identity_aadhar_value,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
         if constant_texts.is_address_correspondence_same_as_permanent:
-            poa_table_data[_address_type_index][0] = pdf_components.create_bordered_input_box(
+            poa_table_data[perm_address_type_index][0] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>'  if constant_texts.address_correspondence_value else '' 
                 )
@@ -386,6 +386,12 @@ class AOF:
                 doc, width=9, height=9, 
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>' if constant_texts.address_correspondence_value else ''
                 )
+            
+        if perm_address_type_index == 2 or perm_address_type_index == 4:
+            if constant_texts.proof_of_address_expiry_date:
+                poa_table_data[perm_address_type_index][5] = Paragraph(constant_texts.proof_of_address_expiry_date,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+        
+        
         poa_fields_table = pdf_tables.create_table(
             data=poa_table_data,
             col_widths=[(doc.width-doc.rightMargin*2)/6]*6,
@@ -447,7 +453,7 @@ class AOF:
             ('RIGHTPADDING', (0, 0), (-1, -1), 2),
         ])
         )
-        right_cell = Table([[Paragraph(constant_texts.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[constant_texts.application_no_value]], colWidths=[1.5*inch],rowHeights=[None,16])
+        right_cell = Table([[Paragraph(constant_texts.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[Paragraph(f'{constant_texts.application_no_value}',style=pdf_styles.normal_text_style(fontsize=8,alignment=1,text_color=PdfColors().filled_data_color))]], colWidths=[2*inch],rowHeights=[None,16])
         right_cell.setStyle(
             TableStyle([
             ('ALIGN', (0, 0), (-1,-1), 'CENTER'),

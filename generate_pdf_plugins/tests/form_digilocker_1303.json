@@ -1,138 +1,221 @@
 {
-    "org_id": "org29303746",
-    "form_id": "frm5033066",
-    "record_id": "2",
-    "payment_ref": null,
-    "receipt_url": null,
-    "submit_url": null,
-    "record": {
-        "payment": null,
-        "submitter": {
-            "id": "U001",
-            "phone": "Anonymous",
-            "email": "Anonymous",
-            "time": "2025-03-13T10:24:14.969895Z"
+    "payment": null,
+    "submitter": {
+        "id": "U001",
+        "phone": "Anonymous",
+        "email": "Anonymous",
+        "time": "2025-03-13T10:24:14.969895Z"
+    },
+    "state": "SAVE",
+    "onboarding": {
+        "type_of_client": "IND",
+        "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U001",
+            "weight": 100
+        }
+    },
+    "application_details": {
+        "defaults": null,
+        "kyc_digilocker": "YES",
+        "general_application_details": {
+            "application_type": "TRADING_AND_DP",
+            "residential_status": "RI"
         },
-        "state": "SAVE",
-        "onboarding": {
-            "type_of_client": "IND",
-            "_ver_status": {
-                "status": "success",
-                "message": "Model validation succeeeded.",
-                "id": null,
-                "actor": "system",
-                "user_id": "U001",
-                "weight": 100
-            }
+        "cash_fut_como_card": {
+            "cash_minimum_paisa": 6,
+            "cash_in_percentage": 0.5
         },
-        "application_details": {
-            "defaults": null,
-            "kyc_digilocker": "YES",
-            "general_application_details": {
-                "application_type": "TRADING_AND_DP",
-                "residential_status": "RI"
-            },
-            "cash_fut_como_card": {
-                "cash_minimum_paisa": 6,
-                "cash_in_percentage": 0.5
-            },
-            "cash_jobbing_card": {
-                "cash_jobbing_minimum_paisa": 600,
-                "cash_jobbing_in_percentage": 0.6
-            },
-            "futures_card": {
-                "futures_minimum_paisa": 7,
-                "futures_in_percentage": 0.7
-            },
-            "options_card": {
-                "options_standard_rate": 100
-            },
-            "currency_futures_card": {
-                "currency_futures_minimum_paisa": 58,
-                "currency_futures_in_percentage": 0.2
-            },
-            "currency_options_card": {
-                "currency_options_rate": 20
-            },
-            "commodity_futures_card": {
-                "commodity_futures_minimum_paisa": 52,
-                "commodity_futures_in_percentage": 0.03
-            },
-            "commodity_options_card": {
-                "commodity_options_rate": 10
-            },
-            "slb_card": {
-                "slb_rate": 22
-            },
-            "flat_per_order_card": {
-                "flat_per_order_rate": null
-            },
-            "online_exe_card": {
-                "online_exe": "NO"
-            },
-            "gst_details_card": {
-                "gst_number": "ABCD1234",
-                "gst_number_1": "DELHI"
-            },
-            "client_contact_details": {
-                "client_mobile": "+918787885330"
-            },
-            "segment_rates": {},
-            "display_field": null,
-            "_ver_status": {
-                "status": "success",
-                "message": "Verified successfully.",
-                "id": "a0017901",
-                "actor": "system",
-                "user_id": "U001",
-                "weight": 100,
-                "isMandatoryFilled": true
-            }
+        "cash_jobbing_card": {
+            "cash_jobbing_minimum_paisa": 600,
+            "cash_jobbing_in_percentage": 0.6
         },
-        "kyc_holders": [
-            {
-                "kyc_holder": {
-                    "mobile_email_verification": {
-                        "mobile_verification": {
-                            "dependency_relationship_mobile": "SELF",
-                            "contact_id": "8510889066",
-                            "_ver_status": {
-                                "status": "success",
-                                "message": "Verified by the system 2025-03-13 07:55:34.057148",
-                                "id": "c112a4b3",
-                                "actor": "system",
-                                "user_id": "U001",
-                                "weight": 100
-                            },
-                            "verified_contact_id": "8510889066"
-                        },
-                        "email_verification": {
-                            "dependency_relationship_email": "SPOUSE",
-                            "contact_id": "dgupta@lyik.com",
-                            "_ver_status": {
-                                "status": "success",
-                                "message": "Verified by the system 2025-03-13 05:35:52.406671",
-                                "id": "4e48d514",
-                                "actor": "system",
-                                "user_id": "U001",
-                                "weight": 100
-                            },
-                            "verified_contact_id": "dgupta@lyik.com"
-                        },
+        "futures_card": {
+            "futures_minimum_paisa": 7,
+            "futures_in_percentage": 0.7
+        },
+        "options_card": {
+            "options_standard_rate": 100
+        },
+        "currency_futures_card": {
+            "currency_futures_minimum_paisa": 58,
+            "currency_futures_in_percentage": 0.2
+        },
+        "currency_options_card": {
+            "currency_options_rate": 20
+        },
+        "commodity_futures_card": {
+            "commodity_futures_minimum_paisa": 52,
+            "commodity_futures_in_percentage": 0.03
+        },
+        "commodity_options_card": {
+            "commodity_options_rate": 10
+        },
+        "slb_card": {
+            "slb_rate": 22
+        },
+        "flat_per_order_card": {
+            "flat_per_order_rate": null
+        },
+        "online_exe_card": {
+            "online_exe": "NO"
+        },
+        "gst_details_card": {
+            "gst_number": "ABCD1234",
+            "gst_number_1": "DELHI"
+        },
+        "client_contact_details": {
+            "client_mobile": "+918787885330"
+        },
+        "segment_rates": {},
+        "display_field": null,
+        "_ver_status": {
+            "status": "success",
+            "message": "Verified successfully.",
+            "id": "a0017901",
+            "actor": "system",
+            "user_id": "U001",
+            "weight": 100,
+            "isMandatoryFilled": true
+        }
+    },
+    "kyc_holders": [
+        {
+            "kyc_holder": {
+                "mobile_email_verification": {
+                    "mobile_verification": {
+                        "dependency_relationship_mobile": "SELF",
+                        "contact_id": "8510889066",
                         "_ver_status": {
                             "status": "success",
-                            "message": "Model validation succeeeded.",
+                            "message": "Verified by the system 2025-03-13 07:55:34.057148",
+                            "id": "c112a4b3",
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }                    },
+                    "email_verification": {
+                        "dependency_relationship_email": "SPOUSE",
+                        "contact_id": "dgupta@lyik.com",
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2025-03-13 05:35:52.406671",
+                            "id": "4e48d514",
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "pan_verification": {
+                    "pan_card_image": {
+                        "doc_id": "67d271df0498a97b5484fa0d",
+                        "doc_name": "16_my-pan.jpeg",
+                        "doc_size": 386301,
+                        "doc_content": null,
+                        "metadata": {
+                            "org_id": null,
+                            "form_id": null,
+                            "record_id": null,
+                            "doc_type": "image/jpeg",
+                            "digest": null,
+                            "esign": null
+                        }
+                    },
+                    "pan_details": {
+                        "name_in_pan": "Deepak Kumar Gupta",
+                        "dob_pan": "19/10/1999",
+                        "pan_number": "CKWPG0718F",
+                        "parent_guardian_spouse_name": "Sohan Lal Gupta",
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2025-03-13 05:49:03.406111",
                             "id": null,
                             "actor": "system",
                             "user_id": "U001",
                             "weight": 100
                         }
                     },
-                    "pan_verification": {
-                        "pan_card_image": {
-                            "doc_id": "67d271df0498a97b5484fa0d",
-                            "doc_name": "16_my-pan.jpeg",
-                            "doc_size": 386301,
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "identity_address_verification": {
+                    "identity_address_info": {
+                        "aadhaar_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Certificate><CertificateData><KycRes code=\"1c385d07647c4275b933d32bb64e2a86\" ret=\"Y\" ts=\"2024-03-04T10:05:37.387+05:30\" ttl=\"2025-03-04T10:05:37\" txn=\"UKC:82d5f2d603b70bddb61610d7138f911b20240304100522\"><UidData tkn=\"01002274rSpnGx68QTT2TjpcCzsieusc54DORZgF/zyefbHFh2zOhOgTT0EzD1LXHkhEGy1Z\" uid=\"xxxxxxxx3050\"><Poi dob=\"19-10-1999\" gender=\"M\" name=\"Deepak Kumar Gupta\"/><Poa co=\"S/O: Sohan Lal Gupta\" country=\"India\" dist=\"West Delhi\" house=\"House Number A-137\" loc=\"Chaukhandi Colony\" pc=\"110018\" po=\"Tilak Nagar\" state=\"Delhi\" subdist=\"Rajouri Garden\" vtc=\"Tilak Nagar\"/><LData co=\"S/O: à¤¸à¥à¤¹à¤¨ à¤²à¤¾à¤² à¤à¥à¤ªà¥à¤¤à¤¾\" country=\" \" dist=\"à¤µà¥à¤¸à¥à¤ à¤¦à¤¿à¤²à¥à¤²à¥\" house=\"à¤¹à¤¾à¤à¤¸ à¤¨à¤à¤¬à¤° à¤-137\" lang=\"06\" loc=\"à¤à¥à¤à¤à¤¡à¥ à¤à¥à¤²à¥à¤¨à¥\" name=\"à¤¦à¥à¤ªà¤ à¤à¥à¤®à¤¾à¤° à¤à¥à¤ªà¥à¤¤à¤¾\" pc=\"110018\" state=\"à¤¦à¤¿à¤²à¥à¤²à¥\" vtc=\"à¤¤à¤¿à¤²à¤ à¤¨à¤¾à¤à¤°\"/><Pht>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</Pht></UidData></KycRes></CertificateData><Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">\n  <SignedInfo><CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/>\n    <SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"/>\n  <Reference URI=\"\"><Transforms><Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/></Transforms><DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\"/><DigestValue>Rm6n5y8Krgo1A2SIYfXkRj7EZmUmixIz7cTfDWIl4ww=</DigestValue></Reference></SignedInfo><SignatureValue>uB+ynndSDN0XzLTB+XnYMAb6qJOywdldTSm0xk/m867+5PTw3fsYsdKJEWjHgtH+kQ9F66NgtokzWLazh4c6wpkxXq8WrHzPO0fmccmm2rlmpRWdWRxiII42ldxd05/pY4Bd8wDyFaKXISUl8WOFWTrhLZ7rt9ioVLsVDJDgdT5B8XUkKY7S9cAOX20cvWD1roEjc2+f0qwP6HNMQ/JFmixFaSJ0kTOEYHxotfC2NuD5ATlPwoai10j7ZExD3JYTheY3dKtPoNoj1+df1yNBIfoi8rmDcvQfY4EkSB1wntQFFPYJrMa6T0dr/nwRWkJG7kC82JgXEWdnB0/6mmR+Vg==</SignatureValue>\n<KeyInfo><X509Data><X509SubjectName>CN=DS NATIONAL E-GOVERNANCE DIVISION 1,ST=DELHI,postalCode=110003,OU=NATIONAL E-GOVERNANCE DIVISION,O=NATIONAL E-GOVERNANCE DIVISION,C=IN</X509SubjectName><X509Certificate>MIIFUjCCBDqgAwIBAgIHAJnuuyguVTANBgkqhkiG9w0BAQsFADB3MQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEPMA0GA1UECxMGU3ViLUNBMTMwMQYDVQQDEypTYWZlU2NyeXB0IHN1Yi1DQSBmb3IgRG9jdW1lbnQgU2lnbmVyIDIwMjIwHhcNMjMwODIyMDgyMTQ2WhcNMjYwMjExMDc1NzI4WjCBrjELMAkGA1UEBhMCSU4xJzAlBgNVBAoTHk5BVElPTkFMIEUtR09WRVJOQU5DRSBESVZJU0lPTjEnMCUGA1UECxMeTkFUSU9OQUwgRS1HT1ZFUk5BTkNFIERJVklTSU9OMQ8wDQYDVQQREwYxMTAwMDMxDjAMBgNVBAgTBURFTEhJMSwwKgYDVQQDEyNEUyBOQVRJT05BTCBFLUdPVkVSTkFOQ0UgRElWSVNJT04gMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANOK+NVHpaQfOWhrtKHkN07+tVnWQ7cILkVSBTElDgalJsMBqvGv4NnsuCMCrMNtJs+kqvcIfbY210y9bj/WtMIv8EaQWzDInMeYKuP8QWdFa8oAkB1WLrJMy5naxE+99U4tHWk44497q783r168wT4av/XF0YSnkMBIeoZY5OewsQpOQCVSg9ouf1Uc3TwsBqomhJRPNxPK9QJ1gkfZQBwyTirXM6AHWVyzQY1GQWBXpAbMqSEqmvxrDHfC/g0I2SpDtJlUf59hTLUe5E+IrR2Xxls4QU3DqBS9GQAqc/O5wuRqw2j3OI3k7deZTmkaQDlbftYuBA3vUnndaRUgEjUCAwEAAaOCAakwggGlMBMGA1UdIwQMMAqACEzEC7kvPc60MBEGA1UdDgQKBAhHY4kJC0TLGDCBlwYIKwYBBQUHAQEEgYowgYcwRQYIKwYBBQUHMAKGOWh0dHBzOi8vd3d3LnNhZmVzY3J5cHRuZXcuY29tL1NhZmVTY3J5cHREb2NTaWduZXIyMDIyLmNlcjA+BggrBgEFBQcwAYYyaHR0cDovL29jc3Auc2FmZXNjcnlwdC5jb20vU2FmZVNjcnlwdERvY1NpZ25lcjIwMjIwRwYDVR0fBEAwPjA8oDqgOIY2aHR0cDovL2NybDIuc2FmZXNjcnlwdC5jb20vU2FmZVNjcnlwdERvY1NpZ25lcjIwMjIuY3JsMCcGA1UdIAQgMB4wCAYGYIJkZAIDMAgGBmCCZGQCAjAIBgZggmRkCgEwDAYDVR0TAQH/BAIwADAqBgNVHSUEIzAhBggrBgEFBQcDBAYJKoZIhvcvAQEFBgorBgEEAYI3CgMMMCUGA1UdEQQeMByBGmRuYXlha0BkaWdpdGFsaW5kaWEuZ292LmluMA4GA1UdDwEB/wQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAQEAfmebPU8awacmsPZGr7M63sAuHdmbfIQDI3ZmUFBc0IRA1LSFcYCTDixhBXEYmpbB1gqSIC6kM2FsT42ZGwKaGZVBc/zryDJgJ8cr5EJyNA6cmRCk9fCSjXMvXJo4pZ1lSh+eAKWNbLkCdtFm4XZWpYU2UYI+wU6v5ZGWaNsNLOh05P9Eigoutfy0lhvZgE0gRXv8OgI6sSSJQW2uoVmUEDorX44cCqPLuCUIuq48G9xPpuHh2sH/RyVkAysGtN7TkmbZrqeVOSn+KVYbdyBWEF3zYUvPBndpXQUiKMG4kdYjvK08FZAfrF7fCYqyym+jKRBezoaS3AS67QiO4uTSyg==</X509Certificate><X509SubjectName>CN=CCA India 2022,O=India PKI,C=IN</X509SubjectName><X509Certificate>MIIFNDCCAxygAwIBAgIQdiQz69smdlqFYM0KqC/hFzANBgkqhkiG9w0BAQsFADA6MQswCQYDVQQGEwJJTjESMBAGA1UEChMJSW5kaWEgUEtJMRcwFQYDVQQDEw5DQ0EgSW5kaWEgMjAyMjAeFw0yMjAyMDIxMjA0MzdaFw00MjAyMDIxMjA0MzdaMDoxCzAJBgNVBAYTAklOMRIwEAYDVQQKEwlJbmRpYSBQS0kxFzAVBgNVBAMTDkNDQSBJbmRpYSAyMDIyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv3EBudWC8HY0oSwtJZCqpjQTGpEewl3EdDqUORV0qoFp78mdR/vuATXI83G7nF9RLvmNjgQgKr/bMx6gPO4Y57bMjAsgwEzleFclZka/sqc68iN5rS3huhrCX6MEINLyDOQ71MRA7GJCaNL6E3j1438eTu011mlikeZYBdkhvfpAVjCw90w8wcWDmqx66Y561T/RiXyz2uEhBBZAD43gV58eXStOeOTwAzEZYMrmp232GfmQKabYRfdIRus1avyuGea2nICEsRHE8M2tdzwpGP7oIy2qHBFJJ+3AwmwQA4DjmDkJtCD+58awohQavRNhqjsGD+ZifG3VR4i6WrKv8OWqZzcZj3g3Elr5+fRMlz1GSqkWPBw1Ev8KWTHazSUKF7OMxm3XzyXxQnw7fZF9GOVtx3adpfRPqYGgtbOP34EVkz4wsHvNMrvUrYcKymdOrnkTjlX26fIHUJpKGYkLk9q0jhMNKs4Rn8lj4pJ7YF33/ND4bjpV0ex1EAQz0iZvT37OnxNiuAZ/+4Djf075UuNX2ecWnadOrN1r8NAParZIwUoSUnWhU8TqAWWRqzFURHUZuOMQcA0geg4c9zqtBoUPgtQksbIAEsEXmDuRpwSIFjEkK11f5Eemfmfdg37KyIjQ67TRTmBA+kT9Q5JIm/e7m1ILg/HKckgLUOCnAMsCAwEAAaM2MDQwDwYDVR0TAQH/BAUwAwEB/zARBgNVHQ4ECgQITjtINlziX30wDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4ICAQCdbE8d1c1DysKtrtYlApYIXTlY3N2XHNQ6gKoaVWsKa1TJ/ovrT+FV3bmQLet3aSoEG6pTe/vLZSg8WiF7cn7WuF4XlQS3yA2Uu8/cg/S4owqhQJp6K/Xg6UoSBad9Kog1H8deOfV8Nmb8a89zB4Yf8/AepId+Lr/3I6O7iub+PUT2QBXnksa+cf0yf+49GhyMCILZvctNSQd4Vxr9EgRvBARTrAgNQ9sEOJ6myOz4iTFR7T2pIFP8Cp15e8jEVI1q4IuHu3XlwJNk9f5k3gbwrzoy9P5rP8voQU3u9wh62JZa9U63b+u/Ur1tsKb5Lx0YUedtHvpIiIRurEPxumW0twjrx8TrAcXRrViSL7dsXAoYC0dXo154EE8jBAzgIIur7tJizxgXDEn4i2pu8Yd615YML9ii5BooEJ2j6fQ0nzyPRmx1Egw2Fjlgzzceai4TUOcaCKab86yyu5MZIp+BiPR840nw5MggbRgYH2nFRBA70toVm4VFlbZs3reGmaICm4ST6R395OxYS1iYBm5kXm9tLb4pkIhUxrkgyuiwE+DsWceBjHAYaXnCgUGKtiG9tfBMUw3fChoPb9L1yKdNof3zXDdTloMqEpO4BFrmjco8kt1v0LUQPhNZmQP4nqd4Hqx2384nPmWDXbQ+eePyxRteYGY0hJeDLVpyeYG8VQ==</X509Certificate><X509SubjectName>CN=SafeScrypt CA 2022,houseIdentifier=II Floor, Tidel Park,street=No.4, Rajiv Gandhi Salai,ST=Tamil Nadu,postalCode=600113,OU=Certifying Authority,O=Sify Technologies Limited,C=IN</X509SubjectName><X509Certificate>MIIFyzCCA7OgAwIBAgIQRwYH7tCkAM8CDtcmynPsqTANBgkqhkiG9w0BAQsFADA6MQswCQYDVQQGEwJJTjESMBAGA1UEChMJSW5kaWEgUEtJMRcwFQYDVQQDEw5DQ0EgSW5kaWEgMjAyMjAeFw0yMjAyMTYxMDUzNDhaFw0zMjAyMTYxMDUzNDhaMIHVMQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEdMBsGA1UECxMUQ2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjYwMDExMzETMBEGA1UECBMKVGFtaWwgTmFkdTEhMB8GA1UECRMYTm8uNCwgUmFqaXYgR2FuZGhpIFNhbGFpMR0wGwYDVQQzExRJSSBGbG9vciwgVGlkZWwgUGFyazEbMBkGA1UEAxMSU2FmZVNjcnlwdCBDQSAyMDIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqhUJbYvOXXCf/TT2UMLOI7HmLemOSWsQayMzc95KUL6KHGhAECDTWz07d1pSA6DhKUp49+uWOUMq/enOZKRQAtdBocQRDDev51FHSesSGVrPASLmxozR/ES4/AF11PyeHsefVMnkzKvK6cdAraK417DC4F6uCVM+wj/3kGl7COHqpEj1g5/XKkRlq/3PIL/4m7NLq2/TIcicgxUjHOSqtHrNW8vDdPD64c2yzMkozzjIZLu6Cv/Of+DGoN2oSiukWIaQx1VSijasJwykPx435I9sqzjaGja4yI5ox+NbjJnWGmwzncKLBVfkoP5c4whIJ9E+EF0DoZs/kXb+wWiMQwIDAQABo4IBLzCCASswEgYDVR0TAQH/BAgwBgEB/wIBATARBgNVHQ4ECgQIScvUu13lnDMwEgYDVR0gBAswCTAHBgVggmRkAjATBgNVHSMEDDAKgAhOO0g2XOJffTCBgAYIKwYBBQUHAQEEdDByMB4GCCsGAQUFBzABhhJodHRwOi8vb2N2cy5nb3YuaW4wUAYIKwYBBQUHMAKGRGh0dHA6Ly93d3cuY2NhLmdvdi5pbi9jY2Evc2l0ZXMvZGVmYXVsdC9maWxlcy9maWxlcy9DQ0FJbmRpYTIwMjIuY2VyMA4GA1UdDwEB/wQEAwIBBjBGBgNVHR8EPzA9MDugOaA3hjVodHRwOi8vY2NhLmdvdi5pbi9ydy9yZXNvdXJjZXMvQ0NBSW5kaWEyMDIyTGF0ZXN0LmNybDANBgkqhkiG9w0BAQsFAAOCAgEAnDRRXSvn13oweNwVHik4deI8Dq4blgsAn12qq8iOQwdweqQROakPy+Y8rUDG/UX+1D27XUorlc0rStD4/+c1nEXBXKvth1ij/hMzVn/8Lev0uWloGO3lUhfYLMOZgSf8EFSZoG7hotc4E9hj2AehKgfFPvJMBWNn7VsgimwBE4bDVLtn0dFVJWf22LN2CJmwx1MATtnIs0Bot0qLXbfDpq1oefh6vL+RR+XDfYaAsIOmuZD5Pm4cgJ4EKThcCm9s+IucjbzaZgSkyoe6NmKT1o3+l3W9u1jNR2ABS8yzjqLb6MqGCdewlasb1cltwl1LANENnDge7xEGkE4MHC5Oa0ihxEvkWrM+ko8QT9S4dwuQNa4rJx7Ak9sBgag8WHGHgyJTYvv1ViSnv7UA5GdCZyJwJro4HbenfNyU2iJ9b5ZMIX5OXbIDJtS6iCCt/DyaWAQW2riws3xea9+PfvO4M5en3GT6zCK3evIbcIo/uIp8WYNBPK2LKJulYpDWU2q8P0P3q6ykzRwhNTm47PoE3m7KubMHpCcFhNL7p7jTZCoLENt4zaAOCNeq/OVcVr9yTRM231ciiDyt6c1OCfF693zuUkl1Y7nORkQgTQDT0wKY7lgMKmZJ7w9fzgx+R4HHQr1dhE7pf5uLMKVFd//gsNZ4bgFdHu47YlGX3rQXXlo=</X509Certificate><X509SubjectName>CN=SafeScrypt sub-CA for Document Signer 2022,OU=Sub-CA,O=Sify Technologies Limited,C=IN</X509SubjectName><X509Certificate>MIIE/zCCA+egAwIBAgIGaS+ORfU0MA0GCSqGSIb3DQEBCwUAMIHVMQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEdMBsGA1UECxMUQ2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjYwMDExMzETMBEGA1UECBMKVGFtaWwgTmFkdTEhMB8GA1UECRMYTm8uNCwgUmFqaXYgR2FuZGhpIFNhbGFpMR0wGwYDVQQzExRJSSBGbG9vciwgVGlkZWwgUGFyazEbMBkGA1UEAxMSU2FmZVNjcnlwdCBDQSAyMDIyMB4XDTIyMDIxODAzNTUyOVoXDTMyMDIxNjA5NTM0OFowdzELMAkGA1UEBhMCSU4xIjAgBgNVBAoTGVNpZnkgVGVjaG5vbG9naWVzIExpbWl0ZWQxDzANBgNVBAsTBlN1Yi1DQTEzMDEGA1UEAxMqU2FmZVNjcnlwdCBzdWItQ0EgZm9yIERvY3VtZW50IFNpZ25lciAyMDIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvEFENGRPNl5cZxGZfsOCVL3JIXp2yQpUkwHK1Lgp1GTihg2nfB0wnjrC1rLN12DQ1IdN/b1twM62WROKwJqKAXWMLAzhx5dcOZpBoY/sFILLlZnd4yYC8p1GPz7QJ30vuBeLSCSx6vVqZFIjuJce9Rrn2IHg4asTbzQ033obSdI+d9ghsULSHHbx2ZOA/S8NGGc4242EOemN/hCHfWr4QqvrLI6e4qPDpDPUs2QxvFEflTmxiMGnaMFCC20qE5Sf50kzNFsP9L7siFUNxOdQsE+j9BpVxBYMs3p3XPwjaEqaqa/aa+mmEOCDiRs10wPT8p3nDEi5GAl0ui2ypTYTlwIDAQABo4IBMDCCASwwEwYDVR0jBAwwCoAIScvUu13lnDMwEQYDVR0OBAoECEzEC7kvPc60MIGHBggrBgEFBQcBAQR7MHkwPgYIKwYBBQUHMAKGMmh0dHBzOi8vd3d3LnNhZmVzY3J5cHRuZXcuY29tL1NhZmVTY3J5cHRDQTIwMjIuY2VyMDcGCCsGAQUFBzABhitodHRwOi8vb2NzcC5zYWZlc2NyeXB0LmNvbS9TYWZlU2NyeXB0Q0EyMDIyMEAGA1UdHwQ5MDcwNaAzoDGGL2h0dHA6Ly9jcmwyLnNhZmVzY3J5cHQuY29tL1NhZmVTY3J5cHRDQTIwMjIuY3JsMBIGA1UdIAQLMAkwBwYFYIJkZAIwEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQELBQADggEBAKm3ERUBAd0brn8VmeXUcBZExQWZfHmgRQGbgRctQ6n1Yf+DJoGO9maQPuUEcaen7Deoc2SE+iaX182CF4XVjV5I6iGRjuowDaWn0K4qgd5a92/7vSKt7DL8uqAXYxFzXCTA1DuKYlV6k4+A18nX+/wVMTVgLqiUIuccvoS+sVXXf7440O/Qtr+YehIN6raPaXAdsfvCWczpQOMSM3Bv2jmU2j7aM0cFKRxPa5CtQ7Y2/yEIPqk1+ZwsqOCdc9vT6q2JkjgpgPF7zvEliTvFdWKAExlada3GEcJQ/bpXLPs1Pqm9qGDd33WHXh92NS3OAJ8volK7CiOIK2dmgDmHOts=</X509Certificate></X509Data></KeyInfo></Signature></Certificate>",
+                        "name": "Deepak Kumar Gupta",
+                        "uid": "xxxxxxxx3050",
+                        "id_proof_expiry": null,
+                        "gender": "M",
+                        "type_of_address": "RESIDENTIAL",
+                        "full_address": "S/O: Sohan Lal Gupta, House Number A-137, Chaukhandi Colony, Tilak Nagar, Rajouri Garden, West Delhi, Delhi, 110018",
+                        "city": "Tilak Nagar",
+                        "state": "Delhi",
+                        "pin": "110018",
+                        "country": "India"
+                    },
+                    "other_info": {
+                        "father_name": null,
+                        "marital_status": null,
+                        "country_of_birth": null,
+                        "mother_name": null,
+                        "place_of_birth": null,
+                        "residential_status": "RI"
+                    },
+                    "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+                    "correspondence_address": {
+                        "proof": null,
+                        "type_of_address": "RESIDENTIAL",
+                        "full_address": "House Number A-137, Chaukhandi Colony, Tilak Nagar, Rajouri Garden, West Delhi, Delhi, 110018",
+                        "city": "Tilak Nagar",
+                        "state": "Delhi",
+                        "pin": "110018",
+                        "country": "India"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "signature_validation": {
+                    "upload_images": {
+                        "wet_signature_image": {
+                            "doc_id": "67d284d80498a97b5484fa3c",
+                            "doc_name": "113_Suveer Signature.png",
+                            "doc_size": 108401,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "image/png",
+                                "digest": null,
+                                "esign": null
+                            }
+                        },
+                        "proof_of_signature": {
+                            "doc_id": "67d284d80498a97b5484fa3f",
+                            "doc_name": "24_Suveer-PAN.jpg",
+                            "doc_size": 824209,
                             "doc_content": null,
                             "metadata": {
                                 "org_id": null,
@@ -143,426 +226,333 @@
                                 "esign": null
                             }
                         },
-                        "pan_details": {
-                            "name_in_pan": "Deepak Kumar Gupta",
-                            "dob_pan": "19/10/1999",
-                            "pan_number": "CKWPG0718F",
-                            "parent_guardian_spouse_name": "Sohan Lal Gupta",
-                            "_ver_status": {
-                                "status": "success",
-                                "message": "Verified by the system 2025-03-13 05:49:03.406111",
-                                "id": null,
-                                "actor": "system",
-                                "user_id": "U001",
-                                "weight": 100
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Signatures matched with a score of 0.42.",
+                            "id": "d8a60170",
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "liveness_photo_capture": {
+                    "photo_capture": {
+                        "liveness_photo": {
+                            "doc_id": "67d285e80498a97b5484fa49",
+                            "doc_name": "passport_photo_1741850073335.jpg",
+                            "doc_size": 24677,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "image/jpeg",
+                                "digest": null,
+                                "esign": null
                             }
-                        },
-                        "_ver_status": {
-                            "status": "success",
-                            "message": "Model validation succeeeded.",
-                            "id": null,
-                            "actor": "system",
-                            "user_id": "U001",
-                            "weight": 100
                         }
                     },
-                    "identity_address_verification": {
-                        "identity_address_info": {
-                            "aadhaar_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Certificate><CertificateData><KycRes code=\"1c385d07647c4275b933d32bb64e2a86\" ret=\"Y\" ts=\"2024-03-04T10:05:37.387+05:30\" ttl=\"2025-03-04T10:05:37\" txn=\"UKC:82d5f2d603b70bddb61610d7138f911b20240304100522\"><UidData tkn=\"01002274rSpnGx68QTT2TjpcCzsieusc54DORZgF/zyefbHFh2zOhOgTT0EzD1LXHkhEGy1Z\" uid=\"xxxxxxxx3050\"><Poi dob=\"19-10-1999\" gender=\"M\" name=\"Deepak Kumar Gupta\"/><Poa co=\"S/O: Sohan Lal Gupta\" country=\"India\" dist=\"West Delhi\" house=\"House Number A-137\" loc=\"Chaukhandi Colony\" pc=\"110018\" po=\"Tilak Nagar\" state=\"Delhi\" subdist=\"Rajouri Garden\" vtc=\"Tilak Nagar\"/><LData co=\"S/O: à¤¸à¥à¤¹à¤¨ à¤²à¤¾à¤² à¤à¥à¤ªà¥à¤¤à¤¾\" country=\" \" dist=\"à¤µà¥à¤¸à¥à¤ à¤¦à¤¿à¤²à¥à¤²à¥\" house=\"à¤¹à¤¾à¤à¤¸ à¤¨à¤à¤¬à¤° à¤-137\" lang=\"06\" loc=\"à¤à¥à¤à¤à¤¡à¥ à¤à¥à¤²à¥à¤¨à¥\" name=\"à¤¦à¥à¤ªà¤ à¤à¥à¤®à¤¾à¤° à¤à¥à¤ªà¥à¤¤à¤¾\" pc=\"110018\" state=\"à¤¦à¤¿à¤²à¥à¤²à¥\" vtc=\"à¤¤à¤¿à¤²à¤ à¤¨à¤¾à¤à¤°\"/><Pht>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</Pht></UidData></KycRes></CertificateData><Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">\n  <SignedInfo><CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/>\n    <SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"/>\n  <Reference URI=\"\"><Transforms><Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/></Transforms><DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\"/><DigestValue>Rm6n5y8Krgo1A2SIYfXkRj7EZmUmixIz7cTfDWIl4ww=</DigestValue></Reference></SignedInfo><SignatureValue>uB+ynndSDN0XzLTB+XnYMAb6qJOywdldTSm0xk/m867+5PTw3fsYsdKJEWjHgtH+kQ9F66NgtokzWLazh4c6wpkxXq8WrHzPO0fmccmm2rlmpRWdWRxiII42ldxd05/pY4Bd8wDyFaKXISUl8WOFWTrhLZ7rt9ioVLsVDJDgdT5B8XUkKY7S9cAOX20cvWD1roEjc2+f0qwP6HNMQ/JFmixFaSJ0kTOEYHxotfC2NuD5ATlPwoai10j7ZExD3JYTheY3dKtPoNoj1+df1yNBIfoi8rmDcvQfY4EkSB1wntQFFPYJrMa6T0dr/nwRWkJG7kC82JgXEWdnB0/6mmR+Vg==</SignatureValue>\n<KeyInfo><X509Data><X509SubjectName>CN=DS NATIONAL E-GOVERNANCE DIVISION 1,ST=DELHI,postalCode=110003,OU=NATIONAL E-GOVERNANCE DIVISION,O=NATIONAL E-GOVERNANCE DIVISION,C=IN</X509SubjectName><X509Certificate>MIIFUjCCBDqgAwIBAgIHAJnuuyguVTANBgkqhkiG9w0BAQsFADB3MQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEPMA0GA1UECxMGU3ViLUNBMTMwMQYDVQQDEypTYWZlU2NyeXB0IHN1Yi1DQSBmb3IgRG9jdW1lbnQgU2lnbmVyIDIwMjIwHhcNMjMwODIyMDgyMTQ2WhcNMjYwMjExMDc1NzI4WjCBrjELMAkGA1UEBhMCSU4xJzAlBgNVBAoTHk5BVElPTkFMIEUtR09WRVJOQU5DRSBESVZJU0lPTjEnMCUGA1UECxMeTkFUSU9OQUwgRS1HT1ZFUk5BTkNFIERJVklTSU9OMQ8wDQYDVQQREwYxMTAwMDMxDjAMBgNVBAgTBURFTEhJMSwwKgYDVQQDEyNEUyBOQVRJT05BTCBFLUdPVkVSTkFOQ0UgRElWSVNJT04gMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANOK+NVHpaQfOWhrtKHkN07+tVnWQ7cILkVSBTElDgalJsMBqvGv4NnsuCMCrMNtJs+kqvcIfbY210y9bj/WtMIv8EaQWzDInMeYKuP8QWdFa8oAkB1WLrJMy5naxE+99U4tHWk44497q783r168wT4av/XF0YSnkMBIeoZY5OewsQpOQCVSg9ouf1Uc3TwsBqomhJRPNxPK9QJ1gkfZQBwyTirXM6AHWVyzQY1GQWBXpAbMqSEqmvxrDHfC/g0I2SpDtJlUf59hTLUe5E+IrR2Xxls4QU3DqBS9GQAqc/O5wuRqw2j3OI3k7deZTmkaQDlbftYuBA3vUnndaRUgEjUCAwEAAaOCAakwggGlMBMGA1UdIwQMMAqACEzEC7kvPc60MBEGA1UdDgQKBAhHY4kJC0TLGDCBlwYIKwYBBQUHAQEEgYowgYcwRQYIKwYBBQUHMAKGOWh0dHBzOi8vd3d3LnNhZmVzY3J5cHRuZXcuY29tL1NhZmVTY3J5cHREb2NTaWduZXIyMDIyLmNlcjA+BggrBgEFBQcwAYYyaHR0cDovL29jc3Auc2FmZXNjcnlwdC5jb20vU2FmZVNjcnlwdERvY1NpZ25lcjIwMjIwRwYDVR0fBEAwPjA8oDqgOIY2aHR0cDovL2NybDIuc2FmZXNjcnlwdC5jb20vU2FmZVNjcnlwdERvY1NpZ25lcjIwMjIuY3JsMCcGA1UdIAQgMB4wCAYGYIJkZAIDMAgGBmCCZGQCAjAIBgZggmRkCgEwDAYDVR0TAQH/BAIwADAqBgNVHSUEIzAhBggrBgEFBQcDBAYJKoZIhvcvAQEFBgorBgEEAYI3CgMMMCUGA1UdEQQeMByBGmRuYXlha0BkaWdpdGFsaW5kaWEuZ292LmluMA4GA1UdDwEB/wQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAQEAfmebPU8awacmsPZGr7M63sAuHdmbfIQDI3ZmUFBc0IRA1LSFcYCTDixhBXEYmpbB1gqSIC6kM2FsT42ZGwKaGZVBc/zryDJgJ8cr5EJyNA6cmRCk9fCSjXMvXJo4pZ1lSh+eAKWNbLkCdtFm4XZWpYU2UYI+wU6v5ZGWaNsNLOh05P9Eigoutfy0lhvZgE0gRXv8OgI6sSSJQW2uoVmUEDorX44cCqPLuCUIuq48G9xPpuHh2sH/RyVkAysGtN7TkmbZrqeVOSn+KVYbdyBWEF3zYUvPBndpXQUiKMG4kdYjvK08FZAfrF7fCYqyym+jKRBezoaS3AS67QiO4uTSyg==</X509Certificate><X509SubjectName>CN=CCA India 2022,O=India PKI,C=IN</X509SubjectName><X509Certificate>MIIFNDCCAxygAwIBAgIQdiQz69smdlqFYM0KqC/hFzANBgkqhkiG9w0BAQsFADA6MQswCQYDVQQGEwJJTjESMBAGA1UEChMJSW5kaWEgUEtJMRcwFQYDVQQDEw5DQ0EgSW5kaWEgMjAyMjAeFw0yMjAyMDIxMjA0MzdaFw00MjAyMDIxMjA0MzdaMDoxCzAJBgNVBAYTAklOMRIwEAYDVQQKEwlJbmRpYSBQS0kxFzAVBgNVBAMTDkNDQSBJbmRpYSAyMDIyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv3EBudWC8HY0oSwtJZCqpjQTGpEewl3EdDqUORV0qoFp78mdR/vuATXI83G7nF9RLvmNjgQgKr/bMx6gPO4Y57bMjAsgwEzleFclZka/sqc68iN5rS3huhrCX6MEINLyDOQ71MRA7GJCaNL6E3j1438eTu011mlikeZYBdkhvfpAVjCw90w8wcWDmqx66Y561T/RiXyz2uEhBBZAD43gV58eXStOeOTwAzEZYMrmp232GfmQKabYRfdIRus1avyuGea2nICEsRHE8M2tdzwpGP7oIy2qHBFJJ+3AwmwQA4DjmDkJtCD+58awohQavRNhqjsGD+ZifG3VR4i6WrKv8OWqZzcZj3g3Elr5+fRMlz1GSqkWPBw1Ev8KWTHazSUKF7OMxm3XzyXxQnw7fZF9GOVtx3adpfRPqYGgtbOP34EVkz4wsHvNMrvUrYcKymdOrnkTjlX26fIHUJpKGYkLk9q0jhMNKs4Rn8lj4pJ7YF33/ND4bjpV0ex1EAQz0iZvT37OnxNiuAZ/+4Djf075UuNX2ecWnadOrN1r8NAParZIwUoSUnWhU8TqAWWRqzFURHUZuOMQcA0geg4c9zqtBoUPgtQksbIAEsEXmDuRpwSIFjEkK11f5Eemfmfdg37KyIjQ67TRTmBA+kT9Q5JIm/e7m1ILg/HKckgLUOCnAMsCAwEAAaM2MDQwDwYDVR0TAQH/BAUwAwEB/zARBgNVHQ4ECgQITjtINlziX30wDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4ICAQCdbE8d1c1DysKtrtYlApYIXTlY3N2XHNQ6gKoaVWsKa1TJ/ovrT+FV3bmQLet3aSoEG6pTe/vLZSg8WiF7cn7WuF4XlQS3yA2Uu8/cg/S4owqhQJp6K/Xg6UoSBad9Kog1H8deOfV8Nmb8a89zB4Yf8/AepId+Lr/3I6O7iub+PUT2QBXnksa+cf0yf+49GhyMCILZvctNSQd4Vxr9EgRvBARTrAgNQ9sEOJ6myOz4iTFR7T2pIFP8Cp15e8jEVI1q4IuHu3XlwJNk9f5k3gbwrzoy9P5rP8voQU3u9wh62JZa9U63b+u/Ur1tsKb5Lx0YUedtHvpIiIRurEPxumW0twjrx8TrAcXRrViSL7dsXAoYC0dXo154EE8jBAzgIIur7tJizxgXDEn4i2pu8Yd615YML9ii5BooEJ2j6fQ0nzyPRmx1Egw2Fjlgzzceai4TUOcaCKab86yyu5MZIp+BiPR840nw5MggbRgYH2nFRBA70toVm4VFlbZs3reGmaICm4ST6R395OxYS1iYBm5kXm9tLb4pkIhUxrkgyuiwE+DsWceBjHAYaXnCgUGKtiG9tfBMUw3fChoPb9L1yKdNof3zXDdTloMqEpO4BFrmjco8kt1v0LUQPhNZmQP4nqd4Hqx2384nPmWDXbQ+eePyxRteYGY0hJeDLVpyeYG8VQ==</X509Certificate><X509SubjectName>CN=SafeScrypt CA 2022,houseIdentifier=II Floor, Tidel Park,street=No.4, Rajiv Gandhi Salai,ST=Tamil Nadu,postalCode=600113,OU=Certifying Authority,O=Sify Technologies Limited,C=IN</X509SubjectName><X509Certificate>MIIFyzCCA7OgAwIBAgIQRwYH7tCkAM8CDtcmynPsqTANBgkqhkiG9w0BAQsFADA6MQswCQYDVQQGEwJJTjESMBAGA1UEChMJSW5kaWEgUEtJMRcwFQYDVQQDEw5DQ0EgSW5kaWEgMjAyMjAeFw0yMjAyMTYxMDUzNDhaFw0zMjAyMTYxMDUzNDhaMIHVMQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEdMBsGA1UECxMUQ2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjYwMDExMzETMBEGA1UECBMKVGFtaWwgTmFkdTEhMB8GA1UECRMYTm8uNCwgUmFqaXYgR2FuZGhpIFNhbGFpMR0wGwYDVQQzExRJSSBGbG9vciwgVGlkZWwgUGFyazEbMBkGA1UEAxMSU2FmZVNjcnlwdCBDQSAyMDIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqhUJbYvOXXCf/TT2UMLOI7HmLemOSWsQayMzc95KUL6KHGhAECDTWz07d1pSA6DhKUp49+uWOUMq/enOZKRQAtdBocQRDDev51FHSesSGVrPASLmxozR/ES4/AF11PyeHsefVMnkzKvK6cdAraK417DC4F6uCVM+wj/3kGl7COHqpEj1g5/XKkRlq/3PIL/4m7NLq2/TIcicgxUjHOSqtHrNW8vDdPD64c2yzMkozzjIZLu6Cv/Of+DGoN2oSiukWIaQx1VSijasJwykPx435I9sqzjaGja4yI5ox+NbjJnWGmwzncKLBVfkoP5c4whIJ9E+EF0DoZs/kXb+wWiMQwIDAQABo4IBLzCCASswEgYDVR0TAQH/BAgwBgEB/wIBATARBgNVHQ4ECgQIScvUu13lnDMwEgYDVR0gBAswCTAHBgVggmRkAjATBgNVHSMEDDAKgAhOO0g2XOJffTCBgAYIKwYBBQUHAQEEdDByMB4GCCsGAQUFBzABhhJodHRwOi8vb2N2cy5nb3YuaW4wUAYIKwYBBQUHMAKGRGh0dHA6Ly93d3cuY2NhLmdvdi5pbi9jY2Evc2l0ZXMvZGVmYXVsdC9maWxlcy9maWxlcy9DQ0FJbmRpYTIwMjIuY2VyMA4GA1UdDwEB/wQEAwIBBjBGBgNVHR8EPzA9MDugOaA3hjVodHRwOi8vY2NhLmdvdi5pbi9ydy9yZXNvdXJjZXMvQ0NBSW5kaWEyMDIyTGF0ZXN0LmNybDANBgkqhkiG9w0BAQsFAAOCAgEAnDRRXSvn13oweNwVHik4deI8Dq4blgsAn12qq8iOQwdweqQROakPy+Y8rUDG/UX+1D27XUorlc0rStD4/+c1nEXBXKvth1ij/hMzVn/8Lev0uWloGO3lUhfYLMOZgSf8EFSZoG7hotc4E9hj2AehKgfFPvJMBWNn7VsgimwBE4bDVLtn0dFVJWf22LN2CJmwx1MATtnIs0Bot0qLXbfDpq1oefh6vL+RR+XDfYaAsIOmuZD5Pm4cgJ4EKThcCm9s+IucjbzaZgSkyoe6NmKT1o3+l3W9u1jNR2ABS8yzjqLb6MqGCdewlasb1cltwl1LANENnDge7xEGkE4MHC5Oa0ihxEvkWrM+ko8QT9S4dwuQNa4rJx7Ak9sBgag8WHGHgyJTYvv1ViSnv7UA5GdCZyJwJro4HbenfNyU2iJ9b5ZMIX5OXbIDJtS6iCCt/DyaWAQW2riws3xea9+PfvO4M5en3GT6zCK3evIbcIo/uIp8WYNBPK2LKJulYpDWU2q8P0P3q6ykzRwhNTm47PoE3m7KubMHpCcFhNL7p7jTZCoLENt4zaAOCNeq/OVcVr9yTRM231ciiDyt6c1OCfF693zuUkl1Y7nORkQgTQDT0wKY7lgMKmZJ7w9fzgx+R4HHQr1dhE7pf5uLMKVFd//gsNZ4bgFdHu47YlGX3rQXXlo=</X509Certificate><X509SubjectName>CN=SafeScrypt sub-CA for Document Signer 2022,OU=Sub-CA,O=Sify Technologies Limited,C=IN</X509SubjectName><X509Certificate>MIIE/zCCA+egAwIBAgIGaS+ORfU0MA0GCSqGSIb3DQEBCwUAMIHVMQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEdMBsGA1UECxMUQ2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjYwMDExMzETMBEGA1UECBMKVGFtaWwgTmFkdTEhMB8GA1UECRMYTm8uNCwgUmFqaXYgR2FuZGhpIFNhbGFpMR0wGwYDVQQzExRJSSBGbG9vciwgVGlkZWwgUGFyazEbMBkGA1UEAxMSU2FmZVNjcnlwdCBDQSAyMDIyMB4XDTIyMDIxODAzNTUyOVoXDTMyMDIxNjA5NTM0OFowdzELMAkGA1UEBhMCSU4xIjAgBgNVBAoTGVNpZnkgVGVjaG5vbG9naWVzIExpbWl0ZWQxDzANBgNVBAsTBlN1Yi1DQTEzMDEGA1UEAxMqU2FmZVNjcnlwdCBzdWItQ0EgZm9yIERvY3VtZW50IFNpZ25lciAyMDIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvEFENGRPNl5cZxGZfsOCVL3JIXp2yQpUkwHK1Lgp1GTihg2nfB0wnjrC1rLN12DQ1IdN/b1twM62WROKwJqKAXWMLAzhx5dcOZpBoY/sFILLlZnd4yYC8p1GPz7QJ30vuBeLSCSx6vVqZFIjuJce9Rrn2IHg4asTbzQ033obSdI+d9ghsULSHHbx2ZOA/S8NGGc4242EOemN/hCHfWr4QqvrLI6e4qPDpDPUs2QxvFEflTmxiMGnaMFCC20qE5Sf50kzNFsP9L7siFUNxOdQsE+j9BpVxBYMs3p3XPwjaEqaqa/aa+mmEOCDiRs10wPT8p3nDEi5GAl0ui2ypTYTlwIDAQABo4IBMDCCASwwEwYDVR0jBAwwCoAIScvUu13lnDMwEQYDVR0OBAoECEzEC7kvPc60MIGHBggrBgEFBQcBAQR7MHkwPgYIKwYBBQUHMAKGMmh0dHBzOi8vd3d3LnNhZmVzY3J5cHRuZXcuY29tL1NhZmVTY3J5cHRDQTIwMjIuY2VyMDcGCCsGAQUFBzABhitodHRwOi8vb2NzcC5zYWZlc2NyeXB0LmNvbS9TYWZlU2NyeXB0Q0EyMDIyMEAGA1UdHwQ5MDcwNaAzoDGGL2h0dHA6Ly9jcmwyLnNhZmVzY3J5cHQuY29tL1NhZmVTY3J5cHRDQTIwMjIuY3JsMBIGA1UdIAQLMAkwBwYFYIJkZAIwEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQELBQADggEBAKm3ERUBAd0brn8VmeXUcBZExQWZfHmgRQGbgRctQ6n1Yf+DJoGO9maQPuUEcaen7Deoc2SE+iaX182CF4XVjV5I6iGRjuowDaWn0K4qgd5a92/7vSKt7DL8uqAXYxFzXCTA1DuKYlV6k4+A18nX+/wVMTVgLqiUIuccvoS+sVXXf7440O/Qtr+YehIN6raPaXAdsfvCWczpQOMSM3Bv2jmU2j7aM0cFKRxPa5CtQ7Y2/yEIPqk1+ZwsqOCdc9vT6q2JkjgpgPF7zvEliTvFdWKAExlada3GEcJQ/bpXLPs1Pqm9qGDd33WHXh92NS3OAJ8volK7CiOIK2dmgDmHOts=</X509Certificate></X509Data></KeyInfo></Signature></Certificate>",
-                            "name": "Deepak Kumar Gupta",
-                            "uid": "xxxxxxxx3050",
-                            "gender": "M",
-                            "full_address": "S/O: Sohan Lal Gupta, House Number A-137, Chaukhandi Colony, Tilak Nagar, Rajouri Garden, West Delhi, Delhi, 110018",
-                            "city": "Tilak Nagar",
-                            "state": "Delhi",
-                            "pin": "110018",
-                            "country": "India"
-                        },
-                        "other_info": {
-                            "father_name": null,
-                            "marital_status": null,
-                            "country_of_birth": null,
-                            "mother_name": null,
-                            "place_of_birth": null
-                        },
-                        "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
-                        "correspondence_address": {
-                            "proof": null,
-                            "type_of_address": "RESIDENTIAL",
-                            "full_address": "House Number A-137, Chaukhandi Colony, Tilak Nagar, Rajouri Garden, West Delhi, Delhi, 110018",
-                            "city": "Tilak Nagar",
-                            "state": "Delhi",
-                            "pin": "110018",
-                            "country": "India"
-                        },
-                        "_ver_status": {
-                            "status": "success",
-                            "message": "Model validation succeeeded.",
-                            "id": null,
-                            "actor": "system",
-                            "user_id": "U001",
-                            "weight": 100
-                        }
-                    },
-                    "signature_validation": {
-                        "upload_images": {
-                            "wet_signature_image": {
-                                "doc_id": "67d284d80498a97b5484fa3c",
-                                "doc_name": "113_Suveer Signature.png",
-                                "doc_size": 108401,
-                                "doc_content": null,
-                                "metadata": {
-                                    "org_id": null,
-                                    "form_id": null,
-                                    "record_id": null,
-                                    "doc_type": "image/png",
-                                    "digest": null,
-                                    "esign": null
-                                }
-                            },
-                            "proof_of_signature": {
-                                "doc_id": "67d284d80498a97b5484fa3f",
-                                "doc_name": "24_Suveer-PAN.jpg",
-                                "doc_size": 824209,
-                                "doc_content": null,
-                                "metadata": {
-                                    "org_id": null,
-                                    "form_id": null,
-                                    "record_id": null,
-                                    "doc_type": "image/jpeg",
-                                    "digest": null,
-                                    "esign": null
-                                }
-                            },
-                            "_ver_status": {
-                                "status": "success",
-                                "message": "Signatures matched with a score of 0.42.",
-                                "id": "d8a60170",
-                                "actor": "system",
-                                "user_id": "U001",
-                                "weight": 100
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "liveness_check": {
+                    "video_capture": {
+                        "liveness_video": {
+                            "doc_id": "67d287b10498a97b5484fa51",
+                            "doc_name": "17_video_1741850489559.webm",
+                            "doc_size": 2628777,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "video/webm",
+                                "digest": null,
+                                "esign": null
                             }
-                        },
-                        "_ver_status": {
-                            "status": "success",
-                            "message": "Model validation succeeeded.",
-                            "id": null,
-                            "actor": "system",
-                            "user_id": "U001",
-                            "weight": 100
                         }
                     },
-                    "liveness_photo_capture": {
-                        "photo_capture": {
-                            "liveness_photo": {
-                                "doc_id": "67d285e80498a97b5484fa49",
-                                "doc_name": "passport_photo_1741850073335.jpg",
-                                "doc_size": 24677,
-                                "doc_content": null,
-                                "metadata": {
-                                    "org_id": null,
-                                    "form_id": null,
-                                    "record_id": null,
-                                    "doc_type": "image/jpeg",
-                                    "digest": null,
-                                    "esign": null
-                                }
-                            }
-                        },
-                        "_ver_status": {
-                            "status": "success",
-                            "message": "Model validation succeeeded.",
-                            "id": null,
-                            "actor": "system",
-                            "user_id": "U001",
-                            "weight": 100
-                        }
+                    "liveness_captcha": [
+                        "House",
+                        "Room",
+                        "Flower",
+                        "Tonight",
+                        "Often",
+                        "Song"
+                    ],
+                    "liveness_geo_loc": {
+                        "lat": "12.884808",
+                        "long": "77.5929077"
                     },
-                    "liveness_check": {
-                        "video_capture": {
-                            "liveness_video": {
-                                "doc_id": "67d287b10498a97b5484fa51",
-                                "doc_name": "17_video_1741850489559.webm",
-                                "doc_size": 2628777,
-                                "doc_content": null,
-                                "metadata": {
-                                    "org_id": null,
-                                    "form_id": null,
-                                    "record_id": null,
-                                    "doc_type": "video/webm",
-                                    "digest": null,
-                                    "esign": null
-                                }
-                            }
-                        },
-                        "liveness_captcha": [
-                            "House",
-                            "Room",
-                            "Flower",
-                            "Tonight",
-                            "Often",
-                            "Song"
-                        ],
-                        "liveness_geo_loc": {
-                            "lat": "12.884808",
-                            "long": "77.5929077"
-                        },
-                        "_ver_status": {
-                            "status": "success",
-                            "message": "Verification successful: transcription matched keywords.",
-                            "id": "38176104",
-                            "actor": "system",
-                            "user_id": "U001",
-                            "weight": 100,
-                            "isMandatoryFilled": true
-                        }
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Verification successful: transcription matched keywords.",
+                        "id": "38176104",
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100,
+                        "isMandatoryFilled": true
+                    }
+                },
+                "declarations": {
+                    "income_info": {
+                        "gross_annual_income": "UPTO_1L",
+                        "networth": "10000",
+                        "occupation": "OTHERS",
+                        "date": "2025-04-05"
                     },
-                    "declarations": {
-                        "income_info": {
-                            "gross_annual_income": "UPTO_1L",
-                            "networth": "10000",
-                            "occupation": "OTHERS",
-                            "date": "2025-04-05"
-                        },
-                        "fatca_crs_declaration": {
-                            "is_client_tax_resident": "YES"
-                        },
-                        "politically_exposed_person_card": {
-                            "politically_exposed_person": "nan"
-                        },
-                        "_ver_status": {
-                            "status": "success",
-                            "message": "Model validation succeeeded.",
-                            "id": null,
-                            "actor": "system",
-                            "user_id": "U001",
-                            "weight": 100
-                        }
+                    "fatca_crs_declaration": {
+                        "is_client_tax_resident": "YES"
                     },
-                    "upload_pdf_attachments": {
-                        "kyc_holder_attachment": {
-                            "upload_pdf": null
-                        }
+                    "politically_exposed_person_card": {
+                        "politically_exposed_person": "nan"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "upload_pdf_attachments": {
+                    "kyc_holder_attachment": {
+                        "upload_pdf": null
                     }
                 }
             }
-        ],
-        "bank_verification": {
-            "cancelled_cheque": {
-                "cancelled_cheque_image": {
-                    "doc_id": "67d28d580498a97b5484fa75",
-                    "doc_name": "120_download.jpeg",
-                    "doc_size": 6097,
-                    "doc_content": null,
-                    "metadata": {
-                        "org_id": null,
-                        "form_id": null,
-                        "record_id": null,
-                        "doc_type": "image/jpeg",
-                        "digest": null,
-                        "esign": null
-                    }
+        }
+    ],
+    "bank_verification": {
+        "cancelled_cheque": {
+            "cancelled_cheque_image": {
+                "doc_id": "67d28d580498a97b5484fa75",
+                "doc_name": "120_download.jpeg",
+                "doc_size": 6097,
+                "doc_content": null,
+                "metadata": {
+                    "org_id": null,
+                    "form_id": null,
+                    "record_id": null,
+                    "doc_type": "image/jpeg",
+                    "digest": null,
+                    "esign": null
                 }
-            },
-            "bank_details": {
-                "bank_account_number": "603510110014163",
-                "account_holder_name_pan": "Deepak Kumar Gupta",
-                "account_holder_name_id": "Deepak Kumar Gupta",
-                "ifsc_code": "BKID0006035",
-                "account_holder_name": "",
-                "type_of_application": "TRADING_AND_DP",
-                "account_mobile_number": "+918510889066",
-                "_ver_status": {
-                    "status": "success",
-                    "message": null,
-                    "id": "1",
-                    "actor": "system",
-                    "user_id": "U001",
-                    "weight": 100
-                }
-            },
+            }
+        },
+        "bank_details": {
+            "bank_account_number": "603510110014163",
+            "account_holder_name_pan": "Deepak Kumar Gupta",
+            "account_holder_name_id": "Deepak Kumar Gupta",
+            "ifsc_code": "BKID0006035",
+            "account_holder_name": "",
+            "type_of_application": "TRADING_AND_DP",
+            "account_mobile_number": "+918510889066",
             "_ver_status": {
                 "status": "success",
-                "message": "Model validation succeeeded.",
-                "id": null,
+                "message": null,
+                "id": "1",
                 "actor": "system",
                 "user_id": "U001",
                 "weight": 100
             }
         },
-        "nomination_details": {
-            "general": {
-                "client_nominee_appointment_status": "NO"
-            },
-            "nominees": [
-                {
-                    "nominee": {
-                        "nominee_data": {
-                            "minor_nominee": null,
-                            "nominee_type_of_id": null,
-                            "name_of_nominee": null,
-                            "percentage_of_allocation": null,
-                            "nominee_id_proof": null,
-                            "id_number": null,
-                            "nominee_address": null
-                        }
-                    }
-                }
-            ],
-            "_ver_status": {
-                "status": "success",
-                "message": "Verified successfully by the system on 2025-03-13 08:08:05.733998",
-                "id": null,
-                "actor": "system",
-                "user_id": "U001",
-                "weight": 100
-            }
-        },
-        "trading_information": {
-            "check_pan_for_trading_account": {
-                "trading_id": null,
-                "account_holder_name": null,
-                "account_creation_date": null
-            },
-            "trading_account_information": {
-                "segment_pref_1": "EQUITY",
-                "segment_pref_2": "FNO",
-                "segment_pref_3": "CURRENCY",
-                "segment_pref_4": "COMMODITY",
-                "segment_pref_5": "MUTUAL_FUND",
-                "segment_pref_6": "SLB",
-                "contract_format_1": null,
-                "contract_format_2": "ELECTRONIC",
-                "proof_of_income": null,
-                "type_of_document": null,
-                "client_facility_choice": "YES",
-                "kit_format_1": "PHYSICAL_FORM",
-                "kit_format_2": "ELECTRONIC_FORM",
-                "holder_trading_experience": "1_3YEARS",
-                "_ver_status": {
-                    "status": "success",
-                    "message": "Verified successfully by the system on 2025-03-13 08:11:50.672704",
-                    "id": null,
-                    "actor": "system",
-                    "user_id": "U001",
-                    "weight": 100
-                }
-            },
-            "employer_details": {
-                "employer_name": null,
-                "mobile_number": null,
-                "approval_date": null,
-                "employer_address": null
-            },
-            "details_of_dealings": {
-                "broker_name": "Broker Kumar",
-                "telephone": "01112341234",
-                "client_codes": "1234",
-                "broker_address": "Broker Address",
-                "sub_broker_name": "Sub Broker Kuamar",
-                "website": "www.lyik.com",
-                "detail_of_disputes": "No disputes",
-                "_ver_status": {
-                    "status": "success",
-                    "message": "Verified successfully by the system on 2025-03-13 08:16:06.034842",
-                    "id": null,
-                    "actor": "system",
-                    "user_id": "U001",
-                    "weight": 100
-                }
-            },
-            "introducer_details": {
-                "introducer_name": null,
-                "introducer_broker_address": null,
-                "introducer_status": null,
-                "remisire_code": null
-            },
-            "_ver_status": {
-                "status": "success",
-                "message": "Model validation succeeeded.",
-                "id": null,
-                "actor": "system",
-                "user_id": "U001",
-                "weight": 100
-            }
-        },
-        "dp_information": {
-            "dp_Account_information": {
-                "dp_tariff_plan": null,
-                "name_of_dp": null,
-                "depository": "NSDL",
-                "dp_id_no": null,
-                "client_id_no": null,
-                "cmr_file": null
-            },
-            "standing_info_from_client": {
-                "receive_credit_auth_status": "YES",
-                "first_holder_sms_alert": "ALL_JOINT_HOLDER",
-                "account_statement_requirement": "WEEKLY",
-                "electronic_transaction_holding_statement": "YES",
-                "dividend_interest_receive_option": "NO",
-                "auto_pledge_confirmation": "NO",
-                "did_booklet_issuance": "WITH_AC_OPENING",
-                "bsda": "YES",
-                "joint_account_operation_mode": "JOINTLY",
-                "consent_for_communication": "FIRST_HOLDER",
-                "share_email_id_with_rta": "NO",
-                "receive_annual_report": "ELECTRONIC",
-                "aadhaar_pan_seed_status": "YES",
-                "trust": "YES"
-            },
-            "trust_information": {
-                "stack_exchange_name": null,
-                "clearing_member_name": null,
-                "clearing_member_id": null
-            },
-            "ucc_mapping_1": {
-                "ucc_code_1": null,
-                "exchange_id_1": null,
-                "segment_id_1": null,
-                "cm_id_1": null,
-                "tm_id_1": null
-            },
-            "ucc_mapping_2": {
-                "ucc_code_2": null,
-                "exchange_id_2": null,
-                "segment_id_2": null,
-                "cm_id_2": null,
-                "tm_id_2": null
-            },
-            "_ver_status": {
-                "status": "success",
-                "message": "Model validation succeeeded.",
-                "id": null,
-                "actor": "system",
-                "user_id": "U001",
-                "weight": 100
-            }
-        },
-        "tnc": {
-            "declaration": {
-                "sms_alert": "TRUST_FACILITY_ON_MOBILE",
-                "policy": "RISK_MANAGEMENT_POLICY",
-                "processing_time": "SEBI_TNC"
-            },
-            "_ver_status": {
-                "isMandatoryFilled": true
-            }
-        },
-        "operations": {
-            "operation_card": {
-                "operation_type": "PDF"
-            }
-        },
-        "_owner": [
-            "+918787885330",
-            "U001"
-        ],
-        "_time_log": {
-            "created_on": "2025-03-13T07:10:16.904029Z",
-            "last_updated_on": "2025-03-13T10:24:14.969341Z"
-        },
-        "_application_id": "APPLICATION-20250313071016-PBI7YG"
+        "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U001",
+            "weight": 100
+        }
     },
-    "result": "success"
+    "nomination_details": {
+        "general": {
+            "client_nominee_appointment_status": "NO"
+        },
+        "nominees": [
+            {
+                "nominee": {
+                    "nominee_data": {
+                        "minor_nominee": null,
+                        "nominee_type_of_id": null,
+                        "name_of_nominee": null,
+                        "percentage_of_allocation": null,
+                        "nominee_id_proof": null,
+                        "id_number": null,
+                        "nominee_address": null
+                    }
+                }
+            }
+        ],
+        "_ver_status": {
+            "status": "success",
+            "message": "Verified successfully by the system on 2025-03-13 08:08:05.733998",
+            "id": null,
+            "actor": "system",
+            "user_id": "U001",
+            "weight": 100
+        }
+    },
+    "trading_information": {
+        "check_pan_for_trading_account": {
+            "trading_id": null,
+            "account_holder_name": null,
+            "account_creation_date": null
+        },
+        "trading_account_information": {
+            "segment_pref_1": "EQUITY",
+            "segment_pref_2": "FNO",
+            "segment_pref_3": "CURRENCY",
+            "segment_pref_4": "COMMODITY",
+            "segment_pref_5": "MUTUAL_FUND",
+            "segment_pref_6": "SLB",
+            "contract_format_1": null,
+            "contract_format_2": "ELECTRONIC_FORM",
+            "proof_of_income": null,
+            "type_of_document": null,
+            "client_facility_choice": "YES",
+            "kit_format_1": "PHYSICAL_FORM",
+            "kit_format_2": "ELECTRONIC_FORM",
+            "holder_trading_experience": "1_3YEARS",
+            "_ver_status": {
+                "status": "success",
+                "message": "Verified successfully by the system on 2025-03-13 08:11:50.672704",
+                "id": null,
+                "actor": "system",
+                "user_id": "U001",
+                "weight": 100
+            }
+        },
+        "employer_details": {
+            "employer_name": null,
+            "mobile_number": null,
+            "approval_date": null,
+            "employer_address": null
+        },
+        "details_of_dealings": {
+            "broker_name": "Broker Kumar",
+            "telephone": "01112341234",
+            "client_codes": "1234",
+            "broker_address": "Broker Address",
+            "sub_broker_name": "Sub Broker Kuamar",
+            "website": "www.lyik.com",
+            "detail_of_disputes": "No disputes",
+            "_ver_status": {
+                "status": "success",
+                "message": "Verified successfully by the system on 2025-03-13 08:16:06.034842",
+                "id": null,
+                "actor": "system",
+                "user_id": "U001",
+                "weight": 100
+            }
+        },
+        "introducer_details": {
+            "introducer_name": null,
+            "introducer_broker_address": null,
+            "introducer_status": null,
+            "remisire_code": null
+        },
+        "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U001",
+            "weight": 100
+        }
+    },
+    "dp_information": {
+        "dp_Account_information": {
+            "dp_tariff_plan": null,
+            "name_of_dp": null,
+            "depository": "NSDL",
+            "dp_id_no": null,
+            "client_id_no": null,
+            "cmr_file": null
+        },
+        "standing_info_from_client": {
+            "receive_credit_auth_status": "YES",
+            "first_holder_sms_alert": "ALL_JOINT_HOLDER",
+            "account_statement_requirement": "WEEKLY",
+            "electronic_transaction_holding_statement": "YES",
+            "dividend_interest_receive_option": "NO",
+            "auto_pledge_confirmation": "NO",
+            "did_booklet_issuance": "WITH_AC_OPENING",
+            "bsda": "YES",
+            "joint_account_operation_mode": "JOINTLY",
+            "consent_for_communication": "FIRST_HOLDER",
+            "share_email_id_with_rta": "NO",
+            "receive_annual_report": "ELECTRONIC",
+            "aadhaar_pan_seed_status": "YES",
+            "trust": "YES"
+        },
+        "trust_information": {
+            "stack_exchange_name": null,
+            "clearing_member_name": null,
+            "clearing_member_id": null
+        },
+        "ucc_mapping_1": {
+            "ucc_code_1": null,
+            "exchange_id_1": null,
+            "segment_id_1": null,
+            "cm_id_1": null,
+            "tm_id_1": null
+        },
+        "ucc_mapping_2": {
+            "ucc_code_2": null,
+            "exchange_id_2": null,
+            "segment_id_2": null,
+            "cm_id_2": null,
+            "tm_id_2": null
+        },
+        "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U001",
+            "weight": 100
+        }
+    },
+    "tnc": {
+        "declaration": {
+            "sms_alert": "TRUST_FACILITY_ON_MOBILE",
+            "policy": "RISK_MANAGEMENT_POLICY",
+            "processing_time": "SEBI_TNC"
+        },
+        "_ver_status": {
+            "isMandatoryFilled": true
+        }
+    },
+    "operations": {
+        "operation_card": {
+            "operation_type": "PDF"
+        }
+    },
+    "_owner": [
+        "+918787885330",
+        "U001"
+    ],
+    "_time_log": {
+        "created_on": "2025-03-13T07:10:16.904029Z",
+        "last_updated_on": "2025-03-13T10:24:14.969341Z"
+    },
+    "_application_id": "APPLICATION-20250313071016-PBI7YG"
 }

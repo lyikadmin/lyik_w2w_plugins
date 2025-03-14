@@ -14,8 +14,9 @@ requires-python = ">=3.10"
 dependencies = ["requests==2.32.3", "pydantic[email]==2.10.3"]
 
 [tool.setuptools.package-data]
-"lyik.mapping_josn_files" = [
+"lyik.nsdl_mapping_json_files" = [
     "client_sub_type.json",
+    "country.json",
     "gender.json",
     "gross_annual_income.json",
     "nominee_relationship.json",

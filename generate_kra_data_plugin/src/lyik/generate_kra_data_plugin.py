@@ -238,7 +238,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             return "N"
 
     def get_fatca_applicable_flag(self, is_tax_resident: str):
-        if is_tax_resident.lower() == "yes":
+        if is_tax_resident.lower() == "NO":
             return "N"
         else:
             return "Y"
@@ -324,7 +324,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             if is_indian_citizen.lower() == "yes":
                 country = "India"
             else:
-                if declarations.fatca_crs_declaration_1 is not None and declarations.fatca_crs_declaration_1.country_of_residency_1 is not None:
+                if declarations.fatca_crs_declaration_1 and declarations.fatca_crs_declaration_1.country_of_residency_1:
                     country = declarations.fatca_crs_declaration_1.country_of_residency_1
             if country is not None:
                 return self.get_fatca_country_code(country_name=country)
