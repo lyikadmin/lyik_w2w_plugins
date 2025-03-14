@@ -19,6 +19,7 @@ from .nsdl_demat_model.form_record_mpdel import (
     KYCHolder,
     KYCHolderData,
     Nominee,
+    OVD,
 )
 import json
 from importlib import resources
@@ -59,7 +60,7 @@ async def map_form_record(
                     aadhar=get_aadhaar_from_uid(
                         first_holder.identity_address_verification.identity_address_info.uid,
                         form_record_model.application_details.kyc_digilocker,
-                        first_holder.identity_address_verification.ovd.ovd_type,
+                        first_holder.identity_address_verification.ovd,
                     ),
                     mobile=first_holder.mobile_email_verification.mobile_verification.contact_id,
                     email=first_holder.mobile_email_verification.email_verification.contact_id,
@@ -169,14 +170,14 @@ def load_mapping_file(file_name: str) -> dict:
 
 
 def get_aadhaar_from_uid(
-    uid: str, kyc_digilocker: str, ovd_type: str | None
+    uid: str, kyc_digilocker: str, ovd: OVD | None
 ) -> str | None:
     """
     Returns the Aadhaar number from the UID.
     """
     if kyc_digilocker == "YES":
         return uid
-    elif kyc_digilocker == "NO" and ovd_type and ovd_type == "AADHAAR":
+    elif kyc_digilocker == "NO" and ovd.ovd_type and ovd.ovd_type == "AADHAAR":
         return uid
     else:
         return None

@@ -238,7 +238,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             return "N"
 
     def get_fatca_applicable_flag(self, is_tax_resident: str):
-        if is_tax_resident.lower() == "yes":
+        if is_tax_resident.lower() == "NO":
             return "N"
         else:
             return "Y"

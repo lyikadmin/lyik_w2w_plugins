@@ -116,14 +116,12 @@ class MobileVerification(BaseModel):
     dependency_relationship_mobile: str
     contact_id: str
     _ver_status: VerificationStatus | None = None
-    verified_contact_id: str
 
 
 class EmailVerification(BaseModel):
     dependency_relationship_email: str
     contact_id: str
     _ver_status: VerificationStatus | None = None
-    verified_contact_id: str
 
 
 class MobileEmailVerification(BaseModel):
