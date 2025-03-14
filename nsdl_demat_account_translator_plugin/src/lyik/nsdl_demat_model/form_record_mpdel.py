@@ -1,9 +1,7 @@
-from pydantic import BaseModel, Field, EmailStr, constr
-from typing import Optional, List, Dict, Any
+from pydantic import BaseModel, Field
+from typing import List, Dict, Any
 from datetime import datetime
 from lyikpluginmanager import DBDocumentModel
-
-
 class TimeLog(BaseModel):
     created_on: str | None = None
     last_updated_on: str
@@ -13,7 +11,7 @@ class Submitter(BaseModel):
     id: str | None = None
     phone: str | None = None
     email: str | None = None
-    time: Optional[datetime] = None
+    time: datetime | None = None
 
 
 class Metadata(BaseModel):
@@ -61,14 +59,14 @@ class VerificationStatus(BaseModel):
     id: str | None = None
     actor: str
     user_id: str | None = None
-    weight: Optional[Any] = None
-    isMandatoryFilled: Optional[bool] = None
+    weight: Any | None = None
+    isMandatoryFilled: bool | None = None
 
 
 class OVD(BaseModel):
     ovd_type: str | None = None
-    ovd_front: Optional[DBDocumentModel] = None
-    ovd_back: Optional[DBDocumentModel] = None
+    ovd_front: DBDocumentModel | None = None
+    ovd_back: DBDocumentModel | None = None
 
 
 class IdentityAddressVerification(BaseModel):
@@ -76,19 +74,19 @@ class IdentityAddressVerification(BaseModel):
     other_info: OtherInfo
     correspondence_address: CorrespondenceAddress
     same_as_permanent_address: str | None = None
-    _ver_status: Optional[VerificationStatus] = None
-    ovd: Optional[OVD] = None
+    _ver_status: VerificationStatus | None = None
+    ovd: OVD | None = None
 
 
 class UploadImages(BaseModel):
-    wet_signature_image: Optional[DBDocumentModel] = None
-    proof_of_signature: Optional[DBDocumentModel] = None
-    _ver_status: Optional[Optional[VerificationStatus]] = None
+    wet_signature_image: DBDocumentModel
+    proof_of_signature: DBDocumentModel | None = None
+    _ver_status: VerificationStatus | None = None
 
 
 class SignatureValidation(BaseModel):
     upload_images: UploadImages
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class IncomeInfo(BaseModel):
@@ -113,7 +111,7 @@ class Declarations(BaseModel):
     income_info: IncomeInfo
     fatca_crs_declaration: FATCACRSDeclaration
     politically_exposed_person_card: PoliticallyExposedPersonCard
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class PanDetails(BaseModel):
@@ -126,27 +124,27 @@ class PanDetails(BaseModel):
 class PanVerification(BaseModel):
     pan_details: PanDetails
     pan_card_image: DBDocumentModel
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class MobileVerification(BaseModel):
     dependency_relationship_mobile: str
     contact_id: str
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
     verified_contact_id: str
 
 
 class EmailVerification(BaseModel):
     dependency_relationship_email: str
     contact_id: str
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
     verified_contact_id: str
 
 
 class MobileEmailVerification(BaseModel):
     mobile_verification: MobileVerification
     email_verification: EmailVerification
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class KYCHolderData(BaseModel):
@@ -168,28 +166,28 @@ class BankDetails(BaseModel):
     account_holder_name_id: str
     ifsc_code: str
     type_of_application: str
-    _ver_status: Optional[Optional[VerificationStatus]] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class CancelledCheque(BaseModel):
-    cancelled_cheque_image: Optional[Any] = None
+    cancelled_cheque_image: Any = None
 
 
 class BankVerification(BaseModel):
     cancelled_cheque: CancelledCheque
     bank_details: BankDetails
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class NomineeData(BaseModel):
     minor_nominee: str | None = None
     nominee_type_of_id: str | None = None
-    name_of_nominee: str | None = None
+    name_of_nominee: str
     percentage_of_allocation: str | None = None
-    nominee_id_proof: Optional[DBDocumentModel] = None
+    nominee_id_proof: DBDocumentModel | None = None
     id_number: str | None = None
-    nominee_address: str | None = None
-    dob_nominee: str | None = None
+    nominee_address: str
+    dob_nominee: str
 
 
 class GuardianData(BaseModel):
@@ -212,9 +210,9 @@ class GeneralNomination(BaseModel):
 
 
 class NominationDetails(BaseModel):
-    nominees: List[Nominee]
+    nominees: List[Nominee] = Field(default_factory=list)
     general: GeneralNomination
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class IntroducerDetails(BaseModel):
@@ -234,7 +232,7 @@ class TradingAccountInformation(BaseModel):
     type_of_document: str | None = None
     contract_format_1: str | None = None
     contract_format_2: str | None = None
-    proof_of_income: Optional[DBDocumentModel] = None
+    proof_of_income: DBDocumentModel | None = None
     client_facility_choice: str | None = None
     client_facility_choice: str
     kit_format_1: str | None = None
@@ -246,7 +244,7 @@ class CheckPanForTrading(BaseModel):
     trading_id: str | None = None
     account_holder_name: str | None = None
     account_creation_date: str | None = None
-    _ver_status: Optional[Optional[VerificationStatus]]
+    _ver_status: VerificationStatus | None = None
 
 
 class EmployerDetails(BaseModel):
@@ -284,7 +282,7 @@ class TradingInformation(BaseModel):
 
 class Onboarding(BaseModel):
     type_of_client: str
-    _ver_status: Optional[VerificationStatus]
+    _ver_status: VerificationStatus | None
 
 
 class GeneralApplicationDetails(BaseModel):
@@ -334,7 +332,7 @@ class SLBCard(BaseModel):
 
 
 class FlatPerOrderCard(BaseModel):
-    flat_per_order_rate: Optional[Any] = None
+    flat_per_order_rate: Any = None
 
 
 class OnlineExeCard(BaseModel):
@@ -342,8 +340,8 @@ class OnlineExeCard(BaseModel):
 
 
 class GSTDetailsCard(BaseModel):
-    gst_number: Optional[Any] = None
-    gst_number_1: Optional[Any] = None
+    gst_number: Any = None
+    gst_number_1: Any = None
 
 
 class ClientContactDetails(BaseModel):
@@ -351,7 +349,7 @@ class ClientContactDetails(BaseModel):
 
 
 class ApplicationDetails(BaseModel):
-    defaults: Optional[Any] = None
+    defaults: Any = None
     kyc_digilocker: str
     general_application_details: GeneralApplicationDetails
     cash_fut_como_card: CashFutComoCard
@@ -368,8 +366,8 @@ class ApplicationDetails(BaseModel):
     gst_details_card: GSTDetailsCard
     client_contact_details: ClientContactDetails
     segment_rates: Dict[str, Any]
-    display_field: Optional[Any] = None
-    _ver_status: Optional[VerificationStatus]
+    display_field: Any = None
+    _ver_status: VerificationStatus | None = None
 
 
 class DPAccountInformation(BaseModel):
@@ -378,7 +376,7 @@ class DPAccountInformation(BaseModel):
     depository: str | None = "NSDL"
     dp_id_no: str | None = None
     client_id_no: str | None = None
-    cmr_file: Optional[DBDocumentModel] = None
+    cmr_file: DBDocumentModel | None = None
 
 
 class StandingInfoFromClient(BaseModel):
@@ -418,19 +416,19 @@ class DPInformation(BaseModel):
     trust_information: TrustInformation
     ucc_mapping_1: UCCMapping
     ucc_mapping_2: UCCMapping
-    _ver_status: Optional[VerificationStatus] = None
+    _ver_status: VerificationStatus | None = None
 
 
 class FormRecordModel(BaseModel):
-    payment: Any | None = None
-    submitter: Submitter | None = None
-    state: str | None = None
+    # payment: Any | None = None
+    # submitter: Submitter | None = None
+    # state: str | None = None
     onboarding: Onboarding | None = None
     application_details: ApplicationDetails | None = None
-    kyc_holders: List[KYCHolder] | None = None
-    _time_log: TimeLog | None = None
-    _application_id: str | None = None
-    _owner: List[str] | None = None
+    kyc_holders: List[KYCHolder]
+    # _time_log: TimeLog | None = None
+    # _application_id: str | None = None
+    # _owner: List[str] | None = None
     bank_verification: BankVerification | None = None
     nomination_details: NominationDetails | None = None
     trading_information: TradingInformation | None = None
