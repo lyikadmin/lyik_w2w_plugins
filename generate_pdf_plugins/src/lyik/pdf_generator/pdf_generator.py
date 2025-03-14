@@ -159,7 +159,7 @@ class PdfGenerator():
                 story.append(xml_page)
                 
 
-        # ADD all the documents to the end of pdf(Todo: except signature and photo)
+        # ADD all the documents to the end of pdf.
         exclude_files = ['wet_signature_image','liveness_photo']
         all_files = get_all_file_ids(record=data,exclude_ids=exclude_files)
         images:list[Image] = []
@@ -211,6 +211,12 @@ class PdfGenerator():
         kyc_pages = await aof_ind.get_pages(doc=doc)
         for item in kyc_pages:
             story.append(item)
+
+        # # Disabled: Add aadhaar xml if aadhaar details are from digilocker
+        # if kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_xml',''):
+        #     xml_page = aof_ind.get_aadhaar_xml_pages(doc=doc)
+        #     story.append(PageBreak())
+        #     story.append(xml_page)
 
         images:list[Image] = []
 

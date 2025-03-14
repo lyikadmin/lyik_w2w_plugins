@@ -136,7 +136,8 @@ class PdfCore:
                 """Use generic form template"""
                 raise Exception(f'Pdf Template not found corresponding to "{form_temp_name}"')
         except Exception as e:
-            raise Exception(f"Error occurred while generating PDF: {e}")
+            logger.exception(e)
+            raise Exception(f"An error occurred while generating PDF!")
 
     async def generate_main_doc(self,context: ContextModel, record: GenericFormRecordModel, record_id:int, pdf_name:str | None) -> io.BytesIO:
         
@@ -176,7 +177,7 @@ class PdfCore:
                 """Use generic form template"""
                 raise Exception(f'Pdf Template not found corresponding to "{form_temp_name}"')
         except Exception as e:
-            raise Exception(f"Error occurred while generating PDF: {str(e)}")
+            raise Exception(f"An error occurred while generating PDF!")
 
 
     async def _generate_pdf(self,record_paylod, template_name:str, file_path:str, author:str=''):
