@@ -32,7 +32,8 @@ class BankVerificationPayload(BaseModel):
     micr_code: str | None = Field(None, description="MICR code")
     bank_address: str | None = Field(None, description="Bank address")
     bank_name: str | None = Field(None, description="Bank name")
-    type_of_account: str | None = Field(None, description="Bank a/c type")
+    account_type: str | None = Field(None, description="Bank a/c type")
+    bank_txn_id: str | None = Field(None, description="Bank transaction id")
 
     model_config = ConfigDict(extra="allow")
 
@@ -132,6 +133,7 @@ class BankAccount(VerifyHandlerSpec):
             payload.bank_name = ifsc_details.get("BANK")
             payload.micr_code = ifsc_details.get("MICR")
             payload.bank_address = ifsc_details.get("ADDRESS")
+            payload.bank_txn_id = response.bank_tnx_id
 
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,
