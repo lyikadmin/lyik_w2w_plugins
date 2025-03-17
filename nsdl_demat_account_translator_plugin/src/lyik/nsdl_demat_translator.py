@@ -16,13 +16,14 @@ from lyikpluginmanager import (
     NomineeIdentificationDetails,
     Address,
     GenericFormRecordModel,
-    NSDLNominee
+    NSDLNominee,
 )
 from .nsdl_demat_model.form_record_mpdel import FormRecordModel
 from .form_record_mapping import map_form_record
 from typing import Annotated
 from typing_extensions import Doc
 import json
+from lyikpluginmanager.annotation import RequiredEnv
 
 impl = pluggy.HookimplMarker(getProjectName())
 
@@ -35,7 +36,11 @@ class NSDLDemat(NSDLDematSpec):
         self,
         context: ContextModel,
         form_record: Annotated[GenericFormRecordModel, Doc("Form Record")],
-    ) -> Annotated[NSDLRquestModel, Doc("The Desired output for NSDL Demat")]:
+    ) -> Annotated[
+        NSDLRquestModel,
+        RequiredEnv(["NSDL_REQUESTOR_ID"]),
+        Doc("The Desired output for NSDL Demat"),
+    ]:
         """
         This function is to translate form record into NSDL demat request model
         """
@@ -44,6 +49,8 @@ class NSDLDemat(NSDLDematSpec):
         form_record_model = FormRecordModel.model_validate(form_record.model_dump())
 
         # Map the form record to NSDL demat request model
-        nsdl_model = await map_form_record(form_record_model=form_record_model, context = context)
+        nsdl_model = await map_form_record(
+            form_record_model=form_record_model, context=context
+        )
 
         return nsdl_model

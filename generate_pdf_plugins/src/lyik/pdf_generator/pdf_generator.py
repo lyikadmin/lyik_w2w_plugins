@@ -1,5 +1,5 @@
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import BaseDocTemplate,PageTemplate, Frame, Image, PageBreak,Paragraph
+from reportlab.platypus import BaseDocTemplate,PageTemplate, Frame, Image, PageBreak,Paragraph, Table
 from reportlab.lib.units import inch
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.enums import TA_CENTER
@@ -162,7 +162,7 @@ class PdfGenerator():
         # ADD all the documents to the end of pdf.
         exclude_files = ['wet_signature_image','liveness_photo']
         all_files = get_all_file_ids(record=data,exclude_ids=exclude_files)
-        images:list[Image] = []
+        images:list[Table] = []
         all_pdf_attachments = []
         for file in all_files:
             

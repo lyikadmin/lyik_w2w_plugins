@@ -18,7 +18,7 @@ from importlib import resources
 from .kra_models.model import KYCDataModel, Declarations
 from typing import Dict, Any, List, Annotated
 from typing_extensions import Doc
-
+from lyikpluginmanager.annotation import RequiredEnv
 import re
 from dotenv import load_dotenv
 
@@ -46,7 +46,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         self,
         context: ContextModel,
         kyc_holder: Annotated[GenericKYCData, Doc("Kyc holder data")],
-    ) -> Annotated[ROOTDataModel, Doc("ROOT model will be returned")]:
+    ) -> Annotated[ROOTDataModel, RequiredEnv(["POSCODE"]),Doc("ROOT model will be returned")]:
         """
         Translates KYC holder data to the KRA format.
 
