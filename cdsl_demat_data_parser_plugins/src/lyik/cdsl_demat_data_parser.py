@@ -1,3 +1,7 @@
+import asyncio
+import csv
+import json
+
 import apluggy as pluggy
 from datetime import datetime
 from lyikpluginmanager import (
@@ -11,8 +15,10 @@ from lyikpluginmanager import (
     NomineeGuardianRecord,
 )
 from lyikpluginmanager.models.cdsl.helper_enums import *
+
 # from enum import Enum
 from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+
 # from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
 
 from typing import List, Dict
@@ -31,12 +37,12 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
 
     @impl
     async def parse_data_to_cdsl_payload(
-            self,
-            context: ContextModel,
-            form_record: Annotated[
-                GenericFormRecordModel,
-                Doc("The form record for which the data has to be submitted"),
-            ],
+        self,
+        context: ContextModel,
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("The form record for which the data has to be submitted"),
+        ],
     ) -> CDSLDematPayloadModel:
         """
         This function is to get the payload(s) for creating a demat account in CDSL
@@ -54,7 +60,9 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
             serial_number += 1
             holder_first_purpose = None
             holder_second_purpose = None
-            if cdsl_utility.is_permanent_address(index=index) and cdsl_utility.is_corr_address(index=index):
+            if cdsl_utility.is_permanent_address(
+                index=index
+            ) and cdsl_utility.is_corr_address(index=index):
                 holder_first_purpose = PurposeCode.PERAD
                 holder_second_purpose = PurposeCode.CORAD
             elif cdsl_utility.is_corr_address(index=index):
@@ -63,23 +71,28 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 holder_first_purpose = PurposeCode.DFT
 
             _holder = HolderRecord(
-                CntrlSctiesDpstryPtcpt='',  # TODO: unknown source, mandatory!
-                BrnchId='000000',  # always 000000 for cdsl-BO upload!
+                CntrlSctiesDpstryPtcpt="",  # TODO: unknown source, mandatory!
+                BrnchId="000000",  # always 000000 for cdsl-BO upload!
                 # BtchId= 100000,# Todo: Unknown source,
                 # SndrId='', # Todo: unknown source
                 # CntrlSctiesDpstryPtcptRole=DPType.DF, # Not appicable for CDSL
                 # SndrDt=date_today, # TODO: unknown source
                 # RcvDt=datetime_now, # Todo: Conditional Required, condition unknown!
-                RcrdNb=index + 1,  # Todo: Will have same value for all lines of single client
+                RcrdNb=index
+                + 1,  # Todo: Will have same value for all lines of single client
                 RcdSRNumber=serial_number,  # Todo: this should be filled dynamically while preparing final payload!
                 BOTxnTyp=BOTransactionType.BOSET,  # Creation type
                 # ClntId = '', # Need 16 digit client id, source unknown!
                 PrdNb=cdsl_utility.product_number_value(),  # Considering client type of Individual only for now!
                 # BnfcrySubTp=cdsl_utility.beneficiary_subtype_value(), # Todo: Conditional Required, condition unknown!
-                Purpse=cdsl_utility.purpose_value(holder_type=HolderType.KYC_HOLDER, index=index),
+                Purpse=cdsl_utility.purpose_value(
+                    holder_type=HolderType.KYC_HOLDER, index=index
+                ),
                 # Todo: Conditional Required, condition unknown!
                 # Titl= ,# Todo: Conditional Required, condition unknown!
-                FrstNm=cdsl_utility.first_name_value(index=index),  # Todo: Conditional Required, condition unknown!
+                FrstNm=cdsl_utility.first_name_value(
+                    index=index
+                ),  # Todo: Conditional Required, condition unknown!
                 # MddlNm='', # field not present in form and Conditional Required
                 # LastNm='', # field not present in form and Conditional Required
                 # FSfx='', # field not present in form and Conditional Required
@@ -112,7 +125,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 # LEIExp='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 # OneTmDclrtnFlgForGSECIDT='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 INIFSC=cdsl_utility.bank_ifsc_value(),
-                MICRCd='000110485003',  # cdsl_utility.bank_micrcd_value(), # Todo: Required, and  Field source unknown.
+                MICRCd="000110485003",  # cdsl_utility.bank_micrcd_value(), # Todo: Required, and  Field source unknown.
                 # DvddCcy='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 # DvddBkCcy='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 # RBIApprvdDt=None, # Todo: Conditional Required, condition unknown! Field source also unknown.
@@ -137,11 +150,9 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 BnfcryBkAcctNb=cdsl_utility.bank_acc_no_value(),
                 BnfcryTaxDdctnSts=cdsl_utility.tax_deduction_status_value(),
                 # Todo: Conditional Required, condition unknown! Field source also unknown.
-
                 # ClrSysId='', unknown field source
                 BSDAFlg=cdsl_utility.bsda_flag_value(),
                 Ocptn=cdsl_utility.occupation_value(index=index),
-
                 FrstClntOptnToRcvElctrncStmtFlg=cdsl_utility.first_client_option_to_recieve_statement_value(),
                 # Todo: need to confirm data source in form!
                 ComToBeSentTo=cdsl_utility.communication_pref_value(),
@@ -150,17 +161,23 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 # DtOfDeath='', # Todo: Conditional Required, condition unknown! Field source also unknown.
                 AccntOpSrc=cdsl_utility.account_opening_source_value(),
                 # Mandatory field, hard coded to 'OLAO'(Online Account opening by the BO)
-
                 #### more unknown fields
-
                 SndrRefNb1=cdsl_utility.sender_reference_number_value(index=index),
                 # Mandatory for BO Upload, hard coded to 'AOI781'
                 PurpCd=holder_first_purpose,
-                Adr1=cdsl_utility.holder_address_value(index=index, address_type=holder_first_purpose),
+                Adr1=cdsl_utility.holder_address_value(
+                    index=index, address_type=holder_first_purpose
+                ),
                 # Mandatory for BO Upload
-                Ctry=cdsl_utility.holder_country_value(index=index, address_type=holder_first_purpose),
-                PstCd=cdsl_utility.holder_address_pincode(index=index, address_type=holder_first_purpose),
-                CtrySubDvsnCd=cdsl_utility.holder_state_code(index=index, address_type=holder_first_purpose),
+                Ctry=cdsl_utility.holder_country_value(
+                    index=index, address_type=holder_first_purpose
+                ),
+                PstCd=cdsl_utility.holder_address_pincode(
+                    index=index, address_type=holder_first_purpose
+                ),
+                CtrySubDvsnCd=cdsl_utility.holder_state_code(
+                    index=index, address_type=holder_first_purpose
+                ),
             )
 
             # if index == 0:
@@ -177,15 +194,59 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
             #     )
             # holders.append(_holder_entry2)
 
-        nominees: List[
-            NomineeRecord] = []  # SrlNbr(serial number rof nominee), RcdSRNumber(serial_number) also need to be added!
-        nomines_guardians: List[NomineeGuardianRecord] = []
+        # SrlNbr(serial number rof nominee), RcdSRNumber(serial_number) also need to be added!
+
+        # nominee and nominee guardian record
+        nominees_records: List[NomineeRecord] = []
+        nominees_guardians: List[NomineeGuardianRecord] = []
+
+        for index, data in enumerate(cdsl_utility.nominees()):
+            nominee = data.nominee_data
+            guardian_data = data.guardian_data
+            # nominee data
+            nominee_record = NomineeRecord(
+                BOTxnTyp=BOTransactionType.BOSET,
+                Purpse=Purpose.NM,
+                FrstNm=cdsl_utility.nominee_first_name(nominee),
+                BirthDt=cdsl_utility.nominee_dob(nominee),  # Unknown source
+                NmneeMnrInd=cdsl_utility.nominee_minor_indicator(),
+                RltshWthBnfclOwnr=None,  # Unknown source
+                # Address fields not separately available
+                Adr1=None,  #
+                Adr2=None,
+                Adr3=None,
+                Adr4=None,
+                NmneePctgOfShr=nominee.percentage_of_allocation,
+                SrlNbr=index + 1,  # Not applicable for CDSL
+                FlgForShrPctgEqlty=cdsl_utility.nominee_equal_share_flag(),
+                RsdlSecFlg=None,  # Unknown source
+                PurpCd=cdsl_utility.nominee_purpose_code(),
+            )
+            nominees_records.append(nominee_record)
+
+            # NOMINEE GUARDIAN RECORD
+            if nominee.is_minor() and guardian_data is not None:
+                guardian_record = NomineeGuardianRecord(
+                    BOTxnTyp=BOTransactionType.BOSET,
+                    Purpse=Purpose.NMG,
+                    # Address fields not separately available
+                    Adr1=None,
+                    Adr2=None,
+                    Adr3=None,
+                    Adr4=None,
+                    FrstNm=cdsl_utility.nominee_guardian_name(guardian_data),
+                    RltshWthBnfclOwnr=None,  # Source unknown
+                    PurpCd=cdsl_utility.nominee_guardian_purpose_code(),
+                )
+
+                nominees_guardians.append(guardian_record)
+
         all_entries = []
         for hold in holders:
             all_entries.append(hold)
-        for nominee in nominees:
+        for nominee in nominees_records:
             all_entries.append(nominee)
-        for nm in nomines_guardians:
+        for nm in nominees_guardians:
             all_entries.append(nm)
 
         signatures = cdsl_utility.get_all_signature_ids()
@@ -195,18 +256,26 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
         return response
 
 
-import asyncio
-
 # async def main():
-#     import json
 #     cd = CDSLDematDataParser()
-#     with open('/Users/deepakg/Lyik/lyik_w2w_plugins/generate_pdf_plugins/tests/form_with_ovd_1103.json','r', encoding='utf-8') as file:
+#     with open(
+#         "form_with_ovd_1103.json",
+#         "r",
+#         encoding="utf-8",
+#     ) as file:
 #         jd = json.load(file)
 #         data = GenericFormRecordModel.model_validate(jd)
-#     response = await cd.parse_data_to_cdsl_payload(context=ContextModel(),form_record=data)
-
-#     print(response)
-
-
+#     response = await cd.parse_data_to_cdsl_payload(
+#         context=ContextModel(), form_record=data
+#     )
+#
+#     # Serialize each record individually
+#     records_json = [record.model_dump_json() for record in response.records]
+#
+#     # Write the JSON data to the file
+#     with open("test.json", "w+", encoding="utf-8") as f:
+#         f.write(str(records_json))  # Use json.dump to write JSON to file
+#
+#
 # if __name__ == "__main__":
 #     asyncio.run(main())
