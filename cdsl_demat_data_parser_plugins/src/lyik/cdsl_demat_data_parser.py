@@ -17,9 +17,9 @@ from lyikpluginmanager import (
 from lyikpluginmanager.models.cdsl.helper_enums import *
 
 # from enum import Enum
-# from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+from .cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
 
-from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
+# from cdsl_demat_utilities.utility import CDSLDematUtility, HolderType, AddressType
 
 from typing import List, Dict
 from typing_extensions import Doc, Annotated
@@ -218,14 +218,14 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 Adr4=None,
                 NmneePctgOfShr=nominee.percentage_of_allocation,
                 SrlNbr=index + 1,  # Not applicable for CDSL
-                FlgForShrPctgEqlty=None,  # todo: write method
+                FlgForShrPctgEqlty=cdsl_utility.nominee_equal_share_flag(),
                 RsdlSecFlg=None,  # Unknown source
                 PurpCd=cdsl_utility.nominee_purpose_code(),
             )
             nominees_records.append(nominee_record)
 
             # NOMINEE GUARDIAN RECORD
-            if nominee.is_minor:
+            if nominee.is_minor() and guardian_data is not None:
                 guardian_record = NomineeGuardianRecord(
                     BOTxnTyp=BOTransactionType.BOSET,
                     Purpse=Purpose.NMG,
@@ -256,26 +256,26 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
         return response
 
 
-async def main():
-    cd = CDSLDematDataParser()
-    with open(
-        "form_with_ovd_1103.json",
-        "r",
-        encoding="utf-8",
-    ) as file:
-        jd = json.load(file)
-        data = GenericFormRecordModel.model_validate(jd)
-    response = await cd.parse_data_to_cdsl_payload(
-        context=ContextModel(), form_record=data
-    )
-
-    # Serialize each record individually
-    records_json = [record.model_dump_json() for record in response.records]
-
-    # Write the JSON data to the file
-    with open("test.json", "w+", encoding="utf-8") as f:
-        f.write(str(records_json))  # Use json.dump to write JSON to file
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+# async def main():
+#     cd = CDSLDematDataParser()
+#     with open(
+#         "form_with_ovd_1103.json",
+#         "r",
+#         encoding="utf-8",
+#     ) as file:
+#         jd = json.load(file)
+#         data = GenericFormRecordModel.model_validate(jd)
+#     response = await cd.parse_data_to_cdsl_payload(
+#         context=ContextModel(), form_record=data
+#     )
+#
+#     # Serialize each record individually
+#     records_json = [record.model_dump_json() for record in response.records]
+#
+#     # Write the JSON data to the file
+#     with open("test.json", "w+", encoding="utf-8") as f:
+#         f.write(str(records_json))  # Use json.dump to write JSON to file
+#
+#
+# if __name__ == "__main__":
+#     asyncio.run(main())

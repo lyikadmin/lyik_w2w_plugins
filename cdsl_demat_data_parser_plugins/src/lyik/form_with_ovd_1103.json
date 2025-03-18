@@ -1,551 +1,460 @@
 {
-    "_id": 1,
-    "payment": null,
-    "submitter": {
-      "id": "U005",
-      "phone": "Anonymous",
-      "email": "Anonymous",
-      "time": {
-        "$date": "2025-03-11T05:05:00.920Z"
+  "payment": null,
+  "submitter": {
+    "id": "U005",
+    "phone": "Anonymous",
+    "email": "Anonymous",
+    "time": "2025-03-18T16:51:51.401278+05:30"
+  },
+  "state": "SAVE",
+  "onboarding": {
+    "type_of_client": "IND",
+    "_ver_status": {
+      "status": "success",
+      "message": "Model validation succeeeded.",
+      "id": null,
+      "actor": "system",
+      "user_id": "U005",
+      "weight": null
+    }
+  },
+  "application_details": {
+    "defaults": null,
+    "kyc_digilocker": "YES",
+    "general_application_details": {
+      "application_type": "TRADING_AND_DP",
+      "residential_status": "RI"
+    },
+    "cash_fut_como_card": {
+      "cash_minimum_paisa": 5,
+      "cash_in_percentage": 0.5
+    },
+    "cash_jobbing_card": {
+      "cash_jobbing_minimum_paisa": 6,
+      "cash_jobbing_in_percentage": 0.6
+    },
+    "futures_card": {
+      "futures_minimum_paisa": 7,
+      "futures_in_percentage": 0.7
+    },
+    "options_card": {
+      "options_standard_rate": 100
+    },
+    "currency_futures_card": {
+      "currency_futures_minimum_paisa": 58,
+      "currency_futures_in_percentage": 0.1
+    },
+    "currency_options_card": {
+      "currency_options_rate": 20
+    },
+    "commodity_futures_card": {
+      "commodity_futures_minimum_paisa": 52,
+      "commodity_futures_in_percentage": 0.03
+    },
+    "commodity_options_card": {
+      "commodity_options_rate": 10
+    },
+    "slb_card": {
+      "slb_rate": 22
+    },
+    "flat_per_order_card": {
+      "flat_per_order_rate": null
+    },
+    "online_exe_card": {
+      "online_exe": "NO"
+    },
+    "gst_details_card": {
+      "gst_number": "29AACCF0683K1ZD",
+      "gst_state": "KERALA"
+    },
+    "client_contact_details": {
+      "client_mobile": "+918732822385"
+    },
+    "segment_rates": {},
+    "display_field": null,
+    "_ver_status": {
+      "status": "success",
+      "message": "Verified successfully.",
+      "id": "eb4977d7",
+      "actor": "system",
+      "user_id": "U005",
+      "weight": null,
+      "isMandatoryFilled": true
+    }
+  },
+  "kyc_holders": [
+    {
+      "kyc_holder": {
+        "mobile_email_verification": {
+          "mobile_verification": {
+            "transaction_id": "NPBFW6E3ZFU4KDJOSU2CD7JOG4COAJZO",
+            "otp": "168544",
+            "contact_id": "+918732822385",
+            "verified_contact_id": null,
+            "dependency_relationship_mobile": "SELF",
+            "_ver_status": {
+              "status": "success",
+              "message": "Verified by the system 2025-03-18 16:39:56.116492",
+              "id": "6f82226d",
+              "actor": "system",
+              "user_id": "U005",
+              "weight": null
+            }
+          },
+          "email_verification": {
+            "dependency_relationship_email": "SELF",
+            "contact_id": "asarkar1990@gmail.com"
+          },
+          "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U005",
+            "weight": null
+          }
+        },
+        "pan_verification": {
+          "pan_card_image": {
+            "doc_id": "67d954c89e5a1a780847b1b6",
+            "doc_name": "15_pancard.jpg",
+            "doc_size": 122771,
+            "doc_content": null,
+            "metadata": {
+              "org_id": null,
+              "form_id": null,
+              "record_id": null,
+              "doc_type": "image/jpeg",
+              "digest": null,
+              "esign": null
+            }
+          },
+          "pan_details": {
+            "name_in_pan": "Arindam Sarkar",
+            "dob_pan": "09/06/1990",
+            "pan_number": "CJEPS9647C",
+            "parent_guardian_spouse_name": "Hari Mohan Sarkar"
+          },
+          "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U005",
+            "weight": null
+          }
+        },
+        "identity_address_verification": {
+          "identity_address_info": {
+            "aadhaar_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Certificate><CertificateData><KycRes code=\"3a3deb3be74f4a9c99d3a0b46708d6e2\" ret=\"Y\" ts=\"2024-06-06T10:23:00.451+05:30\" ttl=\"2025-06-06T10:23:00\" txn=\"UKC:8002422fe4911fb566307a5a33efff6820240606102250\"><UidData tkn=\"01002274DJJo8wuUjs9dOt/u7qr1GkiQFqK3nGnFiLIUm49o7aulj9dsVZ+YjNIMNIqveMLv\" uid=\"xxxxxxxx3336\"><Poi dob=\"09-06-1990\" gender=\"M\" name=\"Arindam Sarkar\"/><Poa co=\"S/O Harimohan Sarkar\" country=\"India\" dist=\"West Tripura\" house=\"181\" lm=\"Opp Tripura University Sbi Atm\" loc=\"Baghmara 10 No Card\" pc=\"799130\" po=\"Amtali\" state=\"Tripura\" vtc=\"Amtali\"/><LData country=\" \" lang=\"23\" name=\"à¦à¦°à¦¿à¦¨à§à¦¦à¦® à¦¸à¦°à¦à¦¾à¦°\" pc=\"799130\"/><Pht>/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCADIAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDraUdaaKdmvJIHA80oNNFLnFADqXNNzSck9aAHH6fhSgmm0oI6UAPzSZxSH1zRkEUAKDz3NKDzz0pp6cGj/OaAHZoz0oo+poAUc0Zxxk+9J785ozQA4c980E+1NB496M84wMflTAeW496M8mkA7dDSnJoFYp5FO4puBnJFOpDDvS0UdKBijoaMUlL25zQAopaaePWloAcKAOeaSkOelADjSj2pv+c04GgBf0pD70ucUmaBC5o/Cm9uoFLnIoAcOv8A9eikBAHufSlGM8E0AL37flS9B0+tJwKdkflTEUs04daYpyAeeafSKFxS4pBS5oAB0paKODQAUYNLmuf8Q+LtP8PrsmJlnxlYY+p+p6D8aaV9EB0HbrVW71G0sF3XdxHCPV2CjHHPPbkfmK8d1r4h61qDOsU/2KAniO3OGA7Zf72fpj6Vyc+oyXcu+W4eVifvMxJrdUH1Ge7af420bUZ/JinIbIA38Zz/AJH5/Wtdb6J53iidZJFAyqtnbn1Pb2z17V84+cYvmBwe5FaUHiLUrIFoL24Rncs5WVlLHGMnB5pvD9mKx9CqTtyeCadnNeRaD8SZ4tQRdUd5YmXYzdx6HH/1s/yr0jSPEGna07pZzh3RQWQgggHI/mDWUqbiBq96Uc0ClAx1qADH+cUqggY/lRigAgmkA7g0uDSDrSn6ZNMRSFOGajBp1IoeKXNMFKMDpj8KYD2BKMFbaxBwQOlN+6uWOcDk4ozx0rl/GniWHRNJeMOPtU4KxDrznBJH400m3ZAYPjPx+1lcLZ6ROhdTmSZTnHUY/lz7fjXl1xqE9zO0sjvIx+8zNkn8aiSKS6ufLQck8mtuLRkjjG4/Niur3aaLhBsxlk39V+opjoN25RwfTtV+awMbHBqr9nYNkggHvVqaG6bQBQyKfzxUqgONhByas2tieCRkGum0nRbO8YI8gQgcZx1oc1cPZs4ue1kQAgH2YelWrHU7zSJVmtp3jcgYZDg5rum8KwzI1uSvnIP4TnI7Efl+hrj9U0iawnNtKm0glkb+97fWhST0ZLie2+GNeTX9IhuRxJjEi91Yf49fp78VujrXi/gLWpdL1iK0kDPBOQoUn7jHHIz098dcd+MewrcKRkVy1IcsiCwKUfU1GsisOCKeD2rMBwPelx3Jz+NN/nS8nmkIoCnZ4qMGloLHg+9LmmZpc0wCV2WJjGNzAZAJxn8e1eB+J9WuNV1m4kllZo1YhFLbgoz0Hb8q9z1CVItOuJJGKxpGzMw7ADJNfOxy0uGOST6VvRW7DqbmkWiQW3mkZkfnJ7Cr/DmoUbZCq47U5CaiTu7ndCKSCWAE5qAWyZPFXCCRSLEaVzRoZFBGvXitrTZIYSGVSD0yOtZscKk8mtayt0yMEVS3InsbNvc/NuByxxknrWd4jtor2yO7G8Hcrehq2Y2gGRg1m3lwZEKk8/SrvbUwtc5gIHy6DEg+8T0/CvUND1L7XpNtKWLMUAfjGGHB/WvJpbkQagVAJD8OvY4713XhCdn0s/NlQ/HHTgE/rmtKivG5yy0O2S4wP8KtR3HA561iI/fNWElPrzXM0I3EmB61LlT05rGSc1cjnz3qWgI+9LTc8UuaRY7NFNJpAaAKWugt4f1FQCS1tIoGM9VIrwS1Qy3SL719DSqJImRujAg14i2nLp/ia9tQNqW8jhMnOVz8p/EEGt6UrRZUVqPnnSHJJy3YVTOrpEPnFSTxRI5ZgXdjVCdLcA58sMOSACxH1xRFRfQ6nzItrrodgFQ/jVn+0fkLbTisSDbI4CgEe1bEFussBUfeomop7FQcn1K8+sOpyqH86hTxHdoRsBH0puo2UttIodGG4ZGR1FV9iRLvlzgHB2jgH0JrSKVtjOTl3Nq08UXgkUyFiPQ9K2U1K3vyfLHluR909DXI27QXMbFfOjKj73DL+I4qzZvIrr0OD1FElpsQvUk122MF3HMowHH6iu38FxeVoKyHOZXLf0/pXNajGLizh3YGJACx7A8f4V1Hhq8trize2td2y1YJlwAWznnj6Gp5vcsZVYvVnSKeKlX61WQ1MvJGazMUWVOOBzU0bEHrVZT6VKrEdqQy5mgGm0tZGgpORRmm0UwHDk/pmvFo72XUrm5vZyGkkOSR784HtXs27HNeOfYzp1/dWTNuMbsu7bjdtOM/Q9auOzNaNrkdxbeapw2Mjt1qpdael5CieTseMYDR4AI96118sjk80rKTwpGKUZuL0O3kUlqYsFl5O0BcFehBrVsYtsgUde5pZUCoFXGSeppkN7Bbyld2XUZNEm5DUVHRHTanp8F1p0STqSAPvDqDXJTaBdJGywEyW8h5wevpkVpnxgiCO2dIypOMkc0+PVPsl4PJkLW0mGXP8J7j/PrWiujGUdSnpWhXS/IsiRAkH7oBUgggg4yDx2ro18PwxWzOwXd6gdT9asQXltMofIU9aqXuqO/7vedvoKTk2JxsYWogQ2spIyFIOPoRWh4PAFzfvGv7qXY4OOnXj9TWfeA3iNCDhpOK3fC1q9vZy5j2fMFAPUY//XTWxhUfus6JfQfnUqHpng/zqJDUozjgfmcUjlRYXkU9SaiGARk9T+dS5pAXM0tNFLmszUDnFB6Uneg9KAErzfxjbNbeI2n3DbOisAB93jb/ADUn8a9INcx4w0Rb7Tpb+N9s9tHuOeQyLkkfUZJ/zxUNy4OzOA8w5qxHNjjtWaZcHBPIp/nYFW4nZCehbuXyjfNjjisb7NEhLnJc5+apjdIz/O4ppvLYZ/d7h9etVFNbA3zECacJ5Vy3J/iPauqt9Pslslijn3sv8THBJrnV1WKM/u7ZSOvzEmmSaymAyKY29AeKuzejMmuV3OgeR7STa7bT2PrUD3JZutZMWoG4TY5z6VMjH1+lLksJzujW037RPeqYbfz3QFim4Lx0zkketdpZrIsA8xQrE52j+H296wPC0AKzzbc8hQ3uOT/MV0yLgVMtzlnNv3SReKlVxuC85Iz0pijBHfFPA71JmTKcgg1LUS59CMU/PHBzSGXfpRUeaXNZmg/IzRu5pmaQtQBJnNMcLIrK6hkYYIIyCKQHHAooGeOa5pr6Tq09mwbapzGxJO5D9057+h9way5G+X3+tekfECG0bR45pXCXMb/uuPvDup9u/wBR7mvLi5YDmuqHvK5pGWhbhtYvvEAt3zVhZbe3O4xREj1ANUo5GwRSOoYfMaHvqbxaS0Na311LaXckMJGMFWjVhj6EYqefU7fUY8zxo7DplRx9PSuZ2qGOGyanj45BqrESnfcSZFjuD5fAqaOXoKrvgHk5pYG3yKB61VjBs9M8MQhNDifBzIzO2e5zj+QFbIc+ayBTwM7j0rD8JXJu9LnjXBFpKEwB/CRkH8935iugUZHPGawle5jJWYqqOR274qUDtzUcZJUnBzk8evNSjGQMjPp61JI/rj0zT+d2cHGKZsD8EA4IP5U7OR29aQyfdS7qYDRxmszYeTwcGkzTeKjmuIbaMSTyxxJnG52CjPpk0LURYBqO4uEtoGlkOFH05PpVNNS+0qTawO4H8UuYx1wRgjcP++cH1qjeXE72puJNhXLCLAIyufvYyeo6HJ4543EDRQfUpK5wnjLUJb64KNMsi4yNvQD0FcjGWMYI6rwa2b+QXF1I4GATwBWPH+7u2Q/dbkV2cvLEad3Ycs3qeaR3Ld6lltQ/K4qs1vIvT9alOLLakhMnuaUTlRyajKS9xSx27ueRzV6Iz1De8rYBOKvQJ5EZc9hmnw2wQDdRcfvZI7ZP4jzip5r6IrltqeifC20FxbXsctykX2peN5G0tyVz3wCAeOa6RfugjgnkZNU/hlE6SzJAER1CFpGUk4OcADIz0Pfj8a77VNFjnM0hDJNHIXeYISZd2WxtHI67R977uOvBU4X0MZpvU5AEl9pHGM59aUoGlRiOVzgkdM08xSJbx3DLiCWLzUlz8jpx8wP93kYzgncOKeB2IINYShKO5mmNAO3PO7jNPbAGScAflSjrnPX9aPpUjCqr38W5o4Q1xIvDLCNwU/7TfdX8SKz9SdgIbaS/VppXClVARAo+8SuTuGCMhiR6U3Wru2h0hoYZEVWxEig4AB6jHpgGqhSV1c2adrlqFr6+jWSSVLOIgHZD+8c8HOHPy+nIB+tMsNP/AHRu45JIg65WZgsk+M93bPBGOMUy9ubawsbaCR9yyL5RdAW+ULzgZ5zwPbdntUVtrs12yJBGypDxtcDoB6KBjj34rW1tti1Gw3xBPHpGnKqrIs1w2PmlbdtA5YnOSeAvXjPHSuU/t+91H7RC6QIixFsIXBIyBjliDwfTPvVfWZJ9T1ucqz7YgFBPJY46k9//AK1Q2VnJFdv5rrgIA27A6nP9K0il1E2+hnSJh6y7+MpIko9cV0VzZES7w2VI7HIpItLingY3KkRMdm7BGzPRs9OvFbztYzje5jwuJEz3p5FXT4fu4GPkDz1BIIHDLj1H+FNWwvGUf6JPz0zE1cUtGdsJXRQYDHQflSx/L0FaP9jakRkafdlR1Igc/wBKuW/hm+k5lEcCkZBdwSfbC5OfqBT1E7GQ7bVzVnSdNlkuftEqkKcbcjJOT2HU/wBa6iDw9aWzL5UbXM/9+ReB9F5A/HPTjFVryZrXesDsJsg+dj2zlTnP41cVZ3MpSvsVdRv7q3vpLazupIooQYGMMjIJME7s4PzDJI7ggCux+FOv3LazJYXl3PIk6mJS7tIQy8qBnPy4MmR3JBHIzXntvZyMuA+B6bat6RDPHe3GydkKuDuUYIPqD1B9xWrZjuj6A1LT7j+yLhbO4EZVSYDH86lgCVCg8pkgEYJwRxjisfTbKyv7RWkjkF0QGf7O2zOMlvkOVOT1IAb3q9o/iG11e1C6lutJiqebPEQI5GGSGPUKdwIAcemCe1Mxu897bwv5V7p0zEoo4eNyWVl/A9O3APPFDuloSknoyq2mXsaE+UZcL/ApDnG0EmPlhyT03AAcmqYIKkggjnlTwa63R783sLK5BnRu4x0qjp9pb6hBdwXaMbqKWRDOGzITjAZiclsHdjOR7VhKEXdrQXKcCt9YS+Ii4ICwxYUhCBuP4eh/SprhRql3byQENDbne4ZcBm42jkex/wAkVHo90JbrU5gDId4wBxkDI6nj0qrp97qB0iS6eEGS4mJGXzxgDj0HFUlbVdDd9mVLm5n1HxBslhdorVMYhXdhm/8ArVtzRhrMIFeIEYABwSO+apeHUkW0uLuWIoZpCd5YfgAPzqxeWQEM86STZSMt8r8nA/8ArUmrOw0YeiaQl0txc+dKoeUgc9u386mso7AxSzO0cvnSko7fMSg4Gfyq5BaJp/hlpJJH3GMlQz5AJPynH4irdlFDBplsiKE/dgkY6EjJ/Umrb0YacyRiWgsLm6v1cIE3qFCjHIyD0+gp6sLmRrOOMRhhhs9MdyvqP88VY8PiN7aaV448vMxBIGSCB/XNXJ7S3uZGDjCghgYztZTjqD60m9bDaTMhrA6TKqhiYHOI2J5z6H361qwQ+YoPT6nFR2U/mXYtNdkEKMM21wF2xyHplufl5/DtxwT0MOnW8TbWtYVcHDfuxnNFn1IbsZiaa0jLudTnphwT/OrEdrZQeYTmWSPG9QCxXPTK9h71sCwtJCGa1gLDkMYxmuf8R+I47PybGyMUkskgRspuVc4zx0JGR146Z9KFHUVzK8Q3stjayFCiOY2BQANtz8vzdu5OPpn0rmobSa5jSSS4lZnAZmLZJJq3q1rK9pNI08rE4zuPXmr1lpEjWsOJ5B8gOB9Kd7ICjZ6ZlCfNlB/3qNLsZzfXircFdrrn5Ac9a3rLSJDHuFxIDn6imaVY3P8AamohJEZg68MuM/e9Kd3dgkjb8IXN1ZeKBaSSxzQzW2GVxtGMk9B34H51uRz2+jeMLuB2aKzeECOMA4jUAYCgDgZLnjjk+tctLbajZeIbWZI42c2uTtyAPmcdz7V2NvqJvbixe7h8qRg0Durbt2fujAyRz/Oretk+xCW7Xcrz201pqIu4L5zbyNlSq4/z+VaGnyztrV/5UkBkZY2LMu0n5fb/AHqZdSx6hb/Yo7vy7lD8rGPIYdhkisXRmvI/Fl1bteYcQjGY1wcBOv51nve5W2hi28iJZxqiktcEzvt/2uR+mKILaUQLaxRjMEexSOFMh/iPoNxzRRUsvqWWthFFb2UEjFEOCRxk9zUmpW8kemOkTt5khVFHqSQMflmiih9BrcpeIngi0qO2t2jw8ix7dwyBgkfqBVnUbiBbCdkljykTFRuHYGiiql8KEviZS0VIf7LhCmMt8xO3Gepq1DErTS8d6KKmXxMrsZl4yrq66fJHvtZo95APMbjd86n14x7/AKVasJ7zQ5obTUGEmnTALa3I5VPRDjoBx16cdvulFaR2RMh+ua3IYTa2zBUdhEGzzI5OMf7o7+vTp15q5sCNXsLYOx2lnyepPXJ9yaKKcdzN7GrqenSLpjnceSoxj3rqLHRJFgQO+MKO3tRRUdCjTsdJCxDDA/UVFpFubfWdTKpH95Ov/AqKKrrIS2LN4nm+K7OJ4t3nWxj4PTAkb+lYOrtNpWq6e4DK0d0nUdRuB/pRRVvePoKnvI7OSe11OzF1EU85cbxjk/41yt3FeQeL5bmJofLmg8yLOeg2Ajp1BH5EHvRRWa+Fj+0f/9k=</Pht></UidData></KycRes></CertificateData><Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">\n  <SignedInfo><CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/>\n    <SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"/>\n  <Reference URI=\"\"><Transforms><Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/></Transforms><DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\"/><DigestValue>7UV86IMqdYBBuLV3cj84VAmghjiaal5T6ij7YFWdLXg=</DigestValue></Reference></SignedInfo><SignatureValue>w/xV8YRfq92J0WQDOUp63CwmjDEytdze2SzF43uRnDbow4+WK1CTUG4x/OBMQwqJRvbKYlmgDHpTy7TvyHvj7/3I5RCHsnGulYsHUQDvbotyXLBFy3VYFDnJjjZC7MpTNjTdzgV8aHRyxRlFssuOhZHwemupczBD1ob0NKQsj8mnUAP5MQqnmrjUsT4L9CuVxTUVRjZyO89pEMzHJOr1O6732FQsPf76vIXnj/WtWnnNT84fnx5BzWQ3TEL2cMNjZlE9NRpYYZu8WZbFPYsYfmTT/UBIN++dXeBj3ywACe25TE8NuuGivTMACKIQzFayJiLhiNBGq+sqK/bOcOoazg==</SignatureValue>\n<KeyInfo><X509Data><X509SubjectName>CN=DS NATIONAL E-GOVERNANCE DIVISION 1,ST=DELHI,postalCode=110003,OU=NATIONAL E-GOVERNANCE DIVISION,O=NATIONAL E-GOVERNANCE DIVISION,C=IN</X509SubjectName><X509Certificate>MIIFUjCCBDqgAwIBAgIHAJnuuyguVTANBgkqhkiG9w0BAQsFADB3MQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEPMA0GA1UECxMGU3ViLUNBMTMwMQYDVQQDEypTYWZlU2NyeXB0IHN1Yi1DQSBmb3IgRG9jdW1lbnQgU2lnbmVyIDIwMjIwHhcNMjMwODIyMDgyMTQ2WhcNMjYwMjExMDc1NzI4WjCBrjELMAkGA1UEBhMCSU4xJzAlBgNVBAoTHk5BVElPTkFMIEUtR09WRVJOQU5DRSBESVZJU0lPTjEnMCUGA1UECxMeTkFUSU9OQUwgRS1HT1ZFUk5BTkNFIERJVklTSU9OMQ8wDQYDVQQREwYxMTAwMDMxDjAMBgNVBAgTBURFTEhJMSwwKgYDVQQDEyNEUyBOQVRJT05BTCBFLUdPVkVSTkFOQ0UgRElWSVNJT04gMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANOK+NVHpaQfOWhrtKHkN07+tVnWQ7cILkVSBTElDgalJsMBqvGv4NnsuCMCrMNtJs+kqvcIfbY210y9bj/WtMIv8EaQWzDInMeYKuP8QWdFa8oAkB1WLrJMy5naxE+99U4tHWk44497q783r168wT4av/XF0YSnkMBIeoZY5OewsQpOQCVSg9ouf1Uc3TwsBqomhJRPNxPK9QJ1gkfZQBwyTirXM6AHWVyzQY1GQWBXpAbMqSEqmvxrDHfC/g0I2SpDtJlUf59hTLUe5E+IrR2Xxls4QU3DqBS9GQAqc/O5wuRqw2j3OI3k7deZTmkaQDlbftYuBA3vUnndaRUgEjUCAwEAAaOCAakwggGlMBMGA1UdIwQMMAqACEzEC7kvPc60MBEGA1UdDgQKBAhHY4kJC0TLGDCBlwYIKwYBBQUHAQEEgYowgYcwRQYIKwYBBQUHMAKGOWh0dHBzOi8vd3d3LnNhZmVzY3J5cHRuZXcuY29tL1NhZmVTY3J5cHREb2NTaWduZXIyMDIyLmNlcjA+BggrBgEFBQcwAYYyaHR0cDovL29jc3Auc2FmZXNjcnlwdC5jb20vU2FmZVNjcnlwdERvY1NpZ25lcjIwMjIwRwYDVR0fBEAwPjA8oDqgOIY2aHR0cDovL2NybDIuc2FmZXNjcnlwdC5jb20vU2FmZVNjcnlwdERvY1NpZ25lcjIwMjIuY3JsMCcGA1UdIAQgMB4wCAYGYIJkZAIDMAgGBmCCZGQCAjAIBgZggmRkCgEwDAYDVR0TAQH/BAIwADAqBgNVHSUEIzAhBggrBgEFBQcDBAYJKoZIhvcvAQEFBgorBgEEAYI3CgMMMCUGA1UdEQQeMByBGmRuYXlha0BkaWdpdGFsaW5kaWEuZ292LmluMA4GA1UdDwEB/wQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAQEAfmebPU8awacmsPZGr7M63sAuHdmbfIQDI3ZmUFBc0IRA1LSFcYCTDixhBXEYmpbB1gqSIC6kM2FsT42ZGwKaGZVBc/zryDJgJ8cr5EJyNA6cmRCk9fCSjXMvXJo4pZ1lSh+eAKWNbLkCdtFm4XZWpYU2UYI+wU6v5ZGWaNsNLOh05P9Eigoutfy0lhvZgE0gRXv8OgI6sSSJQW2uoVmUEDorX44cCqPLuCUIuq48G9xPpuHh2sH/RyVkAysGtN7TkmbZrqeVOSn+KVYbdyBWEF3zYUvPBndpXQUiKMG4kdYjvK08FZAfrF7fCYqyym+jKRBezoaS3AS67QiO4uTSyg==</X509Certificate><X509SubjectName>CN=CCA India 2022,O=India PKI,C=IN</X509SubjectName><X509Certificate>MIIFNDCCAxygAwIBAgIQdiQz69smdlqFYM0KqC/hFzANBgkqhkiG9w0BAQsFADA6MQswCQYDVQQGEwJJTjESMBAGA1UEChMJSW5kaWEgUEtJMRcwFQYDVQQDEw5DQ0EgSW5kaWEgMjAyMjAeFw0yMjAyMDIxMjA0MzdaFw00MjAyMDIxMjA0MzdaMDoxCzAJBgNVBAYTAklOMRIwEAYDVQQKEwlJbmRpYSBQS0kxFzAVBgNVBAMTDkNDQSBJbmRpYSAyMDIyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv3EBudWC8HY0oSwtJZCqpjQTGpEewl3EdDqUORV0qoFp78mdR/vuATXI83G7nF9RLvmNjgQgKr/bMx6gPO4Y57bMjAsgwEzleFclZka/sqc68iN5rS3huhrCX6MEINLyDOQ71MRA7GJCaNL6E3j1438eTu011mlikeZYBdkhvfpAVjCw90w8wcWDmqx66Y561T/RiXyz2uEhBBZAD43gV58eXStOeOTwAzEZYMrmp232GfmQKabYRfdIRus1avyuGea2nICEsRHE8M2tdzwpGP7oIy2qHBFJJ+3AwmwQA4DjmDkJtCD+58awohQavRNhqjsGD+ZifG3VR4i6WrKv8OWqZzcZj3g3Elr5+fRMlz1GSqkWPBw1Ev8KWTHazSUKF7OMxm3XzyXxQnw7fZF9GOVtx3adpfRPqYGgtbOP34EVkz4wsHvNMrvUrYcKymdOrnkTjlX26fIHUJpKGYkLk9q0jhMNKs4Rn8lj4pJ7YF33/ND4bjpV0ex1EAQz0iZvT37OnxNiuAZ/+4Djf075UuNX2ecWnadOrN1r8NAParZIwUoSUnWhU8TqAWWRqzFURHUZuOMQcA0geg4c9zqtBoUPgtQksbIAEsEXmDuRpwSIFjEkK11f5Eemfmfdg37KyIjQ67TRTmBA+kT9Q5JIm/e7m1ILg/HKckgLUOCnAMsCAwEAAaM2MDQwDwYDVR0TAQH/BAUwAwEB/zARBgNVHQ4ECgQITjtINlziX30wDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4ICAQCdbE8d1c1DysKtrtYlApYIXTlY3N2XHNQ6gKoaVWsKa1TJ/ovrT+FV3bmQLet3aSoEG6pTe/vLZSg8WiF7cn7WuF4XlQS3yA2Uu8/cg/S4owqhQJp6K/Xg6UoSBad9Kog1H8deOfV8Nmb8a89zB4Yf8/AepId+Lr/3I6O7iub+PUT2QBXnksa+cf0yf+49GhyMCILZvctNSQd4Vxr9EgRvBARTrAgNQ9sEOJ6myOz4iTFR7T2pIFP8Cp15e8jEVI1q4IuHu3XlwJNk9f5k3gbwrzoy9P5rP8voQU3u9wh62JZa9U63b+u/Ur1tsKb5Lx0YUedtHvpIiIRurEPxumW0twjrx8TrAcXRrViSL7dsXAoYC0dXo154EE8jBAzgIIur7tJizxgXDEn4i2pu8Yd615YML9ii5BooEJ2j6fQ0nzyPRmx1Egw2Fjlgzzceai4TUOcaCKab86yyu5MZIp+BiPR840nw5MggbRgYH2nFRBA70toVm4VFlbZs3reGmaICm4ST6R395OxYS1iYBm5kXm9tLb4pkIhUxrkgyuiwE+DsWceBjHAYaXnCgUGKtiG9tfBMUw3fChoPb9L1yKdNof3zXDdTloMqEpO4BFrmjco8kt1v0LUQPhNZmQP4nqd4Hqx2384nPmWDXbQ+eePyxRteYGY0hJeDLVpyeYG8VQ==</X509Certificate><X509SubjectName>CN=SafeScrypt CA 2022,houseIdentifier=II Floor, Tidel Park,street=No.4, Rajiv Gandhi Salai,ST=Tamil Nadu,postalCode=600113,OU=Certifying Authority,O=Sify Technologies Limited,C=IN</X509SubjectName><X509Certificate>MIIFyzCCA7OgAwIBAgIQRwYH7tCkAM8CDtcmynPsqTANBgkqhkiG9w0BAQsFADA6MQswCQYDVQQGEwJJTjESMBAGA1UEChMJSW5kaWEgUEtJMRcwFQYDVQQDEw5DQ0EgSW5kaWEgMjAyMjAeFw0yMjAyMTYxMDUzNDhaFw0zMjAyMTYxMDUzNDhaMIHVMQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEdMBsGA1UECxMUQ2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjYwMDExMzETMBEGA1UECBMKVGFtaWwgTmFkdTEhMB8GA1UECRMYTm8uNCwgUmFqaXYgR2FuZGhpIFNhbGFpMR0wGwYDVQQzExRJSSBGbG9vciwgVGlkZWwgUGFyazEbMBkGA1UEAxMSU2FmZVNjcnlwdCBDQSAyMDIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqhUJbYvOXXCf/TT2UMLOI7HmLemOSWsQayMzc95KUL6KHGhAECDTWz07d1pSA6DhKUp49+uWOUMq/enOZKRQAtdBocQRDDev51FHSesSGVrPASLmxozR/ES4/AF11PyeHsefVMnkzKvK6cdAraK417DC4F6uCVM+wj/3kGl7COHqpEj1g5/XKkRlq/3PIL/4m7NLq2/TIcicgxUjHOSqtHrNW8vDdPD64c2yzMkozzjIZLu6Cv/Of+DGoN2oSiukWIaQx1VSijasJwykPx435I9sqzjaGja4yI5ox+NbjJnWGmwzncKLBVfkoP5c4whIJ9E+EF0DoZs/kXb+wWiMQwIDAQABo4IBLzCCASswEgYDVR0TAQH/BAgwBgEB/wIBATARBgNVHQ4ECgQIScvUu13lnDMwEgYDVR0gBAswCTAHBgVggmRkAjATBgNVHSMEDDAKgAhOO0g2XOJffTCBgAYIKwYBBQUHAQEEdDByMB4GCCsGAQUFBzABhhJodHRwOi8vb2N2cy5nb3YuaW4wUAYIKwYBBQUHMAKGRGh0dHA6Ly93d3cuY2NhLmdvdi5pbi9jY2Evc2l0ZXMvZGVmYXVsdC9maWxlcy9maWxlcy9DQ0FJbmRpYTIwMjIuY2VyMA4GA1UdDwEB/wQEAwIBBjBGBgNVHR8EPzA9MDugOaA3hjVodHRwOi8vY2NhLmdvdi5pbi9ydy9yZXNvdXJjZXMvQ0NBSW5kaWEyMDIyTGF0ZXN0LmNybDANBgkqhkiG9w0BAQsFAAOCAgEAnDRRXSvn13oweNwVHik4deI8Dq4blgsAn12qq8iOQwdweqQROakPy+Y8rUDG/UX+1D27XUorlc0rStD4/+c1nEXBXKvth1ij/hMzVn/8Lev0uWloGO3lUhfYLMOZgSf8EFSZoG7hotc4E9hj2AehKgfFPvJMBWNn7VsgimwBE4bDVLtn0dFVJWf22LN2CJmwx1MATtnIs0Bot0qLXbfDpq1oefh6vL+RR+XDfYaAsIOmuZD5Pm4cgJ4EKThcCm9s+IucjbzaZgSkyoe6NmKT1o3+l3W9u1jNR2ABS8yzjqLb6MqGCdewlasb1cltwl1LANENnDge7xEGkE4MHC5Oa0ihxEvkWrM+ko8QT9S4dwuQNa4rJx7Ak9sBgag8WHGHgyJTYvv1ViSnv7UA5GdCZyJwJro4HbenfNyU2iJ9b5ZMIX5OXbIDJtS6iCCt/DyaWAQW2riws3xea9+PfvO4M5en3GT6zCK3evIbcIo/uIp8WYNBPK2LKJulYpDWU2q8P0P3q6ykzRwhNTm47PoE3m7KubMHpCcFhNL7p7jTZCoLENt4zaAOCNeq/OVcVr9yTRM231ciiDyt6c1OCfF693zuUkl1Y7nORkQgTQDT0wKY7lgMKmZJ7w9fzgx+R4HHQr1dhE7pf5uLMKVFd//gsNZ4bgFdHu47YlGX3rQXXlo=</X509Certificate><X509SubjectName>CN=SafeScrypt sub-CA for Document Signer 2022,OU=Sub-CA,O=Sify Technologies Limited,C=IN</X509SubjectName><X509Certificate>MIIE/zCCA+egAwIBAgIGaS+ORfU0MA0GCSqGSIb3DQEBCwUAMIHVMQswCQYDVQQGEwJJTjEiMCAGA1UEChMZU2lmeSBUZWNobm9sb2dpZXMgTGltaXRlZDEdMBsGA1UECxMUQ2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjYwMDExMzETMBEGA1UECBMKVGFtaWwgTmFkdTEhMB8GA1UECRMYTm8uNCwgUmFqaXYgR2FuZGhpIFNhbGFpMR0wGwYDVQQzExRJSSBGbG9vciwgVGlkZWwgUGFyazEbMBkGA1UEAxMSU2FmZVNjcnlwdCBDQSAyMDIyMB4XDTIyMDIxODAzNTUyOVoXDTMyMDIxNjA5NTM0OFowdzELMAkGA1UEBhMCSU4xIjAgBgNVBAoTGVNpZnkgVGVjaG5vbG9naWVzIExpbWl0ZWQxDzANBgNVBAsTBlN1Yi1DQTEzMDEGA1UEAxMqU2FmZVNjcnlwdCBzdWItQ0EgZm9yIERvY3VtZW50IFNpZ25lciAyMDIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvEFENGRPNl5cZxGZfsOCVL3JIXp2yQpUkwHK1Lgp1GTihg2nfB0wnjrC1rLN12DQ1IdN/b1twM62WROKwJqKAXWMLAzhx5dcOZpBoY/sFILLlZnd4yYC8p1GPz7QJ30vuBeLSCSx6vVqZFIjuJce9Rrn2IHg4asTbzQ033obSdI+d9ghsULSHHbx2ZOA/S8NGGc4242EOemN/hCHfWr4QqvrLI6e4qPDpDPUs2QxvFEflTmxiMGnaMFCC20qE5Sf50kzNFsP9L7siFUNxOdQsE+j9BpVxBYMs3p3XPwjaEqaqa/aa+mmEOCDiRs10wPT8p3nDEi5GAl0ui2ypTYTlwIDAQABo4IBMDCCASwwEwYDVR0jBAwwCoAIScvUu13lnDMwEQYDVR0OBAoECEzEC7kvPc60MIGHBggrBgEFBQcBAQR7MHkwPgYIKwYBBQUHMAKGMmh0dHBzOi8vd3d3LnNhZmVzY3J5cHRuZXcuY29tL1NhZmVTY3J5cHRDQTIwMjIuY2VyMDcGCCsGAQUFBzABhitodHRwOi8vb2NzcC5zYWZlc2NyeXB0LmNvbS9TYWZlU2NyeXB0Q0EyMDIyMEAGA1UdHwQ5MDcwNaAzoDGGL2h0dHA6Ly9jcmwyLnNhZmVzY3J5cHQuY29tL1NhZmVTY3J5cHRDQTIwMjIuY3JsMBIGA1UdIAQLMAkwBwYFYIJkZAIwEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQELBQADggEBAKm3ERUBAd0brn8VmeXUcBZExQWZfHmgRQGbgRctQ6n1Yf+DJoGO9maQPuUEcaen7Deoc2SE+iaX182CF4XVjV5I6iGRjuowDaWn0K4qgd5a92/7vSKt7DL8uqAXYxFzXCTA1DuKYlV6k4+A18nX+/wVMTVgLqiUIuccvoS+sVXXf7440O/Qtr+YehIN6raPaXAdsfvCWczpQOMSM3Bv2jmU2j7aM0cFKRxPa5CtQ7Y2/yEIPqk1+ZwsqOCdc9vT6q2JkjgpgPF7zvEliTvFdWKAExlada3GEcJQ/bpXLPs1Pqm9qGDd33WHXh92NS3OAJ8volK7CiOIK2dmgDmHOts=</X509Certificate></X509Data></KeyInfo></Signature></Certificate>",
+            "name": "Arindam Sarkar",
+            "uid": "xxxxxxxx3336",
+            "id_proof_expiry": null,
+            "gender": "M",
+            "type_of_address": "RESIDENTIAL",
+            "full_address": "S/O Harimohan Sarkar, 181, Baghmara 10 No Card, Amtali, West Tripura, Tripura, 799130",
+            "city": "Amtali",
+            "state": "Tripura",
+            "pin": "799130",
+            "country": "India"
+          },
+          "other_info": {
+            "father_name": null,
+            "mother_name": null,
+            "marital_status": null,
+            "place_of_birth": null,
+            "country_of_birth": null,
+            "residential_status": "RI"
+          },
+          "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+          "correspondence_address": {
+            "proof": null,
+            "type_of_address": "RESIDENTIAL",
+            "full_address": "S/O Harimohan Sarkar, 181, Baghmara 10 No Card, Amtali, West Tripura, Tripura, 799130",
+            "city": "Amtali",
+            "state": "Tripura",
+            "pin": "799130",
+            "country": "India"
+          },
+          "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U005",
+            "weight": null
+          }
+        },
+        "signature_validation": {
+          "upload_images": {
+            "wet_signature_image": null,
+            "proof_of_signature": null
+          }
+        },
+        "liveness_photo_capture": {
+          "photo_capture": {
+            "liveness_photo": null
+          }
+        },
+        "liveness_check": {
+          "video_capture": {
+            "liveness_video": null
+          },
+          "liveness_captcha": null,
+          "liveness_geo_loc": null
+        },
+        "declarations": {
+          "income_info": {
+            "gross_annual_income": "UPTO_1L",
+            "networth": "10000000",
+            "occupation": "PRIVATE_SECTOR",
+            "date": "2025-03-11"
+          },
+          "fatca_crs_declaration": {
+            "is_client_tax_resident": "NO"
+          },
+          "politically_exposed_person_card": {
+            "politically_exposed_person": "nan"
+          },
+          "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U005",
+            "weight": null
+          }
+        },
+        "upload_pdf_attachments": {
+          "kyc_holder_attachment": {
+            "upload_pdf": null
+          }
+        }
+      }
+    }
+  ],
+  "bank_verification": {
+    "cancelled_cheque": {
+      "cancelled_cheque_image": {
+        "doc_id": "67d956b79e5a1a780847b1c3",
+        "doc_name": "19_sbi canceled cheque.jpg",
+        "doc_size": 436597,
+        "doc_content": null,
+        "metadata": {
+          "org_id": null,
+          "form_id": null,
+          "record_id": null,
+          "doc_type": "image/jpeg",
+          "digest": null,
+          "esign": null
+        }
       }
     },
-    "state": "SAVE",
-    "onboarding": {
-      "type_of_client": "IND",
+    "bank_details": {
+      "bank_account_number": "20071286373",
+      "ifsc_code": "SBIN0010495",
+      "micr_code": null,
+      "bank_name": "sbi",
+      "account_type": "SAVINGS",
+      "bank_address": "SURJYA MANAI NAGAR  TRIPURA UNIVERSITY CAMPUS  TRIPURA 799130",
+      "account_holder_name_pan": "Arindam Sarkar",
+      "account_holder_name_id": "Arindam Sarkar",
+      "account_holder_name": null,
+      "account_mobile_number": "+918732822385",
+      "type_of_application": "TRADING_AND_DP",
       "_ver_status": {
-        "status": "success",
-        "message": "Model validation succeeeded.",
-        "id": null,
+        "status": "failure",
+        "message": "Failed to verify bank account: 'str' object has no attribute 'get'",
+        "id": "1",
         "actor": "system",
         "user_id": "U005",
         "weight": null
       }
     },
-    "application_details": {
-      "defaults": null,
-      "kyc_digilocker": "YES",
-      "general_application_details": {
-        "application_type": "TRADING_AND_DP",
-        "residential_status": "RI"
-      },
-      "cash_fut_como_card": {
-        "cash_minimum_paisa": 5,
-        "cash_in_percentage": 0.5
-      },
-      "cash_jobbing_card": {
-        "cash_jobbing_minimum_paisa": 6,
-        "cash_jobbing_in_percentage": 0.6
-      },
-      "futures_card": {
-        "futures_minimum_paisa": 7,
-        "futures_in_percentage": 0.7
-      },
-      "options_card": {
-        "options_standard_rate": 100
-      },
-      "currency_futures_card": {
-        "currency_futures_minimum_paisa": 58,
-        "currency_futures_in_percentage": 0.1
-      },
-      "currency_options_card": {
-        "currency_options_rate": 20
-      },
-      "commodity_futures_card": {
-        "commodity_futures_minimum_paisa": 52,
-        "commodity_futures_in_percentage": 0.03
-      },
-      "commodity_options_card": {
-        "commodity_options_rate": 10
-      },
-      "slb_card": {
-        "slb_rate": 22
-      },
-      "flat_per_order_card": {
-        "flat_per_order_rate": null
-      },
-      "online_exe_card": {
-        "online_exe": "NO"
-      },
-      "gst_details_card": {
-        "gst_number": null,
-        "gst_number_1": null
-      },
-      "client_contact_details": {
-        "client_mobile": "+918787885330"
-      },
-      "segment_rates": {},
-      "display_field": null,
-      "_ver_status": {
-        "status": "success",
-        "message": "Verified successfully.",
-        "id": "1de855f5",
-        "actor": "system",
-        "user_id": "U005",
-        "weight": null,
-        "isMandatoryFilled": true
-      }
+    "_ver_status": {
+      "status": "success",
+      "message": "Model validation succeeeded.",
+      "id": null,
+      "actor": "system",
+      "user_id": "U005",
+      "weight": null
+    }
+  },
+  "nomination_details": {
+    "general": {
+      "client_nominee_appointment_status": "YES"
     },
-    "kyc_holders": [
+    "nominees": [
       {
-        "kyc_holder": {
-          "mobile_email_verification": {
-            "mobile_verification": {
-              "dependency_relationship_mobile": "SELF",
-              "contact_id": "8787885330",
-              "_ver_status": {
-                "status": "success",
-                "message": "Verified by the system 2025-03-11 10:26:38.436937",
-                "id": "2ee5c034",
-                "actor": "system",
-                "user_id": "U005",
-                "weight": null
-              },
-              "verified_contact_id": "8787885330"
-            },
-            "email_verification": {
-              "dependency_relationship_email": "SELF",
-              "contact_id": "rahulc@lyik.com",
-              "_ver_status": {
-                "status": "success",
-                "message": "Verified by the system 2025-03-11 10:26:51.671757",
-                "id": "039c182e",
-                "actor": "system",
-                "user_id": "U005",
-                "weight": null
-              },
-              "verified_contact_id": "rahulc@lyik.com"
-            },
-            "_ver_status": {
-              "status": "success",
-              "message": "Model validation succeeeded.",
-              "id": null,
-              "actor": "system",
-              "user_id": "U005",
-              "weight": null
-            }
+        "nominee": {
+          "nominee_data": {
+            "minor_nominee": "NOMINEE_IS_A_MINOR",
+            "nominee_type_of_id": "PAN",
+            "name_of_nominee": "Ankurita Bhowmik",
+            "percentage_of_allocation": "40",
+            "nominee_id_proof": null,
+            "id_number": "123",
+            "nominee_address": "Agartala,Tripura - 799022",
+            "dob_nominee": "02/01/1993"
           },
-          "pan_verification": {
-            "pan_card_image": {
-              "doc_id": "67cfc2ac21095ca0ebf2b4e9",
-              "doc_name": "12_pan_rahul.jpg",
-              "doc_size": 4513384,
-              "doc_content": null,
-              "metadata": {
-                "org_id": null,
-                "form_id": null,
-                "record_id": null,
-                "doc_type": "image/jpeg",
-                "digest": null,
-                "esign": null
-              }
-            },
-            "pan_details": {
-              "name_in_pan": "Rahul Choudhury",
-              "dob_pan": "24/10/1998",
-              "pan_number": "BPDPC7099L",
-              "parent_guardian_spouse_name": "Shyamal Choudhury",
-              "_ver_status": {
-                "status": "failure",
-                "message": "HTTP error! status: 500",
-                "id": null,
-                "actor": "system"
-              }
-            },
-            "_ver_status": {
-              "status": "success",
-              "message": "Model validation succeeeded.",
-              "id": null,
-              "actor": "system",
-              "user_id": "U005",
-              "weight": null
-            }
-          },
-          "identity_address_verification": {
-            "ovd": {
-                "ovd_type": "AADHAAR",
-                "ovd_front": {
-                    "doc_id": "67d00b09d040bb292082070b",
-                    "doc_name": "117_aadhaar_front.jpg",
-                    "doc_size": 3006941,
-                    "doc_content": null,
-                    "metadata": {
-                        "org_id": null,
-                        "form_id": null,
-                        "record_id": null,
-                        "doc_type": "image/jpeg",
-                        "digest": null,
-                        "esign": null
-                    }
-                },
-                "ovd_back": {
-                    "doc_id": "67d00b09d040bb2920820719",
-                    "doc_name": "214_aadhhar_back.jpg",
-                    "doc_size": 3401853,
-                    "doc_content": null,
-                    "metadata": {
-                        "org_id": null,
-                        "form_id": null,
-                        "record_id": null,
-                        "doc_type": "image/jpeg",
-                        "digest": null,
-                        "esign": null
-                    }
-                }
-            },
-            "identity_address_info": {
-              "aadhaar_xml": "",
-              "name": "Rahul Choudhury",
-              "uid": "xxxxxxxx5716",
-              "gender": "M",
-              "full_address": "S/O Shyamal Choudhury, PO-Aralia, Mouja-Jogendranagar,Ward No 34, Agartala A.M.C, West Tripura, Tripura, 799004",
-              "city": "Agartala A.M.C",
-              "state": "Tripura",
-              "pin": "799004",
-              "country": "India"
-            },
-            "other_info": {
-              "father_name": "Shyamal Choudhury",
-              "marital_status": "SINGLE",
-              "country_of_birth": "India",
-              "mother_name": "Uma Choudhury",
-              "place_of_birth": "Agartala"
-            },
-            "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
-            "correspondence_address": {
-              "proof": {
-                "doc_id": "67cfc2f621095ca0ebf2b501",
-                "doc_name": "119_aadhaar_front.jpg",
-                "doc_size": 3006941,
-                "doc_content": null,
-                "metadata": {
-                  "org_id": null,
-                  "form_id": null,
-                  "record_id": null,
-                  "doc_type": "image/jpeg",
-                  "digest": null,
-                  "esign": null
-                }
-              },
-              "type_of_address": "RESIDENTIAL",
-              "full_address": "Aralia",
-              "city": "Agartala",
-              "state": "Tripura",
-              "pin": "799004",
-              "country": "India"
-            },
-            "_ver_status": {
-              "status": "success",
-              "message": "Model validation succeeeded.",
-              "id": null,
-              "actor": "system",
-              "user_id": "U005",
-              "weight": null
-            }
-          },
-          "signature_validation": {
-            "upload_images": {
-              "wet_signature_image": {
-                "doc_id": "67cfc38a21095ca0ebf2b513",
-                "doc_name": "passport_photo_1741669126263.jpg",
-                "doc_size": 17266,
-                "doc_content": null,
-                "metadata": {
-                  "org_id": null,
-                  "form_id": null,
-                  "record_id": null,
-                  "doc_type": "image/jpeg",
-                  "digest": null,
-                  "esign": null
-                }
-              },
-              "proof_of_signature": null
-            },
-            "_ver_status": {
-              "status": "success",
-              "message": "Model validation succeeeded.",
-              "id": null,
-              "actor": "system",
-              "user_id": "U005",
-              "weight": null
-            }
-          },
-          "liveness_photo_capture": {
-            "photo_capture": {
-              "liveness_photo": {
-                "doc_id": "67cfc38a21095ca0ebf2b513",
-                "doc_name": "passport_photo_1741669126263.jpg",
-                "doc_size": 17266,
-                "doc_content": null,
-                "metadata": {
-                  "org_id": null,
-                  "form_id": null,
-                  "record_id": null,
-                  "doc_type": "image/jpeg",
-                  "digest": null,
-                  "esign": null
-                }
-              }
-            }
-          },
-          "liveness_check": {
-            "video_capture": {
-              "liveness_video": ""
-            },
-            "liveness_captcha": "",
-            "liveness_geo_loc": {}
-          },
-          "declarations": {
-            "income_info": {
-              "gross_annual_income": "1_TO_5L",
-              "networth": "123",
-              "occupation": "PRIVATE_SECTOR",
-              "date": "2025-03-11"
-            },
-            "fatca_crs_declaration": {
-              "is_client_tax_resident": "YES"
-            },
-            "politically_exposed_person_card": {
-              "politically_exposed_person": "nan"
-            },
-            "_ver_status": {
-              "status": "success",
-              "message": "Model validation succeeeded.",
-              "id": null,
-              "actor": "system",
-              "user_id": "U005",
-              "weight": null
-            }
+          "guardian_data": {
+            "guardian_id_proof": null,
+            "guardian_type_of_id": "PAN",
+            "guardian_name": "Dilip bhowmik",
+            "guardian_address": "Agartala,Tripura",
+            "guardian_signature": null,
+            "guardian_id_number": "123",
+            "relationship_with_nominee": "Spouse"
+          }
+        }
+      },
+      {
+        "nominee": {
+          "nominee_data": {
+            "minor_nominee": null,
+            "nominee_type_of_id": "PAN",
+            "name_of_nominee": "Adult nominee name",
+            "percentage_of_allocation": "60",
+            "nominee_id_proof": null,
+            "id_number": "123",
+            "nominee_address": "bengaluru, Karnataka 799130"
           }
         }
       }
     ],
-    "bank_verification": {
-      "cancelled_cheque": {
-        "cancelled_cheque_image": {
-          "doc_id": "67cfc3d321095ca0ebf2b519",
-          "doc_name": "18_aadhaar_front.jpg",
-          "doc_size": 3006941,
-          "doc_content": null,
-          "metadata": {
-            "org_id": null,
-            "form_id": null,
-            "record_id": null,
-            "doc_type": "image/jpeg",
-            "digest": null,
-            "esign": null
-          }
-        }
-      },
-      "bank_details": {
-        "bank_account_number": "12434",
-        "account_holder_name_pan": "Rahul Choudhury",
-        "account_holder_name_id": "Rahul Choudhury",
-        "ifsc_code": "SBIN0000813",
-        "account_holder_name": "Rahul Choudhury",
-        "type_of_application": "TRADING_AND_DP",
-        "_ver_status": {
-          "status": "success",
-          "message": null,
-          "id": "1",
-          "actor": "system",
-          "user_id": "U005",
-          "weight": null
-        }
-      },
-      "_ver_status": {
-        "status": "success",
-        "message": "Model validation succeeeded.",
-        "id": null,
-        "actor": "system",
-        "user_id": "U005",
-        "weight": null
-      }
+    "_ver_status": {
+      "status": "success",
+      "message": "Verified successfully by the system on 2025-03-18 16:51:43.379400",
+      "id": null,
+      "actor": "system",
+      "user_id": "U005",
+      "weight": null
+    }
+  },
+  "trading_information": {
+    "check_pan_for_trading_account": {
+      "trading_id": null,
+      "account_holder_name": null,
+      "account_creation_date": null
     },
-    "nomination_details": {
-      "general": {
-        "client_nominee_appointment_status": "NO"
-      },
-      "nominees": [
-        {
-          "nominee": {
-            "nominee_data": {
-              "minor_nominee": null,
-              "nominee_type_of_id": null,
-              "name_of_nominee": null,
-              "percentage_of_allocation": null,
-              "nominee_id_proof": null,
-              "id_number": null,
-              "nominee_address": null
-            }
-          }
-        }
-      ],
-      "_ver_status": {
-        "status": "success",
-        "message": "Verified successfully by the system on 2025-03-11 10:32:17.153536",
-        "id": null,
-        "actor": "system",
-        "user_id": "U005",
-        "weight": null
-      }
+    "trading_account_information": {
+      "segment_pref_1": "EQUITY",
+      "segment_pref_2": null,
+      "segment_pref_3": null,
+      "segment_pref_4": null,
+      "segment_pref_5": null,
+      "segment_pref_6": "SLB",
+      "contract_format_1": null,
+      "contract_format_2": "ELECTRONIC",
+      "proof_of_income": null,
+      "type_of_document": null,
+      "client_facility_choice": "YES",
+      "kit_format_1": null,
+      "kit_format_2": "ELECTRONIC",
+      "holder_trading_experience": null
     },
-    "trading_information": {
-      "check_pan_for_trading_account": {
-        "trading_id": "rahul716",
-        "account_holder_name": "Rahul Choudhury",
-        "account_creation_date": "2025-03-11",
-        "_ver_status": {
-          "status": "success",
-          "message": "Model validation succeeeded.",
-          "id": null,
-          "actor": "system",
-          "user_id": "U005",
-          "weight": null
-        }
-      },
-      "trading_account_information": {
-        "segment_pref_1": "EQUITY",
-        "segment_pref_2": "FNO",
-        "segment_pref_3": "CURRENCY",
-        "segment_pref_4": "COMMODITY",
-        "segment_pref_5": "MUTUAL_FUND",
-        "segment_pref_6": "SLB",
-        "contract_format_1": null,
-        "contract_format_2": "ELECTRONIC",
-        "proof_of_income": {
-          "doc_id": "67cfc44621095ca0ebf2b52c",
-          "doc_name": "117_pan_rahul.jpg",
-          "doc_size": 4513384,
-          "doc_content": null,
-          "metadata": {
-            "org_id": null,
-            "form_id": null,
-            "record_id": null,
-            "doc_type": "image/jpeg",
-            "digest": null,
-            "esign": null
-          }
-        },
-        "type_of_document": "PAN",
-        "client_facility_choice": "YES",
-        "kit_format_1": null,
-        "kit_format_2": "ELECTRONIC",
-        "holder_trading_experience": "NIL",
-        "_ver_status": {
-          "status": "success",
-          "message": "Verified successfully by the system on 2025-03-11 10:33:30.570844",
-          "id": null,
-          "actor": "system",
-          "user_id": "U005",
-          "weight": null
-        }
-      },
-      "employer_details": {
-        "employer_name": "Lyik",
-        "mobile_number": "8787885330",
-        "approval_date": "2025-03-11",
-        "employer_address": "Bengaluru"
-      },
-      "details_of_dealings": {
-        "broker_name": null,
-        "telephone": null,
-        "client_codes": null,
-        "broker_address": null,
-        "sub_broker_name": null,
-        "website": null,
-        "detail_of_disputes": null
-      },
-      "introducer_details": {
-        "introducer_name": null,
-        "introducer_broker_address": null,
-        "introducer_status": null,
-        "remisire_code": null
-      },
-      "_ver_status": {
-        "status": "success",
-        "message": "Model validation succeeeded.",
-        "id": null,
-        "actor": "system",
-        "user_id": "U005",
-        "weight": null
-      }
+    "employer_details": {
+      "employer_name": null,
+      "mobile_number": null,
+      "approval_date": null,
+      "employer_address": null
     },
-    "dp_information": {
-      "dp_Account_information": {
-        "dp_tariff_plan": null,
-        "name_of_dp": null,
-        "depository": "NSDL",
-        "dp_id_no": null,
-        "client_id_no": null,
-        "cmr_file": null
-      },
-      "standing_info_from_client": {
-        "receive_credit_auth_status": "YES",
-        "first_holder_sms_alert": "FIRST_HOLDER",
-        "account_statement_requirement": "MONTHLY",
-        "electronic_transaction_holding_statement": "YES",
-        "dividend_interest_receive_option": "YES",
-        "auto_pledge_confirmation": "YES",
-        "did_booklet_issuance": "WITH_AC_OPENING",
-        "bsda": "YES",
-        "joint_account_operation_mode": "ANY_ONE_HOLDER_OR_SURVIVORS",
-        "consent_for_communication": "FIRST_HOLDER",
-        "share_email_id_with_rta": "YES",
-        "receive_annual_report": "PHYSICAL",
-        "aadhaar_pan_seed_status": "YES",
-        "trust": "YES"
-      },
-      "trust_information": {
-        "stack_exchange_name": null,
-        "clearing_member_name": null,
-        "clearing_member_id": null
-      },
-      "ucc_mapping_1": {
-        "ucc_code_1": null,
-        "exchange_id_1": null,
-        "segment_id_1": null,
-        "cm_id_1": null,
-        "tm_id_1": null
-      },
-      "ucc_mapping_2": {
-        "ucc_code_2": null,
-        "exchange_id_2": null,
-        "segment_id_2": null,
-        "cm_id_2": null,
-        "tm_id_2": null
-      },
-      "_ver_status": {
-        "status": "success",
-        "message": "Model validation succeeeded.",
-        "id": null,
-        "actor": "system",
-        "user_id": "U005",
-        "weight": null
-      }
+    "details_of_dealings": {
+      "broker_name": null,
+      "telephone": null,
+      "client_codes": null,
+      "broker_address": null,
+      "sub_broker_name": null,
+      "website": null,
+      "detail_of_disputes": null
     },
-    "tnc": {
-      "declaration": {
-        "sms_alert": null,
-        "policy": null,
-        "processing_time": null
-      }
+    "introducer_details": {
+      "introducer_name": null,
+      "introducer_broker_address": null,
+      "introducer_status": null,
+      "remisire_code": null
     },
-    "operations": {
-      "operation_card": {
-        "operation_type": null
-      }
+    "_ver_status": {
+      "status": "failure",
+      "message": "Validation failed. 'Trading information -> Trading account information -> Contract format 2': Input should be 'ELECTRONIC_FORM'",
+      "id": null,
+      "actor": "system",
+      "user_id": "U005",
+      "weight": null
+    }
+  },
+  "dp_information": {
+    "dp_Account_information": {
+      "dp_tariff_plan": null,
+      "name_of_dp": null,
+      "depository": "CDSL",
+      "dp_id_no": null,
+      "client_id_no": null,
+      "cmr_file": null
     },
-    "_time_log": {
-      "created_on": {
-        "$date": "2025-03-11T04:55:59.545Z"
-      },
-      "last_updated_on": {
-        "$date": "2025-03-11T05:05:00.920Z"
-      }
+    "standing_info_from_client": {
+      "receive_credit_auth_status": null,
+      "first_holder_sms_alert": null,
+      "account_statement_requirement": null,
+      "electronic_transaction_holding_statement": null,
+      "dividend_interest_receive_option": null,
+      "auto_pledge_confirmation": null,
+      "did_booklet_issuance": null,
+      "bsda": null,
+      "joint_account_operation_mode": null,
+      "consent_for_communication": null,
+      "share_email_id_with_rta": null,
+      "receive_annual_report": null,
+      "aadhaar_pan_seed_status": null,
+      "trust": null
     },
-    "_application_id": "APPLICATION-20250311102559-33PGQM",
-    "_owner": [
-      "U005",
-      "+918787885330"
-    ]
+    "trust_information": {
+      "stack_exchange_name": null,
+      "clearing_member_name": null,
+      "clearing_member_id": null
+    },
+    "ucc_mapping_1": {
+      "ucc_code_1": null,
+      "exchange_id_1": null,
+      "segment_id_1": null,
+      "cm_id_1": null,
+      "tm_id_1": null
+    },
+    "ucc_mapping_2": {
+      "ucc_code_2": null,
+      "exchange_id_2": null,
+      "segment_id_2": null,
+      "cm_id_2": null,
+      "tm_id_2": null
+    },
+    "_ver_status": {
+      "status": "success",
+      "message": "Model validation succeeeded.",
+      "id": null,
+      "actor": "system",
+      "user_id": "U005",
+      "weight": null
+    }
+  },
+  "tnc": {
+    "declaration": {
+      "sms_alert": null,
+      "policy": null,
+      "processing_time": null
+    }
+  },
+  "operations": {
+    "operation_card": {
+      "operation_type": "CDSL_DEMAT_ACCOUNT_DOWNLOAD"
+    }
+  },
+  "_time_log": {
+    "created_on": "2025-03-18T11:04:46.666982Z",
+    "last_updated_on": "2025-03-18T11:21:51.401097Z"
+  },
+  "_application_id": "W2W25031816344666719SU6MK",
+  "_owner": [
+    "U005",
+    "+918732822385"
+  ]
 }

@@ -628,3 +628,17 @@ class CDSLDematUtility:
 
     def nominee_dob(self, nominee: NomineeData):
         return self.format_date(date=nominee.dob_nominee)
+
+    def nominee_equal_share_flag(self) -> FlagForSharePercentageEquality:
+        nominees = self.nominees()
+        shares = [n.nominee_data.percentage_of_allocation for n in nominees]
+
+        # If there are no nominees or only one nominee, return DFT
+        if len(shares) <= 1:
+            return FlagForSharePercentageEquality.DFT
+
+        # Check if all shares are equal by comparing each with the first one
+        if all(share == shares[0] for share in shares):
+            return FlagForSharePercentageEquality.YES
+        else:
+            return FlagForSharePercentageEquality.NO
