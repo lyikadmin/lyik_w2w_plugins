@@ -4,7 +4,7 @@
     "id": "U005",
     "phone": "Anonymous",
     "email": "Anonymous",
-    "time": "2025-03-18T16:51:51.401278+05:30"
+    "time": "2025-03-19T10:34:35.860447+05:30"
   },
   "state": "SAVE",
   "onboarding": {
@@ -187,8 +187,48 @@
         },
         "signature_validation": {
           "upload_images": {
-            "wet_signature_image": null,
-            "proof_of_signature": null
+            "wet_signature_image": {
+              "doc_id": "67da50636bad4ab7ecb425b2",
+              "doc_name": "16_pancard.jpg",
+              "doc_size": 122771,
+              "doc_content": null,
+              "metadata": {
+                "org_id": null,
+                "form_id": null,
+                "record_id": null,
+                "doc_type": "image/jpeg",
+                "digest": null,
+                "esign": null
+              }
+            },
+            "proof_of_signature": {
+              "doc_id": "67da50636bad4ab7ecb425b5",
+              "doc_name": "220_pancard.jpg",
+              "doc_size": 122771,
+              "doc_content": null,
+              "metadata": {
+                "org_id": null,
+                "form_id": null,
+                "record_id": null,
+                "doc_type": "image/jpeg",
+                "digest": null,
+                "esign": null
+              }
+            },
+            "_ver_status": {
+              "status": "failure",
+              "message": "HTTP error! status: 500",
+              "id": null,
+              "actor": "system"
+            }
+          },
+          "_ver_status": {
+            "status": "success",
+            "message": "Model validation succeeeded.",
+            "id": null,
+            "actor": "system",
+            "user_id": "U005",
+            "weight": null
           }
         },
         "liveness_photo_capture": {
@@ -448,13 +488,13 @@
       "operation_type": "CDSL_DEMAT_ACCOUNT_DOWNLOAD"
     }
   },
-  "_time_log": {
-    "created_on": "2025-03-18T11:04:46.666982Z",
-    "last_updated_on": "2025-03-18T11:21:51.401097Z"
-  },
-  "_application_id": "W2W25031816344666719SU6MK",
   "_owner": [
     "U005",
     "+918732822385"
-  ]
+  ],
+  "_time_log": {
+    "created_on": "2025-03-19T05:04:35.860030Z",
+    "last_updated_on": "2025-03-19T05:04:35.860030Z"
+  },
+  "_application_id": "W2W2503191034358602YG0YXD"
 }
