@@ -1,5 +1,5 @@
 # Use the prepared base image
-FROM lyikprodblueacr.azurecr.io/lyik-api:1.0.0
+FROM lyikprodblueacr.azurecr.io/lyik-api:latest
 
 # Set environment variables
 ENV LOAD=FALSE
