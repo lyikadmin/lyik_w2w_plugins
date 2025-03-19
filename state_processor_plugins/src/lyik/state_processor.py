@@ -15,7 +15,7 @@ from lyikpluginmanager.models import (
     GenericFormRecordModel,
 )
 from typing_extensions import Annotated, Doc
-
+from lyikpluginmanager.annotation import RequiredEnv
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
@@ -68,6 +68,7 @@ class W2WStateProcessor(StateProcessorSpec):
         state_action: Annotated[str, Doc("The action to set decide the state flow.")],
     ) -> Annotated[
         Tuple[str, dict],
+        RequiredEnv(["TECH_XL_ENDPOINT"]),
         Doc("The new state, and the modified form record (with audit logs)"),
     ]:
         """
