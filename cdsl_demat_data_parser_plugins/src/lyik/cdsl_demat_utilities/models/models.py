@@ -13,7 +13,8 @@ class NomineeData(BaseModel):
     dob_nominee: Optional[str] = Field(default=None)
     nominee_address: Optional[str] = Field(default=None)
 
-    def is_minor(self):
+    @property
+    def is_minor(self) -> bool:
         return self.minor_nominee is not None
 
 
@@ -61,40 +62,3 @@ class NominationDetails(BaseModel):
             for obj in nominees_data
         ]
         super().__init__(**kwargs)
-
-
-# def main():
-#     payload = {
-#         "general": {"client_nominee_appointment_status": None},
-#         "nominees": [
-#             {
-#                 "nominee": {
-#                     "nominee_data": {
-#                         "minor_nominee": None,
-#                         "nominee_type_of_id": None,
-#                         "name_of_nominee": None,
-#                         "percentage_of_allocation": None,
-#                         "nominee_id_proof": None,
-#                         "id_number": None,
-#                         "dob_nominee": None,
-#                         "nominee_address": None,
-#                     },
-#                     "guardian_data": {
-#                         "guardian_id_proof": None,
-#                         "guardian_type_of_id": None,
-#                         "guardian_name": None,
-#                         "guardian_address": None,
-#                         "guardian_signature": None,
-#                         "guardian_id_number": None,
-#                         "relationship_with_nominee": None,
-#                     },
-#                 }
-#             }
-#         ],
-#     }
-#     nd = NominationDetails(payload=payload)
-#     print(nd)
-
-
-# if __name__ == "__main__":
-#     main()

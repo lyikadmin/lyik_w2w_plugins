@@ -2,7 +2,7 @@ from lyikpluginmanager.models.cdsl.helper_enums import *
 from lyikpluginmanager.models.cdsl.state_codes import StateCode
 from lyikpluginmanager.models import Signature
 from typing import List
-from .models.models import NominationDetails, NomineeData, GuardianData
+from .models.models import NominationDetails, NomineeData, GuardianData, Nominee
 
 
 class HolderType(str, Enum):
@@ -603,19 +603,27 @@ class CDSLDematUtility:
             for nominee in self.nomination_details.nominees
         ]
 
-        if all(minors):
+        num_nominees = len(minors)
+        if num_nominees == 0:
+            return NomineeMinorIndicator.DFT
+
+        # Pad with False if less than 3 nominees
+        while len(minors) < 3:
+            minors.append(False)
+
+        if num_nominees > 0 and all(minors[:num_nominees]):
             return NomineeMinorIndicator.ANM
-        elif minors[0] and minors[1] and not minors[2]:
+        elif num_nominees >= 2 and minors[0] and minors[1] and not minors[2]:
             return NomineeMinorIndicator.FSM
-        elif minors[0] and not minors[1] and minors[2]:
+        elif num_nominees >= 3 and minors[0] and not minors[1] and minors[2]:
             return NomineeMinorIndicator.FTM
-        elif not minors[0] and minors[1] and minors[2]:
+        elif num_nominees >= 3 and not minors[0] and minors[1] and minors[2]:
             return NomineeMinorIndicator.STM
         elif minors[0]:
             return NomineeMinorIndicator.FNM
-        elif minors[1]:
+        elif num_nominees >= 2 and minors[1]:
             return NomineeMinorIndicator.SNM
-        elif minors[2]:
+        elif num_nominees >= 3 and minors[2]:
             return NomineeMinorIndicator.TNM
         else:
             return NomineeMinorIndicator.DFT
@@ -642,3 +650,22 @@ class CDSLDematUtility:
             return FlagForSharePercentageEquality.YES
         else:
             return FlagForSharePercentageEquality.NO
+
+    # In nm_or_grdn_add_prsnt method:
+    def nm_or_grdn_add_prsnt(self, nominee: Nominee) -> NomineeGuardianAddressPresent:
+        return (
+            NomineeGuardianAddressPresent.YES
+            if (
+                nominee.nominee_data.nominee_address
+                or nominee.guardian_data.guardian_address
+            )
+            else NomineeGuardianAddressPresent.NO
+        )
+
+    def nmnor_grdn_add_prsnt(
+        self, guardian_data: GuardianData
+    ) -> MinorNomineeGuardianAddressPresent:
+        if guardian_data.guardian_address:
+            return MinorNomineeGuardianAddressPresent.YES
+        else:
+            return MinorNomineeGuardianAddressPresent.NO

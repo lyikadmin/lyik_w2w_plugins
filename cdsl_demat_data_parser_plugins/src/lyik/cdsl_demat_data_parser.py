@@ -211,6 +211,7 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
                 BirthDt=cdsl_utility.nominee_dob(nominee),  # Unknown source
                 NmneeMnrInd=cdsl_utility.nominee_minor_indicator(),
                 RltshWthBnfclOwnr=None,  # Unknown source
+                NmnorGrdnAddPrsnt=cdsl_utility.nm_or_grdn_add_prsnt(data),
                 # Address fields not separately available
                 Adr1=None,  #
                 Adr2=None,
@@ -225,10 +226,11 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
             nominees_records.append(nominee_record)
 
             # NOMINEE GUARDIAN RECORD
-            if nominee.is_minor() and guardian_data is not None:
+            if nominee.is_minor and guardian_data is not None:
                 guardian_record = NomineeGuardianRecord(
                     BOTxnTyp=BOTransactionType.BOSET,
                     Purpse=Purpose.NMG,
+                    MnrNmnGrdnAddPrsnt=cdsl_utility.nmnor_grdn_add_prsnt(guardian_data),
                     # Address fields not separately available
                     Adr1=None,
                     Adr2=None,
