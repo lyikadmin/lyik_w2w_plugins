@@ -46,7 +46,9 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         self,
         context: ContextModel,
         kyc_holder: Annotated[GenericKYCData, Doc("Kyc holder data")],
-    ) -> Annotated[ROOTDataModel, RequiredEnv(["POSCODE"]),Doc("ROOT model will be returned")]:
+    ) -> Annotated[
+        ROOTDataModel, RequiredEnv(["POSCODE"]), Doc("ROOT model will be returned")
+    ]:
         """
         Translates KYC holder data to the KRA format.
 
@@ -62,7 +64,6 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         now = datetime.now().strftime("%d/%m/%Y")
 
         # Parse the data into the Pydantic model
-        # parsed_data = KYCDataModel(**kyc_holder)
         parsed_data: KYCDataModel = KYCDataModel(**kyc_holder.model_dump())
 
         # kyc_holder = parsed_data
@@ -196,7 +197,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             ),
             APP_FATCA_COUNTRY_CITYZENSHIP=self.get_fatca_country_origin(
                 is_indian_citizen=declarations.fatca_crs_declaration.is_client_tax_resident,
-                declarations= declarations
+                declarations=declarations,
             ),
             APP_FATCA_COUNTRY_RES=None,
             APP_FATCA_DATE_DECLARATION=now,
@@ -324,12 +325,17 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             if is_indian_citizen.lower() == "yes":
                 country = "India"
             else:
-                if declarations.fatca_crs_declaration_1 and declarations.fatca_crs_declaration_1.country_of_residency_1:
-                    country = declarations.fatca_crs_declaration_1.country_of_residency_1
+                if (
+                    declarations.fatca_crs_declaration_1
+                    and declarations.fatca_crs_declaration_1.country_of_residency_1
+                ):
+                    country = (
+                        declarations.fatca_crs_declaration_1.country_of_residency_1
+                    )
             if country is not None:
                 return self.get_fatca_country_code(country_name=country)
             else:
-                raise ValueError("Country is not available")        
+                raise ValueError("Country is not available")
         except Exception as e:
             print(f"Error in getting FATCA country origin: {e}")
             return ""
