@@ -1,0 +1,2 @@
+git@github.com:lyikadmin/lyik_w2w_plugins.git
+# Ensure this file ends with this line to avoid new-line issues
