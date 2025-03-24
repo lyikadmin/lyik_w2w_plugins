@@ -23,6 +23,7 @@ from lyikpluginmanager import (
     DocQueryGenericModel,
     GenerateAllDocsResponseModel,
     GenerateAllDocsStatus,
+    PluginException
 )
 from lyikpluginmanager.annotation import RequiredVars
 from typing import List
@@ -207,7 +208,7 @@ class PdfCore:
                 )
         except Exception as e:
             logger.exception(e)
-            raise Exception(f"An error occurred while generating PDF!")
+            raise PluginException(f"An error occurred while generating PDF!")
 
     async def generate_main_doc(
         self,
@@ -269,7 +270,7 @@ class PdfCore:
                     f'Pdf Template not found corresponding to "{form_temp_name}"'
                 )
         except Exception as e:
-            raise Exception(f"An error occurred while generating PDF!")
+            raise PluginException(f"An error occurred while generating PDF!")
 
     async def _generate_pdf(
         self, record_paylod, template_name: str, file_path: str, author: str = ""
