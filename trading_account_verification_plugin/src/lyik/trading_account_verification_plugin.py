@@ -8,6 +8,7 @@ from lyikpluginmanager import (
     VerifyHandlerSpec,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
+    PluginException,
 )
 from typing_extensions import Annotated, Doc
 
@@ -53,22 +54,22 @@ class TradingAccountInformationPayload(BaseModel):
         trading_experience = values_dict.get("holder_trading_experience")
 
         if not segment_prefs:
-            raise ValueError(
+            raise PluginException(
                 "Please select how to send the Client the account opening kit."
             )
         if not contract_formats:
-            raise ValueError("Please select how you wish to receive the Contract")
+            raise PluginException("Please select how you wish to receive the Contract")
         if not kit_formats:
-            raise ValueError("At least one kit format is required.")
+            raise PluginException("At least one kit format is required.")
         if trading_experience is None:
-            raise ValueError("Holder's trading experience is required.")
+            raise PluginException("Holder's trading experience is required.")
         # Check if segment_pref_2, segment_pref_3, or segment_pref_4 is filled
         if any(
             values_dict.get(seg)
             for seg in ["segment_pref_2", "segment_pref_3", "segment_pref_4"]
         ):
             if not values_dict.get("proof_of_income"):
-                raise ValueError(
+                raise PluginException(
                     "Proof of income is required if F & O, Currency, or Commodity is selected."
                 )
         return values

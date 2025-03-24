@@ -6,12 +6,15 @@ from lyikpluginmanager import (
     OperationsListResponseModel,
     OperationsListSpec,
     GenericFormRecordModel,
+    PluginException,
 )
 from typing_extensions import Annotated, Doc
 from typing import List
 import jwt
 from enum import Enum
+import logging
 
+logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 KRA_TEXT = """
@@ -113,7 +116,7 @@ class OperationsListPlugin(OperationsListSpec):
             List[str]: A list of roles assigned to the user.
 
         Raises:
-            ValueError: If roles cannot be extracted or token is invalid.
+            PluginException: If roles cannot be extracted or token is invalid.
         """
         try:
             decoded = jwt.decode(token, options={"verify_signature": False})
@@ -121,10 +124,10 @@ class OperationsListPlugin(OperationsListSpec):
                 decoded.get("user_metadata", {}).get("user_info", {}).get("roles", [])
             )
             if not roles:
-                raise ValueError("No roles found in token")
+                raise PluginException("No roles found in token") from e
             return roles
-        except Exception:
-            raise ValueError("Error decoding token")
+        except Exception as e:
+            raise PluginException("Error decoding token") from e
 
     def get_digilocker_status(self, form_record: GenericFormRecordModel) -> bool:
         """
@@ -144,7 +147,7 @@ class OperationsListPlugin(OperationsListSpec):
                 .upper()
                 == "YES"
             )
-        except Exception:
+        except Exception as e:
             return False
 
     def get_exchange_depository(
@@ -171,7 +174,7 @@ class OperationsListPlugin(OperationsListSpec):
             if depository_name == "NSDL":
                 return DepositoryName.NSDL
             return DepositoryName.CDSL
-        except Exception:
+        except Exception as e:
             return None
 
     @impl
@@ -254,4 +257,7 @@ class OperationsListPlugin(OperationsListSpec):
 
             return OperationsListResponseModel(operations=ops_list)
         except Exception as e:
-            return OperationsListResponseModel(operations=[])
+            logger.debug(f"No operations available: {str(e)}")
+            raise PluginException(
+                f"No operations available for the current form record"
+            ) from e
