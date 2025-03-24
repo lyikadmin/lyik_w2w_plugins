@@ -5,7 +5,7 @@ from typing import Dict, Any, Tuple, List
 import apluggy as pluggy
 import jwt
 import requests
-from lyikpluginmanager import ContextModel, getProjectName, StateProcessorSpec, invoke
+from lyikpluginmanager import ContextModel, getProjectName, StateProcessorSpec, invoke, PluginException
 
 from lyikpluginmanager.models import (
     OperationResponseModel,
@@ -211,7 +211,7 @@ def _change_and_add_state(record: Dict[str, Any], new_state: str) -> None:
         record["_audit_log"] = {}
 
     if not isinstance(record["_audit_log"], dict):
-        raise ValueError("_audit_log must be a dictionary")
+        raise PluginException("_audit_log must be a dictionary")
     record["_audit_log"][current_state] = datetime.now(tz=timezone.utc).isoformat()
     current_state = new_state
     return current_state
@@ -339,7 +339,7 @@ class TechXLPlugin:
         try:
             endpoint = os.getenv("TECH_XL_ENDPOINT")
             if not endpoint:
-                raise ValueError("TechXL endpoint not set")
+                raise PluginException("TechXL endpoint not set")
             response = requests.post(endpoint, data=payload, files=files)
             print(response.status_code)
             print(response.text)
