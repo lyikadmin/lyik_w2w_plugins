@@ -1,7 +1,7 @@
 import apluggy as pluggy
 from pymongo import MongoClient
 
-from lyikpluginmanager import getProjectName, IdGenSpec, ContextModel
+from lyikpluginmanager import getProjectName, IdGenSpec, ContextModel, PluginException
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
@@ -21,18 +21,25 @@ class IdGen(IdGenSpec):
         str, Doc("A unique generated id based on a sequence will be returned")
     ]:
         CONN_URL = context.config.get("DB_CONN_URL")
+        if not CONN_URL:
+            raise PluginException(f"Config doesn't have DB connection URL")
         DB_NAME = db_name
         client = MongoClient(CONN_URL)
         db = client[DB_NAME]
+        if not db:
+            raise PluginException(f"DB not found")
 
-        result = db[self.COLLECTION_NAME].find_one_and_update(
-            {"_id": "id_gen"},
-            {"$inc": {"sequence": 1}},
-            upsert=True,
-            return_document=True,
-        )
-        gen_id = f"{self.BASE_STRING}{str(result['sequence']).zfill(5)}"
-        return gen_id
+        try:
+            result = db[self.COLLECTION_NAME].find_one_and_update(
+                {"_id": "id_gen"},
+                {"$inc": {"sequence": 1}},
+                upsert=True,
+                return_document=True,
+            )
+            gen_id = f"{self.BASE_STRING}{str(result['sequence']).zfill(5)}"
+            return gen_id
+        except Exception as e:
+            raise PluginException(f"Failed to generate ID") from e
 
     @impl
     async def idGen(

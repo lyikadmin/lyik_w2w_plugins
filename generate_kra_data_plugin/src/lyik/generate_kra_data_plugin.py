@@ -11,6 +11,7 @@ from lyikpluginmanager import (
     FATCAAddlDtls,
     ROOTDataModel,
     GenericKYCData,
+    PluginException,
 )
 import json
 import os
@@ -21,6 +22,9 @@ from typing_extensions import Doc
 from lyikpluginmanager.annotation import RequiredEnv
 import re
 from dotenv import load_dotenv
+import logging
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -65,7 +69,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
 
         # Parse the data into the Pydantic model
         parsed_data: KYCDataModel = KYCDataModel(**kyc_holder.model_dump())
-
+        logger.debug("Parsed data from KYC holder")
         # kyc_holder = parsed_data
         pan_details = parsed_data.kyc_holder.pan_verification.pan_details
         identity_address__verification = (
@@ -265,7 +269,8 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         if aadhaar_number[-4:].isdigit():
             return aadhaar_number[-4:]
         else:
-            raise ValueError(
+            raise PluginException(
+                "Aadhaar number is not a valid number"
                 "Invalid Aadhaar number. The last 4 characters must be digits."
             )
 
@@ -335,7 +340,8 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
             if country is not None:
                 return self.get_fatca_country_code(country_name=country)
             else:
-                raise ValueError("Country is not available")
+                raise PluginException(
+                    "Country is not available", "Fatca country is not available"
+                )
         except Exception as e:
-            print(f"Error in getting FATCA country origin: {e}")
-            return ""
+            raise PluginException("FATCA country origin is not available")
