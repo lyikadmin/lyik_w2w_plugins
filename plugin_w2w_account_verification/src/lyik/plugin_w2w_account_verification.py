@@ -10,6 +10,7 @@ from lyikpluginmanager import (
     VerifyHandlerSpec,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
+    PluginException
 )
 from lyikpluginmanager.annotation import RequiredEnv
 
@@ -39,7 +40,7 @@ class AccountDetailsVerification(VerifyHandlerSpec):
             }
 
             if not db_config["server"]:
-                raise ValueError("Server configuration not set")
+                raise PluginException("Server configuration not set")
 
             with pymssql.connect(**db_config) as conn:
                 cursor = conn.cursor(as_dict=True)
