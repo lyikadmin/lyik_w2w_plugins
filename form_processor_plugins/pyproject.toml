@@ -16,4 +16,4 @@ dependencies = [
 ]
 
 [project.entry-points."LYIK"]
-_500_W2W_APP_DETAIL_DEFAULTS = "lyik.application_default:ApplicationDefaults"
+_200_W2W_APP_DETAIL_DEFAULTS = "lyik.application_default:ApplicationDefaults"

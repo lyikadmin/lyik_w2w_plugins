@@ -25,4 +25,4 @@ dependencies = ["requests==2.32.3", "pydantic[email]==2.10.3"]
 ]
 
 [project.entry-points."LYIK"]
-_80_NSDL_DEMAT_TRANSLATOR_PLUGIN = "lyik.nsdl_demat_translator:NSDLDemat"
+_200_NSDL_DEMAT_TRANSLATOR_PLUGIN = "lyik.nsdl_demat_translator:NSDLDemat"

@@ -13,4 +13,4 @@ requires-python = ">=3.10"
 dependencies = ["PyJWT==2.6.0"]
 
 [project.entry-points."LYIK"]
-_500_OPERATIONS = "lyik.plugin_operations_list:OperationsListPlugin"
+_200_OPERATIONS = "lyik.plugin_operations_list:OperationsListPlugin"

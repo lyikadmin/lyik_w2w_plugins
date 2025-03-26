@@ -21,4 +21,4 @@ dependencies = ["python-dotenv==1.0.1"]
 ]
 
 [project.entry-points."LYIK"]
-_100_GENERATE_KRA_DATA_PLUGIN = "lyik.generate_kra_data_plugin:GenerateKRADataPlugin"
+_200_GENERATE_KRA_DATA_PLUGIN = "lyik.generate_kra_data_plugin:GenerateKRADataPlugin"
