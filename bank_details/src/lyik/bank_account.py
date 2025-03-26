@@ -10,8 +10,11 @@ from lyikpluginmanager import (
 )
 from pydantic import BaseModel, ConfigDict, Field
 from typing_extensions import Annotated, Doc
+import logging
 
 impl = pluggy.HookimplMarker(getProjectName())
+
+logger = logging.getLogger(__name__)
 from thefuzz import fuzz
 
 NAME_MATCHING_THRESHOLD = 80
@@ -143,6 +146,7 @@ class BankAccount(VerifyHandlerSpec):
             )
 
         except Exception as e:
+            logger.debug(f"Exception occured while verifying bank: {str(e)}")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",

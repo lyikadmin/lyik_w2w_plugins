@@ -1,30 +1,20 @@
 import apluggy as pluggy
-import requests
-from datetime import datetime
 from lyikpluginmanager import (
     getProjectName,
     ContextModel,
     NSDLDematSpec,
     NSDLRquestModel,
-    Instr,
-    BankDetails,
-    BankAddress,
-    BeneficiaryDetails,
-    PrimaryBeneficiary,
-    JointHolder,
-    AdditionalBeneficiaryDetails,
-    NomineeIdentificationDetails,
-    Address,
     GenericFormRecordModel,
-    NSDLNominee,
     PluginException,
 )
 from .nsdl_demat_model.form_record_mpdel import FormRecordModel
 from .form_record_mapping import map_form_record
 from typing import Annotated
 from typing_extensions import Doc
-import json
 from lyikpluginmanager.annotation import RequiredEnv
+import logging
+
+logger = logging.getLogger(__name__)
 from pydantic import ValidationError
 from .nsdl_transator_utility.validation_utility import get_readable_validation_error
 
@@ -51,7 +41,7 @@ class NSDLDemat(NSDLDematSpec):
             # Validating the form record
 
             form_record_model = FormRecordModel.model_validate(form_record.model_dump())
-
+            logger.debug("Form record model parsed and validated")
             # Map the form record to NSDL demat request model
             nsdl_model = await map_form_record(
                 form_record_model=form_record_model, context=context

@@ -8,12 +8,15 @@ from lyikpluginmanager import (
     VerifyHandlerSpec,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
+    PluginException,
 )
+import logging
 import asyncio
 from typing_extensions import Annotated, Doc
 from lyikpluginmanager.annotation import InputModel, OutputModel, RequiredVars
 
 impl = pluggy.HookimplMarker(getProjectName())
+logger = logging.getLogger(__name__)
 
 
 class NomineePayloadModel(BaseModel):
@@ -32,12 +35,12 @@ class NomineeAllocationVerification(VerifyHandlerSpec):
 
     @impl
     async def verify_handler(
-            self,
-            context: ContextModel,
-            payload: Annotated[
-                NomineePayloadModel,
-                Doc("data related to nominees and their percentage of allocations"),
-            ],
+        self,
+        context: ContextModel,
+        payload: Annotated[
+            NomineePayloadModel,
+            Doc("data related to nominees and their percentage of allocations"),
+        ],
     ) -> Annotated[VerifyHandlerResponseModel, Doc("success or failure status.")]:
         """
         Given the nomination details, it verifies the sum of percentage of allocation for the nominees, whoch has to be 100%.
@@ -45,8 +48,8 @@ class NomineeAllocationVerification(VerifyHandlerSpec):
         try:
             # Check if nomination is selected
             if (
-                    payload.general.get("client_nominee_appointment_status", "").lower()
-                    == "no"
+                payload.general.get("client_nominee_appointment_status", "").lower()
+                == "no"
             ):
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.SUCCESS,
@@ -66,10 +69,10 @@ class NomineeAllocationVerification(VerifyHandlerSpec):
                     for nominee in nominee_data
                 )
             except Exception as ex:
-                raise Exception("Invalid entry for 'Percentage of Allocation'(s)")
+                raise PluginException("Invalid entry for 'Percentage of Allocation'(s)")
 
             if total_allocation != 100:
-                raise Exception(
+                raise PluginException(
                     f"Total percentage of allocation is {total_allocation}, which does not equal to 100."
                 )
 
@@ -80,6 +83,7 @@ class NomineeAllocationVerification(VerifyHandlerSpec):
                 actor="system",
             )
         except Exception as e:
+            logger.debug(f"Exception occured while nominee verification: {str(e)}")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 message=f"{e}",

@@ -27,9 +27,6 @@ import base64
 from typing import List
 import os
 from datetime import datetime
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 async def map_form_record(

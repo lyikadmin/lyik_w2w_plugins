@@ -24,6 +24,7 @@ from lyikpluginmanager import (
     DocQueryGenericModel,
     GenerateAllDocsResponseModel,
     GenerateAllDocsStatus,
+    PluginException
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
 from typing import List
@@ -74,11 +75,11 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
         """
 
         if context is None:
-            raise ValueError("context must be provided")
+            raise PluginException("context must be provided")
         if context.config is None:
-            raise ValueError("config must be provided in the context")
+            raise PluginException("config must be provided in the context")
         if record_id is None:
-            raise ValueError("recordid must be provided")
+            raise PluginException("recordid must be provided")
         pdf_core = PdfCore()
         try:
             generate_all_docs_res = await pdf_core.generate_all_docs(
@@ -130,11 +131,11 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
         This function will generate and store the pdf(s).
         """
         if context is None:
-            raise ValueError("context must be provided")
+            raise PluginException("context must be provided")
         if context.config is None:
-            raise ValueError("config must be provided in the context")
+            raise PluginException("config must be provided in the context")
         if record_id is None:
-            raise ValueError("recordid must be provided")
+            raise PluginException("recordid must be provided")
         pdf_core = PdfCore()
 
         return await pdf_core.generate_all_docs(
@@ -170,9 +171,9 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
         # return super().generate_pdf(context, form_name, data)
 
         if context is None:
-            raise ValueError("context must be provided")
+            raise PluginException("context must be provided")
         if context.config is None:
-            raise ValueError("config must be provided in the context")
+            raise PluginException("config must be provided in the context")
 
         pdf_core = PdfCore()
         return await pdf_core.generate_main_doc(
