@@ -3,12 +3,19 @@ from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
 
 
+class Document(BaseModel):
+    doc_id: str | None = Field(default=None)
+    doc_name: str | None = Field(default=None)
+    doc_size: int | None = Field(default=None)
+    doc_content: str | None = Field(default=None)
+
+
 class NomineeData(BaseModel):
     minor_nominee: Optional[str] = Field(default=None)
     nominee_type_of_id: Optional[str] = Field(default=None)
     name_of_nominee: Optional[str] = Field(default=None)
     percentage_of_allocation: Optional[str] = Field(default=None)
-    nominee_id_proof: Optional[str] = Field(default=None)
+    nominee_id_proof: Document | None = Field(default=None)
     id_number: Optional[str] = Field(default=None)
     dob_nominee: Optional[str] = Field(default=None)
     nominee_address: Optional[str] = Field(default=None)
@@ -19,7 +26,7 @@ class NomineeData(BaseModel):
 
 
 class GuardianData(BaseModel):
-    guardian_id_proof: Optional[str] = Field(default=None)
+    guardian_id_proof: Document | None = Field(default=None)
     guardian_type_of_id: Optional[str] = Field(default=None)
     guardian_name: Optional[str] = Field(default=None)
     guardian_address: Optional[str] = Field(default=None)

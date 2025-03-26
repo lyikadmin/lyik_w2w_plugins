@@ -3,7 +3,7 @@ FROM lyikprodblueacr.azurecr.io/lyik-api:latest
 
 # Set environment variables
 ENV LOAD=FALSE
-ENV MODE=NONE
+ENV MODE=''
 
 # # Set up SSH keys (for private Git repo access)
 # WORKDIR /root/.ssh
