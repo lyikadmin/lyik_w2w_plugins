@@ -12,6 +12,7 @@ from lyikpluginmanager import (
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
     generate_hash_id_from_dict,
+    PluginException,
 )
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Annotated, Doc
@@ -187,9 +188,9 @@ class ApplicationDetails(VerifyHandlerSpec):
                 # logger.info(f"Extracted franchise_id: {franchise_id}")
                 return franchise_id
         except jwt.DecodeError:
-            logger.error("Failed to decode JWT token. Using DEFAULT.")
+            logger.debug(f"Failed to decode JWT token. Using DEFAULT.")
         except Exception as e:
-            logger.error(f"Unexpected error decoding JWT: {e}")
+            logger.debug(f"Unexpected error decoding JWT: {e}")
 
         return DEFAULT  # Default fallback if franchise_id is missing or decoding fails
 
@@ -214,11 +215,11 @@ class ApplicationDetails(VerifyHandlerSpec):
                 return row.iloc[0].to_dict()
 
         except FileNotFoundError:
-            logger.error("CSV file not found. Skipping verification.")
+            logger.debug("CSV file not found. Skipping verification.")
         except pd.errors.ParserError:
-            logger.error("Error parsing CSV file. Skipping verification.")
+            logger.debug("Error parsing CSV file. Skipping verification.")
         except Exception as e:
-            logger.error(f"Unexpected error reading CSV: {e}")
+            logger.debug(f"Unexpected error reading CSV: {e}")
 
         return None  # Return None if an error occurs
 
@@ -243,7 +244,7 @@ class ApplicationDetails(VerifyHandlerSpec):
                         )
 
         except Exception as e:
-            logger.error(f"Fatal error during verification: {e}")
+            logger.debug(f"Fatal error during verification: {e}")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
@@ -306,6 +307,6 @@ def validate_phone(value: str) -> str:
         region=phonenumbers.region_code_for_country_code(int(91)),
     )
     if not phonenumbers.is_valid_number(phone):
-        raise ValueError(f"{value} does not seem like a valid phone number")
+        raise PluginException(f"{value} does not seem like a valid phone number")
 
     return phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
