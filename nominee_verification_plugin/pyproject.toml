@@ -13,4 +13,4 @@ requires-python = ">=3.10"
 dependencies = []
 
 [project.entry-points."LYIK"]
-_100_VERIFIER_NOMINEE_ALLOCATION = "lyik.nominee_verification_plugin:NomineeAllocationVerification"
+_200_VERIFIER_NOMINEE_ALLOCATION = "lyik.nominee_verification_plugin:NomineeAllocationVerification"
