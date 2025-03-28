@@ -16,4 +16,4 @@ dependencies = [
 ]
 
 [project.entry-points."LYIK"]
-_500_W2W_APPLICATION_ID = "lyik.application_id:ApplicationId"
+_200_W2W_APPLICATION_ID = "lyik.application_id:ApplicationId"
