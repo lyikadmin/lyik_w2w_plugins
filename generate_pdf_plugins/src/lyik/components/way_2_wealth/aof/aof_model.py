@@ -11,9 +11,11 @@ from reportlab.lib.enums import TA_CENTER
 from ...way_2_wealth.aof.aof_text_consts import AOFConstantTexts
 from ...components import PdfComponents, HorizontalLine
 from ...colors import PdfColors
+from ....models.digi_aadhaar_data import Aadhaar, extract_aadhaar_data
 from ....pdf_utilities.utility import format_xml, split_into_chunks, format_date
 from html import escape
-
+from pydantic import BaseModel
+import xml.etree.ElementTree as ET
 class AOF:
     def __init__(self,data:dict=None) -> None:
         self.constant_texts = AOFConstantTexts(json_data=data)
@@ -172,38 +174,79 @@ class AOF:
         return [page2_first_headered_table, Spacer(1,0.1*inch),Spacer(2, 0.3 * inch),page2_second_headered_table,Spacer(1, 0.6 * inch),PageBreak()]
 
 
-    def get_aadhaar_xml_pages(self, doc, index):
+    # def get_aadhaar_xml_pages(self, doc, index):
+    #     constant_texts = self.constant_texts.page_kyc_details[index]
+    #     pdf_styles = PdfStyles()
+        
+    #     formatted_xml = format_xml(constant_texts.aadhaar_xml)
+        
+    #     # Extract XML data and split into chunks
+    #     xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+    #     # Create the header row and the initial table structure
+    #     table_data = [[
+    #         Paragraph(f'Digilocker Aadhaar XML for {constant_texts.identity_aadhar_value}', 
+    #                 style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
+            
+    #     ]]
+        
+    #     # Create additional rows for the XML chunks
+    #     for chunk in xml_chunks:
+    #         table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
+        
+    #     table = Table(table_data)
+        
+    #     # Apply styles: Grid only for the first cell in the first row
+    #     table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
+    #         ('TOPPADDING', (0, 0), (0, 0), 4),
+    #         ('TOPPADDING', (-1, -1), (-1, -1), 4),
+    #         ('BOTTOMPADDING', (0, 0), (0, 0), 4),
+    #         ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
+    #         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
+    #     ]))
+
+    #     return table
+    
+    async def get_aadhaar_xml_pages(self, doc, index):
         constant_texts = self.constant_texts.page_kyc_details[index]
         pdf_styles = PdfStyles()
-        
-        # Todo: Either handle the <Ldata> tag(data in local lang) with specific font, or remove it from xml itself.
-        formatted_xml = format_xml(constant_texts.aadhaar_xml)
-        
-        # Extract XML data and split into chunks
-        xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+        pdf_components = PdfComponents()
+        pdf_tables = PdfTables()
+
+        aadhaar_data = extract_aadhaar_data(xml_data=constant_texts.aadhaar_xml)
+        if not aadhaar_data:
+            return None
         # Create the header row and the initial table structure
-        table_data = [[
-            Paragraph(f'Digilocker Aadhaar XML for {constant_texts.identity_aadhar_value}', 
+        table_header = Paragraph(f'Aadhaar data as in Digilocker for {constant_texts.identity_aadhar_value}', 
                     style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
             
-        ]]
-        
-        # Create additional rows for the XML chunks
-        for chunk in xml_chunks:
-            table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
-        
-        table = Table(table_data)
-        
+        photo_box_width = 1.5*inch
+
+        name_field = pdf_components.get_text_field(doc=doc,field_name='Name:', value=aadhaar_data.name, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        dob_field = pdf_components.get_text_field(doc=doc,field_name='Date of Birth:', value=aadhaar_data.dob, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        gender_field = pdf_components.get_text_field(doc=doc,field_name='Gender:', value=aadhaar_data.gender, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        co_field = pdf_components.get_text_field(doc=doc,field_name='Care of(co):', value=aadhaar_data.co, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        address_field = pdf_components.get_multiline_text(doc=doc, lines=2,text=aadhaar_data.address,width=(doc.width - doc.leftMargin*2))
+
+        left = Table([[table_header],[name_field],[dob_field],[gender_field],[co_field]])
+        left.setStyle(pdf_styles.padded_table_style(top=1))
+
+        photo_box = pdf_components.create_bordered_input_box(doc,image_bytes=aadhaar_data.photo,text_value='Aadhaar Photo N/A',text_style=pdf_styles.normal_text_style(alignment=1,fontsize=9),width=photo_box_width-10,height=photo_box_width,text_size=8)
+        right = Table([[photo_box]],style=pdf_styles.padded_table_style())
+
+        bottom = Table([[address_field]],style=pdf_styles.padded_table_style(top=1))
+
+        table = Table([[table_header],[left,right],[bottom]],style=pdf_styles.bordered_table_style(h_margin=5,v_margin=5))
+            
         # Apply styles: Grid only for the first cell in the first row
         table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
             ('TOPPADDING', (0, 0), (0, 0), 4),
             ('TOPPADDING', (-1, -1), (-1, -1), 4),
             ('BOTTOMPADDING', (0, 0), (0, 0), 4),
             ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
         ]))
 
         return table
+
 
     async def get_kyc_pages(self,doc,index):
 
@@ -618,7 +661,7 @@ class AOF:
         return table
 
 
-    def get_page6(self,doc):
+    async def get_page6(self,doc):
         constant_texts = self.constant_texts
         pdf_styles = PdfStyles()
         pdf_tables = PdfTables()
@@ -653,11 +696,21 @@ class AOF:
 
         exchange_and_segment_heading = Paragraph(constant_texts.page6_exchange_and_segment_preferences_heading,style=pdf_styles.bold_text_style(alignment=1,fontsize=8))
         exchange_and_segment_instructions = Paragraph(constant_texts.page6_exchange_and_segment_preferences_instruction,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
-        exchange_segment_table = pdf_tables.create_table(data=[[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=8)) for cell in row] for row in constant_texts.page6_exchange_segment_table_data],
+        
+        exchange_and_segment_table_data = [[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=8)) for cell in row] for row in constant_texts.page6_exchange_segment_table_data]
+        _file_id = constant_texts.page_kyc_details[0].applicant_wet_sign_value if 0 < len(self.constant_texts.page_kyc_details) else None
+        _wetsign_bytes = await pdf_components.fetch_image_bytes(file_id=_file_id) if _file_id else None
+        _client_sign = pdf_components.get_image_from_bytes(file_bytes=_wetsign_bytes,width=2*inch,height=0.5*inch) if _wetsign_bytes else ''
+
+        for index in range(1, len(constant_texts.page6_exchange_segment_table_data)):
+            if constant_texts.page6_exchange_segment_selected_options[index]:
+                exchange_and_segment_table_data[index][2] = _client_sign
+
+        exchange_segment_table = pdf_tables.create_table(data=exchange_and_segment_table_data,
                                                          col_widths=[(doc.width-doc.rightMargin*2)*0.4,(doc.width-doc.rightMargin*2)*0.15,(doc.width-doc.rightMargin*2)*0.45],
                                                          style=pdf_styles.bordered_grid_table_style(styling_list=[('SPAN', (0, 1), (0, 3)),('VALIGN', (0, 0), (-1, -1),'MIDDLE')],v_margin=2),
                                                          row_heights=[None,50,50,50,50,50],)
-
+        
         exchange_pref_note = Paragraph(constant_texts.page6_exchange_prefs_note,style=pdf_styles.normal_text_style(alignment=0,fontsize=9))
         exchange_pref_past_action_label = Paragraph(constant_texts.page6_exchange_prefs_past_action_label,style=pdf_styles.normal_text_style(alignment=0,fontsize=9))
         exchange_pref_past_action_value_field = pdf_components.get_text_field(doc=doc,field_name='',value=constant_texts.page6_exchange_prefs_past_action_value,width=(doc.width-doc.rightMargin*2)*0.5)

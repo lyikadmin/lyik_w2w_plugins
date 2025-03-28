@@ -8,9 +8,7 @@ from reportlab.lib.pagesizes import A4
 from html import escape
 from ....images import load_logo
 from .....pdf_utilities.utility import format_date, format_xml, split_into_chunks
-
-
-
+from .....models.digi_aadhaar_data import Aadhaar, extract_aadhaar_data
 class AOF_IND:
     def __init__(self,data:dict, date_of_submission:str,application_no:str,is_digilocker:bool=True):
         self.constant_texts = AOFINDConstantsTexts(json_data=data,application_no=application_no,is_digilocker=is_digilocker)
@@ -33,7 +31,7 @@ class AOF_IND:
 
         # dec_section = self._get_page3_declaration(doc)
 
-        return [form_header,section1,section2A,section2B,section_proof_of_address,applicants_sign_section,PageBreak(),section3,section4,section5_6_7,section8,kyc_bottom_section,PageBreak()]
+        return [form_header,section1,section2A,section2B,section_proof_of_address,applicants_sign_section,PageBreak(),section3,section4,section5_6_7,section8,kyc_bottom_section]
     
     async def _get_kyc_section1(self,doc:BaseDocTemplate):
     
@@ -271,7 +269,7 @@ class AOF_IND:
         ])
         )
 
-        right_cell = Table([[Paragraph(constant_texts.data.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[Paragraph(constant_texts.data.application_no_value,style=pdf_styles.normal_text_style(alignment=0, fontsize=8,text_color=pdf_colors.filled_data_color))]], colWidths=[1.5*inch],rowHeights=[None,16])
+        right_cell = Table([[Paragraph(constant_texts.data.application_no_label,style=pdf_styles.bold_text_style(fontsize=8,alignment=1))],[Paragraph(constant_texts.data.application_no_value,style=pdf_styles.normal_text_style(alignment=1, fontsize=8,text_color=pdf_colors.filled_data_color))]], colWidths=[2*inch],rowHeights=[None,16])
         right_cell.setStyle(
             TableStyle([
             ('ALIGN', (0, 0), (-1,-1), 'CENTER'),
@@ -435,36 +433,76 @@ class AOF_IND:
         table.setStyle(pdf_styles.bordered_table_style(h_margin=2,v_margin=2))
         return table
 
-    def get_aadhaar_xml_pages(self, doc):
-        constant_texts = self.constant_texts
+    # def get_aadhaar_xml_pages(self, doc):
+    #     constant_texts = self.constant_texts
+    #     pdf_styles = PdfStyles()
+
+    #     # Todo: Either handle the <Ldata> tag(data in local lang) with specific font, or remove it from xml itself.
+    #     formatted_xml = format_xml(constant_texts.data.aadhaar_xml)
+
+    #     # Extract XML data and split into chunks
+    #     xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+    #     # Create the header row and the initial table structure
+    #     table_data = [[
+    #         Paragraph(f'Digilocker Aadhaar XML for {constant_texts.data.identity_aadhar_value}',
+    #                 style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
+
+    #     ]]
+
+    #     # Create additional rows for the XML chunks
+    #     for chunk in xml_chunks:
+    #         table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
+
+    #     table = Table(table_data)
+
+    #     # Apply styles: Grid only for the first cell in the first row
+    #     table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
+    #         ('TOPPADDING', (0, 0), (0, 0), 4),
+    #         ('TOPPADDING', (-1, -1), (-1, -1), 4),
+    #         ('BOTTOMPADDING', (0, 0), (0, 0), 4),
+    #         ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
+    #         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
+    #     ]))
+
+    #     return table
+
+    async def get_aadhaar_xml_pages(self, doc):
+        constant_texts = self.constant_texts.data
         pdf_styles = PdfStyles()
+        pdf_components = PdfComponents()
+        pdf_tables = PdfTables()
 
-        # Todo: Either handle the <Ldata> tag(data in local lang) with specific font, or remove it from xml itself.
-        formatted_xml = format_xml(constant_texts.data.aadhaar_xml)
-
-        # Extract XML data and split into chunks
-        xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+        aadhaar_data = extract_aadhaar_data(xml_data=constant_texts.aadhaar_xml)
+        if not aadhaar_data:
+            return None
         # Create the header row and the initial table structure
-        table_data = [[
-            Paragraph(f'Digilocker Aadhaar XML for {constant_texts.data.identity_aadhar_value}',
+        table_header = Paragraph(f'Aadhaar data as in Digilocker for {constant_texts.identity_aadhar_value}', 
                     style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
+            
+        photo_box_width = 1.5*inch
 
-        ]]
+        name_field = pdf_components.get_text_field(doc=doc,field_name='Name:', value=aadhaar_data.name, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        dob_field = pdf_components.get_text_field(doc=doc,field_name='Date of Birth:', value=aadhaar_data.dob, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        gender_field = pdf_components.get_text_field(doc=doc,field_name='Gender:', value=aadhaar_data.gender, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        co_field = pdf_components.get_text_field(doc=doc,field_name='Care of(co):', value=aadhaar_data.co, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
+        address_field = pdf_components.get_multiline_text(doc=doc, lines=2,text=aadhaar_data.address,width=(doc.width - doc.leftMargin*2))
 
-        # Create additional rows for the XML chunks
-        for chunk in xml_chunks:
-            table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
+        left = Table([[table_header],[name_field],[dob_field],[gender_field],[co_field]])
+        left.setStyle(pdf_styles.padded_table_style(top=1))
 
-        table = Table(table_data)
+        photo_box = pdf_components.create_bordered_input_box(doc,image_bytes=aadhaar_data.photo,text_value='Aadhaar Photo N/A',text_style=pdf_styles.normal_text_style(alignment=1,fontsize=9),width=photo_box_width-10,height=photo_box_width,text_size=8)
+        right = Table([[photo_box]],style=pdf_styles.padded_table_style())
 
+        bottom = Table([[address_field]],style=pdf_styles.padded_table_style(top=1))
+
+        table = Table([[table_header],[left,right],[bottom]],style=pdf_styles.bordered_table_style(h_margin=5,v_margin=5))
+            
         # Apply styles: Grid only for the first cell in the first row
         table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
             ('TOPPADDING', (0, 0), (0, 0), 4),
             ('TOPPADDING', (-1, -1), (-1, -1), 4),
             ('BOTTOMPADDING', (0, 0), (0, 0), 4),
             ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
         ]))
 
         return table
-

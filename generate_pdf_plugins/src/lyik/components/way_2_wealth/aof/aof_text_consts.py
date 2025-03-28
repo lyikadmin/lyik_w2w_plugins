@@ -512,6 +512,16 @@ class AOFConstantTexts:
             ["MCX Commodity Exchange","Commodities Derivatives",""]
         ]
 
+        self.page6_exchange_segment_selected_options = [
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_1',''), # Equity Cash
+            '', # self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_2',''), # Equity Derivatives option not in form
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_3',''), # Currency Derivatives
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_6',''), # SLB
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_4','') # Commodities Derivatives
+            # self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_5',''), # MF option not in pdf!
+
+        ]
+
         self.page6_exchange_prefs_note = 'Note: In future if the client want to trade in new segment / Exchange, separate authorisation letter should be given by client'
         self.page6_exchange_prefs_past_action_label = "Past Actions: Details of any action / proceedings initiated / pending / taken by SEBI / Stock exchange / any other authority against the applicant / constituent or its Partners / promoters / whole time directors / authorized persons in charge of dealing in securities during the last 3 years."
         self.page6_exchange_prefs_past_action_value = ''
