@@ -205,50 +205,52 @@ class CDSLDematDataParser(CDSLPayloadDataParserSpec):
             nominees_records: List[NomineeRecord] = []
             nominees_guardians: List[NomineeGuardianRecord] = []
 
-            for index, data in enumerate(cdsl_utility.nominees()):
-                nominee = data.nominee_data
-                guardian_data = data.guardian_data
-                # nominee data
-                nominee_record = NomineeRecord(
-                    BOTxnTyp=BOTransactionType.BOSET,
-                    Purpse=Purpose.NM,
-                    FrstNm=cdsl_utility.nominee_first_name(nominee),
-                    BirthDt=cdsl_utility.nominee_dob(nominee),  # Unknown source
-                    NmneeMnrInd=cdsl_utility.nominee_minor_indicator(),
-                    RltshWthBnfclOwnr=None,  # Unknown source
-                    NmnorGrdnAddPrsnt=cdsl_utility.nm_or_grdn_add_prsnt(data),
-                    # Address fields not separately available
-                    Adr1=None,  #
-                    Adr2=None,
-                    Adr3=None,
-                    Adr4=None,
-                    NmneePctgOfShr=nominee.percentage_of_allocation,
-                    SrlNbr=index + 1,  # Not applicable for CDSL
-                    FlgForShrPctgEqlty=cdsl_utility.nominee_equal_share_flag(),
-                    RsdlSecFlg=None,  # Unknown source
-                    PurpCd=cdsl_utility.nominee_purpose_code(),
-                )
-                nominees_records.append(nominee_record)
+            if cdsl_utility.nomination_details.general.client_nominee_appointment_status.upper() == "YES":
 
-                # NOMINEE GUARDIAN RECORD
-                if nominee.is_minor and guardian_data is not None:
-                    guardian_record = NomineeGuardianRecord(
+                for index, data in enumerate(cdsl_utility.nominees()):
+                    nominee = data.nominee_data
+                    guardian_data = data.guardian_data
+                    # nominee data
+                    nominee_record = NomineeRecord(
                         BOTxnTyp=BOTransactionType.BOSET,
-                        Purpse=Purpose.NMG,
-                        MnrNmnGrdnAddPrsnt=cdsl_utility.nmnor_grdn_add_prsnt(
-                            guardian_data
-                        ),
+                        Purpse=Purpose.NM,
+                        FrstNm=cdsl_utility.nominee_first_name(nominee),
+                        BirthDt=cdsl_utility.nominee_dob(nominee),  # Unknown source
+                        NmneeMnrInd=cdsl_utility.nominee_minor_indicator(),
+                        RltshWthBnfclOwnr=None,  # Unknown source
+                        NmnorGrdnAddPrsnt=cdsl_utility.nm_or_grdn_add_prsnt(data),
                         # Address fields not separately available
-                        Adr1=None,
+                        Adr1=None,  #
                         Adr2=None,
                         Adr3=None,
                         Adr4=None,
-                        FrstNm=cdsl_utility.nominee_guardian_name(guardian_data),
-                        RltshWthBnfclOwnr=None,  # Source unknown
-                        PurpCd=cdsl_utility.nominee_guardian_purpose_code(),
+                        NmneePctgOfShr=nominee.percentage_of_allocation,
+                        SrlNbr=index + 1,  # Not applicable for CDSL
+                        FlgForShrPctgEqlty=cdsl_utility.nominee_equal_share_flag(),
+                        RsdlSecFlg=None,  # Unknown source
+                        PurpCd=cdsl_utility.nominee_purpose_code(),
                     )
+                    nominees_records.append(nominee_record)
 
-                    nominees_guardians.append(guardian_record)
+                    # NOMINEE GUARDIAN RECORD
+                    if nominee.is_minor and guardian_data is not None:
+                        guardian_record = NomineeGuardianRecord(
+                            BOTxnTyp=BOTransactionType.BOSET,
+                            Purpse=Purpose.NMG,
+                            MnrNmnGrdnAddPrsnt=cdsl_utility.nmnor_grdn_add_prsnt(
+                                guardian_data
+                            ),
+                            # Address fields not separately available
+                            Adr1=None,
+                            Adr2=None,
+                            Adr3=None,
+                            Adr4=None,
+                            FrstNm=cdsl_utility.nominee_guardian_name(guardian_data),
+                            RltshWthBnfclOwnr=None,  # Source unknown
+                            PurpCd=cdsl_utility.nominee_guardian_purpose_code(),
+                        )
+
+                        nominees_guardians.append(guardian_record)
 
             all_entries = []
             for hold in holders:
