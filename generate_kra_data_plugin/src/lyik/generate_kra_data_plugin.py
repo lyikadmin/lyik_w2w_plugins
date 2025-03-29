@@ -237,7 +237,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
                 return "02"
 
     def get_residential_status(self, is_tax_resident: str) -> str:
-        if is_tax_resident.lower() == "Yes".lower():
+        if is_tax_resident.lower() == "no".lower():
             return "R"
         else:
             return "N"
@@ -327,7 +327,7 @@ class GenerateKRADataPlugin(KRATranslatorSpec):
         """"""
         try:
             country = None
-            if is_indian_citizen.lower() == "yes":
+            if is_indian_citizen.lower() == "no":
                 country = "India"
             else:
                 if (

@@ -101,3 +101,9 @@ class TradingAccountVerification(VerifyHandlerSpec):
                 message=" ".join(error_messages),
                 actor="system",
             )
+        except PluginException as e:
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                message=e.message,
+                actor="system",
+            )
