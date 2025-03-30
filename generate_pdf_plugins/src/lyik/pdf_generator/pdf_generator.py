@@ -27,7 +27,8 @@ def create_document(filename:str,author:str=None):
                           creator='Way2Wealth Brokers Private Limited',
                           subject='',
                           author= author if author else '',
-                          producer='LYIK Technologies Pvt Ltd'
+                          producer='LYIK Technologies Pvt Ltd',
+                          embedFonts=True 
                           )
     return doc
 
@@ -99,7 +100,7 @@ class PdfGenerator():
 
 
         # add image as 5th page 
-        story.append(pdf_components.insert_image_as_page(doc,'aof_05.jpg'))
+        story.append(pdf_components.load_local_image(wt=doc.width,ht=doc.height,image_dir='lyik.components.way_2_wealth.aof.images',file_name='aof_05.jpg'))
 
         # create 6th page
         page6 = await aof.get_page6(doc=doc)
@@ -144,7 +145,7 @@ class PdfGenerator():
 
 
         # add image as 14th page 
-        story.append(pdf_components.insert_image_as_page(doc,'aof_14.jpg'))
+        story.append(pdf_components.load_local_image(wt=doc.width,ht=doc.height,image_dir='lyik.components.way_2_wealth.aof.images',file_name='aof_14.jpg'))
 
         # create 15th page
         page15 = await aof.get_page15(doc=doc)
@@ -158,9 +159,7 @@ class PdfGenerator():
                 if xml_page:
                     story.append(PageBreak())
                     story.append(xml_page)
-
-        # Todo: Add Geo Location data page
-                
+         
 
         # ADD all the documents to the end of pdf.
         exclude_files = ['liveness_photo']
@@ -220,8 +219,6 @@ class PdfGenerator():
             xml_page = aof_ind.get_aadhaar_xml_pages(doc=doc)
             story.append(PageBreak())
             story.append(xml_page)
-
-        # Todo: Add Geo Location data page
 
         images:list[Image] = []
 

@@ -9,6 +9,8 @@ from html import escape
 from ....images import load_logo
 from .....pdf_utilities.utility import format_date, format_xml, split_into_chunks
 from .....models.digi_aadhaar_data import Aadhaar, extract_aadhaar_data
+from .....models.geocode_location import GeocodeLocation
+
 class AOF_IND:
     def __init__(self,data:dict, date_of_submission:str,application_no:str,is_digilocker:bool=True):
         self.constant_texts = AOFINDConstantsTexts(json_data=data,application_no=application_no,is_digilocker=is_digilocker)
@@ -16,6 +18,9 @@ class AOF_IND:
 
 
     async def get_pages(self,doc):
+
+        pdf_components = PdfComponents()
+        pdf_styles = PdfStyles()
 
         form_header = self._get_kyc_form_header(doc=doc)
         section1 = await self._get_kyc_section1(doc=doc)
@@ -29,9 +34,15 @@ class AOF_IND:
         section8 = await self._get_kyc_section8(doc=doc)
         kyc_bottom_section = self._get_kyc_verification_details_section(doc=doc)
 
-        # dec_section = self._get_page3_declaration(doc)
+        # Geo Location data
+        constant_texts = self.constant_texts
+        geoloc_table = None, 
+        if constant_texts.data.geocode_location and isinstance(constant_texts.data.geocode_location,GeocodeLocation):
+            geoloc_details = pdf_components.create_bordered_input_box(doc=doc,text_value=f'Liveness taken at ({constant_texts.data.geocode_location.longitude}, {constant_texts.data.geocode_location.latitude}): {constant_texts.data.geocode_location.formatted_address}',height=0.6*inch,width=doc.width-doc.rightMargin,text_size=11,text_style=pdf_styles.normal_text_style(alignment=4,fontsize=9,indent=5)),
+            geoloc_table = PdfTables().create_table(data=[[geoloc_details]],col_widths=[None],style=pdf_styles.padded_table_style())
 
-        return [form_header,section1,section2A,section2B,section_proof_of_address,applicants_sign_section,PageBreak(),section3,section4,section5_6_7,section8,kyc_bottom_section]
+
+        return [form_header,section1,section2A,section2B,section_proof_of_address,applicants_sign_section,PageBreak(),section3,section4,section5_6_7,section8,kyc_bottom_section, Spacer(1, 0.1 * inch), geoloc_table if geoloc_table else Spacer(1, 1)]
     
     async def _get_kyc_section1(self,doc:BaseDocTemplate):
     
@@ -189,7 +200,7 @@ class AOF_IND:
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>' if constant_texts.data.address_permanent_value else ''
                 )
         
-        poa_table_data[perm_address_type_index][3]= Paragraph(constant_texts.data.identity_aadhar_value,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+        poa_table_data[perm_address_type_index][3]= Paragraph(f'{constant_texts.data.identity_aadhar_value}'.upper(),style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
         if constant_texts.data.is_address_correspondence_same_as_permanent:
             poa_table_data[perm_address_type_index][0] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
@@ -344,7 +355,16 @@ class AOF_IND:
         iso_country_code = pdf_components.get_text_field(doc,field_name=constant_texts.data.iso_3166_country_code_label,value=constant_texts.data.iso_3166_country_code_value,width=(doc.width-doc.rightMargin*2)/3,size=8)
         pob_country_iso_code = Table([[pob,country_of_origin,iso_country_code]],style=pdf_styles.padded_justified_table_style())
 
-        fatca_tin_table = pdf_tables.create_table(data= [[Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row] for row in constant_texts.data.fatca_table_data],style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2,styling_list=[('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),]),col_widths=[None,None,None,None],row_heights=[None,10,10,10])
+        fatca_tin_table_data = []
+        row_hts = []
+        for row_index, row in enumerate(constant_texts.data.fatca_table_data):
+            if row_index == 0:  # First row (header)
+                fatca_tin_table_data.append([Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row])
+            else:  # Subsequent rows - data in upper case
+                fatca_tin_table_data.append([Paragraph(f'{cell}'.upper(), style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color))for cell in row])
+            row_hts.append(10 if not row[3] else None)
+
+        fatca_tin_table = pdf_tables.create_table(data= fatca_tin_table_data,style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2,styling_list=[('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),]),col_widths=[None,None,None,None],row_heights=row_hts)
 
         note_1 = Paragraph(constant_texts.data.fatca_note_1,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
         note_2 = Paragraph(constant_texts.data.fatca_note_2,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
@@ -466,7 +486,7 @@ class AOF_IND:
 
     #     return table
 
-    async def get_aadhaar_xml_pages(self, doc):
+    def get_aadhaar_xml_pages(self, doc):
         constant_texts = self.constant_texts.data
         pdf_styles = PdfStyles()
         pdf_components = PdfComponents()
@@ -481,25 +501,29 @@ class AOF_IND:
             
         photo_box_width = 1.5*inch
 
-        name_field = pdf_components.get_text_field(doc=doc,field_name='Name:', value=aadhaar_data.name, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
-        dob_field = pdf_components.get_text_field(doc=doc,field_name='Date of Birth:', value=aadhaar_data.dob, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
-        gender_field = pdf_components.get_text_field(doc=doc,field_name='Gender:', value=aadhaar_data.gender, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
-        co_field = pdf_components.get_text_field(doc=doc,field_name='Care of(co):', value=aadhaar_data.co, width=(doc.width - doc.leftMargin*2)*2/3, size=8)
-        address_field = pdf_components.get_multiline_text(doc=doc, lines=2,text=aadhaar_data.address,width=(doc.width - doc.leftMargin*2))
+        name_field = pdf_components.get_text_field(doc=doc,field_name='Name:', value=aadhaar_data.name, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        dob_field = pdf_components.get_text_field(doc=doc,field_name='Date of Birth:', value=aadhaar_data.dob, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        gender_field = pdf_components.get_text_field(doc=doc,field_name='Gender:', value=aadhaar_data.gender, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        co_field = pdf_components.get_text_field(doc=doc,field_name='Care of(co):', value=aadhaar_data.co, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        address_field_title = Paragraph('Address:', style=pdf_styles.normal_text_style(fontsize=8))
+        address_field = pdf_components.get_multiline_text(doc=doc, lines=2,text=aadhaar_data.address,width=(doc.width - doc.leftMargin*2)*3/4)
 
-        left = Table([[table_header],[name_field],[dob_field],[gender_field],[co_field]])
+        left = Table([[name_field],[dob_field],[gender_field],[co_field],[address_field_title],[address_field]])
         left.setStyle(pdf_styles.padded_table_style(top=1))
 
         photo_box = pdf_components.create_bordered_input_box(doc,image_bytes=aadhaar_data.photo,text_value='Aadhaar Photo N/A',text_style=pdf_styles.normal_text_style(alignment=1,fontsize=9),width=photo_box_width-10,height=photo_box_width,text_size=8)
-        right = Table([[photo_box]],style=pdf_styles.padded_table_style())
+        right = pdf_tables.create_table(data=[[photo_box]],style=pdf_styles.padded_table_style(top=2,bottom=2, left=10),col_widths=[(doc.width - doc.leftMargin*2)/4])
 
-        bottom = Table([[address_field]],style=pdf_styles.padded_table_style(top=1))
+        # bottom = Table([[address_field]],style=pdf_styles.padded_table_style(top=4))
 
-        table = Table([[table_header],[left,right],[bottom]],style=pdf_styles.bordered_table_style(h_margin=5,v_margin=5))
-            
+        # table = Table([[table_header,''],[left,right],[bottom,'']],style=pdf_styles.bordered_table_style(h_margin=5,v_margin=5))
+        table = Table([[table_header,''],[left,right]])
+
         # Apply styles: Grid only for the first cell in the first row
-        table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
+        table.setStyle(pdf_styles.bordered_table_style(h_margin=5, v_margin=5, styling_list=[
             ('TOPPADDING', (0, 0), (0, 0), 4),
+            ('SPAN', (0, 0), (-1, 0)),
+            ('SPAN', (0, 2), (-1, 2)),
             ('TOPPADDING', (-1, -1), (-1, -1), 4),
             ('BOTTOMPADDING', (0, 0), (0, 0), 4),
             ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only

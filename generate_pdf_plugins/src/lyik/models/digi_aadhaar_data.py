@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 import xml.etree.ElementTree as ET
+import base64 
 
 
 class Aadhaar(BaseModel):
@@ -24,7 +25,7 @@ def extract_aadhaar_data(xml_data):
             # Remove ALL newlines/whitespace from the text
             cleaned_text = pht.text.replace('\n', '').strip()
             # Decode Base64 to bytes (common for photo data)
-            # photo = base64.b64decode(cleaned_text)
+            photo = base64.b64decode(cleaned_text)
         else:
             photo = None
         # Extract values
@@ -51,7 +52,7 @@ def extract_aadhaar_data(xml_data):
             gender=gender,
             co=co,
             address=address,
-            photo=cleaned_text  # Replace with actual photo extraction logic if needed
+            photo=photo  # Replace with actual photo extraction logic if needed
         )
         
         return aadhaar_instance
