@@ -112,7 +112,7 @@ class PdfComponents:
         text_style = text_style if text_style else PdfStyles().normal_text_style(alignment=0, fontsize=text_size,text_color=PdfColors().filled_data_color)
 
         # Create a Paragraph object for the text
-        text_paragraph = Paragraph(text, text_style)
+        text_paragraph = Paragraph(text.upper(), text_style)
 
         # Create a Table with one cell to contain the Paragraph
         cell_content = [[text_paragraph]]
@@ -274,7 +274,7 @@ class PdfComponents:
         
         for word in words:
             temp_line = current_line + word + " "
-            if pdfmetrics.stringWidth(temp_line, 'Lato', 8) <= width - 4:
+            if pdfmetrics.stringWidth(temp_line, 'Lato', 10) <= width - 4:
                 current_line = temp_line
             else:
                 all_lines.append(current_line.strip())
@@ -382,18 +382,18 @@ class PdfComponents:
 
 
     
-    # Helper function to insert an image as a full page
-    def insert_image_as_page(self,doc,image_path):
+    # Helper function to insert an image from local file
+    def load_local_image(self,wt,image_dir, file_name, ht=None):
         """ Insert an image as a full page. """
         # current_dir = os.path.dirname(os.path.abspath(__file__))
         # full_path = os.path.join(current_dir, image_path)
 
-        with importlib.resources.path('lyik.components.way_2_wealth.aof.images',image_path) as img_path:
+        with importlib.resources.path(image_dir,file_name) as img_path:
             img = ImageReader(img_path)
             img_w, img_h = img.getSize()
             # logger.debug(f"A4 height: {A4[1]}, width: {A4[0]}")
             # logger.debug(f"Image height: {img_h}, width: {img_w}")
-            return Image(img_path, width=doc.width, height=doc.height)
+            return Image(img_path, width=wt, height=ht if ht else img_h * wt / img_w)
     
 
     def signature_field(self,display_name,width=3*inch, value=None,alignment=0,fontsize = 10):

@@ -25,7 +25,7 @@ dependencies = [
 [tool.setuptools.package-data]
 "lyik.components" = ["lato_bold.ttf", "lato_regular.ttf","logo.png"]
 "lyik.components.way_2_wealth.aof" = ["desired_form_json.json"]
-"lyik.components.way_2_wealth.aof.images" = ["aof_05.jpg","aof_14.jpg"]
+"lyik.components.way_2_wealth.aof.images" = ["ktk.png","ktk_w2w_banner.png","aof_05.jpg","aof_14.jpg"]
 "lyik.images" = ["sample_photo.png"]
 
 

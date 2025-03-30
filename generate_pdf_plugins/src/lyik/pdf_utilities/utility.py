@@ -3,6 +3,7 @@ from lyikpluginmanager import (
     invoke
 )
 from ..models.document_plugin_config import DocPluginConfig
+from ..models.geocode_location import GeocodeLocation
 import logging
 logger = logging.getLogger(__name__)
 from jsonpath_ng import parse as jsonparse
@@ -30,11 +31,11 @@ async def fetchFileBytes(file_id:str)->bytes:
             )
         doc: DBDocumentModel = documents[0] if isinstance(documents, list) and all(isinstance(item, DBDocumentModel) for item in documents) else None
         if doc is None:
-            raise Exception('Plugin didn\'t return a valid response!')
+            raise Exception('error getting attachment from db!')
         
         return doc.doc_content
     except Exception as e:
-        logger.error(f"Exception: {e}")
+        logger.error(f"Exception: {e}. Ignoring and continueing...")
         return None
     
 
@@ -85,7 +86,7 @@ def merge_pdf_attachment(original_pdf_path:str, file_bytes:bytes, output_file_pa
     with open(output_file_path, 'wb') as f_out:
         writer.write(f_out)
 
-def get_geo_location(lat:str, long:str)->str:
+def get_geo_location(lat:str, long:str)->GeocodeLocation | None:
     """
     Returns the city or state or country(whichever found) based on the latitude and longitude, else ''. # Eariler it was 'Unknow'
     """
@@ -94,16 +95,37 @@ def get_geo_location(lat:str, long:str)->str:
         try:
             location = geolocator.reverse(lat + "," + long)
             address = location.raw['address']
-            # Traverse the data
-            city = address.get('city', '')
-            state = address.get('state', '')
-            country = address.get('country', '')
-            logger.debug(f'Esigner\'s city : {city}\nstate : {state}\ncountry : {country}')
-            return city or state or country or ''
+            geo_loc = GeocodeLocation(
+                suburb=address.get('suburb', ''),
+                city_or_county=address.get('city', '') or address.get('county',''),
+                state=address.get('state', ''),
+                country=address.get('country', ''),
+                pincode=address.get('postcode', ''),
+                latitude=lat,
+                longitude=long,
+                formatted_address=None
+            )
+            formatted_address = ''
+            if geo_loc.suburb:
+                formatted_address += geo_loc.suburb + ', '
+            if geo_loc.city_or_county:
+                formatted_address += geo_loc.city_or_county + ', '
+            if geo_loc.state:
+                formatted_address += geo_loc.state + ', '
+            if geo_loc.country:
+                formatted_address += geo_loc.country + ', '
+            if geo_loc.pincode:
+                formatted_address += geo_loc.pincode
+
+            geo_loc.formatted_address = formatted_address
+        
+            logger.debug(f'Location based on geocode {lat}, {long}: {geo_loc.formatted_address}.')
+            return geo_loc
 
         except GeocoderServiceError as e:
-            logger.error("Exception getting location of esigner: ", e)
-    return ''
+            logger.error("Exception getting location of holder: ", e)
+    return None
+
 
 def format_xml(xml_str):
     """Format XML string with indentation."""

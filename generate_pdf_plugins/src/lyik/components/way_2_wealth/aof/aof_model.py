@@ -11,9 +11,12 @@ from reportlab.lib.enums import TA_CENTER
 from ...way_2_wealth.aof.aof_text_consts import AOFConstantTexts
 from ...components import PdfComponents, HorizontalLine
 from ...colors import PdfColors
+from ....models.digi_aadhaar_data import Aadhaar, extract_aadhaar_data
+from ....models.geocode_location import GeocodeLocation
 from ....pdf_utilities.utility import format_xml, split_into_chunks, format_date
 from html import escape
-
+from pydantic import BaseModel
+import xml.etree.ElementTree as ET
 class AOF:
     def __init__(self,data:dict=None) -> None:
         self.constant_texts = AOFConstantTexts(json_data=data)
@@ -45,23 +48,30 @@ class AOF:
         table2 = pdf_tables.create_table(data=constant_texts.page1_table2_data,style=style2,col_widths=[1 * inch] + [0.3 * inch] * 8,row_heights=[0.8 * inch, 0.4 * inch, 0.4 * inch])
         composite_table = pdf_tables.create_composite_table(table1, table2,col_widths=[3.2 * inch, 10, 3.4 * inch])
 
-        big_logo = load_logo()
+        w2w_logo = load_logo()
+        ktk_logo = pdf_components.load_local_image(wt=3*inch,image_dir='lyik.components.way_2_wealth.aof.images',file_name='ktk.png') if constant_texts.page1_is_ktk else ''
+        logos = pdf_tables.create_table(
+            data=[[ktk_logo,w2w_logo]], col_widths=[None, None], style=pdf_styles.padded_table_style()
+        )
 
-        info_paras = Table([[get_text(text=constant_texts.page1_box_left_text,text_style=pdf_styles.get_preformatted_style()),get_text(constant_texts.page1_box_right_text,text_style=pdf_styles.get_preformatted_style())]],colWidths=[3.8 * inch, 3.2 * inch])
+        info_paras = Table([[get_text(text=constant_texts.page1_box_left_text,text_style=pdf_styles.get_preformatted_style()),get_text(constant_texts.page1_box_right_text,text_style=pdf_styles.get_preformatted_style())]],colWidths=[3.5 * inch, 3.5 * inch])
         info_paras.setStyle(TableStyle([
             ('BOX', (0, 0), (-1, -1), 1, colors.black),
             ('INNERGRID', (0, 0), (-1, -1), 1, colors.black),
             ('VALIGN', (0, 0), (-1, -1), 'TOP')
         ]))
 
+        ktk_w2w_banner = pdf_components.load_local_image(wt=doc.width,image_dir='lyik.components.way_2_wealth.aof.images',file_name='ktk_w2w_banner.png') if constant_texts.page1_is_ktk else None
+
         return [
             composite_table,
-            Spacer(1, 0.7 * inch), big_logo,
+            Spacer(1, 0.7 * inch), logos,
             Spacer(1, 0.4 * inch), get_text(text=constant_texts.page1_form_title,text_style=pdf_styles.bold_text_style(fontsize=20,text_color=colors.darkblue,leading=30)),
             Spacer(1, 0.4 * inch), get_text(text=constant_texts.page1_company_title,text_style=pdf_styles.bold_text_style(fontsize=17,alignment=1)),
             Spacer(1, 0.1 * inch), get_text(text=constant_texts.page1_address_text,text_style=pdf_styles.normal_text_style(fontsize=10, alignment=1)),
             Spacer(1, 0.01 * inch), get_text(text = constant_texts.page1_company_website,text_style=pdf_styles.normal_text_style(fontsize=10,alignment=1)),
             Spacer(1,0.2*inch), info_paras,
+            Spacer(1,0.2*inch if ktk_w2w_banner else 1), ktk_w2w_banner if ktk_w2w_banner else Spacer(1,1),
             Spacer(1, 0.1 * inch), pdf_components.create_bordered_input_box(doc=doc,text_value=constant_texts.page1_bottom_text,height=0.8*inch,width=doc.width-doc.rightMargin,text_size=11,text_style=pdf_styles.normal_text_style(alignment=4,fontsize=9,indent=5)),
             Spacer(1, 0.2 * inch), PageBreak()
         ]
@@ -172,41 +182,88 @@ class AOF:
         return [page2_first_headered_table, Spacer(1,0.1*inch),Spacer(2, 0.3 * inch),page2_second_headered_table,Spacer(1, 0.6 * inch),PageBreak()]
 
 
+    # def get_aadhaar_xml_pages(self, doc, index):
+    #     constant_texts = self.constant_texts.page_kyc_details[index]
+    #     pdf_styles = PdfStyles()
+        
+    #     formatted_xml = format_xml(constant_texts.aadhaar_xml)
+        
+    #     # Extract XML data and split into chunks
+    #     xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+    #     # Create the header row and the initial table structure
+    #     table_data = [[
+    #         Paragraph(f'Digilocker Aadhaar XML for {constant_texts.identity_aadhar_value}', 
+    #                 style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
+            
+    #     ]]
+        
+    #     # Create additional rows for the XML chunks
+    #     for chunk in xml_chunks:
+    #         table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
+        
+    #     table = Table(table_data)
+        
+    #     # Apply styles: Grid only for the first cell in the first row
+    #     table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
+    #         ('TOPPADDING', (0, 0), (0, 0), 4),
+    #         ('TOPPADDING', (-1, -1), (-1, -1), 4),
+    #         ('BOTTOMPADDING', (0, 0), (0, 0), 4),
+    #         ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
+    #         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
+    #     ]))
+
+    #     return table
+    
     def get_aadhaar_xml_pages(self, doc, index):
         constant_texts = self.constant_texts.page_kyc_details[index]
         pdf_styles = PdfStyles()
-        
-        # Todo: Either handle the <Ldata> tag(data in local lang) with specific font, or remove it from xml itself.
-        formatted_xml = format_xml(constant_texts.aadhaar_xml)
-        
-        # Extract XML data and split into chunks
-        xml_chunks = list(split_into_chunks(escape(formatted_xml), lines_per_chunk=1))
+        pdf_components = PdfComponents()
+        pdf_tables = PdfTables()
+
+        aadhaar_data = extract_aadhaar_data(xml_data=constant_texts.aadhaar_xml)
+        if not aadhaar_data:
+            return None
         # Create the header row and the initial table structure
-        table_data = [[
-            Paragraph(f'Digilocker Aadhaar XML for {constant_texts.identity_aadhar_value}', 
+        table_header = Paragraph(f'Aadhaar data as in Digilocker for {constant_texts.identity_aadhar_value}', 
                     style=pdf_styles.bold_text_style(alignment=1, fontsize=9)),
             
-        ]]
-        
-        # Create additional rows for the XML chunks
-        for chunk in xml_chunks:
-            table_data.append([Paragraph(f'<pre>{chunk}</pre>', style=pdf_styles.normal_text_style(alignment=0, fontsize=8))])
-        
-        table = Table(table_data)
-        
+        photo_box_width = 1.5*inch
+
+        name_field = pdf_components.get_text_field(doc=doc,field_name='Name:', value=aadhaar_data.name, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        dob_field = pdf_components.get_text_field(doc=doc,field_name='Date of Birth:', value=aadhaar_data.dob, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        gender_field = pdf_components.get_text_field(doc=doc,field_name='Gender:', value=aadhaar_data.gender, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        co_field = pdf_components.get_text_field(doc=doc,field_name='Care of(co):', value=aadhaar_data.co, width=(doc.width - doc.leftMargin*2)*3/4, size=8)
+        address_field_title = Paragraph('Address:', style=pdf_styles.normal_text_style(fontsize=8))
+        address_field = pdf_components.get_multiline_text(doc=doc, lines=2,text=aadhaar_data.address,width=(doc.width - doc.leftMargin*2)*3/4)
+
+        left = Table([[name_field],[dob_field],[gender_field],[co_field],[address_field_title],[address_field]])
+        left.setStyle(pdf_styles.padded_table_style(top=1))
+
+        photo_box = pdf_components.create_bordered_input_box(doc,image_bytes=aadhaar_data.photo,text_value='Aadhaar Photo N/A',text_style=pdf_styles.normal_text_style(alignment=1,fontsize=9),width=photo_box_width-10,height=photo_box_width,text_size=8)
+        right = pdf_tables.create_table(data=[[photo_box]],style=pdf_styles.padded_table_style(top=2,bottom=2, left=10),col_widths=[(doc.width - doc.leftMargin*2)/4])
+
+        # bottom = Table([[address_field_title],[address_field]],style=pdf_styles.padded_table_style(top=4))
+
+        # table = Table([[table_header,''],[left,right],[bottom,'']],style=pdf_styles.bordered_table_style(h_margin=5,v_margin=5))
+        table = Table([[table_header,''],[left,right]])
+
         # Apply styles: Grid only for the first cell in the first row
-        table.setStyle(pdf_styles.bordered_table_style(h_margin=2, v_margin=0, styling_list=[
+        table.setStyle(pdf_styles.bordered_table_style(h_margin=5, v_margin=5, styling_list=[
             ('TOPPADDING', (0, 0), (0, 0), 4),
+            ('SPAN', (0, 0), (-1, 0)),
+            ('SPAN', (0, 2), (-1, 2)),
             ('TOPPADDING', (-1, -1), (-1, -1), 4),
             ('BOTTOMPADDING', (0, 0), (0, 0), 4),
             ('GRID', (0, 0), (1, 0), 1, colors.black),  # Grid for the first cell only
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),     # Vertical alignment for all cells
+
         ]))
 
         return table
 
-    async def get_kyc_pages(self,doc,index):
 
+    async def get_kyc_pages(self,doc,index):
+        pdf_components = PdfComponents()
+        pdf_styles = PdfStyles()
         form_header = self._get_kyc_form_header(doc=doc,index=index)
         section1 = await self._get_kyc_section1(doc=doc,index=index)
         section2A = self._get_kyc_section2A(doc=doc,index=index)
@@ -219,7 +276,14 @@ class AOF:
         section8 = await self._get_kyc_section8(doc=doc,index=index)
         kyc_bottom_section = self._get_kyc_verification_details_section(doc=doc,index=index)
 
-        return [form_header,section1,section2A,section2B,section_proof_of_address,applicants_sign_section,PageBreak(),section3,section4,section5_6_7,section8,kyc_bottom_section,PageBreak()]
+        # Geo Location data
+        constant_texts = self.constant_texts.page_kyc_details[index]
+        geoloc_table = None, 
+        if constant_texts.geocode_location and isinstance(constant_texts.geocode_location,GeocodeLocation):
+            geoloc_details = pdf_components.create_bordered_input_box(doc=doc,text_value=f'Liveness taken at ({constant_texts.geocode_location.longitude}, {constant_texts.geocode_location.latitude}): {constant_texts.geocode_location.formatted_address}',height=0.6*inch,width=doc.width-doc.rightMargin,text_size=11,text_style=pdf_styles.normal_text_style(alignment=4,fontsize=9,indent=5)),
+            geoloc_table = PdfTables().create_table(data=[[geoloc_details]],col_widths=[None],style=pdf_styles.padded_table_style())
+
+        return [form_header,section1,section2A,section2B,section_proof_of_address,applicants_sign_section,PageBreak(),section3,section4,section5_6_7,section8,kyc_bottom_section, Spacer(1, 0.1 * inch), geoloc_table if geoloc_table else Spacer(1, 1) ,PageBreak()]
         
     async def _get_kyc_section1(self,doc:BaseDocTemplate,index):
         constant_texts = self.constant_texts.page_kyc_details[index]
@@ -375,7 +439,7 @@ class AOF:
                 text_value=f'<font name="ZapfDingbats" color={pdf_colors.filled_data_color}>✓</font>' if constant_texts.address_permanent_value else ''
                 )
         
-        poa_table_data[perm_address_type_index][3]= Paragraph(constant_texts.identity_aadhar_value,style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+        poa_table_data[perm_address_type_index][3]= Paragraph(f'{constant_texts.identity_aadhar_value}'.upper(),style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
         if constant_texts.is_address_correspondence_same_as_permanent:
             poa_table_data[perm_address_type_index][0] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
@@ -528,7 +592,15 @@ class AOF:
         iso_country_code = pdf_components.get_text_field(doc,field_name=constant_texts.iso_3166_country_code_label,value=constant_texts.iso_3166_country_code_value,width=(doc.width-doc.rightMargin*2)/3,size=8)
         pob_country_iso_code = Table([[pob,country_of_origin,iso_country_code]],style=pdf_styles.padded_justified_table_style())
 
-        fatca_tin_table = pdf_tables.create_table(data= [[Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row] for row in constant_texts.fatca_table_data],style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2,styling_list=[('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),]),col_widths=[None,None,None,None],row_heights=[None,10,10,10])
+        fatca_tin_table_data = []
+        row_hts = []
+        for row_index, row in enumerate(constant_texts.fatca_table_data):
+            if row_index == 0:  # First row (header)
+                fatca_tin_table_data.append([Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row])
+            else:  # Subsequent rows - data in upper case
+                fatca_tin_table_data.append([Paragraph(f'{cell}'.upper(), style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color))for cell in row])
+            row_hts.append(10 if not row[3] else None)
+        fatca_tin_table = pdf_tables.create_table(data=fatca_tin_table_data ,style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2,styling_list=[('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),]),col_widths=[None,None,None,None],row_heights=row_hts)
 
         note_1 = Paragraph(constant_texts.fatca_note_1,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
         note_2 = Paragraph(constant_texts.fatca_note_2,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
@@ -618,7 +690,7 @@ class AOF:
         return table
 
 
-    def get_page6(self,doc):
+    async def get_page6(self,doc):
         constant_texts = self.constant_texts
         pdf_styles = PdfStyles()
         pdf_tables = PdfTables()
@@ -653,11 +725,21 @@ class AOF:
 
         exchange_and_segment_heading = Paragraph(constant_texts.page6_exchange_and_segment_preferences_heading,style=pdf_styles.bold_text_style(alignment=1,fontsize=8))
         exchange_and_segment_instructions = Paragraph(constant_texts.page6_exchange_and_segment_preferences_instruction,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
-        exchange_segment_table = pdf_tables.create_table(data=[[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=8)) for cell in row] for row in constant_texts.page6_exchange_segment_table_data],
+        
+        exchange_and_segment_table_data = [[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=8)) for cell in row] for row in constant_texts.page6_exchange_segment_table_data]
+        _file_id = constant_texts.page_kyc_details[0].applicant_wet_sign_value if 0 < len(self.constant_texts.page_kyc_details) else None
+        _wetsign_bytes = await pdf_components.fetch_image_bytes(file_id=_file_id) if _file_id else None
+        _client_sign = pdf_components.get_image_from_bytes(file_bytes=_wetsign_bytes,width=2*inch,height=0.5*inch) if _wetsign_bytes else ''
+
+        for index in range(1, len(constant_texts.page6_exchange_segment_table_data)):
+            if constant_texts.page6_exchange_segment_selected_options[index-1]:
+                exchange_and_segment_table_data[index][2] = _client_sign
+
+        exchange_segment_table = pdf_tables.create_table(data=exchange_and_segment_table_data,
                                                          col_widths=[(doc.width-doc.rightMargin*2)*0.4,(doc.width-doc.rightMargin*2)*0.15,(doc.width-doc.rightMargin*2)*0.45],
                                                          style=pdf_styles.bordered_grid_table_style(styling_list=[('SPAN', (0, 1), (0, 3)),('VALIGN', (0, 0), (-1, -1),'MIDDLE')],v_margin=2),
                                                          row_heights=[None,50,50,50,50,50],)
-
+        
         exchange_pref_note = Paragraph(constant_texts.page6_exchange_prefs_note,style=pdf_styles.normal_text_style(alignment=0,fontsize=9))
         exchange_pref_past_action_label = Paragraph(constant_texts.page6_exchange_prefs_past_action_label,style=pdf_styles.normal_text_style(alignment=0,fontsize=9))
         exchange_pref_past_action_value_field = pdf_components.get_text_field(doc=doc,field_name='',value=constant_texts.page6_exchange_prefs_past_action_value,width=(doc.width-doc.rightMargin*2)*0.5)
@@ -744,13 +826,13 @@ class AOF:
         decalaration_heading = Paragraph(constant_texts.page7_declaration_heading,style=pdf_styles.bold_text_style(alignment=1,fontsize=9))
         decalaration_content = Paragraph(constant_texts.page7_declaration_text,style=pdf_styles.normal_text_style(alignment=4,fontsize=8))
         
-        _client_table_data = [[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=0,fontsize=9)) for cell in row] for row in constant_texts.page7_declaration_client_details_table_data]
+        _client_table_data = [[Paragraph(f'{cell}'.upper() if i==1 else cell,style=pdf_styles.normal_text_style(alignment=0,fontsize=9,text_color=pdf_colors.filled_data_color if i==1 else pdf_colors.text_color)) for i, cell in enumerate(row)] for row in constant_texts.page7_declaration_client_details_table_data]
         
         _file_id = constant_texts.page_kyc_details[0].applicant_wet_sign_value if 0 < len(self.constant_texts.page_kyc_details) else None
         _wetsign_bytes = await pdf_components.fetch_image_bytes(file_id=_file_id) if _file_id else None
         _client_sign = pdf_components.get_image_from_bytes(file_bytes=_wetsign_bytes,width=2*inch,height=0.5*inch) if _wetsign_bytes else ''
         _client_table_data[1][2] = _client_sign
-        _client_table_data[2][1] = Paragraph(self.date_of_form_submission,style=pdf_styles.normal_text_style(alignment=0,fontsize=9))
+        _client_table_data[2][1] = Paragraph(self.date_of_form_submission,style=pdf_styles.normal_text_style(alignment=0,fontsize=9, text_color=pdf_colors.filled_data_color))
 
         client_details_table = pdf_tables.create_table(data=_client_table_data
                                                        ,style=pdf_styles.bordered_table_style(h_margin=2,v_margin=2,alpha=0.5,styling_list=[
@@ -896,9 +978,26 @@ class AOF:
         instruction13 = pdf_components.checkbox_field(doc=doc,field_name_text=constant_texts.page8_instruction13_display_name,options=constant_texts.page8_instruction13_options,selected_options=constant_texts.page8_instruction13_selected_options,field_width=_field_width,display_name_width=_field_display_width)
         
         undertaking_text = Paragraph(constant_texts.page8_instructions_untertaking,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
-        stock_exchange_table = pdf_tables.create_table(data=[[Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row] for row in constant_texts.page8_stock_exchange_table_data],style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2),col_widths=[(doc.width-doc.rightMargin*2)/3],row_heights=[None,10])
+        
+        stock_exchange_table_data = []
+        for row_index, row in enumerate(constant_texts.page8_stock_exchange_table_data):
+            if row_index == 0:  # First row (header)
+                stock_exchange_table_data.append([Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row])
+            else:  # Subsequent rows - data in upper case
+                stock_exchange_table_data.append([Paragraph(f'{cell}'.upper(), style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row])
+        
+        stock_exchange_table = pdf_tables.create_table(data=stock_exchange_table_data,style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2),col_widths=[(doc.width-doc.rightMargin*2)/3],row_heights=[None,10])
         ucc_mapping_instruction14 = Paragraph(constant_texts.page8_ucc_mapping_heading,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
-        ucc_mapping_table = pdf_tables.create_table(data=[[Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row] for row in constant_texts.page8_ucc_mapping_table],style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2),col_widths=[(doc.width-doc.rightMargin*2)/5],row_heights=[None,10,10])
+        
+        ucc_mapping_table_data = []
+        for row_index, row in enumerate(constant_texts.page8_ucc_mapping_table):
+            if row_index == 0:  # First row (header)
+                ucc_mapping_table_data.append([Paragraph(cell, style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row])
+            else:  # Subsequent rows - data in upper case
+                ucc_mapping_table_data.append([Paragraph(f'{cell}'.upper(), style=pdf_styles.normal_text_style(alignment=1,fontsize=8,text_color=pdf_colors.filled_data_color)) for cell in row])
+        
+        
+        ucc_mapping_table = pdf_tables.create_table(data=ucc_mapping_table_data,style=pdf_styles.bordered_grid_table_style(h_margin=2,v_margin=2),col_widths=[(doc.width-doc.rightMargin*2)/5],row_heights=[None,10,10])
 
         
         sign_section_data = []
@@ -948,7 +1047,7 @@ class AOF:
 
         declaration_text = Paragraph(constant_texts.page9_declaration_content,style=pdf_styles.normal_text_style(alignment=4,fontsize=8))
 
-        _sign_table_data = [[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=9)) for cell in row] for row in constant_texts.page9_holders_signature_table_data]
+        _sign_table_data = [[Paragraph(f'{cell}'.upper() if i==1 else cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=9)) for i, cell in enumerate(row)] for row in constant_texts.page9_holders_signature_table_data]
         for i in range(0,len(self.constant_texts.page_kyc_details)):
             _file_id = constant_texts.page_kyc_details[i].applicant_wet_sign_value
             _wetsign_bytes = await pdf_components.fetch_image_bytes(file_id=_file_id) if _file_id else None
@@ -1167,12 +1266,13 @@ class AOF:
         pdf_styles = PdfStyles()
         pdf_tables = PdfTables()
         pdf_components = PdfComponents()
+        pdf_colors = PdfColors()
 
         addressee = Paragraph(constant_texts.page13_addressee,style=pdf_styles.normal_text_style(alignment=0,fontsize=9))
         subject1 = Paragraph(constant_texts.page13_subject1,style=pdf_styles.bold_text_style(alignment=1,fontsize=9))
         body1 = Paragraph(constant_texts.page13_body1,style=pdf_styles.normal_text_style(alignment=4,fontsize=9))
 
-        _client_table_data1 = [[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=9)) for cell in row] for row in constant_texts.page13_client_signature_table1]
+        _client_table_data1 = [[Paragraph(f'{cell}'.upper() if i==1 else cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=9, text_color=pdf_colors.filled_data_color if i==1 else pdf_colors.text_color)) for i, cell in enumerate(row)] for row in constant_texts.page13_client_signature_table1]
         
         _file_id = constant_texts.page_kyc_details[0].applicant_wet_sign_value if 0 < len(self.constant_texts.page_kyc_details) else None
         _wetsign_bytes = await pdf_components.fetch_image_bytes(file_id=_file_id) if _file_id else None
@@ -1187,7 +1287,7 @@ class AOF:
         settle_fund_duration_field = pdf_components.checkbox_field(doc=doc,field_name_text=constant_texts.page13_body2_settlement_field_label,options=constant_texts.page13_body2_settlement_field_options,selected_options=constant_texts.page13_body2_settlement_field_selected_options,field_width=(doc.width-doc.rightMargin*2))
         body2_part2 = Paragraph(constant_texts.page13_body2_part2,style=pdf_styles.normal_text_style(alignment=4,fontsize=9))
 
-        _client_table_data2 = [[Paragraph(cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=9)) for cell in row] for row in constant_texts.page13_client_signature_table2]
+        _client_table_data2 = [[Paragraph(f'{cell}'.upper() if i==1 else cell,style=pdf_styles.normal_text_style(alignment=1,fontsize=9, text_color=pdf_colors.filled_data_color if i==1 else pdf_colors.text_color)) for i, cell in enumerate(row)] for row in constant_texts.page13_client_signature_table2]
         
         _client_table_data2[1][1] = _client_sign
         client_name_signature_table2 = pdf_tables.create_table(data=_client_table_data1,style=pdf_styles.bordered_grid_table_style(alpha=0.5,h_margin=10,v_margin=5,styling_list=[('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),]),col_widths=[None,4*inch],row_heights=[None,50])
