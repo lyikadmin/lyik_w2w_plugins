@@ -31,11 +31,11 @@ async def fetchFileBytes(file_id:str)->bytes:
             )
         doc: DBDocumentModel = documents[0] if isinstance(documents, list) and all(isinstance(item, DBDocumentModel) for item in documents) else None
         if doc is None:
-            raise Exception('Plugin didn\'t return a valid response!')
+            raise Exception('error getting attachment from db!')
         
         return doc.doc_content
     except Exception as e:
-        logger.error(f"Exception: {e}")
+        logger.error(f"Exception: {e}. Ignoring and continueing...")
         return None
     
 
