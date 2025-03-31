@@ -1,7 +1,7 @@
 import apluggy as pluggy
 from datetime import datetime
 from typing import Optional, Annotated
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from lyikpluginmanager import (
     ContextModel,
     getProjectName,
@@ -15,10 +15,11 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 
 class IncomeInformationPayload(BaseModel):
-    gross_annual_income: Optional[str] = None
-    networth: Optional[str] = None
-    occupation: Optional[str] = None
-    date: Optional[str] = None
+    gross_annual_income: str | None = None
+    networth: int | None = None
+    occupation: str | None = None
+    date: datetime | None = None
+    model_config = ConfigDict(extra="allow")
 
 
 class NetworthVerification(VerifyHandlerSpec):
@@ -35,20 +36,26 @@ class NetworthVerification(VerifyHandlerSpec):
         This plugin is to verify the networth of the user.
         """
 
-        networth = payload.networth
+        networth, date = payload.networth, payload.date
 
-        # Check if networth is missing, empty, or zero
-        if not networth or not networth.strip().isdigit():
+        # Ensure both fields are provided together or neither
+        if bool(networth) ^ bool(date):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
-                message="Net worth must be a valid value and cannot be empty or zero.",
+                message="Networth and Date must be provided together.",
                 actor="system",
             )
 
-        networth_value = int(networth.strip())
+        # Skip validation if both are not provided
+        if not networth or not date:
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.SUCCESS,
+                message=f"Verified successfully by the system on {datetime.now()}",
+                actor="system",
+            )
 
         # Ensure networth is at least 100000
-        if networth_value < 100000:
+        if networth < 100000:
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 message="Net worth must be at least 100000.",
