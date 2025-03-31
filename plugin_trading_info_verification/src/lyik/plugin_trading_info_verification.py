@@ -1,7 +1,13 @@
 import apluggy as pluggy
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from pydantic import BaseModel, Field, ConfigDict, model_validator, ValidationError
+from pydantic import (
+    BaseModel,
+    field_validator,
+    ConfigDict,
+    model_validator,
+    ValidationError,
+)
 from lyikpluginmanager import (
     ContextModel,
     getProjectName,
@@ -11,27 +17,44 @@ from lyikpluginmanager import (
     PluginException,
 )
 from typing_extensions import Annotated, Doc
+import re
 
 impl = pluggy.HookimplMarker(getProjectName())
 
 
-class TradingAccountInformationPayload(BaseModel):
+class TradingInformationPayload(BaseModel):
     segment_pref_1: Optional[str] = None
-    segment_pref_2: Optional[str] = None  # FNO
-    segment_pref_3: Optional[str] = None  # CURRENCY
-    segment_pref_4: Optional[str] = None  # COMMODITY
+    segment_pref_2: Optional[str] = None
+    segment_pref_3: Optional[str] = None
+    segment_pref_4: Optional[str] = None
     segment_pref_5: Optional[str] = None
     segment_pref_6: Optional[str] = None
     contract_format_1: Optional[str] = None
     contract_format_2: Optional[str] = None
-    proof_of_income: Optional[str] = None  #
+    proof_of_income: Optional[str] = None
     type_of_document: Optional[str] = None
     client_facility_choice: Optional[str] = None
     kit_format_1: Optional[str] = None
     kit_format_2: Optional[str] = None
     holder_trading_experience: Optional[str] = None
 
+    broker_name: Optional[str] = None
+    telephone: Optional[str] = None
+    client_codes: Optional[str] = None
+    broker_address: Optional[str] = None
+    sub_broker_name: Optional[str] = None
+    website: Optional[str] = None
+    detail_of_disputes: Optional[str] = None
+
     model_config = ConfigDict(extra="allow")
+
+    @field_validator("website")
+    @classmethod
+    def validate_website(cls, value):
+        pattern = r"^(https?://)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$"
+        if value and not re.match(pattern, value):
+            raise PluginException("Invalid website format. Use a valid domain.")
+        return value
 
     @model_validator(mode="after")
     def check_mandatory_fields(cls, values):
@@ -72,21 +95,42 @@ class TradingAccountInformationPayload(BaseModel):
                 raise PluginException(
                     "Proof of income is required if F & O, Currency, or Commodity is selected."
                 )
+
+        sub_broker_fields = [
+            "broker_name",
+            "telephone",
+            "client_codes",
+            "broker_address",
+            "sub_broker_name",
+            "website",
+            "detail_of_disputes",
+        ]
+        non_empty_fields = [
+            k for k in sub_broker_fields if values_dict.get(k) not in [None, ""]
+        ]
+        if non_empty_fields and len(non_empty_fields) != len(sub_broker_fields):
+            raise PluginException(
+                "Please fill all the details in Details of Dealing through Sub-brokers and other Stock Brokers if providing any."
+            )
         return values
 
 
-class TradingAccountVerification(VerifyHandlerSpec):
+class TradingInformationVerification(VerifyHandlerSpec):
     @impl
     async def verify_handler(
         self,
         context: ContextModel,
         payload: Annotated[
             Dict,
-            Doc("Payload containing trading account information"),
+            Doc("Payload containing trading information"),
         ],
     ) -> Annotated[VerifyHandlerResponseModel, Doc("success or failure status.")]:
         try:
-            validated_payload = TradingAccountInformationPayload(**payload)
+            flattened_payload = {
+                **payload.get("trading_account_information", {}),
+                **payload.get("details_of_dealings", {}),
+            }
+            validated_payload = TradingInformationPayload(**flattened_payload)
 
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,
