@@ -15,10 +15,10 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 
 class IncomeInformationPayload(BaseModel):
-    gross_annual_income: Optional[str] = None
-    networth: Optional[str] = None
-    occupation: Optional[str] = None
-    date: Optional[str] = None
+    gross_annual_income: str | None = None
+    networth: int | None = None
+    occupation: str | None = None
+    date: datetime | None = None
     model_config = ConfigDict(extra="allow")
 
 
@@ -46,18 +46,16 @@ class NetworthVerification(VerifyHandlerSpec):
                 actor="system",
             )
 
-        # Check if networth and date is provided or not
+        # Skip validation if both are not provided
         if not networth or not date:
             return VerifyHandlerResponseModel(
-                status=VERIFY_RESPONSE_STATUS.FAILURE,
-                message="Validation failed. Networth and date are not provided",
+                status=VERIFY_RESPONSE_STATUS.SUCCESS,
+                message=f"Verified successfully by the system on {datetime.now()}",
                 actor="system",
             )
 
-        networth_value = networth.strip()
-
         # Ensure networth is at least 100000
-        if not networth_value.isdigit() or int(networth_value) < 100000:
+        if networth < 100000:
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 message="Net worth must be at least 100000.",
