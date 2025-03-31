@@ -1,6 +1,7 @@
 import logging
 import os
 from datetime import datetime
+from pydantic import BaseModel, Field, ConfigDict
 from typing_extensions import Annotated, Doc
 import apluggy as pluggy
 import pymssql
@@ -18,13 +19,32 @@ impl = pluggy.HookimplMarker(getProjectName())
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+class TradingAccountPayloadModel(BaseModel):
+    trading_id: str | None = Field(
+        None,
+        description="Trading ID",
+    )
+    account_holder_name: str =  Field(
+        None,
+        description="Account holder name ",
+    )
+    account_creation_date :str | None =  Field(
+        None,
+        description="Date of A/c creation",
+    ),
+    trading_account_pan_number: str  =   Field(
+        ...,
+        description="PAN Number to be verified",
+    )
+    model_config = ConfigDict(extra="allow")
+
 
 class AccountDetailsVerification(VerifyHandlerSpec):
     @impl
     async def verify_handler(
         self,
         context: ContextModel,
-        payload: Annotated[str, Doc("PAN number to be verified")],
+        payload: Annotated[TradingAccountPayloadModel, Doc("Data related to Trading account having PAN number to be verified")],
     ) -> Annotated[
         VerifyHandlerResponseModel,
         RequiredEnv(["DB_SERVER", "DB_PORT", "DB_NAME", "DB_USERNAME", "DB_PASSWORD"]),
