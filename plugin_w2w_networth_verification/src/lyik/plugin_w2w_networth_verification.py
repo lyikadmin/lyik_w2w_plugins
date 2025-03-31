@@ -35,20 +35,28 @@ class NetworthVerification(VerifyHandlerSpec):
         This plugin is to verify the networth of the user.
         """
 
-        networth = payload.networth
+        networth, date = payload.networth, payload.date
 
-        # Check if networth is missing, empty, or zero
-        if not networth or not networth.strip().isdigit():
+        # Ensure both fields are provided together or neither
+        if bool(networth) ^ bool(date):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
-                message="Net worth must be a valid value and cannot be empty or zero.",
+                message="Networth and Date must be provided together.",
                 actor="system",
             )
 
-        networth_value = int(networth.strip())
+        # Check if networth and date is provided or not
+        if not networth or not date:
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                message="Validation failed. Networth and date are not provided",
+                actor="system",
+            )
+
+        networth_value = networth.strip()
 
         # Ensure networth is at least 100000
-        if networth_value < 100000:
+        if not networth_value.isdigit() or int(networth_value) < 100000:
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 message="Net worth must be at least 100000.",
