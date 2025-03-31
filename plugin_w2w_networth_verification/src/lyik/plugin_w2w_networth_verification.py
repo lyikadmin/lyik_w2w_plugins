@@ -1,7 +1,7 @@
 import apluggy as pluggy
 from datetime import datetime
 from typing import Optional, Annotated
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from lyikpluginmanager import (
     ContextModel,
     getProjectName,
@@ -19,6 +19,7 @@ class IncomeInformationPayload(BaseModel):
     networth: Optional[str] = None
     occupation: Optional[str] = None
     date: Optional[str] = None
+    model_config = ConfigDict(extra="allow")
 
 
 class NetworthVerification(VerifyHandlerSpec):
