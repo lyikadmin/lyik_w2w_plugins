@@ -31,7 +31,7 @@ class TechXLCreateAccount(OperationPluginSpec):
         form_record: Annotated[GenericFormRecordModel, Doc("form record")],
     ) -> Annotated[
         OperationResponseModel,
-        RequiredEnv(["TECH_XL_ENDPOINT", "TRANSFORMER_MOUNT_PATH"]),
+        RequiredEnv(["TECH_XL_ENDPOINT"]),
         Doc("TechXL create account upload data"),
     ]:
         """
