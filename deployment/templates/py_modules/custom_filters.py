@@ -1,0 +1,90 @@
+from model import Form, RootApplicationDetails, FieldGrpRootKycHolders, RootBankVerification, RootNominationDetails, \
+    RootTradingInformation, RootDpInformation, RootTnc, RootOnboarding, W2WMARITALSTATUS
+from typing import Any, Dict, List
+
+
+def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
+    form = Form.model_validate(value)
+
+    return {
+        **_translate_onboarding(form.onboarding),
+        **_translate_application_details(form.application_details),
+        **_translate_kyc_holders(form.kyc_holders),
+        **_translate_bank_verification(form.bank_verification),
+        **_translate_nomination_details(form.nomination_details),
+        **_translate_trading_information(form.trading_information),
+        **_translate_dp_information(form.dp_information),
+        **_translate_tnc(form.tnc)
+    }
+
+
+def _translate_onboarding(value: RootOnboarding) -> Dict[str, Any]:
+    return {
+        "CATEGORY": value.type_of_client.value,
+    }
+
+
+def _translate_application_details(value: RootApplicationDetails) -> Dict[str, Any]:
+    return {
+
+    }
+
+
+def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any]:
+    # todo: based on MARITAL_STATUS and GENDER, set TITLE
+    def _title(value: W2WMARITALSTATUS) -> str:
+        if value == W2WMARITALSTATUS.MARRIED:
+            return "MR"
+        elif value == W2WMARITALSTATUS.UNMARRIED:
+            return "MISS"
+        elif value == W2WMARITALSTATUS.DIVORCED:
+            return "MRS"
+        else:
+            return ""
+
+    if not value:
+        return {}
+
+    result = {}
+    for i, holder in enumerate(value, 1):
+        pan = holder.kyc_holder.pan_verification.pan_details
+        if i == 1:
+            result["PAN_NO"] = pan.pan_number
+        #     todo: prefix / suffix
+        result.update({
+            "PAN_NAME": pan.name,
+            "FATHER_HUSBAND_NAME": pan.parent_guardian_spouse_name,
+            "BIRTH_DATE": pan.dob_pan,
+            # "TITLE":
+            "MARITAL_STATUS": holder.kyc_holder.identity_address_verification.other_info.marital_status.value,
+            "PIN_CODE": holder.kyc_holder.identity_address_verification.identity_address_info.pin,
+            "CITY": holder.kyc_holder.identity_address_verification.identity_address_info.city,
+            "STATE": holder.kyc_holder.identity_address_verification.identity_address_info.state,
+            "COUNTRY": holder.kyc_holder.identity_address_verification.identity_address_info.country,
+            "MOBILE_NO": holder.kyc_holder.mobile_verification.mobile_verification.contact_id,
+            "EMAIL_ID": holder.kyc_holder.mobile_email_verification.email_verification.contact_id
+        })
+
+    return result
+
+
+def _translate_bank_verification(value: RootBankVerification) -> Dict[str, Any]:
+    return {}
+
+
+def _translate_nomination_details(value: RootNominationDetails) -> Dict[str, Any]:
+    return {}
+
+
+def _translate_trading_information(value: RootTradingInformation) -> Dict[str, Any]:
+    return {
+        "EXCHANGELIST": ""
+    }
+
+
+def _translate_dp_information(value: RootDpInformation) -> Dict[str, Any]:
+    return {}
+
+
+def _translate_tnc(value: RootTnc) -> Dict[str, Any]:
+    return {}
