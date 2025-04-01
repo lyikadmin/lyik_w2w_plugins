@@ -1,22 +1,15 @@
 # Use the prepared base image
 FROM lyikprodblueacr.azurecr.io/lyik-api:latest
 
-# Set environment variables
-ENV LOAD=FALSE
-ENV MODE=''
 
-# # Set up SSH keys (for private Git repo access)
+# # @PLUGIN uncomment this to Set up SSH keys (for your own Git repository of plugins)
 # WORKDIR /root/.ssh
 # COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 # RUN chmod 600 /root/.ssh/id_ed25519
 # COPY ssh/ssh_config /root/.ssh/config
 # RUN chmod 600 /root/.ssh/config
 # RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-
-# Copy the plugin_repos.txt into the lyik-server stage
-COPY plugin_repos_w2w.txt /plugin_repos.txt
-
-# Run the install_plugins_repos.sh script to build and install plugin wheels, and clean up
+COPY plugin_repos_custom.txt /plugin_repos.txt
 RUN /install_plugins_repos.sh
 
 # Expose required ports
