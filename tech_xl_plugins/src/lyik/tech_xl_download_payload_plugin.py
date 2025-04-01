@@ -42,7 +42,7 @@ class TechXLDownloadPayload(OperationPluginSpec):
     ) -> Annotated[
         OperationResponseModel,
         RequiredVars(["DB_CONN_URL", "DOWNLOAD_DOC_API_ENDPOINT", "PDF_GARBLE_KEY"]),
-        RequiredEnv(["API_DOMAIN", "TRANSFORMER_MOUNT_PATH"]),
+        RequiredEnv(["API_DOMAIN"]),
         Doc("TechXL upload request result"),
     ]:
         """
