@@ -65,14 +65,14 @@ class AccountDetailsVerification(VerifyHandlerSpec):
             with pymssql.connect(**db_config) as conn:
                 cursor = conn.cursor(as_dict=True)
                 cursor.execute(
-                    "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s", (payload,)
+                    "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s", (payload.trading_account_pan_number,)
                 )
                 row = cursor.fetchone()
 
             if not row:
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.FAILURE,
-                    message=f"Account details not found for PAN: {payload}",
+                    message=f"Account details not found for PAN: {payload.trading_account_pan_number}",
                     actor="system",
                 )
 
