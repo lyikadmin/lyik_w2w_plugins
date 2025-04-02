@@ -54,7 +54,7 @@ class TechXLUtils:
             raise PluginException("TechXL API environment variable is not set")
 
         # Convert data to JSON string and prepare multipart form data
-        files = {"data": ("data.json", json.dumps(data), "application/json")}
+        files = {key: (None, value) for key, value in data.items()}
 
         try:
             response = requests.post(techxl_endpoint, files=files)
