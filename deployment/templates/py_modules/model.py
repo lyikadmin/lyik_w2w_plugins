@@ -571,7 +571,7 @@ class RootApplicationDetailsClientContactDetails(BaseModel):
     model_config = ConfigDict(
         extra="allow",
     )
-    client_mobile: str = Field(..., title="Mobile")
+    client_mobile: str = Field(None, title="Mobile")
 
 
 class RootApplicationDetailsCommodityFuturesCard(BaseModel):
@@ -634,10 +634,10 @@ class RootApplicationDetailsGeneralApplicationDetails(BaseModel):
         extra="allow",
     )
     application_type: APPLICATIONTYPE = Field(
-        ..., description="Select Option", title="Type of Application"
+        None, description="Select Option", title="Type of Application"
     )
     residential_status: RESIDENCESTATUSRIONLY = Field(
-        ..., description="Select Option", title="Residential Status of Client"
+        None, description="Select Option", title="Residential Status of Client"
     )
 
 
@@ -686,10 +686,10 @@ class RootBankVerificationBankDetails(BaseModel):
         extra="allow",
     )
     bank_account_number: str = Field(
-        ..., description="Enter Bank Account Number", title="Bank Account Number"
+        None, description="Enter Bank Account Number", title="Bank Account Number"
     )
     ifsc_code: constr(pattern=r"[A-Z]{4}\d{7}") = Field(
-        ..., description="Enter IFSC Code", title="IFSC Code"
+        None, description="Enter IFSC Code", title="IFSC Code"
     )
     micr_code: Optional[constr(pattern=r"\d{9}")] = Field(
         None, description="MICR code as on cheque leaf", title="MICR Code"
@@ -698,18 +698,18 @@ class RootBankVerificationBankDetails(BaseModel):
         None, description="Name of the Bank", title="Bank Name"
     )
     account_type: BANKACCOUNTTYPE = Field(
-        ..., description="Bank Account Type", title="Account Type"
+        None, description="Bank Account Type", title="Account Type"
     )
     account_holder_name_pan: str = Field(
-        ..., description="Name as per PAN", title="Name as per PAN"
+        None, description="Name as per PAN", title="Name as per PAN"
     )
     account_holder_name_id: str = Field(
-        ..., description="Name as per ID Proof", title="Name as in ID Proof"
+        None, description="Name as per ID Proof", title="Name as in ID Proof"
     )
     account_holder_name: Optional[str] = Field(
         None, description="Name as per bank record", title="Account Holder's Name"
     )
-    account_mobile_number: str = Field(..., title="Mobile Number")
+    account_mobile_number: str = Field(None, title="Mobile Number")
     bank_address: Optional[str] = Field(
         None, description="Bank Address", title="Bank Address"
     )
@@ -724,7 +724,7 @@ class RootBankVerificationCancelledCheque(BaseModel):
         None, description="Upload a picture of the cancelled cheque.", title=""
     )
     cancelled_cheque_image: Union[str, Dict[str, Any]] = Field(
-        ...,
+        None,
         description="Upload your cancelled cheque image",
         title="Cancelled Cheque Image",
     )
@@ -933,15 +933,15 @@ class RootKycHoldersKycHolderIdentityAddressVerificationCorrespondenceAddress(
         None, description="Upload Address Proof", title="Correspondence Address Proof"
     )
     type_of_address: ADDRESSTYPE = Field(
-        ..., description="Select Option", title="Type of Address"
+        None, description="Select Option", title="Type of Address"
     )
     full_address: str = Field(
-        ..., description="House #, Street, Locality", title="Correspondence Address"
+        None, description="House #, Street, Locality", title="Correspondence Address"
     )
-    city: str = Field(..., description="City", title="City")
-    state: str = Field(..., description="State", title="State")
-    pin: str = Field(..., description="PIN", title="PIN")
-    country: str = Field(..., description="Country", title="Country")
+    city: str = Field(None, description="City", title="City")
+    state: str = Field(None, description="State", title="State")
+    pin: str = Field(None, description="PIN", title="PIN")
+    country: str = Field(None, description="Country", title="Country")
 
 
 class RootKycHoldersKycHolderIdentityAddressVerificationIdentityAddressInfo(BaseModel):
@@ -952,23 +952,23 @@ class RootKycHoldersKycHolderIdentityAddressVerificationIdentityAddressInfo(Base
         "@.digi_locker_aadhaar.TRUSTED_DIGILOCKER.aadhaar_xml", title=""
     )
     name: str = Field(
-        ..., description="Name as in Aadhaar/ID Card", title="Name as in ID Proof"
+        None, description="Name as in Aadhaar/ID Card", title="Name as in ID Proof"
     )
-    uid: str = Field(..., description="ID Number", title="ID Number")
+    uid: str = Field(None, description="ID Number", title="ID Number")
     id_proof_expiry: Optional[date] = Field(
         None, description="Expiry date for ID Proof", title="ID Proof Expiry Date"
     )
-    gender: GENDER = Field(..., description="Gender", title="Gender")
+    gender: GENDER = Field(None, description="Gender", title="Gender")
     type_of_address: ADDRESSTYPE = Field(
-        ..., description="Select Option", title="Type of Address"
+        None, description="Select Option", title="Type of Address"
     )
     full_address: str = Field(
-        ..., description="House #, Street, Locality", title="Permanent Address"
+        None, description="House #, Street, Locality", title="Permanent Address"
     )
-    city: str = Field(..., description="City", title="City")
-    state: str = Field(..., description="State", title="State")
-    pin: str = Field(..., description="PIN", title="PIN")
-    country: str = Field(..., description="Country", title="Country")
+    city: str = Field(None, description="City", title="City")
+    state: str = Field(None, description="State", title="State")
+    pin: str = Field(None, description="PIN", title="PIN")
+    country: str = Field(None, description="Country", title="Country")
 
 
 class RootKycHoldersKycHolderIdentityAddressVerificationOtherInfo(BaseModel):
@@ -989,7 +989,7 @@ class RootKycHoldersKycHolderIdentityAddressVerificationOtherInfo(BaseModel):
         None, description="Enter Country of Birth", title="Country of Birth"
     )
     residential_status: RESIDENCESTATUSRIONLY = Field(
-        ..., description="Select Option", title="Residential Status of Client"
+        None, description="Select Option", title="Residential Status of Client"
     )
 
 
@@ -1035,11 +1035,11 @@ class RootKycHoldersKycHolderMobileEmailVerificationEmailVerification(BaseModel)
         extra="allow",
     )
     dependency_relationship_email: RELATIONSHIP = Field(
-        ..., description="Select Option", title="Dependency Relationship"
+        None, description="Select Option", title="Dependency Relationship"
     )
-    contact_id: EmailStr = Field(..., title="Email ID")
-    otp: str = Field(..., title="OTP")
-    transaction_id: str = Field(..., title="Transaction ID")
+    contact_id: EmailStr = Field(None, title="Email ID")
+    otp: str | None = Field(None, title="OTP")
+    transaction_id: str | None = Field(None, title="Transaction ID")
 
 
 class RootKycHoldersKycHolderMobileEmailVerificationMobileVerification(BaseModel):
@@ -1047,11 +1047,11 @@ class RootKycHoldersKycHolderMobileEmailVerificationMobileVerification(BaseModel
         extra="allow",
     )
     dependency_relationship_mobile: RELATIONSHIP = Field(
-        ..., description="Select Option", title="Dependency Relationship"
+        None, description="Select Option", title="Dependency Relationship"
     )
-    contact_id: str = Field(..., title="Mobile Number")
-    otp: str = Field(..., title="OTP")
-    transaction_id: str = Field(..., title="Transaction ID")
+    contact_id: str = Field(None, title="Mobile Number")
+    otp: str | None = Field(None, title="OTP")
+    transaction_id: str | None = Field(None, title="Transaction ID")
 
 
 class RootKycHoldersKycHolderPanVerificationPanDetails(BaseModel):
@@ -1085,10 +1085,10 @@ class RootKycHoldersKycHolderSignatureValidationUploadImages(BaseModel):
         extra="allow",
     )
     wet_signature_image: Union[str, Dict[str, Any]] = Field(
-        ..., description="Upload an image", title="Image of Wet Signature"
+        None, description="Upload an image", title="Image of Wet Signature"
     )
     proof_of_signature: Union[str, Dict[str, Any]] = Field(
-        ..., description="Upload an image", title="Proof of Signature"
+        None, description="Upload an image", title="Proof of Signature"
     )
 
 
@@ -1111,7 +1111,7 @@ class RootNominationDetailsGeneral(BaseModel):
         extra="allow",
     )
     client_nominee_appointment_status: OPTION = Field(
-        ..., title="Does the Client want to appoint Nominees?"
+        None, title="Does the Client want to appoint Nominees?"
     )
 
 
@@ -1172,7 +1172,7 @@ class RootOnboarding(BaseModel):
         None, description="Select the type of client to onboard:", title=""
     )
     type_of_client: CLIENTTYPEINDONLY = Field(
-        ..., description="Select Option", title="Type of Client"
+        None, description="Select Option", title="Type of Client"
     )
     df_individual: Optional[str] = Field(
         None,
@@ -1205,9 +1205,9 @@ class RootTncDeclaration(BaseModel):
     model_config = ConfigDict(
         extra="allow",
     )
-    sms_alert: SMSALERT = Field(..., title="")
-    policy: POLICY = Field(..., title="")
-    processing_time: PROCESSINGTIME = Field(..., title="")
+    sms_alert: SMSALERT | None = Field(None, title="")
+    policy: POLICY | None = Field(None, title="")
+    processing_time: PROCESSINGTIME | None = Field(None, title="")
 
 
 class RootTradingInformationCheckPanForTradingAccount(BaseModel):
@@ -1306,7 +1306,7 @@ class RootApplicationDetails(BaseModel):
     )
     defaults: Optional[APPDETDEFAULTS] = Field(None, title="Defaults")
     kyc_digilocker: OPTION = Field(
-        ..., title="Would the client like to complete KYC using Digilocker?"
+        None, title="Would the client like to complete KYC using Digilocker?"
     )
     general_application_details: Optional[
         RootApplicationDetailsGeneralApplicationDetails

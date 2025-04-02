@@ -35,7 +35,7 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
     def _title(value: W2WMARITALSTATUS) -> str:
         if value == W2WMARITALSTATUS.MARRIED:
             return "MR"
-        elif value == W2WMARITALSTATUS.UNMARRIED:
+        elif value == W2WMARITALSTATUS.SINGLE:
             return "MISS"
         elif value == W2WMARITALSTATUS.DIVORCED:
             return "MRS"
@@ -52,7 +52,7 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
             result["PAN_NO"] = pan.pan_number
         #     todo: prefix / suffix
         result.update({
-            "PAN_NAME": pan.name,
+            "PAN_NAME": pan.name_in_pan,
             "FATHER_HUSBAND_NAME": pan.parent_guardian_spouse_name,
             "BIRTH_DATE": pan.dob_pan,
             # "TITLE":
@@ -61,7 +61,7 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
             "CITY": holder.kyc_holder.identity_address_verification.identity_address_info.city,
             "STATE": holder.kyc_holder.identity_address_verification.identity_address_info.state,
             "COUNTRY": holder.kyc_holder.identity_address_verification.identity_address_info.country,
-            "MOBILE_NO": holder.kyc_holder.mobile_verification.mobile_verification.contact_id,
+            "MOBILE_NO": holder.kyc_holder.mobile_email_verification.mobile_verification.contact_id,
             "EMAIL_ID": holder.kyc_holder.mobile_email_verification.email_verification.contact_id
         })
 
