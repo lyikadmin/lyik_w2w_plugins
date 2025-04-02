@@ -27,7 +27,8 @@ def create_document(filename:str,author:str=None):
                           creator='Way2Wealth Brokers Private Limited',
                           subject='',
                           author= author if author else '',
-                          producer='LYIK Technologies Pvt Ltd'
+                          producer='LYIK Technologies Pvt Ltd',
+                          embedFonts=True 
                           )
     return doc
 
@@ -99,10 +100,10 @@ class PdfGenerator():
 
 
         # add image as 5th page 
-        story.append(pdf_components.insert_image_as_page(doc,'aof_05.jpg'))
+        story.append(pdf_components.load_local_image(wt=doc.width,ht=doc.height,image_dir='lyik.components.way_2_wealth.aof.images',file_name='aof_05.jpg'))
 
         # create 6th page
-        page6 = aof.get_page6(doc=doc)
+        page6 = await aof.get_page6(doc=doc)
         for item in page6:
             story.append(item)
      
@@ -144,23 +145,24 @@ class PdfGenerator():
 
 
         # add image as 14th page 
-        story.append(pdf_components.insert_image_as_page(doc,'aof_14.jpg'))
+        story.append(pdf_components.load_local_image(wt=doc.width,ht=doc.height,image_dir='lyik.components.way_2_wealth.aof.images',file_name='aof_14.jpg'))
 
         # create 15th page
         page15 = await aof.get_page15(doc=doc)
         for item in page15:
             story.append(item)
 
-        # Add aadhaar xml if aadhaar details are from digilocker
+        # Add aadhaar xml data if aadhaar details are from digilocker
         for i in range (num_of_kycs):
             if data.get('kyc_holders', [])[i].get('kyc_holder', {}).get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_xml',''):
                 xml_page = aof.get_aadhaar_xml_pages(doc=doc,index=i)
-                story.append(PageBreak())
-                story.append(xml_page)
-                
+                if xml_page:
+                    story.append(PageBreak())
+                    story.append(xml_page)
+         
 
         # ADD all the documents to the end of pdf.
-        exclude_files = ['wet_signature_image','liveness_photo']
+        exclude_files = ['liveness_photo']
         all_files = get_all_file_ids(record=data,exclude_ids=exclude_files)
         images:list[Table] = []
         all_pdf_attachments = []
@@ -212,11 +214,11 @@ class PdfGenerator():
         for item in kyc_pages:
             story.append(item)
 
-        # # Disabled: Add aadhaar xml if aadhaar details are from digilocker
-        # if kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_xml',''):
-        #     xml_page = aof_ind.get_aadhaar_xml_pages(doc=doc)
-        #     story.append(PageBreak())
-        #     story.append(xml_page)
+        # Add aadhaar xml data if aadhaar details are from digilocker
+        if kyc_data.get('identity_address_verification',{}).get('identity_address_info',{}).get('aadhaar_xml',''):
+            xml_page = aof_ind.get_aadhaar_xml_pages(doc=doc)
+            story.append(PageBreak())
+            story.append(xml_page)
 
         images:list[Image] = []
 
@@ -307,6 +309,7 @@ class PdfGenerator():
         ovd_front = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_front')
         ovd_back = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_back')
         correspondence_address_proof = kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('proof')
+        wet_sign = kyc_data.get('signature_validation',{}).get('upload_images',{}).get('wet_signature_image')
         proof_of_signature = kyc_data.get('signature_validation',{}).get('upload_images',{}).get('proof_of_signature')
 
         pdf_attachments: list[dict] = []
@@ -336,6 +339,13 @@ class PdfGenerator():
                 images.append({correspondence_address_proof.get('doc_id',''): 'Proof of Correspondence Address'})
             else:
                 pdf_attachments.append({correspondence_address_proof.get('doc_id',''):'Proof of Correspondence Address'})
+
+        if wet_sign and wet_sign.get('doc_id',''):
+            if wet_sign.get('metadata',{}).get('doc_type','') and 'pdf' not in wet_sign.get('metadata',{}).get('doc_type',''):
+                images.append({wet_sign.get('doc_id',''):'Wet Signature'})
+            else:
+                pdf_attachments.append({wet_sign.get('doc_id',''):'Wet Signature'})
+
 
         if proof_of_signature and proof_of_signature.get('doc_id',''):
             if proof_of_signature.get('metadata',{}).get('doc_type','') and 'pdf' not in proof_of_signature.get('metadata',{}).get('doc_type',''):

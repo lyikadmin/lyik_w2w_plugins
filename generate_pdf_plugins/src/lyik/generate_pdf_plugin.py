@@ -3,7 +3,6 @@ import os
 import importlib
 from datetime import datetime
 from .pdf_generator.pdf_generator import PdfGenerator
-from .pdf_utilities.utility import get_geo_location
 from .pdf_utilities.pdf_core import PdfCore
 from .models.document_plugin_config import DocPluginConfig
 from lyikpluginmanager import (

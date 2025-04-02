@@ -419,7 +419,7 @@ class PdfCore:
                     .get("name_in_pan", "")
                 )
                 try:
-                    esigner_location = get_geo_location(
+                    geocode_location = get_geo_location(
                         lat=(
                             kyc_data.get("liveness_check", {}).get("liveness_geo_loc")
                             if isinstance(
@@ -441,6 +441,7 @@ class PdfCore:
                             else {}
                         ).get("long", ""),
                     )
+                    esigner_location = (geocode_location.city_or_county or geocode_location.state or geocode_location.country or "") if geocode_location else ""
                 except Exception as ex:
                     logger.error(f"Error getting geolocation for {esigner_name}: {ex}")
                     esigner_location = ""  # Earlier it was 'Unknown'

@@ -224,13 +224,13 @@ class KYC:
 
         self.fatca_table_data = [
             ['<font color = "#000000">Country Of Tax Residency #</font>','<font color = "#000000">TAX Identification No. (TIN) %</font>','<font color = "#000000">Identification Type (TIN or Other, Please Specify)</font>','<font color = "#000000">If TIN not available *</font>'],
-            [self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('country_of_residency_1',''),self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('tin_no_1',''),self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('id_type_1',''),self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('reason_if_no_tin_1','')],
-            [self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('country_of_residency_2',''),self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('tin_no_2',''),self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('id_type_2',''),self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('reason_if_no_tin_2','')],
-            [self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('country_of_residency_3',''),self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('tin_no_3',''),self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('id_type_3',''),self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('reason_if_no_tin_3','')],
+            [self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('country_of_residency_1',''),self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('tin_no_1',''),self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('id_type_1',''),get_enum_value_from_key(key=self.data.get('declarations',{}).get('fatca_crs_declaration_1',{}).get('reason_if_no_tin_1',''))],
+            [self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('country_of_residency_2',''),self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('tin_no_2',''),self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('id_type_2',''),get_enum_value_from_key(key=self.data.get('declarations',{}).get('fatca_crs_declaration_2',{}).get('reason_if_no_tin_2',''))],
+            [self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('country_of_residency_3',''),self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('tin_no_3',''),self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('id_type_3',''),get_enum_value_from_key(key=self.data.get('declarations',{}).get('fatca_crs_declaration_3',{}).get('reason_if_no_tin_3',''))],
         ]
 
         self.fatca_note_1 = '# To also include USA, where the individual is a citizen/Green card holder of the USA'
-        self.fatca_note_2 = '$ In case Tax identification number is not available, kindly provide its functional equivalent'
+        self.fatca_note_2 = '% In case Tax identification number is not available, kindly provide its functional equivalent'
         self.fatca_note_3 = '*If Tin not available, Reason:'
         self.fatca_note_a = 'A - The country where the account holder is liable to pay tax and does not issue tax identification number to its residents'
         self.fatca_note_b = 'B - No Tin Required (Select this only if the authorities of respective country of tax residence not require the TIN be collected)'
@@ -288,7 +288,7 @@ class KYC:
             'Related to Politically Exposed Person',
             'Not Applicable'
         ]
-        self.pep_selected_options = [get_enum_value_from_key(self.data.get('declarations',{}).get('politically_exposed_person_card',{}).get('politically_exposed_person',''))] # Selected PEP status index(es)
+        self.pep_selected_options = [get_enum_value_from_key(self.data.get('declarations',{}).get('politically_exposed_person_card',{}).get('politically_exposed_person','')) or 'Not Applicable'] # Selected PEP status index(es), default selected to 'Not Applicable'
 
         # Applicant Declaration
         self.applicant_declaration_heading = '8. Applicant Declaration'
@@ -304,10 +304,11 @@ class KYC:
         self.declaration_date_label = 'Date :'
         self.declaration_date_value = ''
         self.declaration_place_label = 'Place :'
-        self.declaration_place_value = get_geo_location(
+        self.geocode_location = get_geo_location(
             lat=(kyc_data.get('liveness_check', {}).get('liveness_geo_loc') if isinstance(kyc_data.get('liveness_check', {}).get('liveness_geo_loc'), dict) else {}).get('lat', ''),
             long=(kyc_data.get('liveness_check', {}).get('liveness_geo_loc') if isinstance(kyc_data.get('liveness_check', {}).get('liveness_geo_loc'), dict) else {}).get('long', '')
         )
+        self.declaration_place_value = (self.geocode_location.city_or_county or self.geocode_location.state or self.geocode_location.country or '') if self.geocode_location else ''
 
         # Signatures
         self.applicant_esign_label = 'Applicant e-Sign'
@@ -370,7 +371,8 @@ class AOFConstantTexts:
 
         self.page1_address_text = 'Reg. office: Rukmini Towers, 3rd & 4th Floor, # 3/1, Platform Road,<br/>Sheshadripuram, Bangalore -560 020<br/> Tel.: (080) 4367 6869, Fax: (080) 4367 6999'
 
-        self.page1_form_title = 'Client Registration Form<br/>Trading & DP Account'
+        self.page1_is_ktk = get_page1_is_ktk(app_type=self.data.get('application_details', {}).get('general_application_details', {}).get('application_type',''))
+        self.page1_form_title = f"Client Registration Form<br/>{get_page1_title(app_type=self.data.get('application_details', {}).get('general_application_details', {}).get('application_type',''))}"
 
         self.page1_company_title = f'Way<font color={"#C00000"}>2</font>Wealth Brokers Private Limited'
 
@@ -510,6 +512,16 @@ class AOFConstantTexts:
             ["", "Currency Derivatives", ""],
             ["National Stock Exchange", "SLB", ""],
             ["MCX Commodity Exchange","Commodities Derivatives",""]
+        ]
+
+        self.page6_exchange_segment_selected_options = [
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_1',''), # Equity Cash
+            '', # self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_2',''), # Equity Derivatives option not in form
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_3',''), # Currency Derivatives
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_6',''), # SLB
+            self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_4','') # Commodities Derivatives
+            # self.data.get('trading_information',{}).get('trading_account_information',{}).get('segment_pref_5',''), # MF option not in pdf!
+
         ]
 
         self.page6_exchange_prefs_note = 'Note: In future if the client want to trade in new segment / Exchange, separate authorisation letter should be given by client'
@@ -1096,6 +1108,8 @@ class FieldMapHelper(Enum):
     TRADING = "Trading"
     DP = "DP"
     TRADING_AND_DP = "Trading and DP"
+    TRADING_KTK = "Trading with KTK Bank"
+    TRADING_AND_DP_KTK = "Trading with KTK Bank 2 in 1"
     _1 = "One"
     _2 = "Two"
     _3 = "Three"
@@ -1222,8 +1236,6 @@ class FieldMapHelper(Enum):
     _3_6YEARS = "3-6 Years"
     MORE_THAN_6YEARS = "More than 6 years"
 
-
-
     # A/c Opening Kit Options
     PHYSICAL_FORM = "Physical"
     ELECTRONIC_FORM = "Electronic Form"
@@ -1235,7 +1247,28 @@ class FieldMapHelper(Enum):
     FN = "FN"
     PROMOTER = "Promoter"
 
+    # NO_TIN_REASON
+    COUNTRY_DOES_NOT_ISSUE_TIN ="Country of Residence does not issue TIN"
+    TIN_NOT_REQUIRED =" TIN Not Required"
+    OTHER = "Other"
 
+def get_page1_title(app_type:str):
+    
+    if app_type == FieldMapHelper.DP.name:
+        return 'Demat Account'
+    if app_type == FieldMapHelper.TRADING.name or app_type == FieldMapHelper.TRADING_KTK.name:
+        return 'Trading Account'
+    if app_type == FieldMapHelper.TRADING_AND_DP.name or app_type == FieldMapHelper.TRADING_AND_DP_KTK.name:
+        return 'Trading & Demat Account'
+    return ''
+
+def get_page1_is_ktk(app_type:str):
+    
+    if app_type ==  FieldMapHelper.TRADING_AND_DP_KTK.name or app_type == FieldMapHelper.TRADING_KTK.name:
+        return True
+    return False
+
+    
 # Function to get enum value from string key 
 def get_enum_value_from_key(key): 
     if not key:

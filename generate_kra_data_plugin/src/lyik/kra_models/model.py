@@ -1,48 +1,48 @@
 from pydantic import BaseModel
-from typing import Optional, Any
+from typing import Any
 from lyikpluginmanager import DBDocumentModel
 from datetime import datetime
 
 
 class PanDetails(BaseModel):
-    name_in_pan: str
-    dob_pan: str
-    pan_number: str
-    parent_guardian_spouse_name: str
+    name_in_pan: str | None = None
+    dob_pan: str | None = None
+    pan_number: str | None = None
+    parent_guardian_spouse_name: str | None = None
 
 
 class VerificationStatus(BaseModel):
-    status: str
-    message: str
+    status: str | None = None
+    message: str | None = None
     id: str | None = None
-    actor: str
+    actor: str | None = None
     user_id: str | None = None
     weight: Any | None = None
     isMandatoryFilled: bool | None = None
 
 
 class PanVerification(BaseModel):
-    pan_details: PanDetails
-    pan_card_image: DBDocumentModel
+    pan_details: PanDetails | None = None
+    pan_card_image: DBDocumentModel | None = None
     _ver_status: VerificationStatus | None = None
 
 
 class OtherInfo(BaseModel):
-    father_name: str
-    marital_status: str
-    country_of_birth: str
-    mother_name: str
-    place_of_birth: str
+    father_name: str | None = None
+    marital_status: str | None = None
+    country_of_birth: str | None = None
+    mother_name: str | None = None
+    place_of_birth: str | None = None
 
 
 class CorrespondenceAddress(BaseModel):
-    proof: DBDocumentModel
-    type_of_address: str
-    full_address: str
-    city: str
-    state: str
-    pin: str
-    country: str
+    proof: DBDocumentModel | None = None
+    type_of_address: str | None = None
+    full_address: str | None = None
+    city: str | None = None
+    state: str | None = None
+    pin: str | None = None
+    country: str | None = None
 
 
 class OVD(BaseModel):
@@ -52,49 +52,49 @@ class OVD(BaseModel):
 
 
 class IdentityAddressInfo(BaseModel):
-    state: str
-    city: str
-    country: str
-    pin: str
+    state: str | None = None
+    city: str | None = None
+    country: str | None = None
+    pin: str | None = None
     aadhaar_xml: str | None = None
-    name: str
-    gender: str
-    uid: str
-    full_address: str
+    name: str | None = None
+    gender: str | None = None
+    uid: str | None = None
+    full_address: str | None = None
 
 
 class IdentityAddressVerification(BaseModel):
-    identity_address_info: IdentityAddressInfo
-    other_info: OtherInfo
-    correspondence_address: CorrespondenceAddress
+    identity_address_info: IdentityAddressInfo | None = None
+    other_info: OtherInfo | None = None
+    correspondence_address: CorrespondenceAddress | None = None
     same_as_permanent_address: str | None = None
     _ver_status: VerificationStatus | None = None
     ovd: OVD | None = None
 
 
 class IncomeInfo(BaseModel):
-    networth: str
-    gross_annual_income: str
-    occupation: str
-    date: datetime
+    networth: str | None = None
+    gross_annual_income: str | None = None
+    occupation: str | None = None
+    date: datetime | None = None
 
 
 class FatcaResidencyInfo(BaseModel):
-    country_of_residency_1: Optional[str] = None
-    tin_no_1: Optional[str] = None
-    id_type_1: Optional[str] = None
-    reason_if_no_tin_1: Optional[str] = None
+    country_of_residency_1: str | None = None
+    tin_no_1: str | None = None
+    id_type_1: str | None = None
+    reason_if_no_tin_1: str | None = None
 
 
 class FATCACRSDeclaration(BaseModel):
-    is_client_tax_resident: str
+    is_client_tax_resident: str | None = None
     place_of_birth: str | None = None
     country_of_origin: str | None = None
     country_code: str | None = None
 
 
 class FATCACRSDeclaration1(BaseModel):
-    country_of_residency_1: str
+    country_of_residency_1: str | None = None
     tin_no_1: str | None = None
     id_type_1: str | None = None
     reason_if_no_tin_1: str | None = None
@@ -105,49 +105,49 @@ class PoliticallyExposedPersonCard(BaseModel):
 
 
 class Declarations(BaseModel):
-    income_info: IncomeInfo
-    fatca_crs_declaration: FATCACRSDeclaration
-    politically_exposed_person_card: PoliticallyExposedPersonCard
+    income_info: IncomeInfo | None = None
+    fatca_crs_declaration: FATCACRSDeclaration | None = None
+    politically_exposed_person_card: PoliticallyExposedPersonCard | None = None
     _ver_status: VerificationStatus | None = None
     fatca_crs_declaration_1: FATCACRSDeclaration1 | None = None
 
 
 class MobileVerification(BaseModel):
-    dependency_relationship_mobile: str
-    contact_id: str
+    dependency_relationship_mobile: str | None = None
+    contact_id: str | None = None
     _ver_status: VerificationStatus | None = None
 
 
 class EmailVerification(BaseModel):
-    dependency_relationship_email: str
-    contact_id: str
+    dependency_relationship_email: str | None = None
+    contact_id: str | None = None
     _ver_status: VerificationStatus | None = None
 
 
 class MobileEmailVerification(BaseModel):
-    mobile_verification: MobileVerification
-    email_verification: EmailVerification
+    mobile_verification: MobileVerification | None = None
+    email_verification: EmailVerification | None = None
     _ver_status: VerificationStatus | None = None
 
 
 class UploadImages(BaseModel):
-    wet_signature_image: DBDocumentModel
+    wet_signature_image: DBDocumentModel | None = None
     proof_of_signature: DBDocumentModel | None = None
     _ver_status: VerificationStatus | None = None
 
 
 class SignatureValidation(BaseModel):
-    upload_images: UploadImages
+    upload_images: UploadImages | None = None
     _ver_status: VerificationStatus | None = None
 
 
 class KYCHolder(BaseModel):
-    mobile_email_verification: MobileEmailVerification
-    identity_address_verification: IdentityAddressVerification
-    signature_validation: SignatureValidation
-    declarations: Declarations
-    pan_verification: PanVerification
+    mobile_email_verification: MobileEmailVerification | None = None
+    identity_address_verification: IdentityAddressVerification | None = None
+    signature_validation: SignatureValidation | None = None
+    declarations: Declarations | None = None
+    pan_verification: PanVerification | None = None
 
 
 class KYCDataModel(BaseModel):
-    kyc_holder: Optional[KYCHolder] = None
+    kyc_holder: KYCHolder | None = None

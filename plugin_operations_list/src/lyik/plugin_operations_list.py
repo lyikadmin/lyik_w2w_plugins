@@ -92,6 +92,16 @@ ALL_OPERATIONS = [
         op_name="Download CDSL Demat Payload",
         display_text="To download and review the payload data to be sent to CDSL depository for Demat Account creation.",
     ),
+    Operation(
+        op_id="TECH_XL_CREATE_ACCOUNT",
+        op_name="Create TechXL account",
+        display_text="To create a account in TechXL.",
+    ),
+    Operation(
+        op_id="TECH_XL_DOWNLOAD_PAYLOAD",
+        op_name="Download TechXL Payload",
+        display_text="To create a json file having payload for TechXL and store in db.",
+    ),
 ]
 
 

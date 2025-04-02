@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-tech-xl"
+version = "0.1.0"
+description = "A plugin to create tech xl account and download tech xl payload"
+readme = "README.md"
+authors = [{ name = "Debasish Sarkar", email = "debasish@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = [
+    "cryptography==40.0.2",
+    "pycryptodome==3.19.0",
+    "requests==2.32.3",
+]
+
+[project.entry-points."LYIK"]
+_200_TECH_XL_CREATE_ACCOUNT = "lyik.tech_xl_create_account_plugin:TechXLCreateAccount"
+_200_TECH_XL_DOWNLOAD_PAYLOAD = "lyik.tech_xl_download_payload_plugin:TechXLDownloadPayload"
