@@ -164,66 +164,71 @@ def _translate_bank_verification(value: RootBankVerification) -> Dict[str, Any]:
 
 
 def _translate_nomination_details(value: RootNominationDetails) -> Dict[str, Any]:
-    result = {"NOMINEEOPTOUT": "", "NO_OF_NOMINEES": 0}
+    # Initialize all possible keys with empty values
+    result = {
+        "NOMINEEOPTOUT": "",
+        "NO_OF_NOMINEES": 0,
+    }
+
+    # Add nominee-specific empty fields for up to 3 nominees
 
     if not value:
         return result
 
-    result.update(
-        {
-            "NOMINEEOPTOUT": value.general.client_nominee_appointment_status.value,
-            "NO_OF_NOMINEES": len(value.nominees),
-        }
-    )
+    # Update general nomination fields if they exist
+    if value.general and value.general.client_nominee_appointment_status:
+        result["NOMINEEOPTOUT"] = value.general.client_nominee_appointment_status.value
 
-    for i, nominee in enumerate(value.nominees, 1):
-        result[f"NOMINATION_NAME_{i}"] = nominee.nominee.nominee_data.name_of_nominee
-        result[f"NOM_ADDRESS_{i}"] = nominee.nominee.nominee_data.nominee_address
-        result[f"NOM_DOB_{i}"] = nominee.nominee.nominee_data.dob_nominee
+    if value.nominees:
+        result["NO_OF_NOMINEES"] = len(value.nominees)
 
-        if (
-            nominee.nominee.nominee_data.minor_nominee.NOMINEE_IS_A_MINOR
-            == MINORNOMINEE.NOMINEE_IS_A_MINOR
-        ):
-            result[f"GUARDIAN_NAME_{i}"] = nominee.nominee.guardian_data.guardian_name
-            result[f"GUARDIAN_RELATION_{i}"] = (
-                nominee.nominee.guardian_data.guardian_relation.value
-            )
-            result[f"GUARDIAN_ADDRESS_{i}"] = (
-                nominee.nominee.guardian_data.guardian_address
-            )
+        # Update nominee-specific fields
+        for i, nominee in enumerate(value.nominees, 1):
+            if nominee and nominee.nominee:
+                if nominee.nominee.nominee_data:
+                    if nominee.nominee.nominee_data.name_of_nominee:
+                        result[f"NOMINATION_NAME_{i}"] = (
+                            nominee.nominee.nominee_data.name_of_nominee
+                        )
+                    if nominee.nominee.nominee_data.nominee_address:
+                        result[f"NOM_ADDRESS_{i}"] = (
+                            nominee.nominee.nominee_data.nominee_address
+                        )
+                    if nominee.nominee.nominee_data.dob_nominee:
+                        result[f"NOM_DOB_{i}"] = (
+                            nominee.nominee.nominee_data.dob_nominee
+                        )
+
+                    # Check for minor nominee details
+                    if (
+                        nominee.nominee.nominee_data.minor_nominee
+                        and nominee.nominee.nominee_data.minor_nominee.NOMINEE_IS_A_MINOR
+                        == MINORNOMINEE.NOMINEE_IS_A_MINOR
+                        and nominee.nominee.guardian_data
+                    ):
+                        if nominee.nominee.guardian_data.guardian_name:
+                            result[f"GUARDIAN_NAME_{i}"] = (
+                                nominee.nominee.guardian_data.guardian_name
+                            )
+                        if nominee.nominee.guardian_data.relationship_with_nominee:
+                            result[f"GUARDIAN_RELATION_{i}"] = (
+                                nominee.nominee.guardian_data.relationship_with_nominee
+                            )
+                        if nominee.nominee.guardian_data.guardian_address:
+                            result[f"GUARDIAN_ADDRESS_{i}"] = (
+                                nominee.nominee.guardian_data.guardian_address
+                            )
 
     return result
 
 
 def _translate_trading_information(value: RootTradingInformation) -> Dict[str, Any]:
-    result = {}
-
-    if not value:
-        return result
-
-    # update keys
-
-    return result
+    return {}
 
 
 def _translate_dp_information(value: RootDpInformation) -> Dict[str, Any]:
-    result = {}
-
-    if not value:
-        return result
-
-    # update keys
-
-    return result
+    return {}
 
 
 def _translate_tnc(value: RootTnc) -> Dict[str, Any]:
-    result = {}
-
-    if not value:
-        return result
-
-    # update keys
-
-    return result
+    return {}
