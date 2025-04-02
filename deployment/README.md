@@ -83,6 +83,15 @@ Do not forget to add the provided LICENSE_KEY value in `lyik_base.env`
    make down
    ```
 
+4. Restart a service:
+   ```bash
+   docker restart <container-name>
+   ```
+   example:
+   ```bash
+    docker restart lyik_api
+   ```
+
 ---
 
 ## Accessing the Platform

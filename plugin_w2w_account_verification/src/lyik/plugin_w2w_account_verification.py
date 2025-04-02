@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing_extensions import Annotated, Doc
 import apluggy as pluggy
 import pymssql
+from datetime import date
 from lyikpluginmanager import (
     ContextModel,
     getProjectName,
@@ -28,7 +29,7 @@ class TradingAccountPayloadModel(BaseModel):
         None,
         description="Account holder name ",
     )
-    account_creation_date :str | None =  Field(
+    account_creation_date :date | None =  Field(
         None,
         description="Date of A/c creation",
     ),
