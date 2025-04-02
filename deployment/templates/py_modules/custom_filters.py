@@ -1658,16 +1658,27 @@ def _translate_application_details(value: RootApplicationDetails) -> Dict[str, A
 
 
 def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any]:
-    # todo: based on MARITAL_STATUS and GENDER, set TITLE
-    def _title(value: W2WMARITALSTATUS) -> str:
-        if value == W2WMARITALSTATUS.MARRIED:
+
+    def _title(marital_status: W2WMARITALSTATUS, gender: GENDER) -> str:
+        if gender == GENDER.M:
             return "MR"
-        elif value == W2WMARITALSTATUS.SINGLE:
-            return "MISS"
-        elif value == W2WMARITALSTATUS.DIVORCED:
-            return "MRS"
+        elif gender == GENDER.F:
+            return "MRS" if marital_status == W2WMARITALSTATUS.MARRIED else "MISS"
         else:
-            return ""
+            return "MR"  # Default for other genders
+
+    def _first_name(name: str) -> str:
+        # Assuming the first name is the first part of the name
+        return name.split()[0] if name else ""
+
+    def _last_name(name: str) -> str:
+        # Assuming the last name is the last part of the name
+        return name.split()[-1] if name else ""
+
+    def _middle_name(name: str) -> str:
+        # Assuming the middle name is everything between the first and last name
+        parts = name.split()
+        return " ".join(parts[1:-1]) if len(parts) > 2 else ""
 
     if not value:
         return {}
@@ -1678,19 +1689,28 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
         if i == 1:
             result["PAN_NO"] = pan.pan_number
         #     todo: prefix / suffix
-        result.update({
-            "PAN_NAME": pan.name_in_pan,
-            "FATHER_HUSBAND_NAME": pan.parent_guardian_spouse_name,
-            "BIRTH_DATE": pan.dob_pan,
-            # "TITLE":
-            "MARITAL_STATUS": holder.kyc_holder.identity_address_verification.other_info.marital_status.value,
-            "PIN_CODE": holder.kyc_holder.identity_address_verification.identity_address_info.pin,
-            "CITY": holder.kyc_holder.identity_address_verification.identity_address_info.city,
-            "STATE": holder.kyc_holder.identity_address_verification.identity_address_info.state,
-            "COUNTRY": holder.kyc_holder.identity_address_verification.identity_address_info.country,
-            "MOBILE_NO": holder.kyc_holder.mobile_email_verification.mobile_verification.contact_id,
-            "EMAIL_ID": holder.kyc_holder.mobile_email_verification.email_verification.contact_id
-        })
+        result.update(
+            {
+                "PAN_NAME": pan.name_in_pan,
+                "FIRST_NAME": _first_name(pan.name_in_pan),
+                "MIDDLE_NAME": _middle_name(pan.name_in_pan),
+                "LAST_NAME": _last_name(pan.name_in_pan),
+                "FATHER_HUSBAND_NAME": pan.parent_guardian_spouse_name,
+                "BIRTH_DATE": pan.dob_pan,
+                "TITLE": _title(
+                    holder.kyc_holder.identity_address_verification.other_info.marital_status,
+                    holder.kyc_holder.identity_address_verification.identity_address_info.gender,
+                ),
+                "MARITAL_STATUS": holder.kyc_holder.identity_address_verification.other_info.marital_status.value,
+                "SEX": holder.kyc_holder.identity_address_verification.identity_address_info.gender.value,
+                "PIN_CODE": holder.kyc_holder.identity_address_verification.identity_address_info.pin,
+                "CITY": holder.kyc_holder.identity_address_verification.identity_address_info.city,
+                "STATE": holder.kyc_holder.identity_address_verification.identity_address_info.state,
+                "COUNTRY": holder.kyc_holder.identity_address_verification.identity_address_info.country,
+                "MOBILE_NO": holder.kyc_holder.mobile_email_verification.mobile_verification.contact_id,
+                "EMAIL_ID": holder.kyc_holder.mobile_email_verification.email_verification.contact_id,
+            }
+        )
 
     return result
 
