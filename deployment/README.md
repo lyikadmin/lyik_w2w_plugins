@@ -62,35 +62,25 @@ Add the following lines:
 ### Configure Environment, License Key
 
 Edit the `lyik_base.env` file with appropriate values for your setup.
-Add the provided LICENSE_KEY value in `lyik_base.env`
+Do not forget to add the provided LICENSE_KEY value in `lyik_base.env`
 
 ---
 
 ## Deploying the Platform
 
-1. Pull the latest base image and build the local Docker containers:
+1. Start services:
    ```bash
-   make build
+   make up
    ```
 
-2. Ensure the Docker network `net_lyik` exists:
+2. Verify running containers:
    ```bash
-   docker network create net_lyik
+   make ps
    ```
 
-3. Start services using Docker Compose:
+3. Stop services:
    ```bash
-   docker compose -f compose_lyik_stack.yml up -d
-   ```
-
-4. Verify running containers:
-   ```bash
-   docker ps
-   ```
-
-5. Stop services press `Ctrl+C` in the terminal, or run:
-   ```bash
-   docker compose -f compose_lyik_stack.yml down
+   make down
    ```
 
 ---
@@ -100,9 +90,9 @@ Add the provided LICENSE_KEY value in `lyik_base.env`
 After deployment, open your browser and go to:
 
 - Forms Portal: `https://forms.test.lyik.com` or your configured domain
-- Admin Portal: `https://admin.test.lyik.com`
-- API Endpoint: `https://api.test.lyik.com`
-- Dashboard: `https://dashboard.test.lyik.com`
+- Admin Portal: `https://admin.test.lyik.com` or your configured domain
+- API Endpoint: `https://api.test.lyik.com` or your configured domain
+- Dashboard: `https://dashboard.test.lyik.com` or your configured domain
 
 ---
 
