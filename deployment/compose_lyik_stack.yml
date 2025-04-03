@@ -88,6 +88,7 @@ services:
       - 27017:27017
     volumes:
       - ./.mongo-data:/data/db 
+    user: root
 
   promtail:
     image: grafana/promtail:latest
