@@ -1,9 +1,0 @@
-KRA (KYC Registration Agency) Upload is a process to upload your KYC (Know Your Customer) documents to a KYC Registration Agency. This ensures that your KYC details are verified and stored securely.
-
-Steps to use KRA Upload:
-1. **Initiate KRA Upload**: Start the KRA upload process by selecting the document you want to upload.
-2. **Document Selection**: Choose the type of document you want to upload (e.g., PAN Card, Passport, etc.).
-3. **Upload Document**: Upload a clear and legible copy of the selected document.
-4. **Verification**: The uploaded document will be verified by the KYC Registration Agency.
-
-Ensure that the document you upload is valid and up-to-date to avoid any delays in the verification process.

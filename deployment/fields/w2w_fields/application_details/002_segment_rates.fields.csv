@@ -1,0 +1,5 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break_1,,layout,str,column_break,,FALSE,,,,,TRUE,6042,,,
+column_break_2,,layout,str,column_break,,FALSE,,Segment,,,TRUE,6042,,,
+column_break_3,,layout,str,column_break,,FALSE,,Rates,,,TRUE,6043,,,
+segment_rates,,compound,,card,,FALSE,,,,"column_break_1,column_break_2,column_break_3",FALSE,6044,,,

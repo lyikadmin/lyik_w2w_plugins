@@ -1,4 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-liveness_geo_loc,,compound,str,geoloc,,FALSE,,,,"lat,long",FALSE,6199,,,
-lat,,simple,str,display_field,,FALSE,,,,,TRUE,6197,,,
-long,,simple,str,display_field,,FALSE,,,,,TRUE,6198,,,

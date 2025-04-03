@@ -1,3 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-client_mobile,,simple,PHONE,textbox,,TRUE,,Mobile,,,TRUE,6115,,,
-client_contact_details,,compound,,card,,TRUE,,Client Contact Details,,client_mobile,FALSE,6116,,,

@@ -1,3 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-display_field,,simple,str,display_field,,FALSE,,FATCA - CRS Declaration,,,TRUE,6214,,,
-declarations,,compound,,info_pane,,FALSE,,Declarations,,"income_info,fatca_crs_declaration,display_field,fatca_crs_declaration_1,fatca_crs_declaration_2,fatca_crs_declaration_3,politically_exposed_person_card",FALSE,6244,,not USER.persona = 'CLI',operation.save:Save & Continue

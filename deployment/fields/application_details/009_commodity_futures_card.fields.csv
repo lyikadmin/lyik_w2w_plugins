@@ -1,8 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6085,,,
-display_field,,simple,str,display_field,,FALSE,Commodity Futures,,,,TRUE,6086,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6087,,,
-commodity_futures_minimum_paisa,,simple,int,textbox,,FALSE,,Minimum Paisa,,,TRUE,6088,,,display.subscript:Standard Paisa - {defaults.options['commodity_futures_minimum_paisa']}
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6089,,,
-commodity_futures_in_percentage,,simple,float,textbox,,FALSE,,In %,,,TRUE,6090,,,display.subscript:Standard % - {defaults.options['commodity_futures_in_percentage']}
-commodity_futures_card,,compound,,card,,FALSE,,,,"column_break,display_field,column_break,commodity_futures_minimum_paisa,column_break,commodity_futures_in_percentage",FALSE,6091,,,

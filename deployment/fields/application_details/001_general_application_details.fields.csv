@@ -1,6 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6036,,,
-application_type,,simple,APPLICATION_TYPE,dropdown,TRADING_AND_DP,TRUE,Select Option,Type of Application,,,TRUE,6037,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6038,,,
-residential_status,,simple,RESIDENCE_STATUS_RI_ONLY,dropdown,RI,TRUE,Select Option,Residential Status of Client,,,TRUE,6039,,,
-general_application_details,,compound,,card,,FALSE,,General,,"column_break,application_type,column_break,residential_status",FALSE,6040,,,

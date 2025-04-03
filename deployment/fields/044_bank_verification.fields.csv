@@ -1,2 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-bank_verification,,compound,,info_pane,,FALSE,,Bank Verification,,"cancelled_cheque,bank_details",FALSE,6255,,not USER.persona = 'CLI',operation.save:Save & Continue

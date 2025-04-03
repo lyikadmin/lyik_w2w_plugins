@@ -1,7 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6092,,,
-display_field,,simple,str,display_field,,FALSE,Commodity Options,,,,TRUE,6093,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6094,,,
-commodity_options_rate,,simple,int,textbox,,FALSE,,Rate (Rs),,,TRUE,6095,,,display.subscript:Standard Rate - {defaults.options['commodity_options_rate']}
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6096,,,
-commodity_options_card,,compound,,card,,FALSE,,,,"column_break,display_field,column_break,commodity_options_rate,column_break",FALSE,6097,,,

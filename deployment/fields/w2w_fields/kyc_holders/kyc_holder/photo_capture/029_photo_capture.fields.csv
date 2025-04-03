@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+liveness_photo,,simple,FILE,imgcapture,,FALSE,,,,,TRUE,6192,,,
+photo_capture,,compound,,card,,FALSE,,Photo Capture,,liveness_photo,FALSE,6193,not $.application_details.kyc_digilocker = 'YES',,

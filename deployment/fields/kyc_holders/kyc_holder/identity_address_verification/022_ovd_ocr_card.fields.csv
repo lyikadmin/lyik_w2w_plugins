@@ -1,8 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6143,,,
-ovd_type,,simple,OVD_TYPE,dropdown,,FALSE,Select Option,Select OVD,,,TRUE,6144,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6145,,,
-ovd_front,,simple,FILE,fileoption,,FALSE,,Upload front side,,,TRUE,6146,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6147,,,
-ovd_back,,simple,FILE,fileoption,,FALSE,,Upload back side,,,TRUE,6148,,,
-ovd,,compound,,card,,FALSE,,Upload OVD,API.TRUSTED_OVD,"column_break,ovd_type,column_break,ovd_front,column_break,ovd_back",FALSE,6149,not $.application_details.kyc_digilocker = 'NO',,operation.action: Continue

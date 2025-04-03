@@ -66,7 +66,7 @@ class AccountDetailsVerification(VerifyHandlerSpec):
             with pymssql.connect(**db_config) as conn:
                 cursor = conn.cursor(as_dict=True)
                 cursor.execute(
-                    "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s", (payload.trading_account_pan_number,)
+                    "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s", (payload.trading_account_pan_number.upper(),)
                 )
                 row = cursor.fetchone()
 
@@ -78,7 +78,7 @@ class AccountDetailsVerification(VerifyHandlerSpec):
                 )
 
             data = {
-                k: row.get(k, "") for k in ["NAME", "TRADING_ACCOUNT", "CUSTOMER_ID"]
+                k: row.get(k, "") for k in ["CLIENT_ID","CLIENT_NAME"]
             }
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,

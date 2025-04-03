@@ -1,4 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-display_field,,simple,str,display_field,,FALSE,Upload a picture of the cancelled cheque.,,,,TRUE,6253,,,
-cancelled_cheque_image,,simple,FILE,fileoption,,TRUE,Upload your cancelled cheque image,Cancelled Cheque Image,,,TRUE,6254,,,
-cancelled_cheque,,compound,,card,,FALSE,,Cancelled Cheque,,"display_field,cancelled_cheque_image",FALSE,6255,,,

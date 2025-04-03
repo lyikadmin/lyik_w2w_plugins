@@ -1,0 +1,4 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+upload_pdf,,simple,FILE,fileoption,,FALSE,Upload an PDF,Upload PDF,,,TRUE,6267,,,file_type:.pdf
+display_field,,simple,str,display_field,,FALSE,upload_pdf.txt,,,,TRUE,6130,,,
+kyc_holder_attachment,,compound,,card,,FALSE,,KYC Holder Attachment,,"upload_pdf, display_field",FALSE,6271,,,

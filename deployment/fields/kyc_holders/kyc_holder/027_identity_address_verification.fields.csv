@@ -1,4 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-digi_locker_aadhaar,,simple,str,display_field,,FALSE,,,DIGILOCKER.AADHAAR ; API.TRUSTED_DIGILOCKER,,TRUE,6141,not $.application_details.kyc_digilocker = 'YES',,
-same_as_permanent_address,,simple,SAME_AS_PERM,checkbox,,FALSE,,,,,TRUE,6169,,,"actions: {""copy"": [{""from_field"": ""@.identity_address_info"",""to_field"": ""@.correspondence_address""}]}"
-identity_address_verification,,compound,,info_pane,,FALSE,,Identity and Address Verification,,"digi_locker_aadhaar,ovd,identity_address_info,other_info,same_as_permanent_address,correspondence_address",FALSE,6181,,,operation.save:Save & Continue

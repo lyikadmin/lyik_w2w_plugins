@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6202,,,
+gross_annual_income,,simple,INCOME,dropdown,,FALSE,Gross Annual Income,Gross Annual Income,,,TRUE,6203,,,
+networth,,simple,int,textbox,,FALSE,Enter Networth as on date ,Networth as on date,,,TRUE,6204,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6205,,,
+occupation,,simple,OCCUPATION,dropdown,,FALSE,Select Option,Occupation,,,TRUE,6206,,,
+date,,simple,datetime.date,datebox,,FALSE,Enter Date,Date,,,TRUE,6207,,,
+income_info,,compound,,card,,FALSE,,Income Information,,"column_break,gross_annual_income,networth,column_break,occupation,date",FALSE,6208,,,verify.action_text:Validate Income;verify.verify_handler:VERIFIER_NETWORTH

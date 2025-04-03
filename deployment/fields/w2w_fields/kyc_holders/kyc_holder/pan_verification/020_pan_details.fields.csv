@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6133,,,
+name_in_pan,,simple,str,textbox,@.pan_card_image.TRUSTED_PAN_OCR.full_name,FALSE,Enter Name,Name as in PAN,FLD.PAN.full_name,,TRUE,6134,,,
+dob_pan,,simple,str,textbox,@.pan_card_image.TRUSTED_PAN_OCR.dob,FALSE,dd/mm/yyyy,Date of Birth,FLD.PAN.dob,,TRUE,6135,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6136,,,
+pan_number,,simple,str,textbox,@.pan_card_image.TRUSTED_PAN_OCR.pan_number,FALSE,Enter PAN Number,PAN Number,FLD.PAN.pan_number,,TRUE,6137,,,
+parent_guardian_spouse_name,,simple,str,textbox,@.pan_card_image.TRUSTED_PAN_OCR.father_name,FALSE,Enter Parent/Guardian/Spouse Name,Parent/Guardian/Spouse Name,FLD.PAN.father_name,,TRUE,6138,,,
+pan_details,,compound,,card,,FALSE,,PAN Details,,"column_break,name_in_pan,dob_pan,column_break,pan_number,parent_guardian_spouse_name",FALSE,6139,,,verify.action_text:Validate PAN;verify.verify_handler:VERIFIER_PAN

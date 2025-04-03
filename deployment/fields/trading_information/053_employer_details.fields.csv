@@ -1,8 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6309,,,
-employer_name,,simple,str,textbox,,FALSE,,Name of the Employer,,,TRUE,6310,,,
-mobile_number,,simple,PHONE,textbox,,FALSE,,Mobile Number,,,TRUE,6311,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6312,,,
-approval_date,,simple,datetime.date,datebox,,FALSE,,Date of Approval,,,TRUE,6313,,,
-employer_address,,simple,str,textbox,,FALSE,,Employer Address,,,TRUE,6314,,,
-employer_details,,compound,,card,,FALSE,,Employer Details,,"column_break,employer_name,mobile_number,column_break,approval_date,employer_address",FALSE,6315,,,

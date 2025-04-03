@@ -1,5 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-sms_alert,,simple,SMS_ALERT,checkbox,,TRUE,,,,,TRUE,6391,,,
-policy,,simple,POLICY,checkbox,,TRUE,,,,,TRUE,6392,,,
-processing_time,,simple,PROCESSING_TIME,checkbox,,TRUE,,,,,TRUE,6393,,,
-declaration,,compound,,card,,FALSE,,Declaration - 1,,"sms_alert,policy,processing_time",FALSE,6394,,,

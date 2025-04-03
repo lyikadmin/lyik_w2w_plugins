@@ -1,2 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-mobile_email_verification,,compound,,info_pane,,FALSE,,Mobile & Email Verification,,"mobile_verification,email_verification",FALSE,6128,,,operation.save:Save & Continue

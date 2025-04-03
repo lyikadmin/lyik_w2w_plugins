@@ -1,3 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-display_field,,simple,str,display_field,,FALSE,"Upload a clear image of Client's wet signature and an image from PAN, Driver License, Passport or Bank Attestation as Proof of Signature.",,,,TRUE,6183,,,
-signature_validation,,compound,,info_pane,,FALSE,,Signature Validation,,"display_field,upload_images",FALSE,6189,,not USER.persona = 'CLI',operation.save:Save & Continue

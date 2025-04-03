@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6359,,,
+stack_exchange_name,,simple,str,textbox,,FALSE,Enter Value,Stack Exchange Name/ID,,,TRUE,6360,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6361,,,
+clearing_member_name,,simple,str,textbox,,FALSE,Enter Value,Clearing Member Name,,,TRUE,6362,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6363,,,
+clearing_member_id,,simple,str,textbox,,FALSE,Enter Value,Clearing Member ID,,,TRUE,6364,,,
+trust_information,,compound,,card,,FALSE,,TRUST Information,,"column_break,stack_exchange_name,column_break,clearing_member_name,column_break,clearing_member_id",FALSE,6365,,,

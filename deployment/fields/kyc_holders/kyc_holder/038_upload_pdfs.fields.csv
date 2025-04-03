@@ -1,2 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-upload_pdf_attachments,,compound,,info_pane,,FALSE,,Upload PDF Attachments,,"kyc_holder_attachment",FALSE,6399,not $.application_details.kyc_digilocker = 'NO',,operation.save:Save & Continue

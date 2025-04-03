@@ -1,0 +1,10 @@
+model_name,field_name,alias,title,description,mandatory,category,sequence
+ORGANIZATION,free_text,org_name,Organization Name,The full name of the organization,TRUE,GENERAL,1
+#ORGANIZATION,org_type,org_type,Organization Type,The type of Organization,TRUE,GENERAL,2
+#ORGANIZATION,industry,industry,Industry,The industry to which the organization belongs to,TRUE,GENERAL,3
+#ORGANIZATION,pan,tax_id,Tax Identification,The PAN of the Organization,TRUE,GENERAL,4
+#ORGANIZATION,gst,gst,GST Identification Number,The GSTIN of the Organization,TRUE,GENERAL,5
+#ORGANIZATION,address,address,Correspondence Address, The registered address of the organization,TRUE,GENERAL,6
+#ORGANIZATION,httpurl,website,Organization's Website,The fully qualitified Organization Website,FALSE,GENERAL,7
+#ORGANIZATION,full_name,contact_person,Contact Person,Name of the contact person in the Organization,FALSE,GENERAL,8
+#ORGANIZATION,mobile,contact_mobile_number,Contact mobile number,Mobile number of the Organization's administrator,FALSE,GENERAL,9

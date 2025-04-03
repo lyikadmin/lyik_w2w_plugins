@@ -1,0 +1,2 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+trading_information,,compound,,info_pane,,FALSE,,Trading Information,,"check_pan_for_trading_account,trading_account_information,employer_details,details_of_dealings,introducer_details",FALSE,6332,,not USER.persona = 'CLI',verify.action_text:Verify Information;verify.verify_handler: VERIFIER_TRADING_INFORMATION;operation.save:Save & Continue

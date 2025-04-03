@@ -1,4 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-display_field,,simple,str,display_field,,FALSE,,TRUST Information,,,TRUE,6357,,,
-display_field,,simple,str,display_field,,FALSE,,UCC Mapping for DP account,,,TRUE,6365,,,
-dp_information,,compound,,info_pane,,FALSE,,DP Information,,"dp_Account_information,standing_info_from_client,display_field,trust_information,display_field,ucc_mapping_1,ucc_mapping_2",FALSE,6388,,not USER.persona = 'CLI',operation.save:Save & Continue

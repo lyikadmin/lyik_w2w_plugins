@@ -1,7 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6066,,,
-display_field,,simple,str,display_field,,FALSE,Options,,,,TRUE,6067,,,
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6068,,,
-options_standard_rate,,simple,int,textbox,,FALSE,,Standard Rate (Rs),,,TRUE,6069,,,display.subscript:Standard Rate - Rs {defaults.options['options_standard_rate']}
-column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6070,,,
-options_card,,compound,,card,,FALSE,,,,"column_break,display_field,column_break,options_standard_rate,column_break",FALSE,6071,,,

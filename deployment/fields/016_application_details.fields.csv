@@ -1,5 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-defaults,,simple,APP_DET_DEFAULTS,hidden,,FALSE,,Defaults,,,TRUE,6033,,,
-kyc_digilocker,,simple,OPTION,radiobutton,YES,TRUE,,Would the client like to complete KYC using Digilocker?,,,TRUE,6034,,,
-display_field,,simple,str,display_field,,FALSE,TARIFF SHEET,,,,TRUE,6040,,,
-application_details,,compound,,info_pane,,FALSE,,Application Details,,"defaults,kyc_digilocker,general_application_details,display_field,segment_rates,cash_fut_como_card,cash_jobbing_card,futures_card,options_card,currency_futures_card,currency_options_card,commodity_futures_card,commodity_options_card,slb_card,flat_per_order_card,online_exe_card,gst_details_card,client_contact_details",FALSE,6116,,not USER.persona = 'CLI',verify.action_text:Check Value;verify.verify_handler: VERIFIER_APPLICATION_DETAILS; operation.save:Save & Continue
