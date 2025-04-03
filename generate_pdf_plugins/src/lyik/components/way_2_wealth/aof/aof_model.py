@@ -278,7 +278,7 @@ class AOF:
 
         # Geo Location data
         constant_texts = self.constant_texts.page_kyc_details[index]
-        geoloc_table = None, 
+        geoloc_table = None
         if constant_texts.geocode_location and isinstance(constant_texts.geocode_location,GeocodeLocation):
             geoloc_details = pdf_components.create_bordered_input_box(doc=doc,text_value=f'Liveness taken at ({constant_texts.geocode_location.longitude}, {constant_texts.geocode_location.latitude}): {constant_texts.geocode_location.formatted_address}',height=0.6*inch,width=doc.width-doc.rightMargin,text_size=11,text_style=pdf_styles.normal_text_style(alignment=4,fontsize=9,indent=5)),
             geoloc_table = PdfTables().create_table(data=[[geoloc_details]],col_widths=[None],style=pdf_styles.padded_table_style())
