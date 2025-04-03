@@ -1,0 +1,4 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+display_field,,simple,str,display_field,,FALSE,"Upload the front image of the PAN card showing the PAN number, Name and other details to autofill the fields.",,,,TRUE,6130,,,
+pan_card_image,,simple,FILE,fileoption,,FALSE,Upload front image of PAN card,PAN Card Image,API.TRUSTED_PAN_OCR,,TRUE,6131,,,
+pan_verification,,compound,,info_pane,,FALSE,,PAN Verification,,"display_field,pan_card_image,pan_details",FALSE,6139,,not USER.persona = 'CLI',operation.save:Save & Continue

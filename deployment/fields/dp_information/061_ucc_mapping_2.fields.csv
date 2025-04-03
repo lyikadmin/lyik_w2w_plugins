@@ -1,0 +1,12 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6378,,,
+ucc_code_2,,simple,str,textbox,,FALSE,Enter Value,UCC Code,,,TRUE,6379,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6380,,,
+exchange_id_2,,simple,str,textbox,,FALSE,Enter Value,Exchange ID,,,TRUE,6381,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6382,,,
+segment_id_2,,simple,str,textbox,,FALSE,Enter Value,Segment ID,,,TRUE,6383,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6384,,,
+cm_id_2,,simple,str,textbox,,FALSE,Enter Value,CM ID,,,TRUE,6385,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6386,,,
+tm_id_2,,simple,str,textbox,,FALSE,Enter Value,TM ID,,,TRUE,6387,,,
+ucc_mapping_2,,compound,,card,,FALSE,,,,"column_break,ucc_code_2,column_break,exchange_id_2,column_break,segment_id_2,column_break,cm_id_2,column_break,tm_id_2",FALSE,6388,,,

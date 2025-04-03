@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+is_client_tax_resident,,simple,OPTION,radiobutton,NO,FALSE,,Is the holder a tax resident of any country other than India?,,,TRUE,6210,,,
+fatca_crs_declaration,,compound,,card,,FALSE,,FATCA CRS Declaration,,"is_client_tax_resident",FALSE,6214,,,

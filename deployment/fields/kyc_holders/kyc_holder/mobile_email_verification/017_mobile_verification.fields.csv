@@ -1,0 +1,6 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+dependency_relationship_mobile,,simple,RELATIONSHIP,dropdown,SELF,TRUE,Select Option,Dependency Relationship,,,TRUE,6121,,,
+contact_id,,simple,PHONE,textbox,,TRUE,,Mobile Number,,,TRUE,6122,,,
+otp,,simple,str,hidden,,FALSE,,OTP,,,TRUE,6122,,,
+transaction_id,,simple,str,hidden,,FALSE,,Transaction ID,,,TRUE,6122,,,
+mobile_verification,,compound,,card,,FALSE,,Mobile Verification,CUSTOM.OTP,"dependency_relationship_mobile,contact_id,otp,transaction_id",FALSE,6124,,,verify.verify_handler: VERIFIER_MOBILE_NUMBER

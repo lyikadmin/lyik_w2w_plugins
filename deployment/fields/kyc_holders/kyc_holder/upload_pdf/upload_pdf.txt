@@ -1,0 +1,5 @@
+<div style="text-align: center; margin: 10px">
+        <h1 style="margin-bottom: 20px;">Instructions for Non-DigiLocker Process</h1>
+        <p style="margin-bottom: 10px;">Since you have chosen the non-DigiLocker process, please complete all sections in the KYC Holder Group. Then, navigate to the operations section and initiate the "Download PDF" operation to obtain the document.</p>
+        <p>Print the PDF, attach all required images, and scan the entire document. Finally, upload the scanned document as a PDF.</p>
+    </div>

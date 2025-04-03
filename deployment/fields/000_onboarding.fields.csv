@@ -1,0 +1,12 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+display_field,,simple,str,display_field,,FALSE,Select the type of client to onboard:,,,,TRUE,6022,,,
+type_of_client,,simple,CLIENT_TYPE_IND_ONLY,dropdown,,TRUE,Select Option,Type of Client,,,TRUE,6023,,,
+df_individual,,simple,str,display_field,,FALSE,individual.txt,,,,TRUE,6024,not type_of_client = 'IND',,
+df_corporate,,simple,str,display_field,,FALSE,corporate.txt,,,,TRUE,6025,not type_of_client = 'CORPORATE',,
+df_huf,,simple,str,display_field,,FALSE,huf.txt,,,,TRUE,6026,not type_of_client = 'HUF',,
+df_partnership,,simple,str,display_field,,FALSE,partnership.txt,,,,TRUE,6027,not type_of_client = 'PARTNERSHIP',,
+df_trust,,simple,str,display_field,,FALSE,trust.txt,,,,TRUE,6028,not type_of_client = 'TRUST',,
+df_society,,simple,str,display_field,,FALSE,society.txt,,,,TRUE,6029,not type_of_client = 'SOCIETY',,
+df_banks,,simple,str,display_field,,FALSE,banks.txt,,,,TRUE,6030,not type_of_client = 'BANKS',,
+df_unincorporp,,simple,str,display_field,,FALSE,unincorp.txt,,,,TRUE,6031,not type_of_client = 'UNINCORPORATED',,
+onboarding,,compound,,info_pane,,FALSE,,Onboarding Requirements,,"display_field,type_of_client,df_individual,df_corporate,df_huf,df_partnership,df_trust,df_society,df_banks,df_unincorporp",FALSE,6032,,not USER.persona = 'CLI',operation.save:Save & Continue

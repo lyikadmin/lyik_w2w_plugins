@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6059,,,
+display_field,,simple,str,display_field,,FALSE,Futures,,,,TRUE,6060,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6061,,,
+futures_minimum_paisa,,simple,int,textbox,,FALSE,,Minimum Paisa,,,TRUE,6062,,,display.subscript:Standard Paisa - {defaults.options['futures_minimum_paisa']}
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6063,,,
+futures_in_percentage,,simple,float,textbox,,FALSE,,In %,,,TRUE,6064,,,display.subscript:Standard % - {defaults.options['futures_in_percentage']}
+futures_card,,compound,,card,,FALSE,,,,"column_break,display_field,column_break,futures_minimum_paisa,column_break,futures_in_percentage",FALSE,6065,,,
