@@ -1,8 +1,8 @@
 {
     "company_name": "W2W",
     "api_path": "https://ekycuat.way2wealth.com/api",
-    "digilocker_clientId": "",
-    "digilocker_clientSecret": "",
+    "digilocker_clientId": "FP06799C34",
+    "digilocker_clientSecret": "9bee3e4a6f2df262f015",
     "digilocker_callbackUrl": "https://ekycuat.way2wealth.com/digi_redirect",
     "digilocker_codeVerifier": "1QTIzQ~~tMgU.AVpL6.FF5Hdu4ytsG0~_uv0x7GY5j5g-Z~p7vtuI3KaOPQT7~wVAi",
     "digilocker_api_path": "https://digilocker.meripehchaan.gov.in",
