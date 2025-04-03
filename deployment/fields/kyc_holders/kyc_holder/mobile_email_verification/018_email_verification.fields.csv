@@ -1,0 +1,6 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+dependency_relationship_email,,simple,RELATIONSHIP,dropdown,SELF,TRUE,Select Option,Dependency Relationship,,,TRUE,6125,,,
+contact_id,,simple,EMAIL,textbox,,TRUE,,Email ID,,,TRUE,6126,,,
+otp,,simple,str,hidden,,FALSE,,OTP,,,TRUE,6122,,,
+transaction_id,,simple,str,hidden,,FALSE,,Transaction ID,,,TRUE,6122,,,
+email_verification,,compound,,card,,FALSE,,Email Verification,CUSTOM.OTP,"dependency_relationship_email,contact_id,otp,transaction_id",FALSE,6128,,,verify.verify_handler: VERIFIER_EMAIL

@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6326,,,
+introducer_name,,simple,str,textbox,,FALSE,,Name Of Introducer,,,TRUE,6327,,,
+introducer_broker_address,,simple,str,textbox,,FALSE,,Introducer Address,,,TRUE,6328,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6329,,,
+introducer_status,status_of_introducer,simple,INTRODUCER_STATUS,dropdown,,FALSE,Status of Introducer,Status of Introducer,,,TRUE,6330,,,
+remisire_code,,simple,str,textbox,,FALSE,,Introducer Code,,,TRUE,6331,,,
+introducer_details,,compound,,card,,FALSE,,Introducer Details,,"column_break,introducer_name,introducer_broker_address,column_break,introducer_status,remisire_code",FALSE,6332,,,

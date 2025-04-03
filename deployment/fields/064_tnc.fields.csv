@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+display_field,,simple,str,display_field,,FALSE,"I/We have understood the information requirements of this form (read along with the FATCA & CRS instructions) and hereby confirm that the information provided by me/us on this form is true, correct and complete. I/We also confirm that I/We have read and understood the FACTA & CRS terms and conditions and hereby accept the same.",,,,TRUE,6389,,,
+tnc,,compound,,info_pane,,FALSE,,Terms and Conditions,,"display_field,declaration",FALSE,6394,,not USER.persona = 'CLI',operation.submit:Submit

@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+operation_type,,simple,str,textbox,,FALSE,Select Option,Select Operation,OPERATIONS,,TRUE,6396,,,
+operation_card,,compound,,card,,FALSE,,Operations,OPERATIONS,"operation_type",FALSE,6399,,,operation.esign: Process Operation

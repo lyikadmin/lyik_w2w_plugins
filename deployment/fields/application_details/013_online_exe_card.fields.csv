@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+online_exe,,simple,OPTION,radiobutton,NO,FALSE,,Online EXE (Fee.Rs.750/-),,,TRUE,6110,,,
+online_exe_card,,compound,,card,,FALSE,,,,online_exe,FALSE,6111,,,

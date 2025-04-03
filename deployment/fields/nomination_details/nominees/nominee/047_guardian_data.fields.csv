@@ -1,0 +1,11 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6272,,,
+guardian_id_proof,,simple,FILE,fileoption,,FALSE,,Guardian ID Proof,,,TRUE,6273,,,
+guardian_type_of_id,,simple,ID_TYPE,dropdown,,FALSE,,Type of ID,,,TRUE,6274,,,
+guardian_name,,simple,str,textbox,,FALSE,,Name of Guardian,,,TRUE,6275,,,
+guardian_address,,simple,str,textbox.row-4,,FALSE,,Guardian Address,,,TRUE,6276,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6277,,,
+guardian_signature,,simple,FILE,fileoption,,FALSE,,Guardian Signature,,,TRUE,6278,,,
+guardian_id_number,,simple,str,textbox,,FALSE,,ID Number,,,TRUE,6279,,,
+relationship_with_nominee,,simple,str,textbox,,FALSE,,Relationship with Nominee,,,TRUE,6280,,,
+guardian_data,,compound,,card,,FALSE,,Guardian of Nominee,,"column_break,guardian_id_proof,guardian_type_of_id,guardian_name,guardian_address,column_break,guardian_signature,guardian_id_number,relationship_with_nominee",FALSE,6281,not nominee_data.minor_nominee = 'NOMINEE_IS_A_MINOR',,

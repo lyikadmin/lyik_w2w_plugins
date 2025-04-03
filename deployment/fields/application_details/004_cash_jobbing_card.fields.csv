@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6052,,,
+display_field,,simple,str,display_field,,FALSE,Cash Jobbing,,,,TRUE,6053,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6054,,,
+cash_jobbing_minimum_paisa,,simple,int,textbox,,FALSE,,Minimum Paisa,,,TRUE,6055,,,display.subscript:Standard Paisa - {defaults.options['cash_jobbing_minimum_paisa']}
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6056,,,
+cash_jobbing_in_percentage,,simple,float,textbox,,FALSE,,In %,,,TRUE,6057,,,display.subscript:Standard % - {defaults.options['cash_jobbing_in_percentage']}
+cash_jobbing_card,,compound,,card,,FALSE,,,,"column_break,display_field,column_break,cash_jobbing_minimum_paisa,column_break,cash_jobbing_in_percentage",FALSE,6058,,,

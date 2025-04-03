@@ -1,0 +1,22 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,meta
+tab_break,,layout,str,tab_break,,FALSE,,GENERAL,,,FALSE,6000,,
+section_break,onboarding_requirements_section,layout,str,section_break,,FALSE,,Onboarding Requirements,,,FALSE,6001,,
+onboarding,,compound,,info_pane,,FALSE,,Onboarding Requirements,,,FALSE,6002,,operation.save:Save & Continue
+section_break,application_details_section,layout,str,section_break,,FALSE,,Application Details,,,FALSE,6003,,
+application_details,,compound,,info_pane,,FALSE,,Application Details,,,FALSE,6004,,verify.action_text:Check Value;verify.verify_handler: VERIFIER_APPLICATION_DETAILS; operation.save:Save & Continue
+tab_break,,layout,str,tab_break,,FALSE,,KYC,,,FALSE,6005,,
+kyc_holders,,group,,groupbox,,FALSE,,KYC Holders,,,FALSE,6006,,
+tab_break,,layout,str,tab_break,,FALSE,,Other Information,,,FALSE,6007,,
+section_break,bank_verification_section,layout,str,section_break,,FALSE,,Bank Verification,,,FALSE,6008,,
+bank_verification,,compound,,info_pane,,FALSE,,Bank Verification,,,FALSE,6009,,operation.save:Save & Continue
+section_break,nomination_section,layout,str,section_break,,FALSE,,Nomination Details,,,FALSE,6010,,
+nomination_details,,compound,,info_pane,,FALSE,,Nomination Details,,,FALSE,6011,,verify.action_text:Verify Allocation;operation.save:Save & Continue
+section_break,trading_info_section,layout,str,section_break,,FALSE,,Trading Information,,,FALSE,6012,,
+trading_information,,compound,,info_pane,,FALSE,,Trading Information,,,FALSE,6013,,operation.save:Save & Continue
+section_break,dp_info_section,layout,str,section_break,,FALSE,,DP Information,,,FALSE,6014,,
+dp_information,,compound,,info_pane,,FALSE,,DP Information,,,FALSE,6015,,operation.save:Save & Continue
+section_break,tnc_section_break,layout,str,section_break,,FALSE,,Terms and Conditions,,,FALSE,6016,,
+tnc,,compound,,info_pane,,FALSE,,Terms and Conditions,,,FALSE,6017,,operation.submit:Submit
+tab_break,,layout,str,tab_break,,FALSE,,OPERATIONS,,,FALSE,6018,,
+section_break,operations_section,layout,str,section_break,,FALSE,,Operations,,,FALSE,6019,,
+operations,,compound,,info_pane,,FALSE,,Operations,,,FALSE,6020,,operation.esign: Process Operation

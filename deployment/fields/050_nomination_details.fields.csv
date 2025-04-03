@@ -1,0 +1,2 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+nomination_details,,compound,,info_pane,,FALSE,,Nomination Details,,"general,nominees",FALSE,6281,,not USER.persona = 'CLI',verify.verify_handler:VERIFIER_NOMINEE_ALLOCATION;verify.action_text:Verify;operation.save:Save & Continue
