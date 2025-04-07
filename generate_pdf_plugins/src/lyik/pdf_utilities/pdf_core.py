@@ -287,9 +287,10 @@ class PdfCore:
         try:
             generate_docs_res = await invoke.template_generate_pdf(
                 config=config,
-                template_id='',
+                template_id='BFSI',
                 record=record,
                 params=params,
+                form_name= context.form_name
             )
             if not generate_docs_res or not isinstance(generate_docs_res, TransformerResponseModel):
                 raise PluginException("Pdf generation failed!")
@@ -309,6 +310,7 @@ class PdfCore:
                     context=context,
                     filename=f'{key}.pdf',
                     file_bytes=value,
+                    meta_data=pdf_meta,
                 )
                 logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
 

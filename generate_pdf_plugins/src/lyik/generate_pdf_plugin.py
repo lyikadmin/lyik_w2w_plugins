@@ -184,9 +184,9 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
         pdf_core = PdfCore()
         return await pdf_core.generate_doc(
             context=context,
-            form_record=form_record,
+            record=form_record,
             record_id=record_id,
-            params=params2,
+            params=params,
         )
 
         
