@@ -39,6 +39,8 @@ def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
             "AGREEMENT_DATE": current_date(),
             "NOT_EFT": "Y",
             "NOT_POA": "N",
+            "BO_ID": "",
+            "TYPEOFFACILITY": 3,
             **_translate_onboarding(form.onboarding),
             **_translate_application_details(form.application_details),
             **_translate_kyc_holders(form.kyc_holders),
@@ -289,7 +291,14 @@ def _translate_trading_information(value: RootTradingInformation) -> Dict[str, A
 
 
 def _translate_dp_information(value: RootDpInformation) -> Dict[str, Any]:
-    return {}
+    if not value:
+        return {}
+    if value.dp_Account_information:
+        dp_info = value.dp_Account_information
+        return {
+            "DP_ID": dp_info.dp_id_no or "",
+            "CLIENT_ID": dp_info.client_id_no or "",
+        }
 
 
 def _translate_tnc(value: RootTnc) -> Dict[str, Any]:
