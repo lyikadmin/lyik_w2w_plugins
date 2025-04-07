@@ -26,12 +26,66 @@ def current_date():
     return datetime.now().strftime("%d/%m/%Y")
 
 
+def exchange_list(form: Org82418635Frm5244590Model) -> List[str]:
+    exchanges = set()
+    if (
+        form.trading_information
+        and form.trading_information.trading_account_information
+    ):
+        tai = form.trading_information.trading_account_information
+        segments = [
+            segment.value
+            for segment in [
+                tai.segment_pref_1,
+                tai.segment_pref_2,
+                tai.segment_pref_3,
+                tai.segment_pref_4,
+                tai.segment_pref_5,
+                tai.segment_pref_6,
+            ]
+            if segment is not None
+        ]
+
+        # If Equity => NSE_CASH, BSE_CASH
+        if "EQUITY" in segments:
+            exchanges.update(["NSE_CASH", "BSE_CASH"])
+
+        # If FNO => NSE_FNO, BSE_FNO, plus NSE_DLY (since FNO is a derivative)
+        if "FNO" in segments:
+            exchanges.update(["NSE_FNO", "BSE_FNO", "NSE_DLY"])
+
+        # If Currency => CD_NSE, CD_BSE, plus NSE_DLY (since Currency is a derivative)
+        if "CURRENCY" in segments:
+            exchanges.update(["CD_NSE", "CD_BSE", "NSE_DLY"])
+
+        # If Commodity => MCX, but only if Commodity is the *only* segment
+        if "COMMODITY" in segments:
+            if segments == ["COMMODITY"]:
+                exchanges.add("MCX")
+
+        # If Mutual Fund => MF_NSE
+        if "MUTUAL_FUND" in segments:
+            exchanges.add("MF_NSE")
+
+        # If SLB => NSE_SLBM
+        if "SLB" in segments:
+            exchanges.add("NSE_SLBM")
+
+    # Return as a list (set helps avoid duplicates if multiple conditions overlap)
+    return list(exchanges)
+
+
 def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
     form = Org82418635Frm5244590Model.model_validate(value)
 
     logging.debug(f"Form data: {value}")
     try:
         return {
+            # todo: field need to be added in the form
+            "NOTBO_ID": "DUMMY_BO_ID",
+            # todo: need to be extracted from the user token, "branch_token" need to be added to user token.
+            "BRANCH_CODE": "DUMMY_BRANCH_CODE",
+            "EXCHANGELIST": exchange_list(form),
             "PAN_PROOF": "01",
             "CLIENT_NATURE": "C",
             "SMS_SEND": "Y",
@@ -39,7 +93,6 @@ def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
             "AGREEMENT_DATE": current_date(),
             "NOT_EFT": "Y",
             "NOT_POA": "N",
-            "BO_ID": "",
             "TYPEOFFACILITY": 3,
             **_translate_onboarding(form.onboarding),
             **_translate_application_details(form.application_details),
@@ -168,6 +221,8 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
                         "CITY": identity_address.city or "",
                         "STATE": identity_address.state or "",
                         "COUNTRY": identity_address.country or "",
+                        "ADDRESS_PROOF1": "",
+                        "CORRESPONDANCE_ADDRESS_PROOF": "",
                     }
                 )
                 result["TITLE"] = _title(marital_status, gender)
@@ -203,8 +258,6 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
                 income_info = declarations.income_info
                 result["OCCUPATION"] = income_info.occupation.value or ""
                 result["ANNUAL_INCOME"] = income_info.gross_annual_income.value or ""
-                # todo change date field name
-                # result["GROSSANNUALINCOMEDATE"] = income_info.date or ""
                 result["PORTFOLIO_MKT_VALUE"] = income_info.networth or ""
                 # todo change date field name
                 # result["NETWORTHDATE"] = income_info.date or ""
