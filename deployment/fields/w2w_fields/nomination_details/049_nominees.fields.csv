@@ -1,0 +1,2 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+nominees,,group,,groupbox,,FALSE,,,,nominee,FALSE,6281,not general.client_nominee_appointment_status = 'YES',,button_label:Add Nominee;limits.min:1;limits.max:3;verify.action_text:Verify Allocation

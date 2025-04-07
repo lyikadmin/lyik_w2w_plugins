@@ -1,0 +1,12 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+dob_nominee,,simple,str,textbox,,FALSE,DD/MM/YYYY,Date of Birth,,,TRUE,6269,not minor_nominee = 'NOMINEE_IS_A_MINOR',,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6261,,,
+minor_nominee,,simple,MINOR_NOMINEE,checkbox,,FALSE,,,,,TRUE,6262,,,
+nominee_type_of_id,,simple,ID_TYPE,dropdown,,FALSE,Type Of ID,Type Of ID,,,TRUE,6263,,,
+name_of_nominee,,simple,str,textbox,,FALSE,Enter Name of Nominee,Name of Nominee,,,TRUE,6264,,,
+percentage_of_allocation,,simple,float,textbox,,FALSE,Enter Percentage of Allocation,Percentage of Allocation,,,TRUE,6265,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6266,,,
+nominee_id_proof,,simple,FILE,fileoption,,FALSE,Upload an image,Nominee ID Proof,,,TRUE,6267,,,
+id_number,,simple,str,textbox,,FALSE,Enter ID Number,ID Number,,,TRUE,6268,,,
+nominee_address,,simple,str,textbox.row-4,,FALSE,Enter Address,Nominee Address,,,TRUE,6270,,,
+nominee_data,,compound,,card,,FALSE,,Nominee,,"column_break,minor_nominee,nominee_type_of_id,name_of_nominee,percentage_of_allocation,column_break,nominee_id_proof,id_number,dob_nominee,nominee_address",FALSE,6271,,,

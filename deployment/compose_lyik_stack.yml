@@ -18,6 +18,7 @@ services:
       - ./certificates/tls.crt:/etc/nginx/certs/certificate.crt
       - ./certificates/tls.key:/etc/nginx/certs/private.key
       - ./logs/nginx-proxy-prod:/var/log/nginx
+      - ./static_files:/app/static_files
     depends_on:
       - lyik_api
       - lyik_spa
@@ -50,9 +51,6 @@ services:
   lyik_api:
     container_name: 'lyik_api'
     # @API - REPLACE WITH YOUR IMAGE NAME AND IMAGE TAG in case using modified images.
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: lyik-api:latest
     restart: always
     ports:
@@ -90,6 +88,7 @@ services:
       - 27017:27017
     volumes:
       - ./.mongo-data:/data/db 
+    user: root
 
   promtail:
     image: grafana/promtail:latest

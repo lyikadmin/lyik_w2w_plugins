@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6283,,,
+CLIENT_ID,,simple,str,textbox,,FALSE,Enter Trading ID,Trading ID,,,TRUE,6284,,,
+CLIENT_NAME,,simple,str,textbox,,FALSE,Enter Name of Account Holder,Name of Account Holder,,,TRUE,6285,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6286,,,
+account_creation_date,,simple,datetime.date,datebox,,FALSE,Enter Account Creation Date,Account created on,,,TRUE,6287,,,
+trading_account_pan_number,,simple,str,hidden,$.kyc_holders[0].kyc_holder.pan_verification.pan_details.pan_number,FALSE,Name as per PAN,Name as per PAN,,,TRUE,6249,,FALSE,
+check_pan_for_trading_account,,compound,,card,,FALSE,,Check PAN for Trading Account,,"column_break,CLIENT_ID,CLIENT_NAME,column_break,account_creation_date,trading_account_pan_number",FALSE,6288,,,verify.verify_handler:VERIFIER_ACCOUNT_DETAILS;verify.action_text:Fetch Trading Status

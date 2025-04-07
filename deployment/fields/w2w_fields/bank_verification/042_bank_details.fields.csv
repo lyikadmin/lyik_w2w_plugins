@@ -1,0 +1,14 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6246,,,
+bank_account_number,,simple,str,textbox,,TRUE,Enter Bank Account Number,Bank Account Number,,,TRUE,6247,,,
+account_holder_name,,simple,str,textbox,,FALSE,Name as per bank record,Account Holder's Name,,,TRUE,6248,,FALSE,
+account_holder_name_pan,,simple,str,textbox,$..name_in_pan,TRUE,Name as per PAN,Name as per PAN,,,TRUE,6249,,FALSE,
+account_holder_name_id,,simple,str,textbox,$.kyc_holders[0].kyc_holder.identity_address_verification.identity_address_info.name,TRUE,Name as per ID Proof,Name as in ID Proof,,,TRUE,6250,,FALSE,
+ifsc_code,,simple,IFSC,textbox,,TRUE,Enter IFSC Code,IFSC Code,,,TRUE,6251,,,
+account_mobile_number,,simple,PHONE,textbox,$.kyc_holders[0].kyc_holder.mobile_email_verification.mobile_verification.contact_id,TRUE,,Mobile Number,,,TRUE,6252,,,
+type_of_application,,simple,str,hidden,$..application_type,FALSE,,,,,TRUE,6253,,,
+micr_code,,simple,MICR,textbox,,FALSE,MICR code as on cheque leaf,MICR Code,,,TRUE,6254,,,
+bank_name,,simple,str,textbox,,FALSE,Name of the Bank,Bank Name,,,TRUE,6254,,,
+account_type,,simple,BANK_ACCOUNT_TYPE,dropdown,,TRUE,Bank Account Type,Account Type,,,TRUE,6254,,,
+bank_address,,simple,str,textbox.row-4,,FALSE,Bank Address,Bank Address,,,TRUE,6254,,,
+bank_details,,compound,,card,,FALSE,,Bank Details,,"column_break,bank_account_number,ifsc_code,micr_code,bank_name,account_type,column_break,account_holder_name_pan,account_holder_name_id,account_holder_name,account_mobile_number,bank_address,type_of_application",FALSE,6255,,,verify.verify_handler:VERIFIER_BANK_ACCOUNT;verify.action_text:Verify Account

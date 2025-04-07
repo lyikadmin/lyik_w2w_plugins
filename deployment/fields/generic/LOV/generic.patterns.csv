@@ -1,0 +1,3 @@
+option_name,regex
+PAN,[A-Z]{5}\d{4}[A-Z]{1}
+GST,\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d{1}[0-Z]{2}

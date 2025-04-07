@@ -1,0 +1,10 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6162,,,
+father_name,,simple,str,textbox,,FALSE,Enter Father's Name,Father's Name,,,TRUE,6163,,,
+marital_status,,simple,W2W_MARITALSTATUS,dropdown,,TRUE,,Marital Status,,,TRUE,6164,,,
+country_of_birth,,simple,COUNTRY_IND_ONLY,dropdown,India,FALSE,Enter Country of Birth,Country of Birth,,,TRUE,6165,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6166,,,
+mother_name,,simple,str,textbox,,FALSE,Enter Mother's Name,Mother's Name,,,TRUE,6167,,,
+place_of_birth,,simple,str,textbox,,FALSE,Enter Place of Birth,Place of Birth,,,TRUE,6168,,,
+residential_status,,simple,RESIDENCE_STATUS_RI_ONLY,dropdown,RI,TRUE,Select Option,Residential Status of Client,,,TRUE,6169,,,
+other_info,,compound,,card,,FALSE,,Other Information,,"column_break,father_name,mother_name,marital_status,column_break,place_of_birth,country_of_birth,residential_status",FALSE,6169,,,

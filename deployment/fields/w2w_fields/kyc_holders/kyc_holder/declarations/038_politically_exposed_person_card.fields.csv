@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+politically_exposed_person,,simple,POLITICALEXPO,radiobutton,,FALSE,,Please choose one of the following:,,,TRUE,6243,,,
+politically_exposed_person_card,,compound,,card,,FALSE,,Politically Exposed Person,,politically_exposed_person,FALSE,6244,,,

@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta,
+liveness_captcha,,simple,list:str,liveness.readout,,FALSE,,,,,TRUE,6195,,,,
+liveness_check,,compound,,info_pane,,FALSE,,Liveness Check,,"video_capture,liveness_captcha,liveness_geo_loc",FALSE,6199,not $.application_details.kyc_digilocker = 'YES',,verify.action_text:Verify;verify.verify_handler: VERIFIER_LIVENESS_CHECK; operation.save:Save & Continue,

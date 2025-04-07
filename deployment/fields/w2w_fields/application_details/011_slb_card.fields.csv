@@ -1,0 +1,7 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6098,,,
+display_field,,simple,str,display_field,,FALSE,SLB,,,,TRUE,6099,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6100,,,
+slb_rate,,simple,int,textbox,,FALSE,,Rate (Rs),,,TRUE,6101,,,display.subscript:Standard Rate - {defaults.options['slb_rate']}
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6102,,,
+slb_card,,compound,,card,,FALSE,,,,"column_break,display_field,column_break,slb_rate,column_break",FALSE,6103,,,

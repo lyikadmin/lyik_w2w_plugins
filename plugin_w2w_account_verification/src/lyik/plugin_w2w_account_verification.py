@@ -12,7 +12,7 @@ from lyikpluginmanager import (
     VerifyHandlerSpec,
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
-    PluginException
+    PluginException,
 )
 from lyikpluginmanager.annotation import RequiredEnv
 
@@ -20,20 +20,23 @@ impl = pluggy.HookimplMarker(getProjectName())
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 class TradingAccountPayloadModel(BaseModel):
     trading_id: str | None = Field(
         None,
         description="Trading ID",
     )
-    account_holder_name: str =  Field(
+    account_holder_name: str = Field(
         None,
         description="Account holder name ",
     )
-    account_creation_date :date | None =  Field(
-        None,
-        description="Date of A/c creation",
-    ),
-    trading_account_pan_number: str  =   Field(
+    account_creation_date: date | None = (
+        Field(
+            None,
+            description="Date of A/c creation",
+        ),
+    )
+    trading_account_pan_number: str = Field(
         ...,
         description="PAN Number to be verified",
     )
@@ -45,7 +48,10 @@ class AccountDetailsVerification(VerifyHandlerSpec):
     async def verify_handler(
         self,
         context: ContextModel,
-        payload: Annotated[TradingAccountPayloadModel, Doc("Data related to Trading account having PAN number to be verified")],
+        payload: Annotated[
+            TradingAccountPayloadModel,
+            Doc("Data related to Trading account having PAN number to be verified"),
+        ],
     ) -> Annotated[
         VerifyHandlerResponseModel,
         RequiredEnv(["DB_SERVER", "DB_PORT", "DB_NAME", "DB_USERNAME", "DB_PASSWORD"]),
@@ -66,20 +72,20 @@ class AccountDetailsVerification(VerifyHandlerSpec):
             with pymssql.connect(**db_config) as conn:
                 cursor = conn.cursor(as_dict=True)
                 cursor.execute(
-                    "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s", (payload.trading_account_pan_number,)
+                    "SELECT TOP 1 * FROM LYIKACCESS WHERE PAN_NO = %s",
+                    (payload.trading_account_pan_number.upper(),),
                 )
                 row = cursor.fetchone()
 
             if not row:
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    status=VERIFY_RESPONSE_STATUS.SUCCESS,
                     message=f"Account details not found for PAN: {payload.trading_account_pan_number}",
                     actor="system",
+                    data={},
                 )
 
-            data = {
-                k: row.get(k, "") for k in ["NAME", "TRADING_ACCOUNT", "CUSTOMER_ID"]
-            }
+            data = {k: row.get(k, "") for k in ["CLIENT_ID", "CLIENT_NAME"]}
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,
                 message=f"Verified successfully by the system on {datetime.now()}. Account details: {data}",

@@ -1,0 +1,8 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6045,,,
+cash_fut_como,,simple,str,display_field,,FALSE,Cash/ &Future/ Commodity Delivery,,,,TRUE,6046,,,
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6047,,,
+cash_minimum_paisa,,simple,int,textbox,,FALSE,,Minimum Paisa,,,TRUE,6048,,,display.subscript:Standard Paisa - {defaults.options['cash_minimum_paisa']}
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6049,,,
+cash_in_percentage,,simple,float,textbox,,FALSE,,In %,,,TRUE,6050,,,display.subscript:Standard % - {defaults.options['cash_in_percentage']}
+cash_fut_como_card,,compound,,card,,FALSE,,,,"column_break,cash_fut_como,column_break,cash_minimum_paisa,column_break,cash_in_percentage",FALSE,6051,,,
