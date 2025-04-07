@@ -32,6 +32,9 @@ def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
     logging.debug(f"Form data: {value}")
     try:
         return {
+            "NOTBO_ID": "",
+            "BRANCH_CODE": "",
+            "EXCHANGELIST": "",
             "PAN_PROOF": "01",
             "CLIENT_NATURE": "C",
             "SMS_SEND": "Y",
@@ -39,7 +42,6 @@ def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
             "AGREEMENT_DATE": current_date(),
             "NOT_EFT": "Y",
             "NOT_POA": "N",
-            "BO_ID": "",
             "TYPEOFFACILITY": 3,
             **_translate_onboarding(form.onboarding),
             **_translate_application_details(form.application_details),
@@ -168,6 +170,8 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
                         "CITY": identity_address.city or "",
                         "STATE": identity_address.state or "",
                         "COUNTRY": identity_address.country or "",
+                        "ADDRESS_PROOF1": "",
+                        "CORRESPONDANCE_ADDRESS_PROOF": "",
                     }
                 )
                 result["TITLE"] = _title(marital_status, gender)
@@ -203,8 +207,6 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
                 income_info = declarations.income_info
                 result["OCCUPATION"] = income_info.occupation.value or ""
                 result["ANNUAL_INCOME"] = income_info.gross_annual_income.value or ""
-                # todo change date field name
-                # result["GROSSANNUALINCOMEDATE"] = income_info.date or ""
                 result["PORTFOLIO_MKT_VALUE"] = income_info.networth or ""
                 # todo change date field name
                 # result["NETWORTHDATE"] = income_info.date or ""
