@@ -186,6 +186,7 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             context=context,
             form_record=form_record,
             record_id=record_id,
+            params=params2,
         )
 
         
