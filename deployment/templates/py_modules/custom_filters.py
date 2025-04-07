@@ -26,15 +26,66 @@ def current_date():
     return datetime.now().strftime("%d/%m/%Y")
 
 
+def exchange_list(form: Org82418635Frm5244590Model) -> List[str]:
+    exchanges = set()
+    if (
+        form.trading_information
+        and form.trading_information.trading_account_information
+    ):
+        tai = form.trading_information.trading_account_information
+        segments = [
+            segment.value
+            for segment in [
+                tai.segment_pref_1,
+                tai.segment_pref_2,
+                tai.segment_pref_3,
+                tai.segment_pref_4,
+                tai.segment_pref_5,
+                tai.segment_pref_6,
+            ]
+            if segment is not None
+        ]
+
+        # If Equity => NSE_CASH, BSE_CASH
+        if "EQUITY" in segments:
+            exchanges.update(["NSE_CASH", "BSE_CASH"])
+
+        # If FNO => NSE_FNO, BSE_FNO, plus NSE_DLY (since FNO is a derivative)
+        if "FNO" in segments:
+            exchanges.update(["NSE_FNO", "BSE_FNO", "NSE_DLY"])
+
+        # If Currency => CD_NSE, CD_BSE, plus NSE_DLY (since Currency is a derivative)
+        if "CURRENCY" in segments:
+            exchanges.update(["CD_NSE", "CD_BSE", "NSE_DLY"])
+
+        # If Commodity => MCX, but only if Commodity is the *only* segment
+        if "COMMODITY" in segments:
+            if segments == ["COMMODITY"]:
+                exchanges.add("MCX")
+
+        # If Mutual Fund => MF_NSE
+        if "MUTUAL_FUND" in segments:
+            exchanges.add("MF_NSE")
+
+        # If SLB => NSE_SLBM
+        if "SLB" in segments:
+            exchanges.add("NSE_SLBM")
+
+    # Return as a list (set helps avoid duplicates if multiple conditions overlap)
+    return list(exchanges)
+
+
 def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
     form = Org82418635Frm5244590Model.model_validate(value)
 
     logging.debug(f"Form data: {value}")
     try:
         return {
-            "NOTBO_ID": "",
-            "BRANCH_CODE": "",
-            "EXCHANGELIST": "",
+            # todo: field need to be added in the form
+            "NOTBO_ID": "DUMMY_BO_ID",
+            # todo: need to be extracted from the user token, "branch_token" need to be added to user token.
+            "BRANCH_CODE": "DUMMY_BRANCH_CODE",
+            "EXCHANGELIST": exchange_list(form),
             "PAN_PROOF": "01",
             "CLIENT_NATURE": "C",
             "SMS_SEND": "Y",
