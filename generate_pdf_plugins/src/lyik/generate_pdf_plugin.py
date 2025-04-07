@@ -26,7 +26,7 @@ from lyikpluginmanager import (
     PluginException
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
-from typing import List
+from typing import List, Dict, Any
 import json
 import io
 import string
@@ -143,6 +143,29 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             record_id=record_id,
         )
 
+
+    @impl 
+    async def generate_doc(
+        self,
+        context: ContextModel,
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("form record for which the pdf need to be generated"),
+        ],
+        record_id: Annotated[
+            int, Doc("record id of the form record which is saved in db")
+        ],
+        params: Annotated[
+            Dict[str, Any] | None,
+            Doc("This will be given based on the contract with the transformer"),
+        ],
+    ) -> Annotated[
+        GenerateAllDocsResponseModel,
+        Doc("response having status and link to download generated docs"),
+    ]:
+
+        pass
+        
     @impl
     async def generate_main_doc(
         self,
