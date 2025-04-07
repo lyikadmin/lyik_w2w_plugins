@@ -1,0 +1,42 @@
+[
+    {
+        "link_attribute_name": "pan_number",
+        "link_attribute_order": 1,
+        "link_attribute_value_path": "$.kyc_holders[0].kyc_holder.pan_verification.pan_details.pan_number"
+    },
+    {
+        "link_attribute_name": "customer_name",
+        "link_attribute_order": 2,
+        "link_attribute_value_path": "$.kyc_holders[0].kyc_holder.pan_verification.pan_details.name_in_pan"
+    },
+    {
+        "link_attribute_name": "application_type",
+        "link_attribute_order": 3,
+        "link_attribute_value_path": "$.application_details.general_application_details.application_type"
+    },
+    {
+        "link_attribute_name": "mobile_number",
+        "link_attribute_order": 4,
+        "link_attribute_value_path": "$.kyc_holders[0].kyc_holder.mobile_email_verification.mobile_verification.contact_id"
+    },
+    {
+        "link_attribute_name": "depository",
+        "link_attribute_order": 5,
+        "link_attribute_value_path": "$.dp_information.dp_Account_information.depository"
+    },
+    {
+        "link_attribute_name": "trading_id",
+        "link_attribute_order": 6,
+        "link_attribute_value_path": "$.trading_information.check_pan_for_trading_account.trading_id"
+    },
+    {
+        "link_attribute_name": "dp_id",
+        "link_attribute_order": 7,
+        "link_attribute_value_path": "$.dp_information.dp_Account_information.dp_id_no"
+    },
+    {
+        "link_attribute_name": "client_id",
+        "link_attribute_order": 8,
+        "link_attribute_value_path": "$.dp_information.dp_Account_information.client_id_no"
+    }
+]
