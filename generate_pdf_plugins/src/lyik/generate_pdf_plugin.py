@@ -23,7 +23,7 @@ from lyikpluginmanager import (
     DocQueryGenericModel,
     GenerateAllDocsResponseModel,
     GenerateAllDocsStatus,
-    PluginException
+    PluginException,
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
 from typing import List, Dict, Any
@@ -161,10 +161,33 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
         ],
     ) -> Annotated[
         GenerateAllDocsResponseModel,
-        Doc("response having status and link to download generated docs"),
+        RequiredEnv(["API_DOMAIN"]),
+        RequiredVars(
+            [
+                "DB_CONN_URL",
+                "DOWNLOAD_DOC_API_ENDPOINT",
+                "PDF_GARBLE_KEY",
+            ]
+        ),
+        Doc(
+            "Returns the operation response having status and message. If status is success, then return the pdf link within the message."
+        ),
     ]:
 
-        pass
+        if context is None:
+            raise PluginException("context must be provided")
+        if context.config is None:
+            raise PluginException("config must be provided in the context")
+        if record_id is None:
+            raise PluginException("recordid must be provided")
+        
+        pdf_core = PdfCore()
+        return await pdf_core.generate_doc(
+            context=context,
+            form_record=form_record,
+            record_id=record_id,
+        )
+
         
     @impl
     async def generate_main_doc(

@@ -6,6 +6,7 @@ from ..pdf_generator.pdf_generator import PdfGenerator
 from ..pdf_utilities.utility import get_geo_location
 from ..models.document_plugin_config import DocPluginConfig
 from lyikpluginmanager import (
+    invoke,
     ContextModel,
     getProjectName,
     GeneratePdfSpec,
@@ -23,10 +24,12 @@ from lyikpluginmanager import (
     DocQueryGenericModel,
     GenerateAllDocsResponseModel,
     GenerateAllDocsStatus,
-    PluginException
+    PluginException,
+    TransformerResponseModel,
+    TRANSFORMER_RESPONSE_STATUS,
 )
 from lyikpluginmanager.annotation import RequiredVars
-from typing import List
+from typing import List, Any, Dict
 import json
 import io
 import string
@@ -271,6 +274,63 @@ class PdfCore:
                 )
         except Exception as e:
             raise PluginException(f"An error occurred while generating PDF!")
+
+    async def generate_doc(
+        self,
+        context: ContextModel,
+        record: GenericFormRecordModel,
+        record_id: int,
+        params: Dict[str, Any]
+    )->GenerateAllDocsResponseModel:
+        config = context.config
+
+        try:
+            generate_docs_res = await invoke.template_generate_pdf(
+                config=config,
+                template_id='',
+                record=record,
+                params=params,
+            )
+            if not generate_docs_res or not isinstance(generate_docs_res, TransformerResponseModel):
+                raise PluginException("Pdf generation failed!")
+            if generate_docs_res.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
+                raise PluginException("Pdf generation failed!")
+            
+            pdfs_dict: Dict[str, bytes] = generate_docs_res.response
+
+            pdf_meta = DocMeta(
+                org_id=context.org_id,
+                form_id=context.form_id,
+                record_id=record_id,
+            )
+            for key, value in pdfs_dict.items():
+
+                doc = await self._upsert_pdf_file(
+                    context=context,
+                    filename=f'{key}.pdf',
+                    file_bytes=value,
+                )
+                logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
+
+            obfus_str = self.obfuscate_string(
+                    data_str=f"{pdf_meta.model_dump_json()}",
+                    static_key=config.PDF_GARBLE_KEY,
+                )
+
+            api_domain = os.getenv("API_DOMAIN")
+            download_doc_endpoint = config.DOWNLOAD_DOC_API_ENDPOINT
+            pdf_link = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
+            return GenerateAllDocsResponseModel(
+                status=GenerateAllDocsStatus.SUCCESS,
+                message="Pdfs generated and stored successfully.",
+                zip_docs_link=f"{pdf_link}",
+            )
+                
+
+        except Exception as e:
+            logger.debug("Pdf generation failed!")
+        
+
 
     async def _generate_pdf(
         self, record_paylod, template_name: str, file_path: str, author: str = ""
@@ -564,7 +624,7 @@ class PdfCore:
             doc_size=len(file_bytes),
             doc_content=file_bytes,
         )
-        from lyikpluginmanager import invoke
+        
 
         if update_query_params:
             document_models: List[DBDocumentModel] = await invoke.updateDocument(
@@ -625,7 +685,7 @@ class PdfCore:
         fetches the files based on metadata.
         """
 
-        from lyikpluginmanager import invoke
+        
 
         try:
             docs: List[DBDocumentModel] = await invoke.fetchDocument(
@@ -688,7 +748,7 @@ class PdfCore:
         }
         context = ContextModel(config=_config)
 
-        from lyikpluginmanager import invoke
+        
 
         try:
             await invoke.deleteDocument(
