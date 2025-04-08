@@ -170,7 +170,7 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             ]
         ),
         Doc(
-            "Returns the operation response having status and message. If status is success, then return the pdf link within the message."
+            "This generates the pdf(s) using Tranformer plugin, and then stores in db. Returns the response having url link to download them!"
         ),
     ]:
 

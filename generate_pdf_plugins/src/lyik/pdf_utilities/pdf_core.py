@@ -26,6 +26,7 @@ from lyikpluginmanager import (
     GenerateAllDocsStatus,
     PluginException,
     TransformerResponseModel,
+    TemplateDocumentModel,
     TRANSFORMER_RESPONSE_STATUS,
 )
 from lyikpluginmanager.annotation import RequiredVars
@@ -44,8 +45,6 @@ from typing_extensions import Doc, Annotated
 
 logger = logging.getLogger(__name__)
 
-PDF_DB_NAME = "pdfs_db"
-PDF_COLLECTION_NAME = "pdfs"
 impl = pluggy.HookimplMarker(getProjectName())
 
 
@@ -285,9 +284,50 @@ class PdfCore:
         config = context.config
 
         try:
+            # CHECK IF FILES ALREADY PRESENT AND LOCKED.
+            # IF YES, DO NOT PROCEED! RETURN success status having message saying existing record found and locked! ALONG WITH EXISING FILES LINK.
+            existing_pdfs: List[DBDocumentModel] = await self._get_files_from_db(
+                context=context,
+                query_params=DocQueryGenericModel(
+                    org_id=context.org_id,
+                    form_id=context.form_id,
+                    record_id=record_id,
+                ),
+            )
+
+            locked = (
+                False
+                if not existing_pdfs
+                else self._check_locked(docs=existing_pdfs)
+            )
+
+            pdf_query_data = DocQueryGenericModel(
+                org_id=context.org_id,
+                form_id=context.form_id,
+                record_id=record_id,
+                doc_type="pdf",
+            )  # doc_type to avoid having other files getting downloaded when fetched!
+                
+
+            if locked:
+                obfus_str = self.obfuscate_string(
+                    data_str=f"{pdf_query_data.model_dump_json(exclude_unset=True)}",
+                    static_key=config.PDF_GARBLE_KEY,
+                )
+
+                api_domain = os.getenv("API_DOMAIN")
+                download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
+                pdf_link = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
+                return GenerateAllDocsResponseModel(
+                    status=GenerateAllDocsStatus.SUCCESS,
+                    message="Pdfs already present and locked i.e. cannot generate new!",
+                    zip_docs_link=f"{pdf_link}",
+                )
+
+            # GET THE PDF(S) FROM TRANFORMER PLUGIN.
             generate_docs_res = await invoke.template_generate_pdf(
                 config=config,
-                template_id='BFSI',
+                template_id='BFSI', # TODO: REMOVING HARD-CODING!
                 record=record,
                 params=params,
                 form_name= context.form_name
@@ -297,25 +337,45 @@ class PdfCore:
             if generate_docs_res.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
                 raise PluginException("Pdf generation failed!")
             
-            pdfs_dict: Dict[str, bytes] = generate_docs_res.response
+            # DELETE THE EXISITING DOCS IF ANY, BEFORE ADDING NEW!
+            if existing_pdfs:
+                for pdf in existing_pdfs:
+                    await self._delete_file_from_db(
+                        context=context,
+                        doc_id=pdf.doc_id
+                    )
 
-            pdf_meta = DocMeta(
-                org_id=context.org_id,
-                form_id=context.form_id,
-                record_id=record_id,
-            )
-            for key, value in pdfs_dict.items():
-
+            # STORE THE PDF(S) IN DB.
+            pdfs: List[TemplateDocumentModel] = generate_docs_res.response
+            for pdf in pdfs:
                 doc = await self._upsert_pdf_file(
                     context=context,
-                    filename=f'{key}.pdf',
-                    file_bytes=value,
-                    meta_data=pdf_meta,
+                    filename=pdf.doc_name,
+                    file_bytes=pdf.doc_content,
+                    meta_data=pdf.metadata,
                 )
                 logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
+            
+            # pdfs_dict: Dict[str, bytes] = generate_docs_res.response
 
+            # pdf_meta = DocMeta(
+            #     org_id=context.org_id,
+            #     form_id=context.form_id,
+            #     record_id=record_id,
+            # )
+            # for key, value in pdfs_dict.items():
+
+            #     doc = await self._upsert_pdf_file(
+            #         context=context,
+            #         filename=f'{key}.pdf',
+            #         file_bytes=value,
+            #         meta_data=pdf_meta,
+            #     )
+            #     logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
+
+            # PREPARE THE LINK TO DOWNLOAD THE FILES!
             obfus_str = self.obfuscate_string(
-                    data_str=f"{pdf_meta.model_dump_json()}",
+                    data_str=f"{pdf_query_data.model_dump_json(exclude_unset=True)}",
                     static_key=config.PDF_GARBLE_KEY,
                 )
 
@@ -330,7 +390,9 @@ class PdfCore:
                 
 
         except Exception as e:
-            logger.debug("Pdf generation failed!")
+            logger.debug(f"Pdf generation failed! Exception: {e}")
+            raise PluginException(f"An error occurred while generating PDF!",detailed_message=f"{e}")
+
         
 
 
@@ -684,10 +746,8 @@ class PdfCore:
         query_params: DocQueryGenericModel | None = None,
     ) -> List[DBDocumentModel] | None:
         """
-        fetches the files based on metadata.
+        fetches the files based on metadata, and returns the list of pdf files.
         """
-
-        
 
         try:
             docs: List[DBDocumentModel] = await invoke.fetchDocument(
@@ -739,18 +799,11 @@ class PdfCore:
 
     #     return False
 
-    async def _delete_file_from_db(self, db_conn_url, doc_id: str):
+    async def _delete_file_from_db(self, context:ContextModel, doc_id: str):
         """
         Deletes the file against doc id using Document Management Plugin.
         """
-        _config = {
-            "DB_CONN_URL": db_conn_url,
-            "ORG_DB": PDF_DB_NAME,
-            "COLL_NAME": PDF_COLLECTION_NAME,
-        }
-        context = ContextModel(config=_config)
 
-        
 
         try:
             await invoke.deleteDocument(
