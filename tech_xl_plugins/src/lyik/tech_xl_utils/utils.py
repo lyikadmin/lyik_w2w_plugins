@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 
 TECHXL_TRANFORMER = "techxl.j2"
 
-
+logger = logging.getLogger(__name__)
 class TechXLUtils:
     @staticmethod
     async def getTechxlTransformedData(
@@ -59,6 +59,8 @@ class TechXLUtils:
         try:
             response = requests.post(techxl_endpoint, files=files)
             response.raise_for_status()
-            return response.json()
+            response_txt = response.text
+            logger.info(f"TechXL API response is {response_txt}")
+            return response_txt
         except requests.RequestException as e:
             raise PluginException(f"TechXL API request failed: {str(e)}")
