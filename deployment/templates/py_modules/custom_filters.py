@@ -26,7 +26,7 @@ def current_date():
     return datetime.now().strftime("%d/%m/%Y")
 
 
-def exchange_list(form: Org82418635Frm5244590Model) -> List[str]:
+def exchange_list(form: Org82418635Frm5244590Model) -> str:
     exchanges = set()
     if (
         form.trading_information
@@ -72,7 +72,8 @@ def exchange_list(form: Org82418635Frm5244590Model) -> List[str]:
             exchanges.add("NSE_SLBM")
 
     # Return as a list (set helps avoid duplicates if multiple conditions overlap)
-    return list(exchanges)
+    ret = ",".join(list(exchanges))
+    return ret
 
 
 def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
