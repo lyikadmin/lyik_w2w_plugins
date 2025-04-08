@@ -1,6 +1,7 @@
 import apluggy as pluggy
 import os
 import importlib
+from copy import deepcopy
 from datetime import datetime
 from ..pdf_generator.pdf_generator import PdfGenerator
 from ..pdf_utilities.utility import get_geo_location
@@ -509,7 +510,7 @@ class PdfCore:
         try:
             for key, value in record_json.items():
                 if isinstance(value, dict):
-                    # If the value is a dictionary, recurse
+                    # Handle dictionaries recursively
                     if key not in desired_json or not isinstance(
                         desired_json[key], dict
                     ):
@@ -528,20 +529,21 @@ class PdfCore:
                     # Merge each item in the list
                     merged_list = []
                     for item in value:
-                        merged_item = (
-                            self._prepare_desired_payload(template.copy(), item)
-                            if isinstance(item, dict)
-                            else item
-                        )
+                        if isinstance(item, dict):
+                            # Use deepcopy to avoid shared references
+                            fresh_template = deepcopy(template)
+                            merged_item = self._prepare_desired_payload(fresh_template, item)
+                        else:
+                            merged_item = item
                         merged_list.append(merged_item)
                     desired_json[key] = merged_list
                 else:
-                    # Only update if the value is not None
+                    # Update scalar values only if present in record
                     if value is not None:
                         desired_json[key] = value
             return desired_json
         except Exception as e:
-            logger.error(f"Exception while converting record data to desired data")
+            logger.error(f"Exception during payload preparation: {e}")
             return record_json
 
     async def _upsert_pdf_file(
