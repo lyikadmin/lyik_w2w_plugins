@@ -351,7 +351,7 @@ def _translate_dp_information(value: RootDpInformation) -> Dict[str, Any]:
         dp_info = value.dp_Account_information
         return {
             "DP_ID": dp_info.dp_id_no or "",
-            "CLIENT_ID": dp_info.client_id_no or "",
+            "CLIENT_ID": dp_info.client_id_no or "TEST0001",
         }
 
 
