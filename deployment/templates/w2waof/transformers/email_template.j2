@@ -1,0 +1,7 @@
+{# This Jinja2 template defines static fields with a dynamic body #}
+{
+  "to": ["rahulc@lyik.com", "dgupta@lyik.com"],
+  "from": "debasish@lyik.com",
+  "subject": "Static Subject: Reminder Notification",
+  "body": "This is my PAN: {{ record.kyc_holders[0].kyc_holder.pan_verification.pan_details.pan_number }}"
+}
