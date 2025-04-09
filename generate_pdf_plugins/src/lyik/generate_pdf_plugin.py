@@ -143,8 +143,7 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             record_id=record_id,
         )
 
-
-    @impl 
+    @impl
     async def generate_doc(
         self,
         context: ContextModel,
@@ -180,7 +179,7 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             raise PluginException("config must be provided in the context")
         if record_id is None:
             raise PluginException("recordid must be provided")
-        
+
         pdf_core = PdfCore()
         return await pdf_core.generate_doc(
             context=context,
@@ -189,7 +188,6 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             params=params,
         )
 
-        
     @impl
     async def generate_main_doc(
         self,
