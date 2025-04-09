@@ -327,6 +327,8 @@ class PdfCore:
             # GET THE PDF(S) FROM TRANFORMER PLUGIN.
             generate_docs_res = await invoke.template_generate_pdf(
                 config=config,
+                org_id=context.org_id,
+                form_id=context.form_id,
                 template_id='BFSI', # TODO: REMOVING HARD-CODING!
                 record=record,
                 params=params,
