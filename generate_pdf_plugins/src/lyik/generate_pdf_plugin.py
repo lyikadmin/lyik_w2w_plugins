@@ -155,7 +155,7 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             int, Doc("record id of the form record which is saved in db")
         ],
         params: Annotated[
-            Dict[str, Any] | None,
+            dict | None,
             Doc("This will be given based on the contract with the transformer"),
         ],
     ) -> Annotated[

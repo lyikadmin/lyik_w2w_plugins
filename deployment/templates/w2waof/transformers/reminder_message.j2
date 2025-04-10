@@ -14,7 +14,18 @@
           "doc_id": "{{ record.kyc_holders[0].kyc_holder.pan_verification.pan_card_image.doc_id }}",
           "doc_name": "{{ record.kyc_holders[0].kyc_holder.pan_verification.pan_card_imagedoc_name }}"
       }
-  }
+    },
+    {
+        "attachment_name": "pdfs",
+        "source": {
+            "type": "PLUGIN",
+            "name": "TEMPLATE_PDF",
+            "params": {
+                "template_id": "BFSI",
+                "record_id": "602444"
+            }
+        }
+    }
   ],
   "metadata":{}
 }

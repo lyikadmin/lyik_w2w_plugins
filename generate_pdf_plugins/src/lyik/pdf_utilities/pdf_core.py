@@ -279,8 +279,8 @@ class PdfCore:
         context: ContextModel,
         record: GenericFormRecordModel,
         record_id: int,
-        params: Dict[str, Any]
-    )->GenerateAllDocsResponseModel:
+        params: dict,
+    ) -> GenerateAllDocsResponseModel:
         config = context.config
 
         try:
@@ -296,9 +296,7 @@ class PdfCore:
             )
 
             locked = (
-                False
-                if not existing_pdfs
-                else self._check_locked(docs=existing_pdfs)
+                False if not existing_pdfs else self._check_locked(docs=existing_pdfs)
             )
 
             pdf_query_data = DocQueryGenericModel(
@@ -307,7 +305,6 @@ class PdfCore:
                 record_id=record_id,
                 doc_type="pdf",
             )  # doc_type to avoid having other files getting downloaded when fetched!
-                
 
             if locked:
                 obfus_str = self.obfuscate_string(
@@ -329,23 +326,22 @@ class PdfCore:
                 config=config,
                 org_id=context.org_id,
                 form_id=context.form_id,
-                template_id='BFSI', # TODO: REMOVING HARD-CODING!
+                template_id=params.get("template_id"),
                 record=record,
                 params=params,
-                form_name= context.form_name
+                form_name=context.form_name,
             )
-            if not generate_docs_res or not isinstance(generate_docs_res, TransformerResponseModel):
+            if not generate_docs_res or not isinstance(
+                generate_docs_res, TransformerResponseModel
+            ):
                 raise PluginException("Pdf generation failed!")
             if generate_docs_res.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
                 raise PluginException("Pdf generation failed!")
-            
+
             # DELETE THE EXISITING DOCS IF ANY, BEFORE ADDING NEW!
             if existing_pdfs:
                 for pdf in existing_pdfs:
-                    await self._delete_file_from_db(
-                        context=context,
-                        doc_id=pdf.doc_id
-                    )
+                    await self._delete_file_from_db(context=context, doc_id=pdf.doc_id)
 
             # STORE THE PDF(S) IN DB.
             pdfs: List[TemplateDocumentModel] = generate_docs_res.response
@@ -357,7 +353,7 @@ class PdfCore:
                     meta_data=pdf.metadata,
                 )
                 logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
-            
+
             # pdfs_dict: Dict[str, bytes] = generate_docs_res.response
 
             # pdf_meta = DocMeta(
@@ -377,9 +373,9 @@ class PdfCore:
 
             # PREPARE THE LINK TO DOWNLOAD THE FILES!
             obfus_str = self.obfuscate_string(
-                    data_str=f"{pdf_query_data.model_dump_json(exclude_unset=True)}",
-                    static_key=config.PDF_GARBLE_KEY,
-                )
+                data_str=f"{pdf_query_data.model_dump_json(exclude_unset=True)}",
+                static_key=config.PDF_GARBLE_KEY,
+            )
 
             api_domain = os.getenv("API_DOMAIN")
             download_doc_endpoint = config.DOWNLOAD_DOC_API_ENDPOINT
@@ -389,14 +385,12 @@ class PdfCore:
                 message="Pdfs generated and stored successfully.",
                 zip_docs_link=f"{pdf_link}",
             )
-                
 
         except Exception as e:
             logger.debug(f"Pdf generation failed! Exception: {e}")
-            raise PluginException(f"An error occurred while generating PDF!",detailed_message=f"{e}")
-
-        
-
+            raise PluginException(
+                f"An error occurred while generating PDF!", detailed_message=f"{e}"
+            )
 
     async def _generate_pdf(
         self, record_paylod, template_name: str, file_path: str, author: str = ""
@@ -567,7 +561,16 @@ class PdfCore:
                             else {}
                         ).get("long", ""),
                     )
-                    esigner_location = (geocode_location.city_or_county or geocode_location.state or geocode_location.country or "") if geocode_location else ""
+                    esigner_location = (
+                        (
+                            geocode_location.city_or_county
+                            or geocode_location.state
+                            or geocode_location.country
+                            or ""
+                        )
+                        if geocode_location
+                        else ""
+                    )
                 except Exception as ex:
                     logger.error(f"Error getting geolocation for {esigner_name}: {ex}")
                     esigner_location = ""  # Earlier it was 'Unknown'
@@ -690,7 +693,6 @@ class PdfCore:
             doc_size=len(file_bytes),
             doc_content=file_bytes,
         )
-        
 
         if update_query_params:
             document_models: List[DBDocumentModel] = await invoke.updateDocument(
@@ -801,11 +803,10 @@ class PdfCore:
 
     #     return False
 
-    async def _delete_file_from_db(self, context:ContextModel, doc_id: str):
+    async def _delete_file_from_db(self, context: ContextModel, doc_id: str):
         """
         Deletes the file against doc id using Document Management Plugin.
         """
-
 
         try:
             await invoke.deleteDocument(
