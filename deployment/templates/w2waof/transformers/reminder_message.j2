@@ -1,6 +1,6 @@
 {# This Jinja2 template defines static fields with a dynamic HTML body #}
 {% set content %}
-  {% include 'reminder_message.html' %}
+  {% include 'email_template.txt' %}
   {% endset %}
 {
   "to": ["rahulc@lyik.com", "dgupta@lyik.com"],
@@ -12,7 +12,7 @@
       "source": {
           "type": "RECORD",
           "doc_id": "{{ record.kyc_holders[0].kyc_holder.pan_verification.pan_card_image.doc_id }}",
-          "doc_name": "{{ record.kyc_holders[0].kyc_holder.pan_verification.pan_card_imagedoc_name }}"
+          "doc_name": "{{ record.kyc_holders[0].kyc_holder.pan_verification.pan_card_image.doc_name }}"
       }
     },
     {
@@ -21,8 +21,8 @@
             "type": "PLUGIN",
             "name": "TEMPLATE_PDF",
             "params": {
-                "template_id": "BFSI",
-                "record_id": "602444"
+                "template_id": "AOF",
+                "record_id": 602444
             }
         }
     }
