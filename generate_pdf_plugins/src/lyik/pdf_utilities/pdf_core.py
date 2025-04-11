@@ -330,6 +330,7 @@ class PdfCore:
                 record=record,
                 params=params,
                 form_name=context.form_name,
+                additional_args={"record_id": record_id}
             )
             if not generate_docs_res or not isinstance(
                 generate_docs_res, TransformerResponseModel
