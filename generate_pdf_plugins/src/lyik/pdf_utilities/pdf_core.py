@@ -694,7 +694,7 @@ class PdfCore:
 
         doc_model = DocumentModel(
             doc_name=filename,
-            doc_type="pdf",
+            doc_type=meta_data.doc_type,
             doc_size=len(file_bytes),
             doc_content=file_bytes,
         )
@@ -709,7 +709,6 @@ class PdfCore:
                 new_metadata=meta_data,
                 metadata_params=update_query_params,
             )
-            # Todo: validate response!
             return document_models[0]
         else:
             document_model: DBDocumentModel = await invoke.addDocument(
