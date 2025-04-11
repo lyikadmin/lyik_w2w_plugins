@@ -115,7 +115,7 @@ class PdfCore:
                         org_id=context.org_id,
                         form_id=context.form_id,
                         record_id=record_id,
-                        doc_type="pdf",
+                        doc_type="application/pdf",
                     )  # doc_type to avoid having other files getting downloaded when fetched!
                     obfus_str = self.obfuscate_string(
                         data_str=f"{pdf_query_data.model_dump_json()}",
@@ -165,7 +165,7 @@ class PdfCore:
                     org_id=context.org_id,
                     form_id=context.form_id,
                     record_id=record_id,
-                    doc_type="pdf",
+                    doc_type="application/pdf",
                 )  # doc_type to avoid having other files getting downloaded when fetched!
                 doc = await self._upsert_pdf_file(
                     context=context,
@@ -303,7 +303,7 @@ class PdfCore:
                 org_id=context.org_id,
                 form_id=context.form_id,
                 record_id=record_id,
-                doc_type="pdf",
+                doc_type="application/pdf",
             )  # doc_type to avoid having other files getting downloaded when fetched!
 
             if locked:
