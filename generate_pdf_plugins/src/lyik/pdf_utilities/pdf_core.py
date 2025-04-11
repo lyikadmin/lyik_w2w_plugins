@@ -330,14 +330,18 @@ class PdfCore:
                 record=record,
                 params=params,
                 form_name=context.form_name,
-                additional_args={"record_id": record_id}
+                additional_args={"record_id": record_id},
             )
             if not generate_docs_res or not isinstance(
                 generate_docs_res, TransformerResponseModel
             ):
                 raise PluginException("Pdf generation failed!")
             if generate_docs_res.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
-                raise PluginException("Pdf generation failed!")
+                return GenerateAllDocsResponseModel(
+                    message=generate_docs_res.message,
+                    status=GenerateAllDocsStatus.FAILED,
+                    zip_docs_link=None,
+                )
 
             # DELETE THE EXISITING DOCS IF ANY, BEFORE ADDING NEW!
             if existing_pdfs:
