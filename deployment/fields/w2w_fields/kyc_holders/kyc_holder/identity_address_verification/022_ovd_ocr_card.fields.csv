@@ -5,4 +5,5 @@ column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6145,,,
 ovd_front,,simple,FILE,fileoption,,FALSE,,Upload front side,,,TRUE,6146,,,
 column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6147,,,
 ovd_back,,simple,FILE,fileoption,,FALSE,,Upload back side,,,TRUE,6148,,,
-ovd,,compound,,card,,FALSE,,Upload OVD,API.TRUSTED_OVD,"column_break,ovd_type,column_break,ovd_front,column_break,ovd_back",FALSE,6149,not $.application_details.kyc_digilocker = 'NO',,operation.action: Continue
+ovd,,compound,,card,,FALSE,,Upload OVD,API.TRUSTED_OVD,"column_break,ovd_type,column_break,ovd_front,column_break,ovd_back",FALSE,6149,not $.application_details.kyc_digilocker = 'NO',,
+ovd_corr,,compound,,card,,FALSE,,Upload OVD for Correspondence Address,API.TRUSTED_OVD,"column_break,ovd_type,column_break,ovd_front,column_break,ovd_back",FALSE,6150,@.same_as_permanent_address = 'SAME_AS_PERMANENT_ADDRESS',,

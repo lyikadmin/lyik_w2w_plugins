@@ -85,7 +85,7 @@ def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
             # todo: field need to be added in the form
             "NOTBO_ID": "DUMMY_BO_ID",
             # todo: need to be extracted from the user token, "branch_token" need to be added to user token.
-            "BRANCH_CODE": "DUMMY_BRANCH_CODE",
+            "BRANCH_CODE": "FS10",
             "EXCHANGELIST": exchange_list(form),
             "PAN_PROOF": "01",
             "CLIENT_NATURE": "C",
@@ -95,6 +95,9 @@ def translate_form_to_techxl(value: Dict[str, Any]) -> Dict[str, Any]:
             "NOT_EFT": "Y",
             "NOT_POA": "N",
             "TYPEOFFACILITY": 3,
+            "CL_OP_CHGS_DEBITED": "C",
+            "CLIENT_WEBXID": "Y",
+            "FATCA_DECLARATION": "Yes",
             **_translate_onboarding(form.onboarding),
             **_translate_application_details(form.application_details),
             **_translate_kyc_holders(form.kyc_holders),
@@ -116,7 +119,8 @@ def _translate_onboarding(value: RootOnboarding) -> Dict[str, Any]:
         return result
 
     if value.type_of_client:
-        result["CATEGORY"] = value.type_of_client.value
+        # result["CATEGORY"] = value.type_of_client.value
+        result["CATEGORY"] = "I"
 
     return result
 
@@ -222,8 +226,8 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
                         "CITY": identity_address.city or "",
                         "STATE": identity_address.state or "",
                         "COUNTRY": identity_address.country or "",
-                        "ADDRESS_PROOF1": "",
-                        "CORRESPONDANCE_ADDRESS_PROOF": "",
+                        "ADDRESS_PROOF1": "31",
+                        "CORRESPONDANCE_ADDRESS_PROOF": "31",
                     }
                 )
                 result["TITLE"] = _title(marital_status, gender)
@@ -258,7 +262,8 @@ def _translate_kyc_holders(value: List[FieldGrpRootKycHolders]) -> Dict[str, Any
             if declarations.income_info:
                 income_info = declarations.income_info
                 result["OCCUPATION"] = income_info.occupation.value or ""
-                result["ANNUAL_INCOME"] = income_info.gross_annual_income.value or ""
+                # result["ANNUAL_INCOME"] = income_info.gross_annual_income.value or ""
+                result["ANNUAL_INCOME"] = "One To Five Lakhs"
                 result["PORTFOLIO_MKT_VALUE"] = income_info.networth or ""
                 # todo change date field name
                 # result["NETWORTHDATE"] = income_info.date or ""

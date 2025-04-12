@@ -87,7 +87,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./.mongo-data:/data/db 
+      - /Users/suveern/work/mongo_vol:/data/db 
     user: root
 
   promtail:
