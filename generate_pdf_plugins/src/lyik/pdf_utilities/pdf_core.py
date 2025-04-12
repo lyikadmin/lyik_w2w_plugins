@@ -7,6 +7,7 @@ from ..pdf_generator.pdf_generator import PdfGenerator
 from ..pdf_utilities.utility import get_geo_location
 from ..models.document_plugin_config import DocPluginConfig
 from lyikpluginmanager import (
+    invoke,
     ContextModel,
     getProjectName,
     GeneratePdfSpec,
@@ -24,10 +25,13 @@ from lyikpluginmanager import (
     DocQueryGenericModel,
     GenerateAllDocsResponseModel,
     GenerateAllDocsStatus,
-    PluginException
+    PluginException,
+    TransformerResponseModel,
+    TemplateDocumentModel,
+    TRANSFORMER_RESPONSE_STATUS,
 )
 from lyikpluginmanager.annotation import RequiredVars
-from typing import List
+from typing import List, Any, Dict
 import json
 import io
 import string
@@ -42,8 +46,6 @@ from typing_extensions import Doc, Annotated
 
 logger = logging.getLogger(__name__)
 
-PDF_DB_NAME = "pdfs_db"
-PDF_COLLECTION_NAME = "pdfs"
 impl = pluggy.HookimplMarker(getProjectName())
 
 
@@ -114,7 +116,7 @@ class PdfCore:
                         org_id=context.org_id,
                         form_id=context.form_id,
                         record_id=record_id,
-                        doc_type="pdf",
+                        doc_type="application/pdf",
                     )  # doc_type to avoid having other files getting downloaded when fetched!
                     obfus_str = self.obfuscate_string(
                         data_str=f"{pdf_query_data.model_dump_json()}",
@@ -164,7 +166,7 @@ class PdfCore:
                     org_id=context.org_id,
                     form_id=context.form_id,
                     record_id=record_id,
-                    doc_type="pdf",
+                    doc_type="application/pdf",
                 )  # doc_type to avoid having other files getting downloaded when fetched!
                 doc = await self._upsert_pdf_file(
                     context=context,
@@ -272,6 +274,129 @@ class PdfCore:
                 )
         except Exception as e:
             raise PluginException(f"An error occurred while generating PDF!")
+
+    async def generate_doc(
+        self,
+        context: ContextModel,
+        record: GenericFormRecordModel,
+        record_id: int,
+        params: dict,
+    ) -> GenerateAllDocsResponseModel:
+        config = context.config
+
+        try:
+            # CHECK IF FILES ALREADY PRESENT AND LOCKED.
+            # IF YES, DO NOT PROCEED! RETURN success status having message saying existing record found and locked! ALONG WITH EXISING FILES LINK.
+            existing_pdfs: List[DBDocumentModel] = await self._get_files_from_db(
+                context=context,
+                query_params=DocQueryGenericModel(
+                    org_id=context.org_id,
+                    form_id=context.form_id,
+                    record_id=record_id,
+                ),
+            )
+
+            locked = (
+                False if not existing_pdfs else self._check_locked(docs=existing_pdfs)
+            )
+
+            pdf_query_data = DocQueryGenericModel(
+                org_id=context.org_id,
+                form_id=context.form_id,
+                record_id=record_id,
+                doc_type="application/pdf",
+            )  # doc_type to avoid having other files getting downloaded when fetched!
+
+            if locked:
+                obfus_str = self.obfuscate_string(
+                    data_str=f"{pdf_query_data.model_dump_json(exclude_unset=True)}",
+                    static_key=config.PDF_GARBLE_KEY,
+                )
+
+                api_domain = os.getenv("API_DOMAIN")
+                download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
+                pdf_link = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
+                return GenerateAllDocsResponseModel(
+                    status=GenerateAllDocsStatus.SUCCESS,
+                    message="Pdfs already present and locked i.e. cannot generate new!",
+                    zip_docs_link=f"{pdf_link}",
+                )
+
+            # GET THE PDF(S) FROM TRANFORMER PLUGIN.
+            generate_docs_res = await invoke.template_generate_pdf(
+                config=config,
+                org_id=context.org_id,
+                form_id=context.form_id,
+                template_id=params.get("template_id"),
+                record=record,
+                params=params,
+                form_name=context.form_name,
+                additional_args={"record_id": record_id},
+            )
+            if not generate_docs_res or not isinstance(
+                generate_docs_res, TransformerResponseModel
+            ):
+                raise PluginException("Pdf generation failed!")
+            if generate_docs_res.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
+                return GenerateAllDocsResponseModel(
+                    message=generate_docs_res.message,
+                    status=GenerateAllDocsStatus.FAILED,
+                    zip_docs_link=None,
+                )
+
+            # DELETE THE EXISITING DOCS IF ANY, BEFORE ADDING NEW!
+            if existing_pdfs:
+                for pdf in existing_pdfs:
+                    await self._delete_file_from_db(context=context, doc_id=pdf.doc_id)
+
+            # STORE THE PDF(S) IN DB.
+            pdfs: List[TemplateDocumentModel] = generate_docs_res.response
+            for pdf in pdfs:
+                doc = await self._upsert_pdf_file(
+                    context=context,
+                    filename=pdf.doc_name,
+                    file_bytes=pdf.doc_content,
+                    meta_data=pdf.metadata,
+                )
+                logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
+
+            # pdfs_dict: Dict[str, bytes] = generate_docs_res.response
+
+            # pdf_meta = DocMeta(
+            #     org_id=context.org_id,
+            #     form_id=context.form_id,
+            #     record_id=record_id,
+            # )
+            # for key, value in pdfs_dict.items():
+
+            #     doc = await self._upsert_pdf_file(
+            #         context=context,
+            #         filename=f'{key}.pdf',
+            #         file_bytes=value,
+            #         meta_data=pdf_meta,
+            #     )
+            #     logger.debug(f"Added pdf doc:\n{doc.model_dump()}")
+
+            # PREPARE THE LINK TO DOWNLOAD THE FILES!
+            obfus_str = self.obfuscate_string(
+                data_str=f"{pdf_query_data.model_dump_json(exclude_unset=True)}",
+                static_key=config.PDF_GARBLE_KEY,
+            )
+
+            api_domain = os.getenv("API_DOMAIN")
+            download_doc_endpoint = config.DOWNLOAD_DOC_API_ENDPOINT
+            pdf_link = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
+            return GenerateAllDocsResponseModel(
+                status=GenerateAllDocsStatus.SUCCESS,
+                message="Pdfs generated and stored successfully.",
+                zip_docs_link=f"{pdf_link}",
+            )
+
+        except Exception as e:
+            logger.debug(f"Pdf generation failed! Exception: {e}")
+            raise PluginException(
+                f"An error occurred while generating PDF!", detailed_message=f"{e}"
+            )
 
     async def _generate_pdf(
         self, record_paylod, template_name: str, file_path: str, author: str = ""
@@ -442,7 +567,16 @@ class PdfCore:
                             else {}
                         ).get("long", ""),
                     )
-                    esigner_location = (geocode_location.city_or_county or geocode_location.state or geocode_location.country or "") if geocode_location else ""
+                    esigner_location = (
+                        (
+                            geocode_location.city_or_county
+                            or geocode_location.state
+                            or geocode_location.country
+                            or ""
+                        )
+                        if geocode_location
+                        else ""
+                    )
                 except Exception as ex:
                     logger.error(f"Error getting geolocation for {esigner_name}: {ex}")
                     esigner_location = ""  # Earlier it was 'Unknown'
@@ -562,11 +696,10 @@ class PdfCore:
 
         doc_model = DocumentModel(
             doc_name=filename,
-            doc_type="pdf",
+            doc_type=meta_data.doc_type,
             doc_size=len(file_bytes),
             doc_content=file_bytes,
         )
-        from lyikpluginmanager import invoke
 
         if update_query_params:
             document_models: List[DBDocumentModel] = await invoke.updateDocument(
@@ -578,7 +711,6 @@ class PdfCore:
                 new_metadata=meta_data,
                 metadata_params=update_query_params,
             )
-            # Todo: validate response!
             return document_models[0]
         else:
             document_model: DBDocumentModel = await invoke.addDocument(
@@ -624,10 +756,8 @@ class PdfCore:
         query_params: DocQueryGenericModel | None = None,
     ) -> List[DBDocumentModel] | None:
         """
-        fetches the files based on metadata.
+        fetches the files based on metadata, and returns the list of pdf files.
         """
-
-        from lyikpluginmanager import invoke
 
         try:
             docs: List[DBDocumentModel] = await invoke.fetchDocument(
@@ -679,18 +809,10 @@ class PdfCore:
 
     #     return False
 
-    async def _delete_file_from_db(self, db_conn_url, doc_id: str):
+    async def _delete_file_from_db(self, context: ContextModel, doc_id: str):
         """
         Deletes the file against doc id using Document Management Plugin.
         """
-        _config = {
-            "DB_CONN_URL": db_conn_url,
-            "ORG_DB": PDF_DB_NAME,
-            "COLL_NAME": PDF_COLLECTION_NAME,
-        }
-        context = ContextModel(config=_config)
-
-        from lyikpluginmanager import invoke
 
         try:
             await invoke.deleteDocument(

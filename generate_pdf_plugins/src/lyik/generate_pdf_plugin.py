@@ -23,10 +23,10 @@ from lyikpluginmanager import (
     DocQueryGenericModel,
     GenerateAllDocsResponseModel,
     GenerateAllDocsStatus,
-    PluginException
+    PluginException,
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
-from typing import List
+from typing import List, Dict, Any
 import json
 import io
 import string
@@ -141,6 +141,51 @@ class GeneratePdf(OperationPluginSpec, GeneratePdfSpec):
             context=context,
             form_record=form_record,
             record_id=record_id,
+        )
+
+    @impl
+    async def generate_doc(
+        self,
+        context: ContextModel,
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("form record for which the pdf need to be generated"),
+        ],
+        record_id: Annotated[
+            int, Doc("record id of the form record which is saved in db")
+        ],
+        params: Annotated[
+            dict | None,
+            Doc("This will be given based on the contract with the transformer"),
+        ],
+    ) -> Annotated[
+        GenerateAllDocsResponseModel,
+        RequiredEnv(["API_DOMAIN"]),
+        RequiredVars(
+            [
+                "DB_CONN_URL",
+                "DOWNLOAD_DOC_API_ENDPOINT",
+                "PDF_GARBLE_KEY",
+            ]
+        ),
+        Doc(
+            "This generates the pdf(s) using Tranformer plugin, and then stores in db. Returns the response having url link to download them!"
+        ),
+    ]:
+
+        if context is None:
+            raise PluginException("context must be provided")
+        if context.config is None:
+            raise PluginException("config must be provided in the context")
+        if record_id is None:
+            raise PluginException("recordid must be provided")
+
+        pdf_core = PdfCore()
+        return await pdf_core.generate_doc(
+            context=context,
+            record=form_record,
+            record_id=record_id,
+            params=params,
         )
 
     @impl
