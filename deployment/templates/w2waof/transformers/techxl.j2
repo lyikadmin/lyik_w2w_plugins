@@ -1,6 +1,0 @@
-{# This Jinja2 template create a dictionary of the payload data for the techxl #}
-{"BRANCH_CODE":"","CLIENT_ID":"",
-    {%- for k, v in record|translate_form_to_techxl|items() -%}
-    "{{ k }}": "{{ v }}"{{- "," if not loop.last -}}
-    {%- endfor -%}
-}
