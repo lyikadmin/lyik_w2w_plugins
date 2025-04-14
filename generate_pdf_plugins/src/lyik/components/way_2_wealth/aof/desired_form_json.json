@@ -230,11 +230,16 @@
     "bank_verification": {
       "bank_details": {
         "bank_account_number": null,
+        "bank_name": null,
+        "account_type": null,
         "account_holder_name_pan": null,
         "account_holder_name_id": null,
         "account_holder_name": null,
+        "account_mobile_number": null,
         "type_of_application": null,
-        "ifsc_code": null
+        "bank_address": null,
+        "ifsc_code": null,
+        "micr_code": null
       },
       "cancelled_cheque": {
         "cancelled_cheque_image": {

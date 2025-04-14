@@ -455,10 +455,10 @@ class AOFConstantTexts:
         self.page6_bank_and_depository_table_heading = 'Bank & Depository Account Details (Default)'
 
         self.page6_bank_name_label = 'Bank Name:'
-        self.page6_bank_name_value = '' #self.data.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
+        self.page6_bank_name_value = self.data.get('bank_verification',{}).get('bank_details',{}).get('bank_name','')
 
         self.page6_bank_address_label = 'Bank Address:'
-        self.page6_bank_address_value = ''
+        self.page6_bank_address_value = self.data.get('bank_verification',{}).get('bank_details',{}).get('bank_address','')
 
         self.page6_bank_account_num_label = 'Bank Account No:'
         self.page6_bank_account_num_value = self.data.get('bank_verification',{}).get('bank_details',{}).get('bank_account_number','')
@@ -475,7 +475,7 @@ class AOFConstantTexts:
             'Current',
             'Others'
         ]
-        self.page6_bank_ac_type_selected_options = []
+        self.page6_bank_ac_type_selected_options = [get_enum_value_from_key(key=self.data.get('bank_verification',{}).get('bank_details',{}).get('account_type',''))]
 
         self.page6_upi_id_label = 'UPI ID:'
         self.page6_upi_id_value = ''
@@ -647,8 +647,8 @@ class AOFConstantTexts:
 
         # Page 8
         self.page8_table_heading = 'Additional Details for DP account'
-        self.page8_cdsl_checkbox_option = 'CDSL DP ID: 12062900'
-        self.page8_nsdl_checkbox_option = 'NSDL DP ID: IN 303077'
+        self.page8_dp_account_depository_options = ['CDSL DP ID: 12062900', 'NSDL DP ID: IN 303077']
+        self.page8_dp_account_depository_selected_options = ['CDSL DP ID: 12062900' if self.data.get('dp_information',{}).get('dp_Account_information',{}).get('depository','')=='CDSL' else 'NSDL DP ID: IN 303077' if self.data.get('dp_information',{}).get('dp_Account_information',{}).get('depository','')=='NSDL' else '']
         self.page8_account_type_field_display_name = 'A/C Type:'
         self.page8_account_type_options = ['Resident Indian','NRI - Repatriable','NRI Non-Repatriable','FN','Promoter']
         self.page8_account_type_selected_options = []
@@ -1174,8 +1174,11 @@ class FieldMapHelper(Enum):
     COMMODITY = "Commodity"
     MUTUAL_FUND = "Mutual Fund"
     SLB = "SLB"
-    PHYSICAL = "Physical Contact Note"
-    ELECTRONIC = "Electronic Contact Note (ECN)"
+    # PHYSICAL = "Physical Contact Note"
+    # ELECTRONIC = "Electronic Contact Note (ECN)"
+    PHYSICAL = "Physical"
+    ELECTRONIC = "Electronic Form"
+
     BEGINNER = "1-3"
     INTERMEDIATE = "3-5"
     EXPERT = "5+"
@@ -1237,8 +1240,10 @@ class FieldMapHelper(Enum):
     MORE_THAN_6YEARS = "More than 6 years"
 
     # A/c Opening Kit Options
-    PHYSICAL_FORM = "Physical"
-    ELECTRONIC_FORM = "Electronic Form"
+    # PHYSICAL_FORM = "Physical"
+    # ELECTRONIC_FORM = "Electronic Form"
+    PHYSICAL_FORM = "Physical Contact Note"
+    ELECTRONIC_FORM = "Electronic Contact Note (ECN)"
 
     # DP A/C Type
     RESIDENT_INDIAN = "Resident Indian"

@@ -696,7 +696,7 @@ class PdfCore:
 
         doc_model = DocumentModel(
             doc_name=filename,
-            doc_type=meta_data.doc_type,
+            doc_type='application/pdf',
             doc_size=len(file_bytes),
             doc_content=file_bytes,
         )

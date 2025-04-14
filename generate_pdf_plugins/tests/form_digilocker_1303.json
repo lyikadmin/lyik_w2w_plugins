@@ -337,6 +337,261 @@
                     }
                 }
             }
+        },
+        {
+            "kyc_holder": {
+                "mobile_email_verification": {
+                    "mobile_verification": {
+                        "dependency_relationship_mobile": "SELF",
+                        "contact_id": "8510889067",
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2025-03-13 07:55:34.057148",
+                            "id": "c112a4b3",
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }                    },
+                    "email_verification": {
+                        "dependency_relationship_email": "SPOUSE",
+                        "contact_id": "dgupta2@lyik.com",
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2025-03-13 05:35:52.406671",
+                            "id": "4e48d514",
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "pan_verification": {
+                    "pan_card_image": {
+                        "doc_id": "67d271df0498a97b5484fa0d",
+                        "doc_name": "16_my-pan.jpeg",
+                        "doc_size": 386301,
+                        "doc_content": null,
+                        "metadata": {
+                            "org_id": null,
+                            "form_id": null,
+                            "record_id": null,
+                            "doc_type": "image/jpeg",
+                            "digest": null,
+                            "esign": null
+                        }
+                    },
+                    "pan_details": {
+                        "name_in_pan": "Deepak Gupta",
+                        "dob_pan": "19/10/1998",
+                        "pan_number": "CKWPG0718E",
+                        "parent_guardian_spouse_name": "Sohan Gupta",
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Verified by the system 2025-03-13 05:49:03.406111",
+                            "id": null,
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "identity_address_verification": {
+                    "identity_address_info": {
+                        "aadhaar_xml": null,
+                        "name": "Deepak Gupta",
+                        "uid": "xxxxxxxx5011",
+                        "id_proof_expiry": null,
+                        "gender": "M",
+                        "type_of_address": "RESIDENTIAL",
+                        "full_address": "S/O: Sohan Gupta, House Number A-137, Chaukhandi Colony, Tilak Nagar, Rajouri Garden, West Delhi, Delhi, 110018",
+                        "city": "Tilak Nagar",
+                        "state": "Delhi",
+                        "pin": "110018",
+                        "country": "India"
+                    },
+                    "other_info": {
+                        "father_name": null,
+                        "marital_status": null,
+                        "country_of_birth": null,
+                        "mother_name": null,
+                        "place_of_birth": null,
+                        "residential_status": "RI"
+                    },
+                    "same_as_permanent_address": "SAME_AS_PERMANENT_ADDRESS",
+                    "correspondence_address": {
+                        "proof": null,
+                        "type_of_address": "RESIDENTIAL",
+                        "full_address": "House Number A-138, Chaukhandi Colony, Tilak Nagar, Rajouri Garden, West Delhi, Delhi, 110018",
+                        "city": "Tilak Nagar",
+                        "state": "Delhi",
+                        "pin": "110018",
+                        "country": "India"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "signature_validation": {
+                    "upload_images": {
+                        "wet_signature_image": {
+                            "doc_id": "67d284d80498a97b5484fa3c",
+                            "doc_name": "113_Suveer Signature.png",
+                            "doc_size": 108401,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "image/png",
+                                "digest": null,
+                                "esign": null
+                            }
+                        },
+                        "proof_of_signature": {
+                            "doc_id": "67d284d80498a97b5484fa3f",
+                            "doc_name": "24_Suveer-PAN.jpg",
+                            "doc_size": 824209,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "image/jpeg",
+                                "digest": null,
+                                "esign": null
+                            }
+                        },
+                        "_ver_status": {
+                            "status": "success",
+                            "message": "Signatures matched with a score of 0.42.",
+                            "id": "d8a60170",
+                            "actor": "system",
+                            "user_id": "U001",
+                            "weight": 100
+                        }
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "liveness_photo_capture": {
+                    "photo_capture": {
+                        "liveness_photo": {
+                            "doc_id": "67d285e80498a97b5484fa49",
+                            "doc_name": "passport_photo_1741850073335.jpg",
+                            "doc_size": 24677,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "image/jpeg",
+                                "digest": null,
+                                "esign": null
+                            }
+                        }
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "liveness_check": {
+                    "video_capture": {
+                        "liveness_video": {
+                            "doc_id": "67d287b10498a97b5484fa51",
+                            "doc_name": "17_video_1741850489559.webm",
+                            "doc_size": 2628777,
+                            "doc_content": null,
+                            "metadata": {
+                                "org_id": null,
+                                "form_id": null,
+                                "record_id": null,
+                                "doc_type": "video/webm",
+                                "digest": null,
+                                "esign": null
+                            }
+                        }
+                    },
+                    "liveness_captcha": [
+                        "House",
+                        "Room",
+                        "Flower",
+                        "Tonight",
+                        "Often",
+                        "Song"
+                    ],
+                    "liveness_geo_loc": {
+                        "lat": "12.884808",
+                        "long": "77.5929077"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Verification successful: transcription matched keywords.",
+                        "id": "38176104",
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100,
+                        "isMandatoryFilled": true
+                    }
+                },
+                "declarations": {
+                    "income_info": {
+                        "gross_annual_income": "UPTO_1L",
+                        "networth": "20000",
+                        "occupation": "OTHERS",
+                        "date": "2025-04-05"
+                    },
+                    "fatca_crs_declaration": {
+                        "is_client_tax_resident": "YES"
+                    },
+                    "politically_exposed_person_card": {
+                        "politically_exposed_person": "nan"
+                    },
+                    "_ver_status": {
+                        "status": "success",
+                        "message": "Model validation succeeeded.",
+                        "id": null,
+                        "actor": "system",
+                        "user_id": "U001",
+                        "weight": 100
+                    }
+                },
+                "upload_pdf_attachments": {
+                    "kyc_holder_attachment": {
+                        "upload_pdf": null
+                    }
+                }
+            }
         }
     ],
     "bank_verification": {
@@ -358,9 +613,13 @@
         },
         "bank_details": {
             "bank_account_number": "603510110014163",
+            "bank_name": "Bank of India",
+            "account_type": "SAVINGS",
             "account_holder_name_pan": "Deepak Kumar Gupta",
             "account_holder_name_id": "Deepak Kumar Gupta",
             "ifsc_code": "BKID0006035",
+            "micr_code": "MICR0006035",
+            "bank_address": "Some Address of bank",
             "account_holder_name": "",
             "type_of_application": "TRADING_AND_DP",
             "account_mobile_number": "+918510889066",
@@ -423,13 +682,13 @@
             "segment_pref_4": "COMMODITY",
             "segment_pref_5": "MUTUAL_FUND",
             "segment_pref_6": "SLB",
-            "contract_format_1": null,
+            "contract_format_1": "PHYSICAL_FORM",
             "contract_format_2": "ELECTRONIC_FORM",
             "proof_of_income": null,
             "type_of_document": null,
             "client_facility_choice": "YES",
-            "kit_format_1": "PHYSICAL_FORM",
-            "kit_format_2": "ELECTRONIC_FORM",
+            "kit_format_1": "PHYSICAL",
+            "kit_format_2": "ELECTRONIC",
             "holder_trading_experience": "1_3YEARS",
             "_ver_status": {
                 "status": "success",

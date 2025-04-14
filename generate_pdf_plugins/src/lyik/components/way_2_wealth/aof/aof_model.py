@@ -935,11 +935,9 @@ class AOF:
 
         table_heading = Paragraph(constant_texts.page8_table_heading,style=pdf_styles.bold_text_style(alignment=1))
 
-        cdsl_checkbox_option = pdf_components.get_checkbox_option(doc=doc,option_text=constant_texts.page8_cdsl_checkbox_option,width=(doc.width-doc.rightMargin*2)*0.5)
-        nsdl_checkbox_option = pdf_components.get_checkbox_option(doc=doc,option_text=constant_texts.page8_nsdl_checkbox_option,width=(doc.width-doc.rightMargin*2)*0.5)
-        cdsl_nsdl_composite = pdf_tables.create_composite_table(table1=cdsl_checkbox_option,table2=nsdl_checkbox_option,col_widths=[None,1,None])
+        dp_depository_field = pdf_components.checkbox_field(doc=doc, field_name_text='',field_width=doc.width-doc.rightMargin,options=constant_texts.page8_dp_account_depository_options,selected_options=constant_texts.page8_dp_account_depository_selected_options)
 
-        account_type = pdf_components.checkbox_field(doc=doc,field_name_text=constant_texts.page8_account_type_field_display_name,options=constant_texts.page8_account_type_options,field_width=doc.width-doc.rightMargin,selected_options=[],)
+        account_type = pdf_components.checkbox_field(doc=doc,field_name_text=constant_texts.page8_account_type_field_display_name,options=constant_texts.page8_account_type_options,field_width=doc.width-doc.rightMargin,selected_options=constant_texts.page8_account_type_selected_options,)
         guardian_details_field = pdf_components.checkbox_field(doc=doc,field_name_text=constant_texts.page8_guardian_details_field_display_name,options=constant_texts.page8_guardian_details_field_options,selected_options=constant_texts.page8_guardian_details_field_selected_options,field_width=(doc.width-doc.rightMargin*2)*0.6)
         guardian_pan_field = pdf_components.get_text_field(doc=doc,field_name=constant_texts.page8_guardian_pan_field_display_name,value=constant_texts.page8_guardian_pan_field_value,width=(doc.width-doc.rightMargin*2)*0.3)
         guradian_pan_composite = pdf_tables.create_composite_table(table1=guardian_details_field,table2=guardian_pan_field,col_widths=[(doc.width-doc.rightMargin*2)*0.7,1,(doc.width-doc.rightMargin*2)*0.3])
@@ -1013,7 +1011,7 @@ class AOF:
         holders_signature_section.setStyle(pdf_styles.bordered_grid_table_style(h_margin=10,v_margin=10))
 
         holder_sign_heading = Paragraph(constant_texts.page8_holder_sign_heading,style=pdf_styles.normal_text_style(alignment=0,fontsize=8))
-        table = Table([[table_heading],[cdsl_nsdl_composite],
+        table = Table([[table_heading],[dp_depository_field],
                        [account_type],[guradian_pan_composite],
                        [address_field_label],[address_field_value],[guardian_city_pincode_state],
                        [guardian_name_field],[relationship_with_holder],
