@@ -15,6 +15,7 @@ The following information falls under the category of KYC and are relevant to al
 - Email Address
 - Identity information
 	- Name might change for various reasons
+	- > There are conditions under which the name can be changed. Only if all the conditions are met, name change will be allowed
 - Address information
 	- Both residential and the correspondence address can change
 - Wet signature
