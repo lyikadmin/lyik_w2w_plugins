@@ -1,4 +1,4 @@
 user_id,email,phone_number,roles,doj,doe,is_active,display_name,branch_id,BROKERAGE_ID
-REG7836,suhashebbar@way2wealth.com,+919900516546,admin,44013,1,SUHAS HEBBAR,HO,FS10
-REG8349,kirann@way2wealth.com,+919916007377,maker,44013,1,Kiran N Shanbhogue,FS10,FS10
-REG8303,bharathkumar@way2wealth.com,+919900285695,checker,44013,Bharath Kumar G,AL,AL01
+REG7836,suhashebbar@way2wealth.com,+919900516546,admin,,,1,SUHAS HEBBAR,HO,FS10
+REG8349,kirann@way2wealth.com,+919916007377,maker,,,1,Kiran N Shanbhogue,FS10,FS10
+REG8303,bharathkumar@way2wealth.com,+919900285695,checker,,,1,Bharath Kumar G,AL,AL01
