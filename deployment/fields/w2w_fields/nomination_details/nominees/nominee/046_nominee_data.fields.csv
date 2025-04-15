@@ -2,7 +2,7 @@ field_name,alias,field_type,data_type,display_type,default_value,mandatory,descr
 dob_nominee,,simple,str,textbox,,FALSE,DD/MM/YYYY,Date of Birth,,,TRUE,6269,not minor_nominee = 'NOMINEE_IS_A_MINOR',,
 column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6261,,,
 minor_nominee,,simple,MINOR_NOMINEE,checkbox,,FALSE,,,,,TRUE,6262,,,
-nominee_type_of_id,,simple,ID_TYPE,dropdown,,FALSE,Type Of ID,Type Of ID,,,TRUE,6263,,,
+nominee_type_of_id,,simple,OVD_TYPE,dropdown,,FALSE,Type Of ID,Type Of ID,,,TRUE,6263,,,
 name_of_nominee,,simple,str,textbox,,FALSE,Enter Name of Nominee,Name of Nominee,,,TRUE,6264,,,
 percentage_of_allocation,,simple,float,textbox,,FALSE,Enter Percentage of Allocation,Percentage of Allocation,,,TRUE,6265,,,
 column_break,,layout,str,column_break,,FALSE,,,,,TRUE,6266,,,
