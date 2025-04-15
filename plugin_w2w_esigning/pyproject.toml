@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-w2w-esigning"
+version = "0.1.0"
+description = "A plugin to add Way2Wealth digital signature along with stamp"
+readme = "README.md"
+authors = [{ name = "Deepak gupta", email = "dgupta@lyik.com" }]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = ["PyMuPDF==1.25.5",
+                "pyHanko==0.26.0",
+                "cryptography==43.0.3",
+                "pycryptodome==3.19.0"
+                ]
+
+[project.entry-points."LYIK"]
+_200_W2W_ESIGNING = "lyik.plugin_w2w_esigning:W2WEsigning"
+

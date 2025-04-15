@@ -41,6 +41,11 @@ Steps to use Aadhaar-based eSign:
 Ensure your Aadhaar details are up-to-date and your mobile number is registered with UIDAI to use this service.
 """
 
+W2W_ESIGN = '''
+Digitally signs the PDF on behalf of Way2Wealth.
+This procees need to be triggered after the document is fully signed by all the signers.
+'''
+
 UCC_UPLOAD_TEXT = """
 UCC(Unique Client Code) Upload is a process to send the client information to NSE/BSE.
 """
@@ -62,6 +67,11 @@ ALL_OPERATIONS = [
         display_text="Download and verify the payload to be sent for CVL KRA",
     ),
     Operation(op_id="ESIGN", op_name="eSign", display_text=ESIGN),
+    Operation(
+        op_id="W2W_ESIGNING",
+        op_name="Way2Wealth eSigning",
+        display_text=W2W_ESIGN,
+    ),
     Operation(
         op_id="UPLOAD_UCC",
         op_name="UCC Upload",
