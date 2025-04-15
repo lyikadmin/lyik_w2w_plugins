@@ -161,6 +161,9 @@ class PdfCore:
                 if sign_locations:
                     pdf_meta.esign = Esign(esign_meta=sign_locations)
 
+                # Add tag as `main_doc` to identify the main document
+                pdf_meta = pdf_meta.model_copy(update={"tag": "main_doc"})
+
                 # DELETE THE EXISITING DOCS IF ANY BEFORE ADING NEW. TRY TO FIND IT, IF FOUND, DELETE IT!
                 pdf_query_data = DocQueryGenericModel(
                     org_id=context.org_id,
