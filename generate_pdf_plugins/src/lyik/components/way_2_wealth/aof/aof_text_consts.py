@@ -124,6 +124,7 @@ class KYC:
         self.ovd_type = self.data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_type','') if not self.is_digilocker else 'AADHAAR'
         # Address Details Section
         # 1. Correspondence Address section
+        self.address_ovd_corr_type = self.data.get('identity_address_verification',{}).get('ovd_corr',{}).get('ovd_type','')
         self.address_details_title = '2. Address Details:'
         self.address_correspondence_title = 'A. Correspondence/Local Address'
         self.address_correspondence_value = self.data.get('identity_address_verification',{}).get('correspondence_address',{}).get('full_address','')
@@ -142,6 +143,7 @@ class KYC:
             'Residential/Business', 'Residential', 'Business', 'Registered Office', 'Unspecified'
         ]
         self.address_type_selected_options = [get_enum_value_from_key(self.data.get('identity_address_verification',{}).get('correspondence_address',{}).get('type_of_address',''))]
+        self.address_corr_expiry_date = get_formatted_date(date= self.data.get('identity_address_verification',{}).get('correspondence_address',{}).get('id_proof_expiry','__________'))
 
         # 2. Permanent Address section
         self.address_permanent_title = '''

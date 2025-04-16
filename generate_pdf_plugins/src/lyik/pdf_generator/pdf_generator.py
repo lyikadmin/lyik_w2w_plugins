@@ -300,15 +300,17 @@ class PdfGenerator():
     def _get_kyc_attachments_ids(self,kyc_data:dict):
         # Images to be added if available:
         #   1. PAN card: pan_card_image
-        #   2. ovd front, back if ovd: ovd_front, ovd_back
+        #   2. i.) ovd front, back if ovd permanent-address: ovd_front, ovd_back
+        #      ii.) ovd front, back if ovd correspondence-address: ovd_front, ovd_back
         #   3. correspondence address proof: correspondence_address_proof
         #   4. Proof of signature: proof_of_signature
 
         # TODO: -- write method similar to 'get_all_file_ids' which takes list of keys, instead of hard coding for each kyc attachments!
         pan_card_image = kyc_data.get('pan_verification',{}).get('pan_card_image')
-        ovd_front = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_front')
-        ovd_back = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_back')
-        correspondence_address_proof = kyc_data.get('identity_address_verification',{}).get('correspondence_address',{}).get('proof')
+        perm_ovd_front = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_front')
+        perm_ovd_back = kyc_data.get('identity_address_verification',{}).get('ovd',{}).get('ovd_back')
+        corr_ovd_front = kyc_data.get('identity_address_verification',{}).get('ovd_corr',{}).get('ovd_front')
+        corr_ovd_back = kyc_data.get('identity_address_verification',{}).get('ovd_corr',{}).get('ovd_back')
         wet_sign = kyc_data.get('signature_validation',{}).get('upload_images',{}).get('wet_signature_image')
         proof_of_signature = kyc_data.get('signature_validation',{}).get('upload_images',{}).get('proof_of_signature')
 
@@ -322,23 +324,29 @@ class PdfGenerator():
             else:
                 pdf_attachments.append({pan_card_image.get('doc_id',''):'PAN Card'})
 
-        if ovd_front and ovd_front.get('doc_id',''):
-            if ovd_front.get('metadata',{}).get('doc_type','') and 'pdf' not in ovd_front.get('metadata',{}).get('doc_type',''):
-                images.append({ovd_front.get('doc_id',''): 'OVD Front'})
+        if perm_ovd_front and perm_ovd_front.get('doc_id',''):
+            if perm_ovd_front.get('metadata',{}).get('doc_type','') and 'pdf' not in perm_ovd_front.get('metadata',{}).get('doc_type',''):
+                images.append({perm_ovd_front.get('doc_id',''): 'OVD Front'})
             else:
-                pdf_attachments.append({ovd_front.get('doc_id',''): 'OVD Front'})
+                pdf_attachments.append({perm_ovd_front.get('doc_id',''): 'Permanent Address - OVD Front'})
 
-        if ovd_back and ovd_back.get('doc_id',''):
-            if ovd_back.get('metadata',{}).get('doc_type','') and 'pdf' not in ovd_back.get('metadata',{}).get('doc_type',''):
-                images.append({ovd_back.get('doc_id',''): 'OCD Back'})
+        if perm_ovd_back and perm_ovd_back.get('doc_id',''):
+            if perm_ovd_back.get('metadata',{}).get('doc_type','') and 'pdf' not in perm_ovd_back.get('metadata',{}).get('doc_type',''):
+                images.append({perm_ovd_back.get('doc_id',''): 'Permanent Address - OVD Back'})
             else:
-                pdf_attachments.append({ovd_back.get('doc_id',''): 'OVD Back'})
+                pdf_attachments.append({perm_ovd_back.get('doc_id',''): 'OVD Back'})
 
-        if correspondence_address_proof and correspondence_address_proof.get('doc_id',''):
-            if correspondence_address_proof.get('metadata',{}).get('doc_type','') and 'pdf' not in correspondence_address_proof.get('metadata',{}).get('doc_type',''):
-                images.append({correspondence_address_proof.get('doc_id',''): 'Proof of Correspondence Address'})
+        if corr_ovd_front and corr_ovd_front.get('doc_id',''):
+            if corr_ovd_front.get('metadata',{}).get('doc_type','') and 'pdf' not in corr_ovd_front.get('metadata',{}).get('doc_type',''):
+                images.append({corr_ovd_front.get('doc_id',''): 'Correspondence Address - OVD Front'})
             else:
-                pdf_attachments.append({correspondence_address_proof.get('doc_id',''):'Proof of Correspondence Address'})
+                pdf_attachments.append({corr_ovd_front.get('doc_id',''):'Correspondence Address - OVD Front'})
+
+        if corr_ovd_back and corr_ovd_back.get('doc_id',''):
+            if corr_ovd_back.get('metadata',{}).get('doc_type','') and 'pdf' not in corr_ovd_back.get('metadata',{}).get('doc_type',''):
+                images.append({corr_ovd_back.get('doc_id',''): 'Correspondence Address - OVD Back'})
+            else:
+                pdf_attachments.append({corr_ovd_back.get('doc_id',''):'Correspondence Address - OVD Back'})
 
         if wet_sign and wet_sign.get('doc_id',''):
             if wet_sign.get('metadata',{}).get('doc_type','') and 'pdf' not in wet_sign.get('metadata',{}).get('doc_type',''):

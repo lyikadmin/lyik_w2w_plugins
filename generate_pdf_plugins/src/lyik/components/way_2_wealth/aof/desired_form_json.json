@@ -140,15 +140,25 @@
               "city": null,
               "district": null,
               "country": null,
-              "proof": {
-                "doc_id": null,
-                "metadata": {
-                  "doc_type": null
-                }
-              },
+              "id_proof_expiry":null,
               "type_of_address": null,
               "full_address": null
+            },
+            "ovd_corr": {
+            "ovd_type": null,
+            "ovd_front": {
+              "doc_id": null,
+              "metadata": {
+                "doc_type": null
+              }
+            },
+            "ovd_back": {
+              "doc_id": null,
+              "metadata": {
+                "doc_type": null
+              }
             }
+          }
             
           },
           "signature_validation": {
