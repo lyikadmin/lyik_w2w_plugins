@@ -1,2 +1,2 @@
 field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,sequence,hidden,editable,meta
-operations,,compound,,info_pane,,FALSE,,Operations,,operation_card,FALSE,6399,,,operation.esign: Process Operation
+operations,,compound,,info_pane,,FALSE,,Operations,ACTION.OPERATIONS,operation_card,FALSE,6399,,,operation.esign: Process Operation
