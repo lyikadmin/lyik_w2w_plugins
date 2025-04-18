@@ -1,6 +1,6 @@
 {# This Jinja2 template create a dictionary of the payload data for the techxl #}
 {
-    {%- for k, v in record|translate_form_to_techxl|items() -%}
+    {%- for k, v in record|translate_form_to_techxl(user_token)|items() -%}
     "{{ k }}": "{{ v }}"{{- "," if not loop.last -}}
     {%- endfor -%}
 }

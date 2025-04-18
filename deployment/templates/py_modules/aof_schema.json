@@ -1,0 +1,4966 @@
+{
+  "$defs": {
+    "ADDRESS_TYPE": {
+      "enum": [
+        "RESIDENTIAL",
+        "RESIDENTIAL_BUSINESS",
+        "BUSINESS_ADDRESS",
+        "REGISTERED_OFFICE",
+        "UNSPECIFIED"
+      ],
+      "title": "ADDRESS_TYPE",
+      "type": "string"
+    },
+    "APPLICATION_TYPE": {
+      "enum": [
+        "TRADING",
+        "DP",
+        "TRADING_AND_DP",
+        "TRADING_KTK",
+        "TRADING_AND_DP_KTK"
+      ],
+      "title": "APPLICATION_TYPE",
+      "type": "string"
+    },
+    "APP_DET_DEFAULTS": {
+      "enum": [
+        5.0,
+        0.5,
+        6.0,
+        0.6,
+        7.0,
+        0.7,
+        100.0,
+        58.0,
+        0.1,
+        20.0,
+        52.0,
+        0.03,
+        10.0,
+        22.0
+      ],
+      "title": "APP_DET_DEFAULTS",
+      "type": "number"
+    },
+    "BANK_ACCOUNT_TYPE": {
+      "enum": [
+        "SAVINGS",
+        "CURRENT"
+      ],
+      "title": "BANK_ACCOUNT_TYPE",
+      "type": "string"
+    },
+    "CLIENT_TYPE_IND_ONLY": {
+      "enum": [
+        "IND"
+      ],
+      "title": "CLIENT_TYPE_IND_ONLY",
+      "type": "string"
+    },
+    "CONSENT_FOR_COMMUNICATION": {
+      "enum": [
+        "FIRST_HOLDER",
+        "ALL_HOLDERS"
+      ],
+      "title": "CONSENT_FOR_COMMUNICATION",
+      "type": "string"
+    },
+    "CONTRACT_FORMAT_1": {
+      "enum": [
+        "PHYSICAL_FORM"
+      ],
+      "title": "CONTRACT_FORMAT_1",
+      "type": "string"
+    },
+    "CONTRACT_FORMAT_2": {
+      "enum": [
+        "ELECTRONIC_FORM"
+      ],
+      "title": "CONTRACT_FORMAT_2",
+      "type": "string"
+    },
+    "COUNTRY": {
+      "enum": [
+        "INDIA",
+        "USA"
+      ],
+      "title": "COUNTRY",
+      "type": "string"
+    },
+    "COUNTRY_3_CODE": {
+      "enum": [
+        "AFG",
+        "ALB",
+        "DZA",
+        "ASM",
+        "AND",
+        "AGO",
+        "AIA",
+        "ATA",
+        "ATG",
+        "ARG",
+        "ARM",
+        "ABW",
+        "AUS",
+        "AUT",
+        "AZE",
+        "BHS",
+        "BHR",
+        "BGD",
+        "BRB",
+        "BLR",
+        "BEL",
+        "BLZ",
+        "BEN",
+        "BMU",
+        "BTN",
+        "BOL",
+        "BES",
+        "BIH",
+        "BWA",
+        "BVT",
+        "BRA",
+        "IOT",
+        "BRN",
+        "BGR",
+        "BFA",
+        "BDI",
+        "CPV",
+        "KHM",
+        "CMR",
+        "CAN",
+        "CYM",
+        "CAF",
+        "TCD",
+        "CHL",
+        "CHN",
+        "CXR",
+        "CCK",
+        "COL",
+        "COM",
+        "COD",
+        "COG",
+        "COK",
+        "CRI",
+        "HRV",
+        "CUB",
+        "CUW",
+        "CYP",
+        "CZE",
+        "CIV",
+        "DNK",
+        "DJI",
+        "DMA",
+        "DOM",
+        "ECU",
+        "EGY",
+        "SLV",
+        "GNQ",
+        "ERI",
+        "EST",
+        "SWZ",
+        "ETH",
+        "FLK",
+        "FRO",
+        "FJI",
+        "FIN",
+        "FRA",
+        "GUF",
+        "PYF",
+        "ATF",
+        "GAB",
+        "GMB",
+        "GEO",
+        "DEU",
+        "GHA",
+        "GIB",
+        "GRC",
+        "GRL",
+        "GRD",
+        "GLP",
+        "GUM",
+        "GTM",
+        "GGY",
+        "GIN",
+        "GNB",
+        "GUY",
+        "HTI",
+        "HMD",
+        "VAT",
+        "HND",
+        "HKG",
+        "HUN",
+        "ISL",
+        "IND",
+        "IDN",
+        "IRN",
+        "IRQ",
+        "IRL",
+        "IMN",
+        "ISR",
+        "ITA",
+        "JAM",
+        "JPN",
+        "JEY",
+        "JOR",
+        "KAZ",
+        "KEN",
+        "KIR",
+        "PRK",
+        "KOR",
+        "KWT",
+        "KGZ",
+        "LAO",
+        "LVA",
+        "LBN",
+        "LSO",
+        "LBR",
+        "LBY",
+        "LIE",
+        "LTU",
+        "LUX",
+        "MAC",
+        "MDG",
+        "MWI",
+        "MYS",
+        "MDV",
+        "MLI",
+        "MLT",
+        "MHL",
+        "MTQ",
+        "MRT",
+        "MUS",
+        "MYT",
+        "MEX",
+        "FSM",
+        "MDA",
+        "MCO",
+        "MNG",
+        "MNE",
+        "MSR",
+        "MAR",
+        "MOZ",
+        "MMR",
+        "NAM",
+        "NRU",
+        "NPL",
+        "NLD",
+        "NCL",
+        "NZL",
+        "NIC",
+        "NER",
+        "NGA",
+        "NIU",
+        "NFK",
+        "MNP",
+        "NOR",
+        "OMN",
+        "PAK",
+        "PLW",
+        "PSE",
+        "PAN",
+        "PNG",
+        "PRY",
+        "PER",
+        "PHL",
+        "PCN",
+        "POL",
+        "PRT",
+        "PRI",
+        "QAT",
+        "MKD",
+        "ROU",
+        "RUS",
+        "RWA",
+        "REU",
+        "BLM",
+        "SHN",
+        "KNA",
+        "LCA",
+        "MAF",
+        "SPM",
+        "VCT",
+        "WSM",
+        "SMR",
+        "STP",
+        "SAU",
+        "SEN",
+        "SRB",
+        "SYC",
+        "SLE",
+        "SGP",
+        "SXM",
+        "SVK",
+        "SVN",
+        "SLB",
+        "SOM",
+        "ZAF",
+        "SGS",
+        "SSD",
+        "ESP",
+        "LKA",
+        "SDN",
+        "SUR",
+        "SJM",
+        "SWE",
+        "CHE",
+        "SYR",
+        "TWN",
+        "TJK",
+        "TZA",
+        "THA",
+        "TLS",
+        "TGO",
+        "TKL",
+        "TON",
+        "TTO",
+        "TUN",
+        "TUR",
+        "TKM",
+        "TCA",
+        "TUV",
+        "UGA",
+        "UKR",
+        "ARE",
+        "GBR",
+        "UMI",
+        "USA",
+        "URY",
+        "UZB",
+        "VUT",
+        "VEN",
+        "VNM",
+        "VGB",
+        "VIR",
+        "WLF",
+        "ESH",
+        "YEM",
+        "ZMB",
+        "ZWE"
+      ],
+      "title": "COUNTRY_3_CODE",
+      "type": "string"
+    },
+    "COUNTRY_IND_ONLY": {
+      "enum": [
+        "India"
+      ],
+      "title": "COUNTRY_IND_ONLY",
+      "type": "string"
+    },
+    "DELIVERY_MODE": {
+      "enum": [
+        "PHYSICAL",
+        "ELECTRONIC"
+      ],
+      "title": "DELIVERY_MODE",
+      "type": "string"
+    },
+    "DEPOSITORY": {
+      "enum": [
+        "NSDL",
+        "CDSL"
+      ],
+      "title": "DEPOSITORY",
+      "type": "string"
+    },
+    "DIS_DELIVERY": {
+      "enum": [
+        "WITH_AC_OPENING",
+        "ON_REQUEST"
+      ],
+      "title": "DIS_DELIVERY",
+      "type": "string"
+    },
+    "DP_TARIFF_PLAN": {
+      "enum": [
+        "YEARLY",
+        "LIFETIME",
+        "BSDA"
+      ],
+      "title": "DP_TARIFF_PLAN",
+      "type": "string"
+    },
+    "FREQUENCY": {
+      "enum": [
+        "WEEKLY",
+        "MONTHLY"
+      ],
+      "title": "FREQUENCY",
+      "type": "string"
+    },
+    "GENDER": {
+      "enum": [
+        "M",
+        "F",
+        "T",
+        "O"
+      ],
+      "title": "GENDER",
+      "type": "string"
+    },
+    "ID_TYPE": {
+      "enum": [
+        "VOTER",
+        "PAN"
+      ],
+      "title": "ID_TYPE",
+      "type": "string"
+    },
+    "INCOME": {
+      "enum": [
+        "UPTO_1L",
+        "1_TO_5L",
+        "5_TO_10L",
+        "10_TO_25L",
+        "25L_TO_1CR",
+        "1CR_TO_5CR",
+        "GT_5CR"
+      ],
+      "title": "INCOME",
+      "type": "string"
+    },
+    "INDIA_STATES": {
+      "enum": [
+        "ANDAMAN & NICOBAR ISLANDS",
+        "ANDHRA PRADESH",
+        "ARUNACHAL PRADESH",
+        "ASSAM",
+        "BIHAR",
+        "CHANDIGARH",
+        "CHATTISGARH",
+        "DADRA & NAGAR HAVELI",
+        "DAMAN & DIU",
+        "DELHI",
+        "GOA",
+        "GUJARAT",
+        "HARYANA",
+        "HIMACHAL PRADESH",
+        "JAMMU & KASHMIR",
+        "JHARKHAND",
+        "KARNATAKA",
+        "KERALA",
+        "LAKSHADWEEP",
+        "MADHYA PRADESH",
+        "MAHARASHTRA",
+        "MANIPUR",
+        "MEGHALAYA",
+        "MIZORAM",
+        "NAGALAND",
+        "ODISHA",
+        "PONDICHERRY",
+        "PUNJAB",
+        "RAJASTHAN",
+        "SIKKIM",
+        "TAMIL NADU",
+        "TELANGANA",
+        "TRIPURA",
+        "UTTAR PRADESH",
+        "UTTARAKHAND",
+        "WEST BENGAL"
+      ],
+      "title": "INDIA_STATES",
+      "type": "string"
+    },
+    "INTRODUCER_STATUS": {
+      "enum": [
+        "CLIENT",
+        "SUB_BROKER_OR_AP",
+        "REMISIER"
+      ],
+      "title": "INTRODUCER_STATUS",
+      "type": "string"
+    },
+    "JOINT_ACCOUNT_OPERATION_MODE": {
+      "enum": [
+        "JOINTLY",
+        "ANY_ONE_HOLDER_OR_SURVIVORS"
+      ],
+      "title": "JOINT_ACCOUNT_OPERATION_MODE",
+      "type": "string"
+    },
+    "KIT_FORMAT_1": {
+      "enum": [
+        "PHYSICAL"
+      ],
+      "title": "KIT_FORMAT_1",
+      "type": "string"
+    },
+    "KIT_FORMAT_2": {
+      "enum": [
+        "ELECTRONIC"
+      ],
+      "title": "KIT_FORMAT_2",
+      "type": "string"
+    },
+    "MINOR_NOMINEE": {
+      "enum": [
+        "NOMINEE_IS_A_MINOR"
+      ],
+      "title": "MINOR_NOMINEE",
+      "type": "string"
+    },
+    "NO_TIN_REASON": {
+      "enum": [
+        "COUNTRY_DOES_NOT_ISSUE_TIN",
+        "TIN_NOT_REQUIRED",
+        "OTHER"
+      ],
+      "title": "NO_TIN_REASON",
+      "type": "string"
+    },
+    "OCCUPATION": {
+      "enum": [
+        "PRIVATE_SECTOR",
+        "PUBLIC_SECTOR",
+        "BUSINESS",
+        "GOVT_SERVICE",
+        "PROFESSIONAL",
+        "HOUSEWIFE",
+        "STUDENT",
+        "AGRICULTURIST",
+        "RETIRED",
+        "OTHERS"
+      ],
+      "title": "OCCUPATION",
+      "type": "string"
+    },
+    "OPTION": {
+      "enum": [
+        "YES",
+        "NO"
+      ],
+      "title": "OPTION",
+      "type": "string"
+    },
+    "OVD_TYPE": {
+      "enum": [
+        "VOTER",
+        "DL",
+        "PASSPORT",
+        "AADHAAR"
+      ],
+      "title": "OVD_TYPE",
+      "type": "string"
+    },
+    "PAN_AADHAAR_SEED": {
+      "enum": [
+        "YES",
+        "NO",
+        "EXEMPTED"
+      ],
+      "title": "PAN_AADHAAR_SEED",
+      "type": "string"
+    },
+    "POLICY": {
+      "enum": [
+        "RISK_MANAGEMENT_POLICY"
+      ],
+      "title": "POLICY",
+      "type": "string"
+    },
+    "POLITICALEXPO": {
+      "enum": [
+        "PEP",
+        "RELATED",
+        "nan"
+      ],
+      "title": "POLITICALEXPO",
+      "type": "string"
+    },
+    "PROCESSING_TIME": {
+      "enum": [
+        "SEBI_TNC"
+      ],
+      "title": "PROCESSING_TIME",
+      "type": "string"
+    },
+    "PROOF_OF_INCOME": {
+      "enum": [
+        "SALARY_SLIP",
+        "ITR",
+        "FORM_16",
+        "NET_WORTH_CERTIFICATE"
+      ],
+      "title": "PROOF_OF_INCOME",
+      "type": "string"
+    },
+    "RELATIONSHIP": {
+      "enum": [
+        "SELF",
+        "SPOUSE",
+        "DEPENDENT_PARENT",
+        "DEPENDENT_CHILD"
+      ],
+      "title": "RELATIONSHIP",
+      "type": "string"
+    },
+    "RESIDENCE_STATUS_RI_ONLY": {
+      "enum": [
+        "RI"
+      ],
+      "title": "RESIDENCE_STATUS_RI_ONLY",
+      "type": "string"
+    },
+    "SAME_AS_PERM": {
+      "enum": [
+        "SAME_AS_PERMANENT_ADDRESS"
+      ],
+      "title": "SAME_AS_PERM",
+      "type": "string"
+    },
+    "SEGMENT_PREF_1": {
+      "enum": [
+        "EQUITY"
+      ],
+      "title": "SEGMENT_PREF_1",
+      "type": "string"
+    },
+    "SEGMENT_PREF_2": {
+      "enum": [
+        "FNO"
+      ],
+      "title": "SEGMENT_PREF_2",
+      "type": "string"
+    },
+    "SEGMENT_PREF_3": {
+      "enum": [
+        "CURRENCY"
+      ],
+      "title": "SEGMENT_PREF_3",
+      "type": "string"
+    },
+    "SEGMENT_PREF_4": {
+      "enum": [
+        "COMMODITY"
+      ],
+      "title": "SEGMENT_PREF_4",
+      "type": "string"
+    },
+    "SEGMENT_PREF_5": {
+      "enum": [
+        "MUTUAL_FUND"
+      ],
+      "title": "SEGMENT_PREF_5",
+      "type": "string"
+    },
+    "SEGMENT_PREF_6": {
+      "enum": [
+        "SLB"
+      ],
+      "title": "SEGMENT_PREF_6",
+      "type": "string"
+    },
+    "SMS_ALERT": {
+      "enum": [
+        "TRUST_FACILITY_ON_MOBILE"
+      ],
+      "title": "SMS_ALERT",
+      "type": "string"
+    },
+    "SMS_ALERT_OPTION": {
+      "enum": [
+        "FIRST_HOLDER",
+        "ALL_JOINT_HOLDER",
+        "NO"
+      ],
+      "title": "SMS_ALERT_OPTION",
+      "type": "string"
+    },
+    "TRADING_EXP": {
+      "enum": [
+        "NIL",
+        "1_3YEARS",
+        "3_6YEARS",
+        "MORE_THAN_6YEARS"
+      ],
+      "title": "TRADING_EXP",
+      "type": "string"
+    },
+    "W2W_MARITALSTATUS": {
+      "enum": [
+        "MARRIED",
+        "SINGLE"
+      ],
+      "title": "W2W_MARITALSTATUS",
+      "type": "string"
+    },
+    "_grp_root_kyc_holders": {
+      "additionalProperties": true,
+      "properties": {
+        "kyc_holder": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6244,
+          "title": "KYC Holder"
+        }
+      },
+      "title": "_grp_root_kyc_holders",
+      "type": "object"
+    },
+    "_grp_root_nomination_details_nominees": {
+      "additionalProperties": true,
+      "properties": {
+        "nominee": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_nomination_details_nominees_nominee"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6281,
+          "title": ""
+        }
+      },
+      "title": "_grp_root_nomination_details_nominees",
+      "type": "object"
+    },
+    "root_application_details": {
+      "additionalProperties": true,
+      "properties": {
+        "defaults": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/APP_DET_DEFAULTS"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6033,
+          "title": "Defaults"
+        },
+        "kyc_digilocker": {
+          "$ref": "#/$defs/OPTION",
+          "sequence": 6034,
+          "title": "Would the client like to complete KYC using Digilocker?"
+        },
+        "general_application_details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_general_application_details"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6040,
+          "title": "General"
+        },
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "TARIFF SHEET",
+          "sequence": 6040,
+          "title": ""
+        },
+        "segment_rates": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_segment_rates"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6044,
+          "title": ""
+        },
+        "cash_fut_como_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_cash_fut_como_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6051,
+          "title": ""
+        },
+        "cash_jobbing_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_cash_jobbing_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6058,
+          "title": ""
+        },
+        "futures_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_futures_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6065,
+          "title": ""
+        },
+        "options_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_options_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6071,
+          "title": ""
+        },
+        "currency_futures_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_currency_futures_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6078,
+          "title": ""
+        },
+        "currency_options_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_currency_options_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6084,
+          "title": ""
+        },
+        "commodity_futures_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_commodity_futures_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6091,
+          "title": ""
+        },
+        "commodity_options_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_commodity_options_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6097,
+          "title": ""
+        },
+        "slb_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_slb_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6103,
+          "title": ""
+        },
+        "flat_per_order_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_flat_per_order_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6109,
+          "title": ""
+        },
+        "online_exe_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_online_exe_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6111,
+          "title": ""
+        },
+        "gst_details_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_gst_details_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6114,
+          "title": "GST Details"
+        },
+        "client_contact_details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_application_details_client_contact_details"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6116,
+          "title": "Client Contact Details"
+        }
+      },
+      "required": [
+        "kyc_digilocker"
+      ],
+      "title": "root_application_details",
+      "type": "object"
+    },
+    "root_application_details_cash_fut_como_card": {
+      "additionalProperties": true,
+      "properties": {
+        "cash_fut_como": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Cash/ &Future/ Commodity Delivery",
+          "sequence": 6046,
+          "title": ""
+        },
+        "cash_minimum_paisa": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6048,
+          "title": "Minimum Paisa"
+        },
+        "cash_in_percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6050,
+          "title": "In %"
+        }
+      },
+      "title": "root_application_details_cash_fut_como_card",
+      "type": "object"
+    },
+    "root_application_details_cash_jobbing_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Cash Jobbing",
+          "sequence": 6053,
+          "title": ""
+        },
+        "cash_jobbing_minimum_paisa": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6055,
+          "title": "Minimum Paisa"
+        },
+        "cash_jobbing_in_percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6057,
+          "title": "In %"
+        }
+      },
+      "title": "root_application_details_cash_jobbing_card",
+      "type": "object"
+    },
+    "root_application_details_client_contact_details": {
+      "additionalProperties": true,
+      "properties": {
+        "client_mobile": {
+          "sequence": 6115,
+          "title": "Mobile",
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_mobile"
+      ],
+      "title": "root_application_details_client_contact_details",
+      "type": "object"
+    },
+    "root_application_details_commodity_futures_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Commodity Futures",
+          "sequence": 6086,
+          "title": ""
+        },
+        "commodity_futures_minimum_paisa": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6088,
+          "title": "Minimum Paisa"
+        },
+        "commodity_futures_in_percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6090,
+          "title": "In %"
+        }
+      },
+      "title": "root_application_details_commodity_futures_card",
+      "type": "object"
+    },
+    "root_application_details_commodity_options_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Commodity Options",
+          "sequence": 6093,
+          "title": ""
+        },
+        "commodity_options_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6095,
+          "title": "Rate (Rs)"
+        }
+      },
+      "title": "root_application_details_commodity_options_card",
+      "type": "object"
+    },
+    "root_application_details_currency_futures_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Currency Futures",
+          "sequence": 6073,
+          "title": ""
+        },
+        "currency_futures_minimum_paisa": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6075,
+          "title": "Minimum Paisa"
+        },
+        "currency_futures_in_percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6077,
+          "title": "In %"
+        }
+      },
+      "title": "root_application_details_currency_futures_card",
+      "type": "object"
+    },
+    "root_application_details_currency_options_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Currency Options",
+          "sequence": 6080,
+          "title": ""
+        },
+        "currency_options_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6082,
+          "title": "Rate (Rs)"
+        }
+      },
+      "title": "root_application_details_currency_options_card",
+      "type": "object"
+    },
+    "root_application_details_flat_per_order_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Flat Per Order",
+          "sequence": 6105,
+          "title": ""
+        },
+        "flat_per_order_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6107,
+          "title": "Rate (Rs)"
+        }
+      },
+      "title": "root_application_details_flat_per_order_card",
+      "type": "object"
+    },
+    "root_application_details_futures_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Futures",
+          "sequence": 6060,
+          "title": ""
+        },
+        "futures_minimum_paisa": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6062,
+          "title": "Minimum Paisa"
+        },
+        "futures_in_percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6064,
+          "title": "In %"
+        }
+      },
+      "title": "root_application_details_futures_card",
+      "type": "object"
+    },
+    "root_application_details_general_application_details": {
+      "additionalProperties": true,
+      "properties": {
+        "application_type": {
+          "$ref": "#/$defs/APPLICATION_TYPE",
+          "description": "Select Option",
+          "sequence": 6037,
+          "title": "Type of Application"
+        },
+        "residential_status": {
+          "$ref": "#/$defs/RESIDENCE_STATUS_RI_ONLY",
+          "description": "Select Option",
+          "sequence": 6039,
+          "title": "Residential Status of Client"
+        }
+      },
+      "required": [
+        "application_type",
+        "residential_status"
+      ],
+      "title": "root_application_details_general_application_details",
+      "type": "object"
+    },
+    "root_application_details_gst_details_card": {
+      "additionalProperties": true,
+      "properties": {
+        "gst_number": {
+          "anyOf": [
+            {
+              "pattern": "\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}\\d{1}[0-Z]{2}",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6112,
+          "title": "GST No."
+        },
+        "gst_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/INDIA_STATES"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6113,
+          "title": "GST State"
+        }
+      },
+      "title": "root_application_details_gst_details_card",
+      "type": "object"
+    },
+    "root_application_details_online_exe_card": {
+      "additionalProperties": true,
+      "properties": {
+        "online_exe": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "NO",
+          "sequence": 6110,
+          "title": "Online EXE (Fee.Rs.750/-)"
+        }
+      },
+      "title": "root_application_details_online_exe_card",
+      "type": "object"
+    },
+    "root_application_details_options_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Options",
+          "sequence": 6067,
+          "title": ""
+        },
+        "options_standard_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6069,
+          "title": "Standard Rate (Rs)"
+        }
+      },
+      "title": "root_application_details_options_card",
+      "type": "object"
+    },
+    "root_application_details_segment_rates": {
+      "additionalProperties": true,
+      "properties": {},
+      "title": "root_application_details_segment_rates",
+      "type": "object"
+    },
+    "root_application_details_slb_card": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "SLB",
+          "sequence": 6099,
+          "title": ""
+        },
+        "slb_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6101,
+          "title": "Rate (Rs)"
+        }
+      },
+      "title": "root_application_details_slb_card",
+      "type": "object"
+    },
+    "root_bank_verification": {
+      "additionalProperties": true,
+      "properties": {
+        "cancelled_cheque": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_bank_verification_cancelled_cheque"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6255,
+          "title": "Cancelled Cheque"
+        },
+        "bank_details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_bank_verification_bank_details"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6255,
+          "title": "Bank Details"
+        }
+      },
+      "title": "root_bank_verification",
+      "type": "object"
+    },
+    "root_bank_verification_bank_details": {
+      "additionalProperties": true,
+      "properties": {
+        "bank_account_number": {
+          "description": "Enter Bank Account Number",
+          "sequence": 6247,
+          "title": "Bank Account Number",
+          "type": "string"
+        },
+        "ifsc_code": {
+          "description": "Enter IFSC Code",
+          "pattern": "[A-Z]{4}\\d{7}",
+          "sequence": 6251,
+          "title": "IFSC Code",
+          "type": "string"
+        },
+        "micr_code": {
+          "anyOf": [
+            {
+              "pattern": "\\d{9}",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "MICR code as on cheque leaf",
+          "sequence": 6254,
+          "title": "MICR Code"
+        },
+        "bank_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Name of the Bank",
+          "sequence": 6254,
+          "title": "Bank Name"
+        },
+        "account_type": {
+          "$ref": "#/$defs/BANK_ACCOUNT_TYPE",
+          "description": "Bank Account Type",
+          "sequence": 6254,
+          "title": "Account Type"
+        },
+        "account_holder_name_pan": {
+          "description": "Name as per PAN",
+          "sequence": 6249,
+          "title": "Name as per PAN",
+          "type": "string"
+        },
+        "account_holder_name_id": {
+          "description": "Name as per ID Proof",
+          "sequence": 6250,
+          "title": "Name as in ID Proof",
+          "type": "string"
+        },
+        "account_holder_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Name as per bank record",
+          "sequence": 6248,
+          "title": "Account Holder's Name"
+        },
+        "account_mobile_number": {
+          "sequence": 6252,
+          "title": "Mobile Number",
+          "type": "string"
+        },
+        "bank_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Bank Address",
+          "sequence": 6254,
+          "title": "Bank Address"
+        },
+        "type_of_application": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "$..application_type",
+          "sequence": 6253,
+          "title": ""
+        }
+      },
+      "required": [
+        "bank_account_number",
+        "ifsc_code",
+        "account_type",
+        "account_holder_name_pan",
+        "account_holder_name_id",
+        "account_mobile_number"
+      ],
+      "title": "root_bank_verification_bank_details",
+      "type": "object"
+    },
+    "root_bank_verification_cancelled_cheque": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload a picture of the cancelled cheque.",
+          "sequence": 6253,
+          "title": ""
+        },
+        "cancelled_cheque_image": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "Upload your cancelled cheque image",
+          "sequence": 6254,
+          "title": "Cancelled Cheque Image"
+        }
+      },
+      "required": [
+        "cancelled_cheque_image"
+      ],
+      "title": "root_bank_verification_cancelled_cheque",
+      "type": "object"
+    },
+    "root_dp_information": {
+      "additionalProperties": true,
+      "properties": {
+        "dp_Account_information": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_dp_information_dp_Account_information"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6342,
+          "title": "DP Account Information"
+        },
+        "standing_info_from_client": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_dp_information_standing_info_from_client"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6357,
+          "title": "Standing Instructions from Client"
+        },
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6365,
+          "title": "UCC Mapping for DP account"
+        },
+        "trust_information": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_dp_information_trust_information"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6365,
+          "title": "TRUST Information"
+        },
+        "ucc_mapping_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_dp_information_ucc_mapping_1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6377,
+          "title": ""
+        },
+        "ucc_mapping_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_dp_information_ucc_mapping_2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6388,
+          "title": ""
+        }
+      },
+      "title": "root_dp_information",
+      "type": "object"
+    },
+    "root_dp_information_dp_Account_information": {
+      "additionalProperties": true,
+      "properties": {
+        "dp_tariff_plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DP_TARIFF_PLAN"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "DP Tariff Plan",
+          "sequence": 6335,
+          "title": "DP Tariff Plan"
+        },
+        "name_of_dp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6336,
+          "title": "Name of DP"
+        },
+        "depository": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DEPOSITORY"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6337,
+          "title": "Depository"
+        },
+        "dp_id_no": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6339,
+          "title": "DP ID No"
+        },
+        "client_id_no": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6340,
+          "title": "Client ID No"
+        },
+        "cmr_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload your CMR file",
+          "sequence": 6341,
+          "title": "Upload CMR File"
+        }
+      },
+      "title": "root_dp_information_dp_Account_information",
+      "type": "object"
+    },
+    "root_dp_information_standing_info_from_client": {
+      "additionalProperties": true,
+      "properties": {
+        "receive_credit_auth_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "YES",
+          "sequence": 6343,
+          "title": "I/We authorize you to receive credits automatically into my / our account"
+        },
+        "first_holder_sms_alert": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SMS_ALERT_OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "FIRST_HOLDER",
+          "sequence": 6344,
+          "title": "SMS Alert Facility"
+        },
+        "account_statement_requirement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FREQUENCY"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "MONTHLY",
+          "sequence": 6345,
+          "title": "Account Statement Requirement"
+        },
+        "electronic_transaction_holding_statement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "YES",
+          "sequence": 6346,
+          "title": "I/We request you to send Electronic Transaction-Cum-Holding Statements at Sole/ First Holder's Email as stated in the account opening form"
+        },
+        "dividend_interest_receive_option": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6347,
+          "title": "Do you wish to receive Dividends/Interest directly into your bank account mentioned in KYC"
+        },
+        "auto_pledge_confirmation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6348,
+          "title": "Standing Instruction for Auto Pledge Confirmation by Pledge"
+        },
+        "did_booklet_issuance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DIS_DELIVERY"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6349,
+          "title": "Option for Issuance of Delivery Instruction Slip (DIS) Booklet"
+        },
+        "bsda": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6350,
+          "title": "Basic Services Demat Account (BSDA)"
+        },
+        "joint_account_operation_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JOINT_ACCOUNT_OPERATION_MODE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6351,
+          "title": "Mode of operation for joint accounts"
+        },
+        "consent_for_communication": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CONSENT_FOR_COMMUNICATION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6352,
+          "title": "Consent for Communication to be received by:"
+        },
+        "share_email_id_with_rta": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6353,
+          "title": "I/We Would like to share the email ID with the RTA"
+        },
+        "receive_annual_report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DELIVERY_MODE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6354,
+          "title": "I/We Would like to receive the annual report (If Not selected it will be physical)"
+        },
+        "aadhaar_pan_seed_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PAN_AADHAAR_SEED"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "YES",
+          "sequence": 6355,
+          "title": "PAN is seeded with Aadhaar"
+        },
+        "trust": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6356,
+          "title": "Transactions Using Secured Texting Facility (TRUST)"
+        }
+      },
+      "title": "root_dp_information_standing_info_from_client",
+      "type": "object"
+    },
+    "root_dp_information_trust_information": {
+      "additionalProperties": true,
+      "properties": {
+        "stack_exchange_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6360,
+          "title": "Stack Exchange Name/ID"
+        },
+        "clearing_member_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6362,
+          "title": "Clearing Member Name"
+        },
+        "clearing_member_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6364,
+          "title": "Clearing Member ID"
+        }
+      },
+      "title": "root_dp_information_trust_information",
+      "type": "object"
+    },
+    "root_dp_information_ucc_mapping_1": {
+      "additionalProperties": true,
+      "properties": {
+        "ucc_code_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6368,
+          "title": "UCC Code"
+        },
+        "exchange_id_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6370,
+          "title": "Exchange ID"
+        },
+        "segment_id_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6372,
+          "title": "Segment ID"
+        },
+        "cm_id_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6374,
+          "title": "CM ID"
+        },
+        "tm_id_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6376,
+          "title": "TM ID"
+        }
+      },
+      "title": "root_dp_information_ucc_mapping_1",
+      "type": "object"
+    },
+    "root_dp_information_ucc_mapping_2": {
+      "additionalProperties": true,
+      "properties": {
+        "ucc_code_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6379,
+          "title": "UCC Code"
+        },
+        "exchange_id_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6381,
+          "title": "Exchange ID"
+        },
+        "segment_id_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6383,
+          "title": "Segment ID"
+        },
+        "cm_id_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6385,
+          "title": "CM ID"
+        },
+        "tm_id_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Value",
+          "sequence": 6387,
+          "title": "TM ID"
+        }
+      },
+      "title": "root_dp_information_ucc_mapping_2",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder": {
+      "additionalProperties": true,
+      "properties": {
+        "mobile_email_verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_mobile_email_verification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6128,
+          "title": "Mobile & Email Verification"
+        },
+        "pan_verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_pan_verification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6139,
+          "title": "PAN Verification"
+        },
+        "identity_address_verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_identity_address_verification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6181,
+          "title": "Identity and Address Verification"
+        },
+        "signature_validation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_signature_validation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6189,
+          "title": "Signature Validation"
+        },
+        "liveness_photo_capture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_liveness_photo_capture"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6199,
+          "title": "Liveness Check"
+        },
+        "liveness_check": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_liveness_check"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6199,
+          "title": "Liveness Check"
+        },
+        "declarations": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6244,
+          "title": "Declarations"
+        },
+        "upload_pdf_attachments": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_upload_pdf_attachments"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6399,
+          "title": "Upload PDF Attachments"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations": {
+      "additionalProperties": true,
+      "properties": {
+        "income_info": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations_income_info"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6208,
+          "title": "Income Information"
+        },
+        "fatca_crs_declaration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6214,
+          "title": "FATCA CRS Declaration"
+        },
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6214,
+          "title": "FATCA - CRS Declaration"
+        },
+        "fatca_crs_declaration_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6224,
+          "title": ""
+        },
+        "fatca_crs_declaration_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6233,
+          "title": ""
+        },
+        "fatca_crs_declaration_3": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_3"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6242,
+          "title": ""
+        },
+        "politically_exposed_person_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_declarations_politically_exposed_person_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6244,
+          "title": "Politically Exposed Person"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration": {
+      "additionalProperties": true,
+      "properties": {
+        "is_client_tax_resident": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "NO",
+          "sequence": 6210,
+          "title": "Is the holder a tax resident of any country other than India?"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_1": {
+      "additionalProperties": true,
+      "properties": {
+        "country_of_residency_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/COUNTRY_3_CODE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Country of Residency",
+          "sequence": 6217,
+          "title": "Country of Residency"
+        },
+        "tin_no_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter TIN No",
+          "sequence": 6219,
+          "title": "TIN No"
+        },
+        "id_type_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter ID Type",
+          "sequence": 6221,
+          "title": "ID Type"
+        },
+        "reason_if_no_tin_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NO_TIN_REASON"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Reasons (if TIN not available)",
+          "sequence": 6223,
+          "title": "Reasons (if TIN not available)"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_1",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_2": {
+      "additionalProperties": true,
+      "properties": {
+        "country_of_residency_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/COUNTRY"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Country of Residency",
+          "sequence": 6226,
+          "title": "Country of Residency"
+        },
+        "tin_no_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter TIN No",
+          "sequence": 6228,
+          "title": "TIN No"
+        },
+        "id_type_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter ID Type",
+          "sequence": 6230,
+          "title": "ID Type"
+        },
+        "reason_if_no_tin_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NO_TIN_REASON"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Reasons (if TIN not available)",
+          "sequence": 6232,
+          "title": "Reasons (if TIN not available)"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_2",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_3": {
+      "additionalProperties": true,
+      "properties": {
+        "country_of_residency_3": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/COUNTRY_3_CODE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Country of Residency",
+          "sequence": 6235,
+          "title": "Country of Residency"
+        },
+        "tin_no_3": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter TIN No",
+          "sequence": 6237,
+          "title": "TIN No"
+        },
+        "id_type_3": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter ID Type",
+          "sequence": 6239,
+          "title": "ID Type"
+        },
+        "reason_if_no_tin_3": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NO_TIN_REASON"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Reasons (if TIN not available)",
+          "sequence": 6241,
+          "title": "Reasons (if TIN not available)"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations_fatca_crs_declaration_3",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations_income_info": {
+      "additionalProperties": true,
+      "properties": {
+        "gross_annual_income": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/INCOME"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Gross Annual Income",
+          "sequence": 6203,
+          "title": "Gross Annual Income"
+        },
+        "networth": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Networth as on date ",
+          "sequence": 6204,
+          "title": "Networth as on Date"
+        },
+        "occupation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OCCUPATION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Select Option",
+          "sequence": 6206,
+          "title": "Occupation"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Date",
+          "sequence": 6207,
+          "title": "Date (Networth)"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations_income_info",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_declarations_politically_exposed_person_card": {
+      "additionalProperties": true,
+      "properties": {
+        "politically_exposed_person": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/POLITICALEXPO"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6243,
+          "title": "Please choose one of the following:"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_declarations_politically_exposed_person_card",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_identity_address_verification": {
+      "additionalProperties": true,
+      "properties": {
+        "digi_locker_aadhaar": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6141,
+          "title": ""
+        },
+        "ovd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_identity_address_verification_ovd"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6149,
+          "title": "Upload OVD"
+        },
+        "identity_address_info": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_identity_address_verification_identity_address_info"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6161,
+          "title": "Identity and Permanent Address Information"
+        },
+        "other_info": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_identity_address_verification_other_info"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6169,
+          "title": "Other Information"
+        },
+        "same_as_permanent_address": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SAME_AS_PERM"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6169,
+          "title": ""
+        },
+        "ovd_corr": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_identity_address_verification_ovd_corr"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6150,
+          "title": "Upload OVD for Correspondence Address"
+        },
+        "correspondence_address": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_identity_address_verification_correspondence_address"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6181,
+          "title": "Correspondence Address"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_identity_address_verification",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_identity_address_verification_correspondence_address": {
+      "additionalProperties": true,
+      "properties": {
+        "district": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "@.ovd_corr.TRUSTED_OVD.dist",
+          "sequence": 6153,
+          "title": ""
+        },
+        "id_proof_expiry": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expiry date for ID Proof",
+          "sequence": 6159,
+          "title": "ID Proof Expiry Date"
+        },
+        "type_of_address": {
+          "$ref": "#/$defs/ADDRESS_TYPE",
+          "description": "Select Option",
+          "sequence": 6178,
+          "title": "Type of Address"
+        },
+        "full_address": {
+          "description": "House #, Street, Locality",
+          "sequence": 6180,
+          "title": "Correspondence Address",
+          "type": "string"
+        },
+        "city": {
+          "description": "City",
+          "sequence": 6152,
+          "title": "City",
+          "type": "string"
+        },
+        "state": {
+          "description": "State",
+          "sequence": 6151,
+          "title": "State",
+          "type": "string"
+        },
+        "pin": {
+          "description": "PIN",
+          "sequence": 6150,
+          "title": "PIN",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country",
+          "sequence": 6154,
+          "title": "Country",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type_of_address",
+        "full_address",
+        "city",
+        "state",
+        "pin",
+        "country"
+      ],
+      "title": "root_kyc_holders_kyc_holder_identity_address_verification_correspondence_address",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_identity_address_verification_identity_address_info": {
+      "additionalProperties": true,
+      "properties": {
+        "aadhaar_xml": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "@.digi_locker_aadhaar.TRUSTED_DIGILOCKER.aadhaar_xml",
+          "sequence": 6150,
+          "title": ""
+        },
+        "name": {
+          "description": "Name as in Aadhaar/ID Card",
+          "sequence": 6156,
+          "title": "Name as in ID Proof",
+          "type": "string"
+        },
+        "uid": {
+          "description": "ID Number",
+          "sequence": 6159,
+          "title": "ID Number",
+          "type": "string"
+        },
+        "id_proof_expiry": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expiry date for ID Proof",
+          "sequence": 6159,
+          "title": "ID Proof Expiry Date"
+        },
+        "gender": {
+          "$ref": "#/$defs/GENDER",
+          "description": "Gender",
+          "sequence": 6157,
+          "title": "Gender"
+        },
+        "type_of_address": {
+          "$ref": "#/$defs/ADDRESS_TYPE",
+          "description": "Select Option",
+          "sequence": 6159,
+          "title": "Type of Address"
+        },
+        "full_address": {
+          "description": "House #, Street, Locality",
+          "sequence": 6160,
+          "title": "Permanent Address",
+          "type": "string"
+        },
+        "city": {
+          "description": "City",
+          "sequence": 6152,
+          "title": "City",
+          "type": "string"
+        },
+        "state": {
+          "description": "State",
+          "sequence": 6151,
+          "title": "State",
+          "type": "string"
+        },
+        "pin": {
+          "description": "PIN",
+          "sequence": 6150,
+          "title": "PIN",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country",
+          "sequence": 6154,
+          "title": "Country",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "uid",
+        "gender",
+        "type_of_address",
+        "full_address",
+        "city",
+        "state",
+        "pin",
+        "country"
+      ],
+      "title": "root_kyc_holders_kyc_holder_identity_address_verification_identity_address_info",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_identity_address_verification_other_info": {
+      "additionalProperties": true,
+      "properties": {
+        "father_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Father's Name",
+          "sequence": 6163,
+          "title": "Father's Name"
+        },
+        "mother_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Mother's Name",
+          "sequence": 6167,
+          "title": "Mother's Name"
+        },
+        "marital_status": {
+          "$ref": "#/$defs/W2W_MARITALSTATUS",
+          "sequence": 6164,
+          "title": "Marital Status"
+        },
+        "place_of_birth": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Place of Birth",
+          "sequence": 6168,
+          "title": "Place of Birth"
+        },
+        "country_of_birth": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/COUNTRY_IND_ONLY"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "India",
+          "description": "Enter Country of Birth",
+          "sequence": 6165,
+          "title": "Country of Birth"
+        },
+        "residential_status": {
+          "$ref": "#/$defs/RESIDENCE_STATUS_RI_ONLY",
+          "description": "Select Option",
+          "sequence": 6169,
+          "title": "Residential Status of Client"
+        }
+      },
+      "required": [
+        "marital_status",
+        "residential_status"
+      ],
+      "title": "root_kyc_holders_kyc_holder_identity_address_verification_other_info",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_identity_address_verification_ovd": {
+      "additionalProperties": true,
+      "properties": {
+        "ovd_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OVD_TYPE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Select Option",
+          "sequence": 6144,
+          "title": "Select OVD"
+        },
+        "ovd_front": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6146,
+          "title": "Upload front side"
+        },
+        "ovd_back": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6148,
+          "title": "Upload back side"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_identity_address_verification_ovd",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_identity_address_verification_ovd_corr": {
+      "additionalProperties": true,
+      "properties": {
+        "ovd_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OVD_TYPE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Select Option",
+          "sequence": 6144,
+          "title": "Select OVD"
+        },
+        "ovd_front": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6146,
+          "title": "Upload front side"
+        },
+        "ovd_back": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6148,
+          "title": "Upload back side"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_identity_address_verification_ovd_corr",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_liveness_check": {
+      "additionalProperties": true,
+      "properties": {
+        "video_capture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_liveness_check_video_capture"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6195,
+          "title": "Video Capture"
+        },
+        "liveness_captcha": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6195,
+          "title": ""
+        },
+        "liveness_geo_loc": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_liveness_check_liveness_geo_loc"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6199,
+          "title": ""
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_liveness_check",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_liveness_check_liveness_geo_loc": {
+      "additionalProperties": true,
+      "properties": {
+        "lat": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6197,
+          "title": ""
+        },
+        "long": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6198,
+          "title": ""
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_liveness_check_liveness_geo_loc",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_liveness_check_video_capture": {
+      "additionalProperties": true,
+      "properties": {
+        "liveness_video": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6194,
+          "title": ""
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_liveness_check_video_capture",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_liveness_photo_capture": {
+      "additionalProperties": true,
+      "properties": {
+        "photo_capture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_liveness_photo_capture_photo_capture"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6193,
+          "title": "Photo Capture"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_liveness_photo_capture",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_liveness_photo_capture_photo_capture": {
+      "additionalProperties": true,
+      "properties": {
+        "liveness_photo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6192,
+          "title": ""
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_liveness_photo_capture_photo_capture",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_mobile_email_verification": {
+      "additionalProperties": true,
+      "properties": {
+        "mobile_verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_mobile_email_verification_mobile_verification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6124,
+          "title": "Mobile Verification"
+        },
+        "email_verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_mobile_email_verification_email_verification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6128,
+          "title": "Email Verification"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_mobile_email_verification",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_mobile_email_verification_email_verification": {
+      "additionalProperties": true,
+      "properties": {
+        "dependency_relationship_email": {
+          "$ref": "#/$defs/RELATIONSHIP",
+          "description": "Select Option",
+          "sequence": 6125,
+          "title": "Dependency Relationship"
+        },
+        "contact_id": {
+          "format": "email",
+          "sequence": 6126,
+          "title": "Email ID",
+          "type": "string"
+        },
+        "otp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6122,
+          "title": "OTP"
+        },
+        "transaction_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6122,
+          "title": "Transaction ID"
+        }
+      },
+      "required": [
+        "dependency_relationship_email",
+        "contact_id"
+      ],
+      "title": "root_kyc_holders_kyc_holder_mobile_email_verification_email_verification",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_mobile_email_verification_mobile_verification": {
+      "additionalProperties": true,
+      "properties": {
+        "dependency_relationship_mobile": {
+          "$ref": "#/$defs/RELATIONSHIP",
+          "description": "Select Option",
+          "sequence": 6121,
+          "title": "Dependency Relationship"
+        },
+        "contact_id": {
+          "sequence": 6122,
+          "title": "Mobile Number",
+          "type": "string"
+        },
+        "otp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6122,
+          "title": "OTP"
+        },
+        "transaction_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6122,
+          "title": "Transaction ID"
+        }
+      },
+      "required": [
+        "dependency_relationship_mobile",
+        "contact_id"
+      ],
+      "title": "root_kyc_holders_kyc_holder_mobile_email_verification_mobile_verification",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_pan_verification": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload the front image of the PAN card showing the PAN number, Name and other details to autofill the fields.",
+          "sequence": 6130,
+          "title": ""
+        },
+        "pan_card_image": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload front image of PAN card",
+          "sequence": 6131,
+          "title": "PAN Card Image"
+        },
+        "pan_details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_pan_verification_pan_details"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6139,
+          "title": "PAN Details"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_pan_verification",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_pan_verification_pan_details": {
+      "additionalProperties": true,
+      "properties": {
+        "name_in_pan": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "@.pan_card_image.TRUSTED_PAN_OCR.full_name",
+          "description": "Enter Name",
+          "sequence": 6134,
+          "title": "Name as in PAN"
+        },
+        "dob_pan": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "@.pan_card_image.TRUSTED_PAN_OCR.dob",
+          "description": "dd/mm/yyyy",
+          "sequence": 6135,
+          "title": "Date of Birth"
+        },
+        "pan_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "@.pan_card_image.TRUSTED_PAN_OCR.pan_number",
+          "description": "Enter PAN Number",
+          "sequence": 6137,
+          "title": "PAN Number"
+        },
+        "parent_guardian_spouse_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "@.pan_card_image.TRUSTED_PAN_OCR.father_name",
+          "description": "Enter Parent/Guardian/Spouse Name",
+          "sequence": 6138,
+          "title": "Parent/Guardian/Spouse Name"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_pan_verification_pan_details",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_signature_validation": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload a clear image of Client's wet signature and an image from PAN, Driver License, Passport or Bank Attestation as Proof of Signature.",
+          "sequence": 6183,
+          "title": ""
+        },
+        "upload_images": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_signature_validation_upload_images"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6189,
+          "title": "Upload Images"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_signature_validation",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_signature_validation_upload_images": {
+      "additionalProperties": true,
+      "properties": {
+        "wet_signature_image": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "Upload an image",
+          "sequence": 6186,
+          "title": "Image of Wet Signature"
+        },
+        "proof_of_signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "Upload an image",
+          "sequence": 6188,
+          "title": "Proof of Signature"
+        }
+      },
+      "required": [
+        "wet_signature_image",
+        "proof_of_signature"
+      ],
+      "title": "root_kyc_holders_kyc_holder_signature_validation_upload_images",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_upload_pdf_attachments": {
+      "additionalProperties": true,
+      "properties": {
+        "kyc_holder_attachment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_kyc_holders_kyc_holder_upload_pdf_attachments_kyc_holder_attachment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6271,
+          "title": "KYC Holder Attachment"
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_upload_pdf_attachments",
+      "type": "object"
+    },
+    "root_kyc_holders_kyc_holder_upload_pdf_attachments_kyc_holder_attachment": {
+      "additionalProperties": true,
+      "properties": {
+        "upload_pdf": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload an PDF",
+          "sequence": 6267,
+          "title": "Upload PDF"
+        },
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "<div style=\"text-align: center; margin: 10px\">\n        <h1 style=\"margin-bottom: 20px;\">Instructions for Non-DigiLocker Process</h1>\n        <p style=\"margin-bottom: 10px;\">Since you have chosen the non-DigiLocker process, please complete all sections in the KYC Holder Group. Then, navigate to the operations section and initiate the \"Download PDF\" operation to obtain the document.</p>\n        <p>Print the PDF, attach all required images, and scan the entire document. Finally, upload the scanned document as a PDF.</p>\n    </div>",
+          "sequence": 6130,
+          "title": ""
+        }
+      },
+      "title": "root_kyc_holders_kyc_holder_upload_pdf_attachments_kyc_holder_attachment",
+      "type": "object"
+    },
+    "root_nomination_details": {
+      "additionalProperties": true,
+      "properties": {
+        "general": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_nomination_details_general"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6258,
+          "title": "General"
+        },
+        "nominees": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/_grp_root_nomination_details_nominees"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6281,
+          "title": ""
+        }
+      },
+      "title": "root_nomination_details",
+      "type": "object"
+    },
+    "root_nomination_details_general": {
+      "additionalProperties": true,
+      "properties": {
+        "client_nominee_appointment_status": {
+          "$ref": "#/$defs/OPTION",
+          "sequence": 6257,
+          "title": "Does the Client want to appoint Nominees?"
+        }
+      },
+      "required": [
+        "client_nominee_appointment_status"
+      ],
+      "title": "root_nomination_details_general",
+      "type": "object"
+    },
+    "root_nomination_details_nominees_nominee": {
+      "additionalProperties": true,
+      "properties": {
+        "nominee_data": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_nomination_details_nominees_nominee_nominee_data"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6271,
+          "title": "Nominee"
+        },
+        "guardian_data": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_nomination_details_nominees_nominee_guardian_data"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6281,
+          "title": "Guardian of Nominee"
+        }
+      },
+      "title": "root_nomination_details_nominees_nominee",
+      "type": "object"
+    },
+    "root_nomination_details_nominees_nominee_guardian_data": {
+      "additionalProperties": true,
+      "properties": {
+        "guardian_id_proof": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6273,
+          "title": "Guardian ID Proof"
+        },
+        "guardian_type_of_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ID_TYPE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6274,
+          "title": "Type of ID"
+        },
+        "guardian_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6275,
+          "title": "Name of Guardian"
+        },
+        "guardian_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6276,
+          "title": "Guardian Address"
+        },
+        "guardian_signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6278,
+          "title": "Guardian Signature"
+        },
+        "guardian_id_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6279,
+          "title": "ID Number"
+        },
+        "relationship_with_nominee": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6280,
+          "title": "Relationship with Nominee"
+        }
+      },
+      "title": "root_nomination_details_nominees_nominee_guardian_data",
+      "type": "object"
+    },
+    "root_nomination_details_nominees_nominee_nominee_data": {
+      "additionalProperties": true,
+      "properties": {
+        "minor_nominee": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MINOR_NOMINEE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6262,
+          "title": ""
+        },
+        "nominee_type_of_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OVD_TYPE"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Type Of ID",
+          "sequence": 6263,
+          "title": "Type Of ID"
+        },
+        "name_of_nominee": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Name of Nominee",
+          "sequence": 6264,
+          "title": "Name of Nominee"
+        },
+        "percentage_of_allocation": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Percentage of Allocation",
+          "sequence": 6265,
+          "title": "Percentage of Allocation"
+        },
+        "nominee_id_proof": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload an image",
+          "sequence": 6267,
+          "title": "Nominee ID Proof"
+        },
+        "id_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter ID Number",
+          "sequence": 6268,
+          "title": "ID Number"
+        },
+        "dob_nominee": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "DD/MM/YYYY",
+          "sequence": 6269,
+          "title": "Date of Birth"
+        },
+        "nominee_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Address",
+          "sequence": 6270,
+          "title": "Nominee Address"
+        }
+      },
+      "title": "root_nomination_details_nominees_nominee_nominee_data",
+      "type": "object"
+    },
+    "root_onboarding": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Select the type of client to onboard:",
+          "sequence": 6022,
+          "title": ""
+        },
+        "type_of_client": {
+          "$ref": "#/$defs/CLIENT_TYPE_IND_ONLY",
+          "description": "Select Option",
+          "sequence": 6023,
+          "title": "Type of Client"
+        },
+        "df_individual": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "<div class=\"container\">\n    <h2>Instructions to Onboard an Individual Client :</h2>\n    <p>Following is the list of documents the Client needs to have during the process:</p>\n    <ul>\n        <li>PAN Card</li>\n        <li>Aadhaar Card for ID Proof and Address Proof</li>\n        <li>Bank Account Information</li>\n        <li>Nominee Information</li>\n    </ul>\n    <p class=\"note\">Please note that every holder is required to submit their PAN and Aadhaar Information.</p>\n</div>",
+          "sequence": 6024,
+          "title": ""
+        },
+        "df_corporate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Corporate Details",
+          "sequence": 6025,
+          "title": ""
+        },
+        "df_huf": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "HUF details",
+          "sequence": 6026,
+          "title": ""
+        },
+        "df_partnership": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Partnership details",
+          "sequence": 6027,
+          "title": ""
+        },
+        "df_trust": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Trust Details",
+          "sequence": 6028,
+          "title": ""
+        },
+        "df_society": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Society Details",
+          "sequence": 6029,
+          "title": ""
+        },
+        "df_banks": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Bank details",
+          "sequence": 6030,
+          "title": ""
+        },
+        "df_unincorporp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Unincorporated Text",
+          "sequence": 6031,
+          "title": ""
+        }
+      },
+      "required": [
+        "type_of_client"
+      ],
+      "title": "root_onboarding",
+      "type": "object"
+    },
+    "root_operations": {
+      "additionalProperties": true,
+      "properties": {
+        "operation_card": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_operations_operation_card"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6399,
+          "title": "Operations"
+        }
+      },
+      "title": "root_operations",
+      "type": "object"
+    },
+    "root_operations_operation_card": {
+      "additionalProperties": true,
+      "properties": {
+        "operation_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Select Option",
+          "sequence": 6396,
+          "title": "Select Operation"
+        }
+      },
+      "title": "root_operations_operation_card",
+      "type": "object"
+    },
+    "root_tnc": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "I/We have understood the information requirements of this form (read along with the FATCA & CRS instructions) and hereby confirm that the information provided by me/us on this form is true, correct and complete. I/We also confirm that I/We have read and understood the FACTA & CRS terms and conditions and hereby accept the same.",
+          "sequence": 6389,
+          "title": ""
+        },
+        "declaration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_tnc_declaration"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6394,
+          "title": "Declaration - 1"
+        }
+      },
+      "title": "root_tnc",
+      "type": "object"
+    },
+    "root_tnc_declaration": {
+      "additionalProperties": true,
+      "properties": {
+        "sms_alert": {
+          "$ref": "#/$defs/SMS_ALERT",
+          "sequence": 6391,
+          "title": ""
+        },
+        "policy": {
+          "$ref": "#/$defs/POLICY",
+          "sequence": 6392,
+          "title": ""
+        },
+        "processing_time": {
+          "$ref": "#/$defs/PROCESSING_TIME",
+          "sequence": 6393,
+          "title": ""
+        }
+      },
+      "required": [
+        "sms_alert",
+        "policy",
+        "processing_time"
+      ],
+      "title": "root_tnc_declaration",
+      "type": "object"
+    },
+    "root_trading_information": {
+      "additionalProperties": true,
+      "properties": {
+        "check_pan_for_trading_account": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_trading_information_check_pan_for_trading_account"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6288,
+          "title": "Check PAN for Trading Account"
+        },
+        "trading_account_information": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_trading_information_trading_account_information"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6308,
+          "title": "Trading Account Information"
+        },
+        "employer_details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_trading_information_employer_details"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6315,
+          "title": "Employer Details"
+        },
+        "details_of_dealings": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_trading_information_details_of_dealings"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6325,
+          "title": "Details of Dealing through Sub-brokers and other Stock Brokers"
+        },
+        "introducer_details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/root_trading_information_introducer_details"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6332,
+          "title": "Introducer Details"
+        }
+      },
+      "title": "root_trading_information",
+      "type": "object"
+    },
+    "root_trading_information_check_pan_for_trading_account": {
+      "additionalProperties": true,
+      "properties": {
+        "CLIENT_ID": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Trading ID",
+          "sequence": 6284,
+          "title": "Trading ID"
+        },
+        "CLIENT_NAME": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Name of Account Holder",
+          "sequence": 6285,
+          "title": "Name of Account Holder"
+        },
+        "account_creation_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enter Account Creation Date",
+          "sequence": 6287,
+          "title": "Account created on"
+        },
+        "trading_account_pan_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "$.kyc_holders[0].kyc_holder.pan_verification.pan_details.pan_number",
+          "description": "Name as per PAN",
+          "sequence": 6249,
+          "title": "Name as per PAN"
+        }
+      },
+      "title": "root_trading_information_check_pan_for_trading_account",
+      "type": "object"
+    },
+    "root_trading_information_details_of_dealings": {
+      "additionalProperties": true,
+      "properties": {
+        "broker_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6317,
+          "title": "Name of Broker"
+        },
+        "telephone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6318,
+          "title": "Telephone"
+        },
+        "client_codes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6319,
+          "title": "Client Codes"
+        },
+        "broker_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6320,
+          "title": "Broker Address"
+        },
+        "sub_broker_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6322,
+          "title": "Name of Sub-Broker"
+        },
+        "website": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6323,
+          "title": "Website"
+        },
+        "detail_of_disputes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6324,
+          "title": "Details of disputes / dues pending from / to such stock broker / sub-broker"
+        }
+      },
+      "title": "root_trading_information_details_of_dealings",
+      "type": "object"
+    },
+    "root_trading_information_employer_details": {
+      "additionalProperties": true,
+      "properties": {
+        "employer_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6310,
+          "title": "Name of the Employer"
+        },
+        "mobile_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6311,
+          "title": "Mobile Number"
+        },
+        "approval_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6313,
+          "title": "Date of Approval"
+        },
+        "employer_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6314,
+          "title": "Employer Address"
+        }
+      },
+      "title": "root_trading_information_employer_details",
+      "type": "object"
+    },
+    "root_trading_information_introducer_details": {
+      "additionalProperties": true,
+      "properties": {
+        "introducer_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6327,
+          "title": "Name Of Introducer"
+        },
+        "introducer_broker_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6328,
+          "title": "Introducer Address"
+        },
+        "introducer_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/INTRODUCER_STATUS"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Status of Introducer",
+          "sequence": 6330,
+          "title": "Status of Introducer"
+        },
+        "remisire_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6331,
+          "title": "Introducer Code"
+        }
+      },
+      "title": "root_trading_information_introducer_details",
+      "type": "object"
+    },
+    "root_trading_information_trading_account_information": {
+      "additionalProperties": true,
+      "properties": {
+        "display_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Send the Client the account opening kit/ standard set of documents in:",
+          "sequence": 6304,
+          "title": "Send the Client the account opening kit/ standard set of documents in:"
+        },
+        "segment_pref_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SEGMENT_PREF_1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "EQUITY",
+          "sequence": 6291,
+          "title": ""
+        },
+        "segment_pref_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SEGMENT_PREF_2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6292,
+          "title": ""
+        },
+        "segment_pref_3": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SEGMENT_PREF_3"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6293,
+          "title": ""
+        },
+        "segment_pref_4": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SEGMENT_PREF_4"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6294,
+          "title": ""
+        },
+        "segment_pref_5": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SEGMENT_PREF_5"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6295,
+          "title": ""
+        },
+        "segment_pref_6": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SEGMENT_PREF_6"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "SLB",
+          "sequence": 6296,
+          "title": ""
+        },
+        "choice_of_contract": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Do you wish to receive the Contract as: ",
+          "sequence": 6298,
+          "title": "Do you wish to receive the Contract as: "
+        },
+        "contract_format_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CONTRACT_FORMAT_1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6299,
+          "title": ""
+        },
+        "contract_format_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CONTRACT_FORMAT_2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "ELECTRONIC_FORM",
+          "sequence": 6300,
+          "title": ""
+        },
+        "proof_of_income": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Upload the document",
+          "sequence": 6302,
+          "title": "Upload proof of income"
+        },
+        "type_of_document": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PROOF_OF_INCOME"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6297,
+          "title": "Income Proof Document"
+        },
+        "client_facility_choice": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OPTION"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "YES",
+          "sequence": 6303,
+          "title": "Does the Client want facility of Internet/wireless trading/mobile trading/technology?"
+        },
+        "kit_format_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KIT_FORMAT_1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "sequence": 6305,
+          "title": ""
+        },
+        "kit_format_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KIT_FORMAT_2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "ELECTRONIC",
+          "sequence": 6306,
+          "title": ""
+        },
+        "holder_trading_experience": {
+          "$ref": "#/$defs/TRADING_EXP",
+          "sequence": 6307,
+          "title": "Trading Experience of Holder"
+        }
+      },
+      "required": [
+        "holder_trading_experience"
+      ],
+      "title": "root_trading_information_trading_account_information",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "properties": {
+    "onboarding": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_onboarding"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6032,
+      "title": "Onboarding Requirements"
+    },
+    "application_details": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_application_details"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6116,
+      "title": "Application Details"
+    },
+    "kyc_holders": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/_grp_root_kyc_holders"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6244,
+      "title": "KYC Holders"
+    },
+    "bank_verification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_bank_verification"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6255,
+      "title": "Bank Verification"
+    },
+    "nomination_details": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_nomination_details"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6281,
+      "title": "Nomination Details"
+    },
+    "trading_information": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_trading_information"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6332,
+      "title": "Trading Information"
+    },
+    "dp_information": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_dp_information"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6388,
+      "title": "DP Information"
+    },
+    "tnc": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_tnc"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6394,
+      "title": "Terms and Conditions"
+    },
+    "operations": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/root_operations"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "category": "GENERAL",
+      "default": null,
+      "sequence": 6399,
+      "title": "Operations"
+    }
+  },
+  "title": "aof_model",
+  "type": "object"
+}
