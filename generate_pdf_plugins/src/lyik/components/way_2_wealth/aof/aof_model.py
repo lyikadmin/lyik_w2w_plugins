@@ -440,6 +440,7 @@ class AOF:
                 )
         
         poa_table_data[perm_address_type_index][3]= Paragraph(f'{constant_texts.identity_aadhar_value}'.upper(),style=pdf_styles.normal_text_style(alignment=0,fontsize=8,text_color=pdf_colors.filled_data_color))
+        corr_address_type_index = 0
         if constant_texts.is_address_correspondence_same_as_permanent:
             poa_table_data[perm_address_type_index][0] = pdf_components.create_bordered_input_box(
                 doc, width=9, height=9, 
@@ -447,7 +448,7 @@ class AOF:
                 )
         else:
             _corr_address_type = constant_texts.address_ovd_corr_type.lower()
-            corr_address_type_index = 0
+            
             if _corr_address_type == 'aadhaar':
                 corr_address_type_index = 1
             elif _corr_address_type == 'passport':
